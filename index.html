@@ -21,121 +21,171 @@
       font-family: 'Fredoka One', cursive;
     }
 
-    body {
-      font-family: 'Montserrat', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
-    }
+body {
+  font-family: 'Montserrat', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
 
-    header {
-      background-color: #333;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
 
-    h1 {
-      margin: 0;
-      font-size: 36px;
-    }
+h1 {
+  margin: 0;
+  font-size: 36px;
+}
 
-    #app-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      padding: 20px;
-    }
+#app-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
 
-    .app-card {
-      width: 100%;
-      max-width: 400px;
-      padding: 20px;
-      border-radius: 10px;
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      transition: transform 0.3s ease-in-out;
-    }
+.app-card {
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  transition: transform 0.3s ease-in-out;
+}
 
-    .app-card:hover {
-      transform: translateY(-5px);
-    }
+.app-card:hover {
+  transform: translateY(-5px);
+}
 
-    .app-card img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-    }
+.app-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
 
-    .app-info {
-      margin-top: 20px;
-    }
+.app-info {
+  margin-top: 20px;
+}
 
-    h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-      color: #333;
-    }
+h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
 
-    p {
-      color: #777;
-      line-height: 1.5;
-    }
+p {
+  color: #777;
+  line-height: 1.5;
+}
 
-    .app-buttons {
-      margin-top: 20px;
-    }
+.app-buttons {
+  margin-top: 20px;
+}
 
-    .download-button,
-    .upgrade-button {
-      display: inline-block;
-      margin-right: 10px;
-      padding: 8px 16px;
-      background-color: #333;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background-color 0.3s ease-in-out;
-    }
+.download-button,
+.upgrade-button {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 8px 16px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
+}
 
-    .download-button:hover,
-    .upgrade-button:hover {
-      background-color: #555;
-    }
+.download-button:hover,
+.upgrade-button:hover {
+  background-color: #555;
+}
 
-    #feedback {
-      background-color: #f2f2f2;
-      padding: 20px;
-    }
+#testimonials {
+  background-color: #f2f2f2;
+  padding: 40px 20px;
+  text-align: center;
+}
 
-    footer {
-      background-color: #333;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-      font-size: 14px;
-    }
+.testimonial {
+  margin-bottom: 40px;
+}
 
-    .footer-link {
-      color: #fff;
-      text-decoration: none;
-    }
+.testimonial-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
 
-    .footer-link:hover {
-      text-decoration: underline;
-    }
+.testimonial-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
-    /* Media queries for mobile devices */
-    @media screen and (max-width: 600px) {
-      h1 {
-        font-size: 24px;
-      }
+.testimonial-text {
+  color: #555;
+}
 
-      .app-card {
-        max-width: none;
-      }
-    }
+#case-studies {
+  background-color: #fff;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.case-study {
+  margin-bottom: 40px;
+}
+
+#trust {
+  background-color: #f2f2f2;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.trust-seals {
+  margin-top: 20px;
+}
+
+.trust-seal-image {
+  width: 100px;
+  height: auto;
+  margin-right: 10px;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.footer-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+/* Media queries for mobile devices */
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 24px;
+  }
+
+  .app-card {
+    width: 100%;
+    max-width: 300px;
+  }
+}
   </style>
   <script type="application/ld+json">
     {
@@ -171,7 +221,6 @@
   <header>
     <h1>Welcome to Gamified Living Apps</h1>
   </header>
-
   <section id="app-list">
     <h2>Featured Apps</h2>
     <div class="app-card">
@@ -186,41 +235,71 @@
       </div>
     </div>
 
-    <div class="app-card">
-      <img src="https://raw.githubusercontent.com/playthegameoflife/websiteshowcaseapps/main/fitclick.png?token=GHSAT0AAAAAACC7EBGGRMAPXGYWM6KFZIJOZD4VZIQ" alt="App 2">
-      <div class="app-info">
-        <h3>FitClick</h3>
-        <p>Discover a revolution in fitness with FitClick. Enjoy personalized workout tasks from categories like Cardio, Strength Training, and Core & Abs with just a click. Looking for more? Upgrade to FitClick Pro and unlock 10 additional workout categories, including Crossfit, Calisthenics, Nutrition, and more. Join the FitClick community and embark on a fitness journey that's uniquely yours. Dive in and redefine your workout routine today with FitClick!</p>
-        <div class="app-buttons">
-          <a href="https://play.google.com/store/apps/details?id=com.gamifiedliving.fitclickfreev2" class="download-button">Download for Free</a>
-          <a href="https://play.google.com/store/apps/details?id=com.gamifiedliving.fitnessquest" class="upgrade-button">Upgrade to Pro</a>
-        </div>
-      </div>
+<div class="app-card">
+  <img src="https://raw.githubusercontent.com/playthegameoflife/websiteshowcaseapps/main/fitclick.png?token=GHSAT0AAAAAACC7EBGGRMAPXGYWM6KFZIJOZD4VZIQ" alt="App 2">
+  <div class="app-info">
+    <h3>FitClick</h3>
+    <p>Discover a revolution in fitness with FitClick. Enjoy personalized workout tasks from categories like Cardio, Strength Training, and Core & Abs with just a click. Looking for more? Upgrade to FitClick Pro and unlock 10 additional workout categories, including Crossfit, Calisthenics, Nutrition, and more. Join the FitClick community and embark on a fitness journey that's uniquely yours. Dive in and redefine your workout routine today with FitClick!</p>
+    <div class="app-buttons">
+      <a href="https://play.google.com/store/apps/details?id=com.gamifiedliving.fitclickfreev2" class="download-button">Download for Free</a>
+      <a href="https://play.google.com/store/apps/details?id=com.gamifiedliving.fitnessquest" class="upgrade-button">Upgrade to Pro</a>
     </div>
+  </div>
+</div>
 
-    <div class="app-card">
-      <img src="https://raw.githubusercontent.com/playthegameoflife/websiteshowcaseapps/main/financialquest.png?token=GHSAT0AAAAAACC7EBGGYEKGI47KZWPFHESEZD4VYGQ" alt="App 1">
-      <div class="app-info">
-        <h3>Financial Quest</h3>
-        <p>Welcome to Financial Quest - Empower your financial future! Level up your financial intelligence, networking skills, and entrepreneurial mindset with our interactive app. Unlock your potential and conquer the financial landscape. Join us now and embark on an empowering journey towards financial success.</p>
-        <div class="app-buttons">
-          <a href="https://play.google.com/store/apps/details?id=com.park29268.snack6d1d24b3d0d34de397aa3a2035395068" class="download-button">Download Now</a>
-        </div>
-      </div>
+<div class="app-card">
+  <img src="https://raw.githubusercontent.com/playthegameoflife/websiteshowcaseapps/main/financialquest.png?token=GHSAT0AAAAAACC7EBGGYEKGI47KZWPFHESEZD4VYGQ" alt="App 1">
+  <div class="app-info">
+    <h3>Financial Quest</h3>
+    <p>Welcome to Financial Quest - Empower your financial future! Level up your financial intelligence, networking skills, and entrepreneurial mindset with our interactive app. Unlock your potential and conquer the financial landscape. Join us now and embark on an empowering journey towards financial success.</p>
+    <div class="app-buttons">
+      <a href="https://play.google.com/store/apps/details?id=com.park29268.snack6d1d24b3d0d34de397aa3a2035395068" class="download-button">Download Now</a>
     </div>
-    <!-- Add more app cards as needed -->
-
+  </div>
+</div>
+<!-- Add more app cards as needed -->
   </section>
-
+  <section id="testimonials">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial">
+      <div class="testimonial-content">
+        <img src="images/testimonial1.jpeg" alt="Testimonial 1" class="testimonial-image">
+        <p class="testimonial-text">"I absolutely love the Life Quest app! It has helped me set goals and stay motivated on my personal development journey. Highly recommend it!"</p>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="testimonial-content">
+        <img src="images/testimonial2.jpeg" alt="Testimonial 2" class="testimonial-image">
+        <p class="testimonial-text">"FitClick has been a game-changer for my fitness routine. The variety of workouts and personalized recommendations keep me engaged and on track. Great app!"</p>
+      </div>
+    </div>
+  </section>
+  <section id="case-studies">
+    <h2>Case Studies</h2>
+    <div class="case-study">
+      <h3>John's Transformation Journey</h3>
+      <p>John struggled with his health and fitness for years until he discovered FitClick. With the help of personalized workouts and nutritional guidance, John was able to completely transform his physique and improve his overall well-being. Through dedication and consistency, he lost 50 pounds of body fat and gained lean muscle mass. John now leads an active and healthy lifestyle, inspiring others to take charge of their fitness goals.</p>
+    </div>
+    <div class="case-study">
+      <h3>Sarah's Success Story</h3>
+      <p>Sarah had always been self-conscious about her body and struggled with low self-esteem. After starting her fitness journey with FitClick, she gradually built strength, endurance, and confidence. With consistent workouts and support from the FitClick community, Sarah achieved her weight loss goals and transformed both physically and mentally. Today, Sarah is a proud advocate for self-love and healthy living.</p>
+    </div>
+  </section>
+  <section id="trust">
+    <h2>Trust and Certifications</h2>
+    <div class="trust-seals">
+      <img src="images/mcafee.png" alt="Trust Seal 1" class="trust-seal-image">
+      <img src="images/new-norton-seal1.png" alt="Trust Seal 2" class="trust-seal-image">
+      <img src="images/truste-certified-privacy-2.png" alt="Trust Seal 3" class="trust-seal-image">
+    </div>
+  </section>
   <section id="feedback">
     <h2>We value your opinion!</h2>
     <p>If you have any suggestions for new stats/categories or new app ideas, we would love to hear from you. Please take a moment to write a review on the Google Play Store. Your feedback is greatly appreciated!</p>
   </section>
-
   <footer>
     <p>&copy; 2023 Gamified Living Apps. All rights reserved.</p>
   </footer>
-
   <script src="script.js"></script>
 </body>
 </html>
