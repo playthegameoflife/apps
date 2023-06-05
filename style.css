@@ -78,6 +78,13 @@ body {
   a:hover {
     background-color: #555;
   }
+
+  #feedback {
+  background-color: #f2f2f2;
+  padding: 40px 20px; /* Increase the top and bottom padding to add more space */
+  margin: 40px 0; /* Add margin to create space around the section */
+}
+
   
   footer {
     background-color: #333;
