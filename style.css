@@ -42,6 +42,21 @@ body {
   .app-card:hover {
     transform: translateY(-5px);
   }
+
+    .app-video {
+  position: relative;
+  padding-bottom: 56.25%; /* Maintain aspect ratio (16:9) */
+  overflow: hidden;
+}
+
+.app-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
   
   .app-card img {
     width: 100%;
