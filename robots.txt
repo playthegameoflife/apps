@@ -8,3 +8,11 @@ Sitemap: https://gamifiedlivingapps.com/sitemap.xml
 # Disallow: /admin/
 # Disallow: /private/
 
+# Block development files and sensitive directories
+Disallow: /dumbbelltrainer/copy-of-dumbbell-workout-trainer/
+Disallow: /dumbbelltrainer/copy-of-dumbbell-workout-trainer/node_modules/
+Disallow: /dumbbelltrainer/copy-of-dumbbell-workout-trainer/dist/
+Disallow: /*/.env
+Disallow: /*/.env.local
+Disallow: /*/.env.*
+

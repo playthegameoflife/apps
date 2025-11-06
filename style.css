@@ -458,6 +458,41 @@ footer p {
   color: var(--color-text);
 }
 
+/* Navigation Menu */
+.main-nav {
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding: calc(var(--spacing-unit) * 2) 0;
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.main-nav .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 3);
+  align-items: center;
+}
+
+.main-nav a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.main-nav a:hover {
+  color: var(--color-text);
+  background-color: var(--color-hover);
+}
+
+.main-nav a.active {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
 /* Hero Section */
 .hero-section {
   padding: calc(var(--spacing-unit) * 10) calc(var(--spacing-unit) * 3);
