@@ -159,6 +159,8 @@ def clean_body(body):
     body = re.sub(r'<head[^>]*>.*?</head>', '', body, flags=re.S)
     body = re.sub(r'<body[^>]*>', '', body, flags=re.I)
     body = re.sub(r'</body>', '', body, flags=re.I)
+    # Strip Qwen chain-of-thought blocks
+    body = re.sub(r'<think>.*?</think>', '', body, flags=re.S)
     return body.strip()
 
 def generate_content(topic):
@@ -238,7 +240,7 @@ def generate_title(topic, body):
         with urllib.request.urlopen(req, timeout=60) as resp:
             t = json.loads(resp.read().decode("utf-8")).get("choices", [{}])[0].get("message", {}).get("content", "").strip()
             t = re.sub(r"^Title:", "", t).strip()
-            if t and len(t) > 10 and '<h1' not in t and 'SEO title' not in t and 'Title:' not in t and 'Word count' not in t:
+            if t and len(t) > 10 and '<h1' not in t and 'think>' not in t and '<think>' not in t and 'SEO title' not in t and 'Title:' not in t and 'Word count' not in t and 'article' not in t.lower():
                 return t
     except:
         pass
