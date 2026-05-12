@@ -42,102 +42,43 @@ SITE_DOMAIN = "gamifiedlivingapps.com"
 STATE_FILE = "/root/.hermes/prompt_helper_blog_state.json"
 MYCOMBAT_TOPICS_FILE = "/root/.hermes/scripts/mycombat_blog_topics.json"
 
-BLOG_MASTER_PROMPT = """Write a 1,200+ word SEO blog post. Output clean HTML starting with <h1>. No DOCTYPE, no <html>, no <head>, no <body>.
+BLOG_MASTER_PROMPT = """Write a 1,200+ word SEO blog post as clean HTML. Start directly with <h1>. No DOCTYPE, no <html>, no <head>, no <body>.
 
 BUSINESS: {app_name}
 KEYWORD: {primary_kw}
 AUDIENCE: {audience}
-WORD COUNT: 1,200+ words
 
-=== ARTICLE HTML STRUCTURE ===
-
-<h1 class="article-title">[SEO TITLE - 8-12 words, keyword in first 60 chars]</h1>
-<p class="article-meta">By {author} &bull; {app_name} &bull; Free Guide</p>
-
-<div class="article-lead">
-<p>[2-sentence compelling intro: problem hook + promise. Address reader directly.]</p>
-</div>
-
+STRUCTURE - use EXACT class names:
+<h1 class="article-title">SEO TITLE</h1>
+<p class="article-meta">By AUTHOR &bull; APP &bull; Free Guide</p>
+<div class="article-lead"><p>Intro paragraph - hook + promise, 2 sentences.</p></div>
 <div class="article-body">
-
 <h2>Introduction</h2>
-<p>[150-200 words. Open with relatable problem for {audience} about {pain}. Address reader as "you". Then 3-4 specific takeaway bullets.]</p>
-<ul class="takeaway-list">
-<li>[Takeaway 1 - specific and actionable]</li>
-<li>[Takeaway 2 - specific and actionable]</li>
-<li>[Takeaway 3 - specific and actionable]</li>
-</ul>
-
+<p>150-200 words. Open with problem about {pain}. Address reader as "you". End with 3 takeaway bullets.</p>
+<ul class="takeaway-list"><li>Specific takeaway 1</li><li>Specific takeaway 2</li><li>Specific takeaway 3</li></ul>
 <h2>[H2 with keyword - Practical Foundation]</h2>
-<p>[2-3 paragraphs core content. Mix bullet points for tips. Include callout box.]</p>
-
-<div class="callout-box">
-<p><strong>Key Insight:</strong> [1-2 sentence practical insight about {primary_kw}]</p>
-</div>
-
+<p>Core content paragraphs with bullet points.</p>
+<div class="callout-box"><p><strong>Key Insight:</strong> Practical 1-2 sentence tip about {primary_kw}.</p></div>
 <h2>[H2 - Step by Step Guide]</h2>
-<p>[Brief intro to the steps]</p>
-
-<ol class="step-list">
-<li><strong>Step 1:</strong> [Clear action step]</li>
-<li><strong>Step 2:</strong> [Clear action step]</li>
-<li><strong>Step 3:</strong> [Clear action step]</li>
-<li><strong>Step 4:</strong> [Clear action step]</li>
-</ol>
-
-<div class="callout-box callout-contrast">
-<div><strong>Before:</strong> [What most people do wrong]</div>
-<div><strong>After:</strong> [What the right approach delivers]</div>
-</div>
-
+<p>Brief intro, then numbered steps.</p>
+<ol class="step-list"><li><strong>Step 1:</strong> Clear action</li><li><strong>Step 2:</strong> Clear action</li><li><strong>Step 3:</strong> Clear action</li><li><strong>Step 4:</strong> Clear action</li></ol>
+<div class="callout-box callout-contrast"><div><strong>Before:</strong> What most do wrong</div><div><strong>After:</strong> What right approach delivers</div></div>
 <h2>[H2 - Common Mistakes]</h2>
-<ul class="mistake-list">
-<li><strong>Mistake 1:</strong> [Description - why it fails and the fix]</li>
-<li><strong>Mistake 2:</strong> [Description - why it fails and the fix]</li>
-<li><strong>Mistake 3:</strong> [Description - why it fails and the fix]</li>
-</ul>
-
+<ul class="mistake-list"><li><strong>Mistake 1:</strong> Why it fails and fix</li><li><strong>Mistake 2:</strong> Why it fails and fix</li><li><strong>Mistake 3:</strong> Why it fails and fix</li></ul>
 <h2>[H2 - Pro Tips]</h2>
-<p>[Advanced tips, real examples, expert perspective]</p>
-
-<div class="callout-box callout-pro">
-<p><strong>Pro Tip:</strong> [One advanced actionable technique]</p>
-</div>
-
+<p>Advanced advice and real examples.</p>
+<div class="callout-box callout-pro"><p><strong>Pro Tip:</strong> One advanced actionable technique.</p></div>
 <h2>Conclusion</h2>
-<p>[100-150 words. 3 key takeaways. Personal closing from {author}. Clear CTA to download {app_name}.]</p>
-
-<div class="faq-section">
-<h2>Frequently Asked Questions</h2>
-
-<div class="faq-item">
-<h3>Is {app_name} free?</h3>
-<p>Yes. {app_name} is completely free to download and use. No credit card required.</p>
+<p>3 key takeaways. Personal closing. CTA to download {app_name}.</p>
+<div class="faq-section"><h2>Frequently Asked Questions</h2>
+<div class="faq-item"><h3>Is {app_name} free?</h3><p>Yes. No credit card required.</p></div>
+<div class="faq-item"><h3>What does {app_name} do?</h3><p>{app_description}</p></div>
+<div class="faq-item"><h3>How do I get started?</h3><p>Download free and start in seconds.</p></div>
 </div>
-
-<div class="faq-item">
-<h3>What does {app_name} do?</h3>
-<p>{app_description}</p>
 </div>
+<div class="article-footer"><h3>About the Author</h3><p><strong>{author}</strong> is a {author_title}.</p></div>
 
-<div class="faq-item">
-<h3>How do I get started?</h3>
-<p>Download {app_name} free and start using it in seconds. Takes less than a minute.</p>
-</div>
-
-</div>
-
-</div>
-
-<div class="article-footer">
-<h3>About the Author</h3>
-<p><strong>{author}</strong> is a {author_title}.</p>
-</div>
-
-=== END ARTICLE ===
-
-OUTPUT: Only the article HTML above. Nothing else.
-"""
+OUTPUT: Only the HTML. Start with <h1. Nothing else."""
 
 def get_state():
     if os.path.exists(STATE_FILE):
