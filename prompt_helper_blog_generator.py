@@ -42,43 +42,40 @@ SITE_DOMAIN = "gamifiedlivingapps.com"
 STATE_FILE = "/root/.hermes/prompt_helper_blog_state.json"
 MYCOMBAT_TOPICS_FILE = "/root/.hermes/scripts/mycombat_blog_topics.json"
 
-BLOG_MASTER_PROMPT = """Write a 1,200+ word SEO blog post as clean HTML. Start directly with <h1>. No DOCTYPE, no <html>, no <head>, no <body>.
+BLOG_MASTER_PROMPT = """Write a 1,200+ word SEO blog post as clean HTML.
 
-BUSINESS: {app_name}
+TITLE: {title}
 KEYWORD: {primary_kw}
 AUDIENCE: {audience}
 
-STRUCTURE - use EXACT class names:
-<h1 class="article-title">SEO TITLE</h1>
-<p class="article-meta">By AUTHOR &bull; APP &bull; Free Guide</p>
-<div class="article-lead"><p>Intro paragraph - hook + promise, 2 sentences.</p></div>
-<div class="article-body">
+HTML structure:
+<h1 class=article-title>TITLE</h1>
+<p class=article-meta>By {author} - {app_name} - Free Guide</p>
+<div class=article-lead><p>2 sentence intro hook.</p></div>
+<div class=article-body>
 <h2>Introduction</h2>
-<p>150-200 words. Open with problem about {pain}. Address reader as "you". End with 3 takeaway bullets.</p>
-<ul class="takeaway-list"><li>Specific takeaway 1</li><li>Specific takeaway 2</li><li>Specific takeaway 3</li></ul>
-<h2>[H2 with keyword - Practical Foundation]</h2>
-<p>Core content paragraphs with bullet points.</p>
-<div class="callout-box"><p><strong>Key Insight:</strong> Practical 1-2 sentence tip about {primary_kw}.</p></div>
-<h2>[H2 - Step by Step Guide]</h2>
-<p>Brief intro, then numbered steps.</p>
-<ol class="step-list"><li><strong>Step 1:</strong> Clear action</li><li><strong>Step 2:</strong> Clear action</li><li><strong>Step 3:</strong> Clear action</li><li><strong>Step 4:</strong> Clear action</li></ol>
-<div class="callout-box callout-contrast"><div><strong>Before:</strong> What most do wrong</div><div><strong>After:</strong> What right approach delivers</div></div>
-<h2>[H2 - Common Mistakes]</h2>
-<ul class="mistake-list"><li><strong>Mistake 1:</strong> Why it fails and fix</li><li><strong>Mistake 2:</strong> Why it fails and fix</li><li><strong>Mistake 3:</strong> Why it fails and fix</li></ul>
-<h2>[H2 - Pro Tips]</h2>
-<p>Advanced advice and real examples.</p>
-<div class="callout-box callout-pro"><p><strong>Pro Tip:</strong> One advanced actionable technique.</p></div>
+<p>150+ words about {pain}. Address reader as you. End with 3 bullets.</p>
+<ul class=takeaway-list><li>Takeaway 1</li><li>Takeaway 2</li><li>Takeaway 3</li></ul>
+<h2>{primary_kw} Basics</h2>
+<p>2-3 paragraphs explaining {primary_kw}.</p>
+<div class=callout-box><p><strong>Key:</strong> practical tip here.</p></div>
+<h2>Step by Step</h2>
+<ol class=step-list><li><strong>Step 1:</strong> do this</li><li><strong>Step 2:</strong> do this</li><li><strong>Step 3:</strong> do this</li><li><strong>Step 4:</strong> do this</li></ol>
+<h2>Common Mistakes</h2>
+<ul class=mistake-list><li><strong>Mistake 1:</strong> why it fails</li><li><strong>Mistake 2:</strong> why it fails</li></ul>
+<h2>Pro Tips</h2>
+<div class=callout-box callout-pro><p><strong>Pro Tip:</strong> advanced technique.</p></div>
 <h2>Conclusion</h2>
-<p>3 key takeaways. Personal closing. CTA to download {app_name}.</p>
-<div class="faq-section"><h2>Frequently Asked Questions</h2>
-<div class="faq-item"><h3>Is {app_name} free?</h3><p>Yes. No credit card required.</p></div>
-<div class="faq-item"><h3>What does {app_name} do?</h3><p>{app_description}</p></div>
-<div class="faq-item"><h3>How do I get started?</h3><p>Download free and start in seconds.</p></div>
+<p>Summary and CTA to download {app_name}.</p>
+<div class=faq-section><h2>FAQ</h2>
+<div class=faq-item><h3>Is {app_name} free?</h3><p>Yes. No credit card required.</p></div>
+<div class=faq-item><h3>What does it do?</h3><p>{app_description}</p></div>
+<div class=faq-item><h3>How do I start?</h3><p>Download free in seconds.</p></div>
 </div>
 </div>
-<div class="article-footer"><h3>About the Author</h3><p><strong>{author}</strong> is a {author_title}.</p></div>
+<div class=article-footer><h3>About the Author</h3><p><strong>{author}</strong> is a {author_title}.</p></div>
 
-OUTPUT: Only the HTML. Start with <h1. Nothing else."""
+OUTPUT: Only HTML starting with <h1. No explanation."""
 
 def get_state():
     if os.path.exists(STATE_FILE):
@@ -166,8 +163,8 @@ def clean_body(body):
 
 def generate_content(topic):
     import urllib.request
-    key = os.environ.get("MINIMAX_API_KEY", os.environ.get("NVIDIA_API_KEY", ""))
-    url = os.environ.get("MINIMAX_BASE_URL", "https://api.minimax.io/v1")
+    key = os.environ.get("NVIDIA_API_KEY", "")
+    url = os.environ.get("NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1")
     app = APPS[topic["app"]]
     
     if not key:
@@ -188,7 +185,7 @@ def generate_content(topic):
     try:
         req = urllib.request.Request(
             url + "/chat/completions",
-            data=json.dumps({"model": "MiniMax-M2.7",
+            data=json.dumps({"model": "qwen/qwen3.5-397b-a17b",
                              "messages": [{"role": "user", "content": prompt}],
                              "max_tokens": 3000, "temperature": 0.85}).encode(),
             headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"},
@@ -225,15 +222,15 @@ def fallback_content(topic):
 
 def generate_title(topic, body):
     import urllib.request
-    key = os.environ.get("MINIMAX_API_KEY", os.environ.get("NVIDIA_API_KEY", ""))
-    url = os.environ.get("MINIMAX_BASE_URL", "https://api.minimax.io/v1")
+    key = os.environ.get("NVIDIA_API_KEY", "")
+    url = os.environ.get("NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1")
     if not key:
         return fallback_title(topic)
     prompt = f"One SEO title, 8-12 words, primary keyword '{topic['primary_kw']}' included. Title only:"
     try:
         req = urllib.request.Request(
             url + "/chat/completions",
-            data=json.dumps({"model": "MiniMax-M2.7",
+            data=json.dumps({"model": "qwen/qwen3.5-397b-a17b",
                              "messages": [{"role": "user", "content": prompt}],
                              "max_tokens": 60, "temperature": 0.9}).encode(),
             headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"},
