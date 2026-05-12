@@ -785,3 +785,106 @@ footer p {
     font-size: 18px;
   }
 }
+
+
+/* ── Sticky Floating CTA Bar ── */
+.sticky-cta-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  padding: 14px 24px;
+}
+
+.sticky-cta-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sticky-cta-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sticky-cta-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #fbbf24;
+  font-weight: 700;
+}
+
+.sticky-cta-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.sticky-cta-btn {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 12px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.sticky-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+  color: #ffffff;
+}
+
+.sticky-cta-btn:active {
+  transform: translateY(0);
+}
+
+/* ── Make download-btn.primary actually visible ── */
+.download-btn.primary {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+  align-self: flex-start;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.download-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .sticky-cta-inner {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .sticky-cta-text {
+    align-items: center;
+  }
+
+  .sticky-cta-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
