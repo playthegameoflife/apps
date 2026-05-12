@@ -42,78 +42,101 @@ SITE_DOMAIN = "gamifiedlivingapps.com"
 STATE_FILE = "/root/.hermes/prompt_helper_blog_state.json"
 MYCOMBAT_TOPICS_FILE = "/root/.hermes/scripts/mycombat_blog_topics.json"
 
-BLOG_MASTER_PROMPT = """Write a 1,200+ word SEO blog post using the blog-master How-To Guide structure.
+BLOG_MASTER_PROMPT = """Write a 1,200+ word SEO blog post. Output clean HTML starting with <h1>. No DOCTYPE, no <html>, no <head>, no <body>.
 
-BUSINESS NAME: {app_name}
-NICHE: {app_niche}
-BLOG TOPIC: {title}
-PRIMARY KEYWORD: {primary_kw}
-TARGET AUDIENCE: {audience}
+BUSINESS: {app_name}
+KEYWORD: {primary_kw}
+AUDIENCE: {audience}
 WORD COUNT: 1,200+ words
-TONE: Professional, actionable, expert
 
-SEO REQUIREMENTS:
-- Primary keyword in H1 title (first 60 chars)
-- Primary keyword in first 100 words
-- Primary keyword in at least 2 H2 headings
-- Include a meta description (max 155 chars, keyword + benefit + CTA)
-- Include 3 related posts internal links (use placeholder: <a href="#related">Related Post</a>)
-- Minimum 1,200 words (aim for 1,400)
+=== ARTICLE HTML STRUCTURE ===
 
-STRUCTURE (How-To Guide):
-<h1>[Title with Primary Keyword]</h1>
-<p class="lead">[Meta description - 2 sentences max]</p>
+<h1 class="article-title">[SEO TITLE - 8-12 words, keyword in first 60 chars]</h1>
+<p class="article-meta">By {author} &bull; {app_name} &bull; Free Guide</p>
 
-<h2>Introduction (150-200 words)</h2>
-- Open with a relatable problem the {audience} faces with {pain}
-- Address the reader directly ("you/your")
-- Tease the solution they'll get
-- End with what they'll learn
+<div class="article-lead">
+<p>[2-sentence compelling intro: problem hook + promise. Address reader directly.]</p>
+</div>
+
+<div class="article-body">
+
+<h2>Introduction</h2>
+<p>[150-200 words. Open with relatable problem for {audience} about {pain}. Address reader as "you". Then 3-4 specific takeaway bullets.]</p>
+<ul class="takeaway-list">
+<li>[Takeaway 1 - specific and actionable]</li>
+<li>[Takeaway 2 - specific and actionable]</li>
+<li>[Takeaway 3 - specific and actionable]</li>
+</ul>
 
 <h2>[H2 with keyword - Practical Foundation]</h2>
-- Core information
-- Bullet points for scanability
-- Concrete examples
-- Make it actionable today
+<p>[2-3 paragraphs core content. Mix bullet points for tips. Include callout box.]</p>
+
+<div class="callout-box">
+<p><strong>Key Insight:</strong> [1-2 sentence practical insight about {primary_kw}]</p>
+</div>
 
 <h2>[H2 - Step by Step Guide]</h2>
-- Numbered steps
-- Address common mistakes
-- Show before/after contrast
+<p>[Brief intro to the steps]</p>
 
-<h2>[H2 - Deeper Insights]</h2>
-- Advanced tips for {audience}
-- Real-world examples
-- Expert perspective
+<ol class="step-list">
+<li><strong>Step 1:</strong> [Clear action step]</li>
+<li><strong>Step 2:</strong> [Clear action step]</li>
+<li><strong>Step 3:</strong> [Clear action step]</li>
+<li><strong>Step 4:</strong> [Clear action step]</li>
+</ol>
+
+<div class="callout-box callout-contrast">
+<div><strong>Before:</strong> [What most people do wrong]</div>
+<div><strong>After:</strong> [What the right approach delivers]</div>
+</div>
 
 <h2>[H2 - Common Mistakes]</h2>
-- 3-4 mistakes to avoid
-- Why each fails
-- How to fix
+<ul class="mistake-list">
+<li><strong>Mistake 1:</strong> [Description - why it fails and the fix]</li>
+<li><strong>Mistake 2:</strong> [Description - why it fails and the fix]</li>
+<li><strong>Mistake 3:</strong> [Description - why it fails and the fix]</li>
+</ul>
 
-<h2>Conclusion (100-150 words)</h2>
-- 3 key takeaways
-- Personal note from {author}
-- Clear CTA linking to {extension_url}
+<h2>[H2 - Pro Tips]</h2>
+<p>[Advanced tips, real examples, expert perspective]</p>
 
-<h2>FAQ Section (AEO Triggers)</h2>
-<div class="faq-item">
-  <h3>Is {app_name} free?</h3>
-  <p>Yes. {app_name} is completely free to download and use.</p>
-</div>
-<div class="faq-item">
-  <h3>What {niche_target} does {app_name} work for?</h3>
-  <p>{app_name} works for {app_description}</p>
-</div>
-<div class="faq-item">
-  <h3>How do I get started?</h3>
-  <p>Download {app_name} free and start building better prompts in seconds.</p>
+<div class="callout-box callout-pro">
+<p><strong>Pro Tip:</strong> [One advanced actionable technique]</p>
 </div>
 
-<h2>About the Author</h2>
+<h2>Conclusion</h2>
+<p>[100-150 words. 3 key takeaways. Personal closing from {author}. Clear CTA to download {app_name}.]</p>
+
+<div class="faq-section">
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq-item">
+<h3>Is {app_name} free?</h3>
+<p>Yes. {app_name} is completely free to download and use. No credit card required.</p>
+</div>
+
+<div class="faq-item">
+<h3>What does {app_name} do?</h3>
+<p>{app_description}</p>
+</div>
+
+<div class="faq-item">
+<h3>How do I get started?</h3>
+<p>Download {app_name} free and start using it in seconds. Takes less than a minute.</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="article-footer">
+<h3>About the Author</h3>
 <p><strong>{author}</strong> is a {author_title}.</p>
+</div>
 
-OUTPUT: HTML only. No DOCTYPE, no <html>, no <head>, no <body> wrappers.
+=== END ARTICLE ===
+
+OUTPUT: Only the article HTML above. Nothing else.
 """
 
 def get_state():
@@ -301,7 +324,7 @@ def build_html(topic, body, related=None, today=None):
     app = APPS[topic["app"]]
 
     meta_desc = topic["primary_kw"] + " - " + app["description"]
-    m = re.search(r'<p class="lead">([^<]+)</p>', body)
+    m = re.search(r"<p[^>]*class=\"article-lead\"[^>]*>.*?<p>([^<]+)</p>", body, re.S)
     if m:
         meta_desc = m.group(1)[:155]
 
@@ -316,13 +339,11 @@ def build_html(topic, body, related=None, today=None):
         "@context": "https://schema.org", "@type": "FAQPage",
         "mainEntity": [
             {"@type": "Question", "name": "Is " + app["short"] + " free?",
-             "acceptedAnswer": {"@type": "Answer",
-             "text": "Yes, " + app["short"] + " is completely free to download and use."}},
+             "acceptedAnswer": {"@type": "Answer", "text": "Yes, " + app["short"] + " is completely free to download and use."}},
             {"@type": "Question", "name": "What does " + app["short"] + " do?",
              "acceptedAnswer": {"@type": "Answer", "text": app["description"]}},
             {"@type": "Question", "name": "How do I get started?",
-             "acceptedAnswer": {"@type": "Answer",
-             "text": "Download " + app["short"] + " free and start using it in seconds."}}
+             "acceptedAnswer": {"@type": "Answer", "text": "Download " + app["short"] + " free and start using it in seconds."}}
         ]
     }, ensure_ascii=False)
 
@@ -337,69 +358,56 @@ def build_html(topic, body, related=None, today=None):
 
     rel_html = ""
     if related:
-        rel_html = "<div class='related-posts'><h2>More Guides</h2><ul>"
+        rel_html = "<div class=\'related-posts\'><h2>More Guides</h2><ul>"
         for p in related:
-            rel_html += "<li><a href='" + p["url"] + "'>" + p["title"] + "</a></li>"
+            rel_html += "<li><a href=\'" + p["url"] + "\'>" + p["title"] + "</a></li>"
         rel_html += "</ul></div>"
 
-    # Sticky CTA bar (always visible at bottom)
     sticky_bar = (
-        '<div class="sticky-cta-bar">'
-        '<div class="sticky-cta-inner">'
-        '<div class="sticky-cta-text">'
-        '<span class="sticky-cta-label">Free Download</span>'
-        '<span class="sticky-cta-name">' + app["name"] + '</span>'
-        '</div>'
-        '<a href="' + app["extension_url"] + '" class="sticky-cta-btn">' + app["cta"] + '</a>'
-        '</div>'
-        '</div>'
+        "<div class=\"sticky-cta-bar\">" +
+        "<div class=\"sticky-cta-inner\">" +
+        "<div class=\"sticky-cta-text\">" +
+        "<span class=\"sticky-cta-label\">Free Download</span>" +
+        "<span class=\"sticky-cta-name\">" + app["name"] + "</span>" +
+        "</div>" +
+        "<a href=\"" + app["extension_url"] + "\" class=\"sticky-cta-btn\">" + app["cta"] + "</a>" +
+        "</div></div>"
     )
 
     head = (
         "<head>"
-        "<meta charset='UTF-8'>"
-        "<meta name='viewport' content='width=device-width,initial-scale=1.0'>"
+        "<meta charset=\'UTF-8\'>"
+        "<meta name=\'viewport\' content=\'width=device-width,initial-scale=1.0\'>"
         "<title>" + topic["title"] + " | " + app["name"] + "</title>"
-        "<meta name='description' content='" + html_mod.escape(meta_desc) + "'>"
-        "<meta name='robots' content='index,follow'>"
-        "<link rel='canonical' href='" + url + "'>"
-        "<meta property='og:type' content='article'>"
-        "<meta property='og:url' content='" + url + "'>"
-        "<meta property='og:title' content='" + html_mod.escape(topic["title"]) + "'>"
-        "<meta property='og:description' content='" + html_mod.escape(meta_desc) + "'>"
-        "<meta property='og:image' content='" + app["logo"] + "'>"
-        "<link rel='stylesheet' href='style.css'>"
+        "<meta name=\'description\' content=\"" + html_mod.escape(meta_desc) + "\">"
+        "<meta name=\'robots\' content=\'index,follow\'>"
+        "<link rel=\'canonical\' href=\"" + url + "\">"
+        "<meta property=\'og:type\' content=\'article\'>"
+        "<meta property=\'og:url\' content=\"" + url + "\">"
+        "<meta property=\'og:title\' content=\"" + html_mod.escape(topic["title"]) + "\">"
+        "<meta property=\'og:description\' content=\"" + html_mod.escape(meta_desc) + "\">"
+        "<meta property=\'og:image\' content=\"" + app["logo"] + "\">"
+        "<link rel=\'stylesheet\' href=\'style.css\'>"
         + jsonld_script(article_json)
         + jsonld_script(faq_json)
         + jsonld_script(breadcrumb_json)
-        + "<script async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9842825734923539'></script>"
-        + "<script async src='https://www.googletagmanager.com/gtag/js?id=G-FDZR5XWWBM'></script>"
-        + "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-FDZR5XWWBM');</script>"
+        + "<script async src=\'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9842825734923539\'></script>"
+        + "<script async src=\'https://www.googletagmanager.com/gtag/js?id=G-FDZR5XWWBM\'></script>"
+        + "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag(\'js\',new Date());gtag(\'config\',\'G-FDZR5XWWBM\');</script>"
         + "</head>"
     )
 
     page = (
-        "<!DOCTYPE html><html lang='en'>" + head + "<body>"
-        "<header><div class='container'><nav class='breadcrumb'>"
-        "<a href='/'>Home</a> / <a href='index.html'>Apps</a> / <span>" + html_mod.escape(topic["title"][:40]) + "</span>"
-        "</nav><h1>" + html_mod.escape(topic["title"]) + "</h1></div></header>"
-        "<main><article>"
-        "<section class='hero-section'><div class='container'><div class='hero-content'><div class='hero-text'>"
-        "<h2>Your Training Just Got Smarter</h2>"
-        "<p class='lead'>" + html_mod.escape(app["description"]) + " " + html_mod.escape(app["cta"].lower().replace("download ", "")) + ".</p>"
-        "<div class='cta-buttons'><a href='" + app["extension_url"] + "' class='download-btn primary'>" + html_mod.escape(app["cta"]) + "</a></div>"
-        "</div></div></div></section>"
-        "<section class='app-overview'><div class='container'>" + body + "</div></section>"
-        "<div class='aeo-closing'><h2>Why This Matters</h2><p>Structured training delivers better results.</p></div>"
-        "<div class='about-author'><h3>About the Author</h3><p><strong>" + html_mod.escape(app["author"]) + "</strong> is a " + html_mod.escape(app["author_title"]) + ".</p></div>"
-        + rel_html +
-        "<section class='download-cta'><div class='container'><h2>Start Training Smarter Today.</h2>"
-        "<p>" + html_mod.escape(app["description"]) + "</p>"
-        "<div class='cta-buttons'><a href='" + app["extension_url"] + "' class='download-btn primary'>" + html_mod.escape(app["cta"]) + "</a></div></section>"
-        "</article></main>"
-        "<footer><div class='container'><p>&copy; " + str(year) + " Gamified Living Apps.</p></div></footer>"
+        "<!DOCTYPE html><html lang=\'en\'>" + head + "<body>"
+        "<header class=\'article-header\'><div class=\'container\'>"
+        "<nav class=\'breadcrumb\'><a href=\'/\'>Home</a> / <a href=\'index.html\'>Apps</a> / <span>" + html_mod.escape(topic["title"][:40]) + "</span></nav>"
+        "</div></header>"
+        "<main class=\'article-main\'><div class=\'container\'>"
+        + body + rel_html
+        + "</div></main>"
+        "<footer class=\'article-site-footer\'><div class=\'container\'><p>&copy; " + str(year) + " Gamified Living Apps.</p></div></footer>"
         + sticky_bar +
-        "<script src='script.js' defer></script>"
+        "<script src=\'script.js\' defer></script>"
         "</body></html>"
     )
     return page
