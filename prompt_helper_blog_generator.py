@@ -241,7 +241,7 @@ def generate_title(topic, body):
         with urllib.request.urlopen(req, timeout=60) as resp:
             t = json.loads(resp.read().decode("utf-8")).get("choices", [{}])[0].get("message", {}).get("content", "").strip()
             t = re.sub(r"^Title:", "", t).strip()
-            if t and len(t) > 10:
+            if t and len(t) > 10 and '<h1' not in t and 'SEO title' not in t and 'Title:' not in t and 'Word count' not in t:
                 return t
     except:
         pass
