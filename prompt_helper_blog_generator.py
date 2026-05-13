@@ -40,6 +40,16 @@ APPS = {
         "author": "Alex Rivera",
         "author_title": "Martial Arts Enthusiast & App Developer",
         "cta": "Download Free on Google Play",
+    },
+    "fruited": {
+        "name": "Fruited AI",
+        "short": "Fruited AI",
+        "extension_url": "https://fruited.ai",
+        "logo": "https://raw.githubusercontent.com/playthegameoflife/apps/main/fruited-logo.png",
+        "description": "Uncensored AI chatbot — no filters, no restrictions, total privacy.",
+        "author": "Alex Rivera",
+        "author_title": "AI Freedom Advocate",
+        "cta": "Visit fruited.ai",
     }
 }
 
@@ -160,21 +170,21 @@ def topic(seed=None, app_key=None):
 
     if app_key == "fruited":
         topics_file = os.path.dirname(__file__) + "/fruited_blog_topics.json"
-        topics = json.load(open(topics_file))["topics"]
+        topics = json.load(open(topics_file))
         r.shuffle(topics)
         t = topics[0]
         return {
-            "slug": "fruited/blog-" + t["slug"] + "-" + str(seed) + ".html",
-            "title": t["title"], "primary_kw": t["kw"], "audience": t["audience"],
-            "pain": t["pain"], "use_case": t["kw"], "app": "fruited"
+            "slug": "fruited/blog-" + t[1].replace(" ", "-") + "-" + str(seed) + ".html",
+            "title": t[0], "primary_kw": t[1], "audience": t[2],
+            "pain": t[3], "use_case": t[1], "app": "fruited"
         }
     elif app_key == "mycombat":
-        topics = json.load(open(MYCOMBAT_TOPICS_FILE))["topics"]
+        topics = json.load(open(MYCOMBAT_TOPICS_FILE))
         r.shuffle(topics)
         t = topics[0]
-        return {"slug": "blog-" + t["slug"] + "-" + str(seed) + ".html",
-                "title": t["title"], "primary_kw": t["kw"], "audience": t["audience"],
-                "pain": t["pain"], "use_case": t["kw"], "app": "mycombat"}
+        return {"slug": "blog-" + t[1].replace(" ", "-") + "-" + str(seed) + ".html",
+                "title": t[0], "primary_kw": t[1], "audience": t[2],
+                "pain": t[3], "use_case": t[1], "app": "mycombat"}
     else:
         # PHG - static topics
         topics = [
@@ -367,7 +377,7 @@ def build_html(topic, body, related=None, today=None):
         "<meta property=\'og:title\' content=\"" + html_mod.escape(topic["title"]) + "\">"
         "<meta property=\'og:description\' content=\"" + html_mod.escape(meta_desc) + "\">"
         "<meta property=\'og:image\' content=\"" + app["logo"] + "\">"
-        "<link rel=\'stylesheet\' href=\'style.css\'>"
+        "<link rel=\'stylesheet\' href='/style.css'>"
         + jsonld_script(article_json)
         + jsonld_script(faq_json)
         + jsonld_script(breadcrumb_json)
