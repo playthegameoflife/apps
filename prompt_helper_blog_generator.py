@@ -4,7 +4,7 @@ Combined Blog Generator: Prompt Helper Gemini + MyCombat
 Powered by blog-master SEO structure
 """
 
-import os, re, json, base64, subprocess, random, html as html_mod
+import os, re, json, base64, subprocess, random, html as html_mod, argparse
 from datetime import datetime, date
 
 # Load env
@@ -159,8 +159,11 @@ def clean_body(body):
     body = re.sub(r'<head[^>]*>.*?</head>', '', body, flags=re.S)
     body = re.sub(r'<body[^>]*>', '', body, flags=re.I)
     body = re.sub(r'</body>', '', body, flags=re.I)
-    # Strip Qwen chain-of-thought blocks
-    body = re.sub(r'<think>.*?</think>', '', body, flags=re.S)
+    # Strip Qwen chain-of-thought blocks (raw and HTML-encoded) - multiple passes
+    for _ in range(3):
+        body = re.sub(r'<think>.*?</think>', '', body, flags=re.S)
+        body = re.sub(r'&lt;think&gt;.*?&lt;/think&gt;', '', body, flags=re.S|re.I)
+        body = re.sub(r'&amp;lt;think&amp;gt;.*?&amp;lt;/think&amp;gt;', '', body, flags=re.S|re.I)
     return body.strip()
 
 def generate_content(topic):
@@ -173,8 +176,8 @@ def generate_content(topic):
         print("WARNING: No NVIDIA_API_KEY - using fallback content")
         return fallback_content(topic)
     
-    app_niche = "AI productivity" if topic["app"] == "phg" else "martial arts training"
-    niche_target = "AI tools" if topic["app"] == "phg" else "martial arts"
+    app_niche = {"phg": "AI productivity", "mycombat": "martial arts training", "fruited": "uncensored AI & creative freedom"}[topic["app"]]
+    niche_target = {"phg": "AI tools", "mycombat": "martial arts", "fruited": "uncensored AI"}[topic["app"]]
     
     prompt = BLOG_MASTER_PROMPT.format(
         app_name=app["name"], app_niche=app_niche, title=topic["title"],
@@ -240,7 +243,7 @@ def generate_title(topic, body):
         with urllib.request.urlopen(req, timeout=60) as resp:
             t = json.loads(resp.read().decode("utf-8")).get("choices", [{}])[0].get("message", {}).get("content", "").strip()
             t = re.sub(r"^Title:", "", t).strip()
-            if t and len(t) > 10 and '<h1' not in t and 'think>' not in t and '<think>' not in t and 'SEO title' not in t and 'Title:' not in t and 'Word count' not in t and 'article' not in t.lower():
+            if t and len(t) > 10 and '<h1' not in t and '&lt;think&gt;' not in t and '<think>' not in t and 'think&gt;' not in t and 'SEO title' not in t and 'Title:' not in t and 'Word count' not in t and 'article' not in t.lower():
                 return t
     except:
         pass
@@ -361,15 +364,27 @@ def sitemap_add(existing, slug, today):
 def main():
     state = get_state()
     today = date.today().isoformat()
-    day_num = int(datetime.now().strftime("%Y%m%d"))
-    app_name = "PHG" if day_num % 2 == 0 else "MyCombat"
+    
+    if args.blog:
+        app_key = args.blog
+    else:
+        day_num = int(datetime.now().strftime("%Y%m%d"))
+        slot = day_num % 3
+        if slot == 0:
+            app_key = "phg"
+        elif slot == 1:
+            app_key = "mycombat"
+        else:
+            app_key = "fruited"
+    
+    app_name = app_key.upper()
     
     if today in state.get("posted_today", []):
         print("Already posted today (" + app_name + ")")
         return
     
     seed = int(datetime.now().strftime("%Y%m%d"))
-    tpc = topic(seed)
+    tpc = topic(seed, app_key)
     slug = tpc["slug"]
     
     if slug in state.get("posted_blogs", []):
