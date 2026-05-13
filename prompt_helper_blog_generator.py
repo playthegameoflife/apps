@@ -15,6 +15,11 @@ for line in open(os.path.expanduser("~/.env")):
 REPO_OWNER = "playthegameoflife"
 REPO_NAME = "apps"
 
+# Argument parsing — --blog phg|mycombat|fruited
+parser = argparse.ArgumentParser()
+parser.add_argument("--blog", default=None, choices=["phg", "mycombat", "fruited"])
+args = parser.parse_args()
+
 APPS = {
     "phg": {
         "name": "Prompt Helper Gemini",
