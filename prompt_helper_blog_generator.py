@@ -416,15 +416,19 @@ def main():
     
     app_name = app_key.upper()
     
-    if today in state.get("posted_today", []):
-        print("Already posted today (" + app_name + ")")
+    # Scoped state check per blog type
+    blog_state_key = "posted_" + app_key
+    if today in state.get(blog_state_key, []):
+        print("Already posted " + app_name + " today")
         return
     
     seed = int(datetime.now().strftime("%Y%m%d"))
     tpc = topic(seed, app_key)
     slug = tpc["slug"]
     
-    if slug in state.get("posted_blogs", []):
+    # Per-blog slug dedup
+    slug_key = "slugs_" + app_key
+    if slug in state.get(slug_key, []):
         print("Already posted: " + slug)
         return
     
@@ -443,9 +447,12 @@ def main():
     print("Updating sitemap...")
     upd_file("sitemap.xml", sitemap_add(sm, slug, today), "Auto-sitemap: add " + slug, sha)
     
-    state.setdefault("posted_blogs", []).append(slug)
-    state.setdefault("posted_today", []).append(today)
-    state["posted_blogs"] = state["posted_blogs"][-100:]
+    # Scoped state save per blog type
+    blog_state_key = "posted_" + app_key
+    slug_key = "slugs_" + app_key
+    state.setdefault(slug_key, []).append(slug)
+    state.setdefault(blog_state_key, []).append(today)
+    state[slug_key] = state[slug_key][-100:]
     save_state(state)
     print("DONE! https://" + SITE_DOMAIN + "/" + slug)
 
