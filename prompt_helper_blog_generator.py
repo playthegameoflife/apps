@@ -153,9 +153,41 @@ def mycombat_topic(seed):
             "title": t[0], "primary_kw": t[1], "audience": t[2], "pain": t[3],
             "use_case": t[1], "app": "mycombat"}
 
-def topic(seed):
-    day_num = int(datetime.now().strftime("%Y%m%d"))
-    return phg_topic(seed) if day_num % 2 == 0 else mycombat_topic(seed)
+def topic(seed=None, app_key=None):
+    if seed is None:
+        seed = int(datetime.now().strftime("%Y%m%d"))
+    r = random.Random(seed)
+
+    if app_key == "fruited":
+        topics_file = os.path.dirname(__file__) + "/fruited_blog_topics.json"
+        topics = json.load(open(topics_file))["topics"]
+        r.shuffle(topics)
+        t = topics[0]
+        return {
+            "slug": "fruited/blog-" + t["slug"] + "-" + str(seed) + ".html",
+            "title": t["title"], "primary_kw": t["kw"], "audience": t["audience"],
+            "pain": t["pain"], "use_case": t["kw"], "app": "fruited"
+        }
+    elif app_key == "mycombat":
+        topics = json.load(open(MYCOMBAT_TOPICS_FILE))["topics"]
+        r.shuffle(topics)
+        t = topics[0]
+        return {"slug": "blog-" + t["slug"] + "-" + str(seed) + ".html",
+                "title": t["title"], "primary_kw": t["kw"], "audience": t["audience"],
+                "pain": t["pain"], "use_case": t["kw"], "app": "mycombat"}
+    else:
+        # PHG - static topics
+        topics = [
+            ("How to Write Better ChatGPT Prompts", "chatgpt prompts", "content creators", "generic outputs"),
+            ("One-Click AI Prompt Enhancement", "ai prompt enhancement", "developers", "hours crafting"),
+            ("Free Midjourney Prompt Generator", "midjourney prompts", "designers", "ai context"),
+            ("Claude Prompt Writing Tips", "claude prompts", "writers", "brand voice"),
+            ("Code Prompts That Work", "code prompts ai", "developers", "generic outputs"),
+        ]
+        t = topics[seed % len(topics)]
+        return {"slug": "blog-" + t[1].replace(" ", "-") + "-" + str(seed) + ".html",
+                "title": t[0], "primary_kw": t[1], "audience": t[2], "pain": t[3],
+                "use_case": t[1], "app": "phg"}
 
 def clean_body(body):
     body = re.sub(r'<!DOCTYPE[^>]*>', '', body, flags=re.I)
