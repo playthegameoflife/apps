@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Write Better AI Prompts in 2026</title>
+  <meta name="description" content="Learn how to write better AI prompts in 2026 with a practical five-part framework, examples, and a quick refinement checklist for ChatGPT, Gemini, and Claude.">
+  <meta name="author" content="Gamified Living Apps">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gamifiedlivingapps.com/blog-how-to-write-better-ai-prompts-20260722.html">
+
+  <meta property="og:title" content="How to Write Better AI Prompts in 2026">
+  <meta property="og:description" content="Learn how to write better AI prompts in 2026 with a practical five-part framework, examples, and a quick refinement checklist for ChatGPT, Gemini, and Claude.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://gamifiedlivingapps.com/blog-how-to-write-better-ai-prompts-20260722.html">
+  <meta property="og:site_name" content="Gamified Living Apps">
+  <meta property="og:image" content="https://raw.githubusercontent.com/playthegameoflife/apps/main/_b8a63dd9-c319-4b35-8a0d-d868b41a6ef5-removebg-preview.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Write Better AI Prompts in 2026">
+  <meta name="twitter:description" content="A practical five-part framework, examples, and a fast checklist for getting clearer AI answers.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/playthegameoflife/apps/main/_b8a63dd9-c319-4b35-8a0d-d868b41a6ef5-removebg-preview.png">
+  <meta name="twitter:image:alt" content="Prompt Helper Gemini logo for a guide to writing better AI prompts">
+
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #5d687b;
+      --line: #dfe5ee;
+      --paper: #ffffff;
+      --wash: #f5f8fc;
+      --accent: #3157d5;
+      --accent-dark: #203d9f;
+      --code: #111827;
+      --max: 860px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.72;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent-dark); text-decoration-thickness: .08em; text-underline-offset: .16em; }
+    a:hover { color: var(--accent); }
+    .site-header { border-bottom: 1px solid var(--line); background: rgba(255,255,255,.96); }
+    .site-nav {
+      max-width: 1120px; margin: 0 auto; padding: 18px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .brand { font-weight: 750; letter-spacing: -.02em; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 18px; font-size: 14px; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .page-shell { max-width: var(--max); margin: 0 auto; padding: 56px 24px 80px; }
+    .article-header { margin-bottom: 38px; }
+    .eyebrow { margin: 0 0 12px; color: var(--accent-dark); font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    h1, h2, h3 { color: var(--ink); line-height: 1.2; letter-spacing: -.035em; }
+    h1 { margin: 0 0 18px; font-size: clamp(2.35rem, 6vw, 4rem); }
+    h2 { margin: 58px 0 18px; font-size: clamp(1.75rem, 4vw, 2.45rem); }
+    h3 { margin: 34px 0 10px; font-size: 1.35rem; }
+    p { margin: 0 0 20px; }
+    .dek { max-width: 720px; margin-bottom: 18px; color: var(--muted); font-size: 1.2rem; line-height: 1.55; }
+    .byline { color: var(--muted); font-size: 14px; }
+    .takeaways, .toc, .callout { padding: 24px 26px; border: 1px solid var(--line); border-radius: 14px; background: var(--wash); }
+    .takeaways { margin: 30px 0; }
+    .takeaways h2, .toc h2 { margin: 0 0 12px; font-size: 1.25rem; letter-spacing: -.02em; }
+    .takeaways ul, .toc ol { margin: 0; padding-left: 22px; }
+    .toc { margin: 28px 0 42px; background: #fff; }
+    .toc ol { columns: 2; column-gap: 35px; }
+    .toc li { break-inside: avoid; margin: 4px 0; font-size: 15px; }
+    .note { padding-left: 18px; border-left: 4px solid var(--accent); color: var(--muted); }
+    .framework { margin: 30px 0; padding: 22px; border: 1px solid var(--line); border-radius: 14px; background: #fbfcff; }
+    .framework-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .framework-step { min-height: 105px; padding: 13px 10px; border-radius: 10px; background: #eaf0ff; text-align: center; }
+    .framework-step strong { display: block; color: var(--accent-dark); font-size: 14px; }
+    .framework-step span { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.35; }
+    figcaption { margin-top: 14px; color: var(--muted); font-size: 13px; text-align: center; }
+    code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+    pre { overflow-x: auto; margin: 22px 0 28px; padding: 21px; border-radius: 12px; background: var(--code); color: #e6edf7; font-size: 14px; line-height: 1.6; }
+    .table-wrap { overflow-x: auto; margin: 24px 0 30px; }
+    table { width: 100%; border-collapse: collapse; min-width: 680px; font-size: 15px; }
+    th, td { padding: 13px 14px; border: 1px solid var(--line); vertical-align: top; text-align: left; }
+    th { background: var(--wash); color: var(--ink); }
+    .numbered { padding-left: 25px; }
+    .numbered li { margin: 12px 0; padding-left: 5px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li { margin: 10px 0; padding-left: 30px; position: relative; }
+    .checklist li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 800; }
+    .faq-item { padding: 22px 0; border-top: 1px solid var(--line); }
+    .faq-item h3 { margin-top: 0; font-size: 1.18rem; letter-spacing: -.015em; }
+    .sources { margin-top: 42px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+    .sources ul { margin-bottom: 0; }
+    .article-footer { margin-top: 52px; padding: 28px; border-radius: 14px; background: var(--ink); color: #eef3ff; }
+    .article-footer h2 { margin-top: 0; color: #fff; font-size: 1.5rem; }
+    .article-footer p { color: #d4dcf0; }
+    .article-footer a { color: #b9c9ff; }
+    .site-footer { border-top: 1px solid var(--line); padding: 30px 24px; color: var(--muted); font-size: 14px; text-align: center; }
+    @media (max-width: 680px) {
+      body { font-size: 16px; }
+      .site-nav { align-items: flex-start; flex-direction: column; }
+      .page-shell { padding-top: 38px; }
+      .toc ol { columns: 1; }
+      .framework-grid { grid-template-columns: 1fr; }
+      .framework-step { min-height: 0; text-align: left; }
+      .framework-step span { display: inline; margin-left: 7px; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://gamifiedlivingapps.com/blog-how-to-write-better-ai-prompts-20260722.html#article",
+        "headline": "How to Write Better AI Prompts in 2026",
+        "description": "Learn how to write better AI prompts in 2026 with a practical five-part framework, examples, and a quick refinement checklist for ChatGPT, Gemini, and Claude.",
+        "url": "https://gamifiedlivingapps.com/blog-how-to-write-better-ai-prompts-20260722.html",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://gamifiedlivingapps.com/blog-how-to-write-better-ai-prompts-20260722.html"
+        },
+        "image": ["https://raw.githubusercontent.com/playthegameoflife/apps/main/_b8a63dd9-c319-4b35-8a0d-d868b41a6ef5-removebg-preview.png"],
+        "author": {
+          "@type": "Organization",
+          "name": "Gamified Living Apps",
+          "url": "https://gamifiedlivingapps.com"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Gamified Living Apps",
+          "url": "https://gamifiedlivingapps.com"
+        },
+        "datePublished": "2026-07-22",
+        "dateModified": "2026-07-22",
+        "inLanguage": "en-US",
+        "isAccessibleForFree": true
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://gamifiedlivingapps.com/blog-how-to-write-better-ai-prompts-20260722.html#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the best way to write an AI prompt?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Start with one clear task, then add the context, audience, constraints, examples, and output format the model needs. Finish with a quality check, such as asking it to identify assumptions or unsupported claims. This structure is more reliable than adding a generic role like “expert” alone."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does AI give generic answers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "AI gives generic answers when the request leaves too many decisions open. Without a defined audience, useful context, success criteria, or output format, the model has to guess. Add those boundaries, provide one good example, and ask for a specific recommendation instead of an unlimited list."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long should an AI prompt be?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An AI prompt should be as long as necessary and no longer. A two-sentence request can work for a simple conversion, while a complex analysis may need several labeled sections. Remove background that does not affect the decision, resolve contradictions, and keep the task and success criteria easy to find."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Should I use an AI prompt generator?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use an AI prompt generator when you know the outcome you want but struggle to structure the request. Treat its draft as a starting point: check the facts, remove invented context, and adjust the audience, constraints, and format yourself. A generator saves repetition; it does not replace judgment."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do prompt techniques work across ChatGPT, Gemini, and Claude?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The fundamentals transfer across ChatGPT, Gemini, Claude, Grok, and Perplexity: clear tasks, relevant context, explicit constraints, examples, and a defined output. Model interfaces and strengths differ, so test important prompts on the platform you will actually use and keep a small record of successful variants."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="brand" href="https://gamifiedlivingapps.com/">Gamified Living Apps</a>
+      <div class="nav-links">
+        <a href="https://gamifiedlivingapps.com/">Prompt Helper Gemini</a>
+        <a href="https://gamifiedlivingapps.com/blog-prompt-engineering-best-practices-2026.html">Prompt guides</a>
+        <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp">Get the extension</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <article>
+      <header class="article-header">
+        <p class="eyebrow">AI prompts · Practical guide</p>
+        <h1>How to Write Better AI Prompts in 2026</h1>
+        <p class="dek">A five-part framework for turning vague requests into useful, specific answers across ChatGPT, Gemini, Claude, Grok, and Perplexity.</p>
+        <p class="byline"><time datetime="2026-07-22">Published July 22, 2026</time> · 10-minute read</p>
+      </header>
+
+      <div class="article-body">
+        <p>If you are wondering <strong>how to write better AI prompts</strong>, start by giving the model fewer important decisions to guess. State the task, explain the situation, define what “good” looks like, and show the shape of the answer you need. That simple shift usually matters more than adding dramatic phrases such as “act as a world-class expert.”</p>
+        <p>This guide is for students, creators, developers, marketers, and anyone who uses an AI assistant but keeps receiving polished yet unhelpful replies. You will learn a repeatable five-part framework, see before-and-after examples, and get a copy-ready template plus a 10-minute review checklist.</p>
+
+        <aside class="takeaways" id="key-takeaways">
+          <h2>Quick answer: the five parts of a strong prompt</h2>
+          <ul>
+            <li><strong>Task:</strong> name one observable outcome and a clear verb.</li>
+            <li><strong>Context:</strong> provide the facts, audience, and starting material that change the answer.</li>
+            <li><strong>Constraints:</strong> set limits for length, tone, scope, sources, date, or exclusions.</li>
+            <li><strong>Examples:</strong> show one good pattern when style or classification matters.</li>
+            <li><strong>Output and check:</strong> specify the format and ask the model to flag assumptions or gaps.</li>
+          </ul>
+        </aside>
+
+        <nav class="toc" aria-label="Table of contents">
+          <h2>In this guide</h2>
+          <ol>
+            <li><a href="#generic">Why AI answers become generic</a></li>
+            <li><a href="#framework">The five-part prompt framework</a></li>
+            <li><a href="#examples">Before-and-after examples</a></li>
+            <li><a href="#refine">How to refine a prompt in three passes</a></li>
+            <li><a href="#mistakes">Common prompting mistakes</a></li>
+            <li><a href="#checklist">The 10-minute prompt checklist</a></li>
+            <li><a href="#faq">Frequently asked questions</a></li>
+          </ol>
+        </nav>
+
+        <section id="generic">
+          <h2>Why AI answers become generic</h2>
+          <p>A language model can produce fluent text even when the request is underspecified. If you write “Give me marketing ideas,” the model does not know your product, customer, budget, channel, deadline, or definition of success. It fills those gaps with common patterns, which is why the result sounds reasonable but could apply to almost any business.</p>
+          <p>Google Cloud’s prompt guidance emphasizes specificity, context, and awareness of a model’s strengths and weaknesses. Anthropic’s <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" rel="noopener">prompt engineering overview</a> likewise treats clarity, examples, structure, and iteration as practical tools rather than magic words.</p>
+          <p>The problem is usually not that your prompt is too short. It is that the few words you used leave important decisions undefined. A 30-word prompt with a concrete audience and measurable outcome can outperform a 300-word prompt full of adjectives, conflicting instructions, and irrelevant background.</p>
+          <p class="note"><strong>Useful diagnosis:</strong> if two competent people could interpret your request in two different ways, the model probably can too. Add the missing decision boundary before asking for more creativity.</p>
+        </section>
+
+        <section id="framework">
+          <h2>How to Write Better AI Prompts: The 5-Part Framework</h2>
+          <p>Use the sequence below whenever the answer matters. You do not need every field for a quick question, but the five parts give you a reliable default for writing, research, coding, image generation, and planning.</p>
+
+          <figure class="framework">
+            <div class="framework-grid" aria-label="Five-part prompt framework">
+              <div class="framework-step"><strong>1. Task</strong><span>What should happen?</span></div>
+              <div class="framework-step"><strong>2. Context</strong><span>What should be known?</span></div>
+              <div class="framework-step"><strong>3. Limits</strong><span>What must be true?</span></div>
+              <div class="framework-step"><strong>4. Example</strong><span>What does good look like?</span></div>
+              <div class="framework-step"><strong>5. Output</strong><span>How will you check it?</span></div>
+            </div>
+            <figcaption>The framework moves from purpose to evidence, boundaries, pattern, and verification.</figcaption>
+          </figure>
+
+          <h3>1. Define one task and one success condition</h3>
+          <p>Open with a direct verb: <em>draft, compare, debug, summarize, classify, calculate, storyboard, or revise</em>. Then describe the result that would make the response useful. “Write a landing page” is a task; “draft a 700-word landing page that helps beginner runners choose a free interval timer” is a task with a success condition.</p>
+          <p>When a request contains several outcomes, split it into stages. Ask for research notes first, then an outline, then the final copy. A single prompt that asks for research, strategy, ten alternatives, a polished article, and a critique often produces shallow coverage because the model has no priority order.</p>
+
+          <h3>2. Add context and name the audience</h3>
+          <p>Context is the information that changes the answer. Include the user’s level, the source material, the platform, the current state, and any important trade-off. Also name the audience and what they already know. “Explain APIs” is broad; “Explain REST APIs to a product manager who understands spreadsheets but does not write code” creates a useful starting point.</p>
+          <p>Put reference material in a labeled block so it is distinct from your instructions. Clear delimiters such as headings, triple backticks, or XML-style tags reduce accidental mixing between data and commands. For sensitive or changing facts, give the model a source to use and ask it to identify anything it cannot verify.</p>
+
+          <h3>3. Set constraints that remove guesswork</h3>
+          <p>Constraints are not a creativity killer; they are a definition of the playing field. Specify the language, tone, length, date range, reading level, file type, budget, technical stack, or prohibited claims. If you want options, state how many and how they should differ. “Give three approaches ranked by implementation effort” is more actionable than “be creative.”</p>
+          <p>Use positive instructions wherever possible. Instead of only saying “do not use jargon,” say “use plain English and define any unavoidable technical term in one sentence.” Pair each important prohibition with a usable alternative.</p>
+
+          <h3>4. Provide an example when style or judgment matters</h3>
+          <p>One representative example can communicate a pattern faster than several paragraphs of abstract description. Show a sample headline, a correctly formatted JSON object, a preferred tone, or a labeled classification. Explain what the example demonstrates, and do not assume the model should copy its facts.</p>
+          <p>Examples are especially useful for recurring workflows. Keep a small library of outputs you consider successful, then reuse them as references. Change one variable at a time—such as audience or format—so you can tell which instruction improved the result.</p>
+
+          <h3>5. Specify the output and add a quality check</h3>
+          <p>Tell the model exactly how to return the answer: a table with four columns, a numbered plan with owners and dates, valid JSON, a short email followed by three subject lines, or code with tests. For complex work, ask it to list assumptions, missing inputs, risks, and a confidence note after the main answer.</p>
+          <p>Do not ask for hidden chain-of-thought. Ask for a concise rationale, a verification checklist, or the specific evidence supporting each recommendation. The goal is an answer you can inspect, not an invisible stream of internal reasoning.</p>
+
+          <pre><code>&lt;task&gt;
+Turn the notes below into a practical onboarding email sequence.
+&lt;/task&gt;
+&lt;context&gt;
+Audience: first-time users of a budgeting app
+Product promise: see recurring spending in one place
+Source notes: [paste verified notes here]
+&lt;/context&gt;
+&lt;constraints&gt;
+Write 3 emails, 120–160 words each. Use plain English.
+Do not invent prices, testimonials, or performance claims.
+&lt;/constraints&gt;
+&lt;output&gt;
+For each email, return: goal, subject line, preview text, body, and one CTA.
+Afterward, list any assumptions that need confirmation.
+&lt;/output&gt;</code></pre>
+        </section>
+
+        <section id="examples">
+          <h2>Before-and-after AI prompt examples</h2>
+          <p>The fastest way to learn prompt engineering best practices is to compare a vague request with a constrained one. Notice that the improved versions are not always longer; they simply make the important choices explicit.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Use case</th><th>Weak request</th><th>Better request</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Writing</td>
+                  <td>“Write a blog post about meal prep.”</td>
+                  <td>“Outline a 1,200-word beginner guide to Sunday meal prep for two busy adults. Include a 5-day shopping list, a $75 budget assumption, and one food-safety note. Use H2 headings and flag any assumption.”</td>
+                </tr>
+                <tr>
+                  <td>Coding</td>
+                  <td>“Fix this Python function.”</td>
+                  <td>“Debug the function below for Python 3.11. Preserve the public signature, explain the failing edge case in two sentences, return the corrected code, and add 3 pytest tests for empty, typical, and invalid input.”</td>
+                </tr>
+                <tr>
+                  <td>Research</td>
+                  <td>“Tell me about remote work.”</td>
+                  <td>“Compare remote and hybrid work for a 12-person software team in 2026. Use a table with cost, collaboration, hiring, and security. Separate established evidence from your judgment and name what data is missing.”</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>In each better prompt, the model receives a target, a reader or environment, boundaries, and a visible format. That makes the response easier to evaluate and easier to revise. If the output is still weak, you can identify which field needs changing instead of rewriting the entire request from scratch.</p>
+        </section>
+
+        <section id="refine">
+          <h2>How to refine a prompt in three passes</h2>
+          <p>Strong prompting is iterative. Treat the first response as a test, not a verdict on the model. A simple three-pass loop keeps refinement focused:</p>
+          <ol class="numbered">
+            <li><strong>Pass 1 — establish a baseline.</strong> Send the shortest complete version of your five-part prompt. Save the answer and note the two biggest problems, such as missing detail or the wrong format.</li>
+            <li><strong>Pass 2 — repair the largest gap.</strong> Add one missing piece of context, one constraint, or one example. Do not change five variables at once. Ask the model to explain what it changed in a short bullet list.</li>
+            <li><strong>Pass 3 — make the result repeatable.</strong> Lock the output schema, add a quality check, and test the prompt on two new inputs. If it fails on one, revise the rule rather than adding a one-off exception.</li>
+          </ol>
+          <p>For important work, test the same prompt on three representative inputs: an ordinary case, a boundary case, and a deliberately messy case. Consistency across those tests tells you more than one impressive demonstration.</p>
+          <p>If rewriting the structure by hand becomes repetitive, <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" rel="noopener">Prompt Helper Gemini</a> is one practical shortcut. Its Chrome Web Store listing describes a Build tab for improving a draft, an in-chat Improve button, an Ask tab, prompt history, and support for ChatGPT, Gemini, Claude, Grok, and Perplexity. It also lists four modes—Text, Code, Image, and Video—and the shortcut <code>Ctrl+Shift+E</code> on Windows or <code>Cmd+Shift+E</code> on Mac. The free tier is listed as 5 prompt enhancements and 5 Ask questions per week, so you can test the workflow before deciding whether it fits your routine.</p>
+          <p>The tool does not remove the need to check facts or clarify your goal. Its value is reducing the mechanical work of turning a rough idea into the five fields above. You can also browse the related <a href="https://gamifiedlivingapps.com/blog-phg-seo-blog-2026-07-13.html">ChatGPT prompt techniques guide</a> or the <a href="https://gamifiedlivingapps.com/blog-ai-prompt-framework-2026-20261919.html">AI prompt framework article</a> for additional examples.</p>
+        </section>
+
+        <section id="mistakes">
+          <h2>Common prompting mistakes to avoid</h2>
+          <h3>Using a role as a substitute for context</h3>
+          <p>“Act as an expert” may adjust tone, but it does not supply your customer, data, constraints, or definition of success. If you use a role, make it specific and immediately follow it with the task and audience.</p>
+          <h3>Mixing instructions with unmarked source text</h3>
+          <p>Long pasted material can contain headings, requests, or formatting that compete with your actual instruction. Label it as reference material and tell the model which sections are authoritative. For code, include the language and version.</p>
+          <h3>Requesting certainty when the evidence is incomplete</h3>
+          <p>A confident tone is not proof. Ask the model to separate known facts, reasonable inferences, and open questions. For current events, prices, medical decisions, legal questions, or financial choices, verify the answer against a suitable primary source.</p>
+          <h3>Optimizing for length instead of usefulness</h3>
+          <p>More words can add noise. Define the decision the reader must make, then request only the detail needed to make it. A concise table or checklist often beats an essay that repeats the same point six ways.</p>
+        </section>
+
+        <section id="responsible-use">
+          <h2>Use AI assistance without outsourcing judgment</h2>
+          <p>Better prompts improve the odds of a useful draft; they do not guarantee truth. When you use AI for public-facing content, inspect names, dates, quotations, numbers, links, and claims before publishing. Google’s <a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" rel="noopener">people-first content guidance</a> is a useful reminder to prioritize original value and readers’ needs over producing pages simply because a keyword exists.</p>
+          <p>A practical rule is to keep the human-owned decisions visible: the audience, the source selection, the trade-offs, and the final approval. Let the model accelerate outlining, transformation, comparison, and drafting; keep responsibility for accuracy and consequences with the person using it.</p>
+        </section>
+
+        <section id="checklist">
+          <h2>The 10-minute prompt checklist</h2>
+          <p>Before sending a prompt that matters, run this quick audit. It works for ChatGPT prompts, Gemini prompts, Claude prompts, and most other conversational AI tools.</p>
+          <ul class="checklist">
+            <li>Can I underline one clear verb and one intended outcome?</li>
+            <li>Did I name the audience, starting point, and relevant context?</li>
+            <li>Did I define at least one measurable success condition?</li>
+            <li>Are length, tone, date, scope, and exclusions explicit where needed?</li>
+            <li>Would one example remove an ambiguity about style or classification?</li>
+            <li>Is the required output format easy to scan and reuse?</li>
+            <li>Did I separate source material from my instructions?</li>
+            <li>Did I ask the model to flag assumptions, missing data, or uncertainty?</li>
+            <li>Can I test the prompt on an ordinary case and a boundary case?</li>
+            <li>Do I know which fact or decision I will verify myself?</li>
+          </ul>
+          <p>Copy this compact template when you need a starting point:</p>
+          <pre><code>Task: [one outcome]
+Audience: [who will use the answer]
+Context: [facts, source material, current state]
+Constraints: [length, tone, scope, date, exclusions]
+Example: [one model of the desired pattern]
+Output: [exact format and sections]
+Quality check: [assumptions, evidence, tests, or questions to flag]</code></pre>
+        </section>
+
+        <section id="faq">
+          <h2>Frequently asked questions</h2>
+          <div class="faq-item">
+            <h3>What is the best way to write an AI prompt?</h3>
+            <p>Start with one clear task, then add the context, audience, constraints, examples, and output format the model needs. Finish with a quality check, such as asking it to identify assumptions or unsupported claims. This structure is more reliable than adding a generic role like “expert” alone.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why does AI give generic answers?</h3>
+            <p>AI gives generic answers when the request leaves too many decisions open. Without a defined audience, useful context, success criteria, or output format, the model has to guess. Add those boundaries, provide one good example, and ask for a specific recommendation instead of an unlimited list.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How long should an AI prompt be?</h3>
+            <p>An AI prompt should be as long as necessary and no longer. A two-sentence request can work for a simple conversion, while a complex analysis may need several labeled sections. Remove background that does not affect the decision, resolve contradictions, and keep the task and success criteria easy to find.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Should I use an AI prompt generator?</h3>
+            <p>Use an AI prompt generator when you know the outcome you want but struggle to structure the request. Treat its draft as a starting point: check the facts, remove invented context, and adjust the audience, constraints, and format yourself. A generator saves repetition; it does not replace judgment.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Do prompt techniques work across ChatGPT, Gemini, and Claude?</h3>
+            <p>The fundamentals transfer across ChatGPT, Gemini, Claude, Grok, and Perplexity: clear tasks, relevant context, explicit constraints, examples, and a defined output. Model interfaces and strengths differ, so test important prompts on the platform you will actually use and keep a small record of successful variants.</p>
+          </div>
+        </section>
+
+        <section class="article-footer">
+          <h2>Better prompts start with clearer decisions</h2>
+          <p>Learning how to write better AI prompts is less about finding a secret phrase and more about making your intent testable. Define the task, add the context, set boundaries, show a pattern, and specify how the result will be checked. Try the template on one real task today, then refine it in three deliberate passes.</p>
+          <p>For a faster in-browser workflow, <a href="https://gamifiedlivingapps.com/">see Prompt Helper Gemini</a> and compare its enhanced draft with the prompt you would have written yourself.</p>
+        </section>
+
+        <aside class="sources">
+          <strong>Sources and further reading</strong>
+          <ul>
+            <li><a href="https://cloud.google.com/blog/products/application-development/five-best-practices-for-prompt-engineering" rel="noopener">Google Cloud: Best practices for prompt engineering</a></li>
+            <li><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" rel="noopener">Anthropic: Prompt engineering overview</a></li>
+            <li><a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" rel="noopener">Google Search Central: Creating helpful, reliable, people-first content</a></li>
+          </ul>
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Gamified Living Apps · <a href="https://gamifiedlivingapps.com/">Home</a> · <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp">Prompt Helper Gemini on Chrome Web Store</a></p>
+  </footer>
+</body>
+</html>
