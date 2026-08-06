@@ -1,18 +1,1 @@
-{
-  "name": "CNAME",
-  "path": "CNAME",
-  "sha": "37b9cca3c148ba0e0bb9efdbbee14b8a6b9b18ef",
-  "size": 22,
-  "url": "https://api.github.com/repos/playthegameoflife/apps/contents/CNAME?ref=main",
-  "html_url": "https://github.com/playthegameoflife/apps/blob/main/CNAME",
-  "git_url": "https://api.github.com/repos/playthegameoflife/apps/git/blobs/37b9cca3c148ba0e0bb9efdbbee14b8a6b9b18ef",
-  "download_url": "https://raw.githubusercontent.com/playthegameoflife/apps/main/CNAME",
-  "type": "file",
-  "content": "Z2FtaWZpZWRsaXZpbmdhcHBzLmNvbQ==\n",
-  "encoding": "base64",
-  "_links": {
-    "self": "https://api.github.com/repos/playthegameoflife/apps/contents/CNAME?ref=main",
-    "git": "https://api.github.com/repos/playthegameoflife/apps/git/blobs/37b9cca3c148ba0e0bb9efdbbee14b8a6b9b18ef",
-    "html": "https://github.com/playthegameoflife/apps/blob/main/CNAME"
-  }
-}
+gamifiedlivingapps.com
