@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Reduce AI Hallucinations: 9 Prompt Fixes That Work</title>
+<meta name="description" content="Learn how to reduce AI hallucinations with 9 proven prompt fixes: grounding, verification, and source control that stop AI from making things up. Start today.">
+<meta name="author" content="Paul Park">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://gamifiedlivingapps.com/blog-how-to-reduce-ai-hallucinations.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Reduce AI Hallucinations: 9 Prompt Fixes That Work">
+<meta property="og:description" content="Learn how to reduce AI hallucinations with 9 proven prompt fixes: grounding, verification, and source control that stop AI from making things up. Start today.">
+<meta property="og:url" content="https://gamifiedlivingapps.com/blog-how-to-reduce-ai-hallucinations.html">
+<meta property="og:site_name" content="Gamified Living Apps">
+<meta property="og:image" content="https://gamifiedlivingapps.com/og-phg.png">
+<meta property="article:published_time" content="2026-08-12T00:00:00Z">
+<meta property="article:modified_time" content="2026-08-12T00:00:00Z">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Reduce AI Hallucinations: 9 Prompt Fixes That Work">
+<meta name="twitter:description" content="Learn how to reduce AI hallucinations with 9 proven prompt fixes: grounding, verification, and source control that stop AI from making things up. Start today.">
+<meta name="twitter:image" content="https://gamifiedlivingapps.com/og-phg.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://gamifiedlivingapps.com/blog-how-to-reduce-ai-hallucinations.html#article",
+      "headline": "How to Reduce AI Hallucinations: 9 Prompt Fixes That Work",
+      "description": "Learn how to reduce AI hallucinations with 9 proven prompt fixes: grounding, verification, and source control that stop AI from making things up. Start today.",
+      "datePublished": "2026-08-12T00:00:00Z",
+      "dateModified": "2026-08-12T00:00:00Z",
+      "inLanguage": "en-US",
+      "author": {
+        "@type": "Person",
+        "name": "Paul Park"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Gamified Living Apps",
+        "url": "https://gamifiedlivingapps.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://gamifiedlivingapps.com/logo.svg"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://gamifiedlivingapps.com/blog-how-to-reduce-ai-hallucinations.html"
+      },
+      "image": "https://gamifiedlivingapps.com/og-phg.png",
+      "keywords": ["how to reduce AI hallucinations", "AI hallucinations", "prompt engineering", "grounding prompts", "AI accuracy", "2026"]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://gamifiedlivingapps.com/blog-how-to-reduce-ai-hallucinations.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What are AI hallucinations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI hallucinations happen when a language model generates fluent, confident-sounding content that is not true. The model is not lying deliberately; it is predicting the most plausible next words based on patterns in its training data. When a prompt lacks grounding, the model fills gaps with invented facts, citations, or numbers that look real but are not."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does ChatGPT make things up?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ChatGPT makes things up when it does not have the information it needs and nothing stops it from guessing. A vague prompt without context, sources, or constraints invites the model to fill the blanks with plausible-sounding content. The model optimizes for a fluent answer, not for factual certainty, so unsupported claims can slip in."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I reduce AI hallucinations with prompts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ground every prompt in real context, limit the model to provided sources, ask for reasoning before conclusions, and require the model to flag uncertainty. Add a verification step that checks claims against the source material. These structural changes consistently cut hallucination rates far more than any single magic phrase."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is grounding in prompt engineering?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Grounding means anchoring the model's answer to material you provide instead of its general knowledge. You paste the relevant text, data, or documents into the prompt and instruct the model to answer only from that material. Grounded prompts sharply reduce invented facts because the model no longer has to rely on memory."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a prompt enhancer help reduce hallucinations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, indirectly. A prompt enhancer adds the structure that prevents hallucinations: roles, context slots, constraints, and output formats. It cannot supply the true facts only you know, and it will not fix a prompt built on wrong information. Use it to build the scaffolding, then add your own grounded context."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do AI hallucinations ever fully go away?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Current language models still hallucinate occasionally, even with perfect prompts, because they generate text probabilistically rather than retrieving verified facts. Prompt engineering reduces the frequency dramatically, but critical decisions still need a human check or an external verification step before you rely on the answer."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://gamifiedlivingapps.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://gamifiedlivingapps.com/blog.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to Reduce AI Hallucinations: 9 Prompt Fixes That Work",
+          "item": "https://gamifiedlivingapps.com/blog-how-to-reduce-ai-hallucinations.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 20px; color: #1a1a1a; line-height: 1.7; }
+  h1 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.6rem; margin-top: 2.4rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.4rem; }
+  h3 { font-size: 1.2rem; margin-top: 1.6rem; }
+  .meta { color: #666; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .toc { background: #f7f7f9; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem 1.25rem; margin: 1.5rem 0; }
+  .toc h2 { font-size: 1.05rem; border: none; margin: 0 0 0.5rem 0; padding: 0; }
+  .toc ul { margin: 0; padding-left: 1.2rem; }
+  .callout { background: #eef6ff; border-left: 4px solid #3b82f6; padding: 1rem 1.25rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.95rem; }
+  th, td { border: 1px solid #d4d4d8; padding: 0.6rem 0.8rem; text-align: left; }
+  th { background: #f4f4f5; }
+  code { background: #f1f5f9; padding: 0.15rem 0.35rem; border-radius: 4px; font-size: 0.95em; }
+  pre { background: #0f172a; color: #e2e8f0; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.9rem; }
+  blockquote { border-left: 4px solid #94a3b8; margin: 1.2rem 0; padding: 0.4rem 1rem; color: #475569; font-style: italic; }
+  a { color: #2563eb; }
+  .faq-item { margin-bottom: 1.4rem; }
+  .faq-item h3 { font-size: 1.05rem; color: #0f172a; }
+  .cta { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; padding: 1.5rem; border-radius: 10px; margin: 2rem 0; }
+  .cta a { color: white; text-decoration: underline; font-weight: 600; }
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb; color: #666; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header>
+<nav aria-label="Breadcrumb" style="font-size:0.9rem; margin-bottom:1rem;">
+  <a href="/">Home</a> &rsaquo; <a href="/blog.html">Blog</a> &rsaquo; <span>Reduce AI Hallucinations</span>
+</nav>
+</header>
+<main>
+<article>
+<h1>How to Reduce AI Hallucinations: 9 Prompt Fixes That Work</h1>
+<p class="meta">By Paul Park &middot; Published August 12, 2026 &middot; 10 min read</p>
+
+<p>Nothing kills trust in AI faster than an answer that sounds authoritative and is completely wrong. A citation that does not exist, a statistic that was invented, a confident claim that reverses the truth. The good news is that most of these failures are not random model glitches. They are predictable reactions to the input you wrote, which means you can learn <strong>how to reduce AI hallucinations</strong> with the right prompt structure and cut them dramatically on your very next request.</p>
+
+<p>This guide explains why models make things up, then walks through nine prompt fixes that actually work in 2026. Every fix is concrete, takes under a minute to apply, and works across ChatGPT, Claude, Gemini, Grok, and Perplexity. None of them requires technical skills, just a willingness to brief the model the way you would brief a careful assistant.</p>
+
+<aside class="toc">
+<h2>Table of contents</h2>
+<ul>
+<li><a href="#what-are-hallucinations">What are AI hallucinations (and why your prompt matters)</a></li>
+<li><a href="#why-vague-prompts">Why vague prompts trigger hallucinations</a></li>
+<li><a href="#the-9-fixes">How to reduce AI hallucinations: 9 prompt fixes that work</a></li>
+<li><a href="#quick-checklist">Quick checklist: spot-check any prompt in 30 seconds</a></li>
+<li><a href="#when-enhancer-helps">When a prompt enhancer helps</a></li>
+<li><a href="#faq">Frequently asked questions</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</aside>
+
+<h2 id="what-are-hallucinations">What are AI hallucinations (and why your prompt matters)</h2>
+
+<p>An AI hallucination is fluent, confident-sounding output that is not true. Researchers who study the phenomenon describe it as a model generating text that diverges from the source content it was given, often because it is predicting the most statistically plausible next words rather than retrieving verified facts. The survey of hallucination research published on arXiv documents this across summarization, dialogue, and translation tasks, and it remains one of the most studied failure modes in modern language models.</p>
+
+<p>Two details matter for everyday users. First, hallucination is not a sign that the model is broken or malicious; it is a side effect of how the model works. Second, the rate of hallucination depends heavily on the input. When a prompt supplies real context, clear constraints, and a verification step, the model has far fewer opportunities to invent. When the prompt is a vague wish, the model fills the vacuum with its most average guess, which is exactly when the invented statistics and fake citations appear.</p>
+
+<h2 id="why-vague-prompts">Why vague prompts trigger hallucinations</h2>
+
+<p>Think about what happens when you ask a smart stranger, with no background, to summarize a report they have never seen. They will improvise. Language models do the same thing. A prompt like <em>&ldquo;Tell me about the benefits of intermittent fasting&rdquo;</em> gives the model no source, no audience, no scope, and no standard for accuracy, so it assembles an answer from whatever patterns its training data associates with the topic. Some of that will be right; some of it will be a plausible-sounding approximation that is factually shaky.</p>
+
+<p>The danger grows when the topic is specific, recent, or numeric. Models are weakest on precise figures, recent events, and niche details, which is precisely where hallucinations are most costly. IBM's explainer on AI hallucinations lists the common triggers: a lack of grounding, ambiguous instructions, and requests that push the model beyond what it knows. Every fix below targets one of those triggers directly.</p>
+
+<blockquote><strong>Pro tip:</strong> before you send a prompt that matters, ask yourself one question: if the model had to answer from memory alone, would I trust the result? If not, give it the material it needs. That single habit prevents most hallucinations.</blockquote>
+
+<h2 id="the-9-fixes">How to reduce AI hallucinations: 9 prompt fixes that work</h2>
+
+<p>These fixes are ordered by impact. Apply the first three to every important prompt; add the rest when the stakes go up.</p>
+
+<h3>1. Ground the prompt with real context</h3>
+<p><strong>The fix:</strong> paste the actual material the model should work from. Product details, a document excerpt, the email thread, the dataset, whatever the correct answer depends on. Then add one instruction: <em>&ldquo;Answer only from the material I provide.&rdquo;</em> Grounding is the single most powerful anti-hallucination technique because it removes the model's need to rely on memory, and Anthropic's guidance on reducing hallucinations puts grounded, source-limited prompts at the top of the list.</p>
+
+<h3>2. Limit the model to provided sources</h3>
+<p><strong>The fix:</strong> explicitly forbid outside knowledge. <em>&ldquo;Use only the attached sources. If the answer is not in the sources, say so.&rdquo;</em> This turns a silent invention into an honest admission. Models follow this instruction surprisingly well, and when they do violate it, the violation is easier to spot because the claim will not match the source text you pasted.</p>
+
+<h3>3. Ask for reasoning before the conclusion</h3>
+<p><strong>The fix:</strong> for analysis or decisions, require the model to show its work before it commits. <em>&ldquo;List the key facts, then walk through your reasoning step by step, then give your conclusion.&rdquo;</em> A model that must state its premises first is far less likely to fabricate a confident final answer, because the reasoning and the conclusion have to line up. This is the essence of chain-of-thought and chain-of-verification prompting.</p>
+
+<h3>4. Require the model to flag uncertainty</h3>
+<p><strong>The fix:</strong> add a confidence instruction. <em>&ldquo;If you are not certain about a fact, say 'I am not sure' and explain what would confirm it. Never guess to fill a gap.&rdquo;</em> This converts silent guesses into visible caveats. You will not eliminate every guess, but you will finally see which parts of the answer you can trust.</p>
+
+<h3>5. Demand citations or source quotes</h3>
+<p><strong>The fix:</strong> for research tasks, require evidence. <em>&ldquo;Support every factual claim with a quote from the provided source and a section reference. If a claim has no source, mark it as unverified.&rdquo;</em> When the model must attach each claim to text it can see, invented statistics become much harder to produce. This fix turns a hallucination-prone monologue into a checkable brief.</p>
+
+<h3>6. One task at a time</h3>
+<p><strong>The fix:</strong> split multi-part requests into separate prompts. <em>&ldquo;Summarize this document, then list the risks, then draft a reply&rdquo;</em> asks the model to juggle three objectives, and the accuracy of each one drops. Run them sequentially and give the model the output of the previous step as input. Narrow prompts hallucinate less because the model is not spreading attention across competing goals.</p>
+
+<h3>7. Specify a structured output format</h3>
+<p><strong>The fix:</strong> tell the model exactly how to shape the answer. <em>&ldquo;Return a table with columns: claim, source page, confidence.&rdquo;</em> Structured formats force the model to commit to fields instead of drifting into vague prose, and they make missing or invented information visible. If a required field is empty, you immediately know the model could not support that claim.</p>
+
+<h3>8. Include an example of a correct answer</h3>
+<p><strong>The fix:</strong> show the model what accuracy looks like. One example of the output you want, with the right tone, structure, and level of detail, anchors the model far better than ten adjectives. For repeatable tasks, keep a small library of exemplar outputs and reference them by name in the prompt. Few-shot examples measurably improve factual precision on many tasks.</p>
+
+<h3>9. Close the loop with a verification step</h3>
+<p><strong>The fix:</strong> after the first answer, run a second pass. <em>&ldquo;Review the answer above. Flag every claim that is not directly supported by the provided material, and correct or remove it.&rdquo;</em> Self-verification catches a meaningful share of errors because the model checks its own draft against the source instead of generating fresh content. For anything that will be published or acted on, add a human read of the final output; verification is a layer, not a guarantee.</p>
+
+<aside class="callout">
+<strong>Quick win:</strong> if you only apply one fix today, apply #1. Paste the material, add &ldquo;answer only from what I provide,&rdquo; and watch the invented facts disappear. Everything else is refinement on top of grounding.
+</aside>
+
+<h2 id="quick-checklist">Quick checklist: spot-check any prompt in 30 seconds</h2>
+
+<p>Run this checklist over any prompt that matters before you hit send.</p>
+
+<table>
+  <thead>
+    <tr><th>Check</th><th>Why it prevents hallucinations</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Is the source material included?</td><td>Grounds the answer instead of relying on memory</td></tr>
+    <tr><td>Does it say &ldquo;only from my material&rdquo;?</td><td>Blocks invented outside knowledge</td></tr>
+    <tr><td>Does it ask for reasoning first?</td><td>Forces premises to match the conclusion</td></tr>
+    <tr><td>Does it demand uncertainty flags?</td><td>Turns silent guesses into visible caveats</td></tr>
+    <tr><td>Does it request citations?</td><td>Makes each claim checkable against the source</td></tr>
+    <tr><td>Is it a single task?</td><td>Keeps the model focused on one objective</td></tr>
+    <tr><td>Is there a verification step?</td><td>Catches errors in a second, checking pass</td></tr>
+  </tbody>
+</table>
+
+<p>Prompts that pass all seven checks still deserve a human read on high-stakes output, but they produce dramatically fewer invented facts than ungrounded one-liners.</p>
+
+<h2 id="when-enhancer-helps">When a prompt enhancer helps</h2>
+
+<p>If you keep writing prompts that skip context, format, and constraints because it takes too long to type them, a prompt enhancer automates most of the scaffolding. A good enhancer takes a rough one-line idea and returns a structured prompt with a role, context slots, output format, and constraints pre-filled. That structure is exactly what fixes #3, #6, #7, and #8 depend on, so you get the anti-hallucination scaffolding without remembering every rule.</p>
+
+<p>This is where tools like <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" rel="noopener">Prompt Helper Gemini</a> fit in. It is a free Chrome extension that works inside ChatGPT, Claude, Gemini, Grok, and Perplexity. You type a rough idea, press Ctrl+Shift+E (Windows) or Cmd+Shift+E (Mac), or use the in-chat Improve button, and it returns an enhanced prompt before you send. Text, Code, Image, and Video modes cover the main use cases, and the free tier includes 5 enhancements per week, enough for most individual workflows.</p>
+
+<p>The honest trade-off: an enhancer fixes structure, not facts. It will not know the true numbers, the right document, or the constraints that only you can supply. The most reliable workflow is a hybrid: use an enhancer for the scaffolding, then add your grounded context and a verification step. Structure prevents the model from guessing the shape of the answer; your material prevents it from guessing the content.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+
+<div class="faq-item">
+<h3>What are AI hallucinations?</h3>
+<p>AI hallucinations happen when a language model generates fluent, confident-sounding content that is not true. The model is not lying deliberately; it is predicting the most plausible next words based on patterns in its training data. When a prompt lacks grounding, the model fills gaps with invented facts, citations, or numbers that look real but are not.</p>
+</div>
+
+<div class="faq-item">
+<h3>Why does ChatGPT make things up?</h3>
+<p>ChatGPT makes things up when it does not have the information it needs and nothing stops it from guessing. A vague prompt without context, sources, or constraints invites the model to fill the blanks with plausible-sounding content. The model optimizes for a fluent answer, not for factual certainty, so unsupported claims can slip in.</p>
+</div>
+
+<div class="faq-item">
+<h3>How can I reduce AI hallucinations with prompts?</h3>
+<p>Ground every prompt in real context, limit the model to provided sources, ask for reasoning before conclusions, and require the model to flag uncertainty. Add a verification step that checks claims against the source material. These structural changes consistently cut hallucination rates far more than any single magic phrase.</p>
+</div>
+
+<div class="faq-item">
+<h3>What is grounding in prompt engineering?</h3>
+<p>Grounding means anchoring the model's answer to material you provide instead of its general knowledge. You paste the relevant text, data, or documents into the prompt and instruct the model to answer only from that material. Grounded prompts sharply reduce invented facts because the model no longer has to rely on memory.</p>
+</div>
+
+<div class="faq-item">
+<h3>Can a prompt enhancer help reduce hallucinations?</h3>
+<p>Yes, indirectly. A prompt enhancer adds the structure that prevents hallucinations: roles, context slots, constraints, and output formats. It cannot supply the true facts only you know, and it will not fix a prompt built on wrong information. Use it to build the scaffolding, then add your own grounded context.</p>
+</div>
+
+<div class="faq-item">
+<h3>Do AI hallucinations ever fully go away?</h3>
+<p>No. Current language models still hallucinate occasionally, even with perfect prompts, because they generate text probabilistically rather than retrieving verified facts. Prompt engineering reduces the frequency dramatically, but critical decisions still need a human check or an external verification step before you rely on the answer.</p>
+</div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Every AI hallucination you will ever see traces back to the same root: the model was asked to know something it was never given. Vague prompts, missing sources, and absent constraints all push the model toward confident improvisation. The fixes are mechanical. Ground the prompt in real material, limit the model to that material, demand reasoning, request citations, and verify the final draft. Applied together, these steps show you exactly <strong>how to reduce AI hallucinations</strong> from a frustrating daily event to a rare, visible exception.</p>
+
+<p>You do not need to memorize a dozen frameworks to get there. One grounded prompt with a verification step outperforms a library of clever prompt templates that never include the facts. If you want the deeper mechanics, our guide on <a href="https://gamifiedlivingapps.com/blog-prompt-engineering-best-practices-2026.html">prompt engineering best practices for 2026</a> covers the underlying structure, and <a href="https://gamifiedlivingapps.com/blog-how-to-stop-getting-generic-ai-responses.html">how to stop getting generic AI responses</a> handles the cousin problem of bland, padded output.</p>
+
+<p>And when you are tired of hand-building the same scaffolding for every message, let a tool do that part. A free enhancer like <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" rel="noopener">Prompt Helper Gemini</a> turns a rough idea into a structured prompt inside your chat window, so you can spend your energy on the facts and context that actually prevent hallucinations.</p>
+
+<div class="cta">
+<strong>Try it on your next prompt:</strong> install <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" rel="noopener">Prompt Helper Gemini</a> and let it structure your rough ideas in one click. Free tier: 5 enhancements per week, works in ChatGPT, Claude, Gemini, Grok, and Perplexity.
+</div>
+
+</article>
+</main>
+<footer>
+<p>&copy; 2026 Gamified Living Apps &middot; <a href="/">Home</a> &middot; <a href="/blog.html">All blog posts</a> &middot; <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" rel="noopener">Prompt Helper Gemini on Chrome Web Store</a></p>
+<p>Sources: <a href="https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations" rel="noopener">Anthropic: Reduce hallucinations</a> &middot; <a href="https://www.ibm.com/think/topics/ai-hallucinations" rel="noopener">IBM: What are AI hallucinations?</a> &middot; <a href="https://arxiv.org/abs/2202.03629" rel="noopener">arXiv: Survey of Hallucination in Natural Language Generation</a></p>
+</footer>
+</body>
+</html>
