@@ -216,22 +216,17 @@
 </div>
 
 <script>
-// ─── Auth ───────────────────────────────────────────────────────────────────
 const HQ_PASSWORD = 'hq-solo-founder-2026';
 let sessionToken = localStorage.getItem('hq_session') || null;
 
 function attemptLogin() {
-  console.log('attemptLogin called');
   const pw = document.getElementById('login-password').value;
-  console.log('pw:', pw);
   if (pw === HQ_PASSWORD) {
-    console.log('password correct');
     sessionToken = 'local-auth';
     localStorage.setItem('hq_session', sessionToken);
     document.getElementById('login-error').style.display = 'none';
     showApp();
   } else {
-    console.log('password wrong');
     document.getElementById('login-error').style.display = 'block';
   }
 }
