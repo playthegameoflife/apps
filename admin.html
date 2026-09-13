@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HQ — Prompt Helper Gemini</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f; --surface: #13131a; --surface2: #1a1a24;
+      --border: #2a2a3a; --purple: #BF5AF2; --purple-dim: #8b3ec4;
+      --text: #e8e8f0; --text-dim: #8888a0;
+      --green: #30d158; --red: #ff453a; --yellow: #ffd60a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
+    a { color: var(--purple); text-decoration: none; }
+
+    #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .login-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 48px 40px; width: 360px; text-align: center; }
+    .login-box h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .login-box p { color: var(--text-dim); margin-bottom: 32px; font-size: 13px; }
+    .login-box input { width: 100%; padding: 12px 16px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; margin-bottom: 16px; outline: none; }
+    .login-box input:focus { border-color: var(--purple); }
+    .login-box button { width: 100%; padding: 12px; background: var(--purple); border: none; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .login-box button:hover { background: var(--purple-dim); }
+    .login-error { color: var(--red); font-size: 12px; margin-top: 12px; display: none; }
+
+    #app { display: none; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; background: var(--bg); }
+    .topbar-left { display: flex; align-items: center; gap: 24px; }
+    .topbar-logo { font-size: 16px; font-weight: 700; color: var(--purple); }
+    .topbar-logo span { color: var(--text-dim); font-weight: 400; }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .topbar-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; color: var(--text); font-size: 13px; cursor: pointer; }
+    .topbar-btn:hover { border-color: var(--purple); }
+    .topbar-btn.danger:hover { border-color: var(--red); color: var(--red); }
+
+    .tabs { display: flex; gap: 4px; padding: 0 32px; border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 57px; z-index: 99; }
+    .tab { padding: 12px 20px; cursor: pointer; color: var(--text-dim); font-size: 13px; font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
+    .tab:hover { color: var(--text); }
+    .tab.active { color: var(--purple); border-bottom-color: var(--purple); }
+    .content { padding: 32px; max-width: 1200px; margin: 0 auto; }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .stat-card .label { color: var(--text-dim); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .stat-card .value { font-size: 32px; font-weight: 700; }
+    .stat-card .sub { color: var(--text-dim); font-size: 12px; margin-top: 4px; }
+    .stat-card .value.green { color: var(--green); }
+    .stat-card .value.purple { color: var(--purple); }
+    .stat-card .value.yellow { color: var(--yellow); }
+
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .section-title { font-size: 16px; font-weight: 600; }
+    .btn { background: var(--purple); border: none; border-radius: 8px; color: #fff; padding: 8px 16px; font-size: 13px; font-weight: 500; cursor: pointer; }
+    .btn:hover { background: var(--purple-dim); }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 8px 16px; border-radius: 8px; font-size: 13px; cursor: pointer; }
+    .btn-ghost:hover { border-color: var(--purple); color: var(--purple); }
+
+    .decision-list { display: flex; flex-direction: column; gap: 12px; }
+    .decision-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
+    .decision-item-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .decision-date { color: var(--text-dim); font-size: 12px; }
+    .decision-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .tag-decision { background: #2a1a3a; color: var(--purple); }
+    .tag-feature { background: #1a3a2a; color: var(--green); }
+    .tag-bug { background: #3a1a1a; color: var(--red); }
+    .tag-growth { background: #3a2a1a; color: var(--yellow); }
+    .tag-admin { background: #1a2a3a; color: #5ac8fa; }
+    .decision-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .decision-body { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+
+    .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-height: 160px; display: flex; flex-direction: column; }
+    .note-card textarea { flex: 1; background: transparent; border: none; resize: none; color: var(--text); font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.7; outline: none; width: 100%; }
+    .note-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .note-card .note-date { color: var(--text-dim); font-size: 11px; }
+    .note-card .note-delete { color: var(--text-dim); font-size: 11px; cursor: pointer; }
+    .note-card .note-delete:hover { color: var(--red); }
+    .note-add-card { background: transparent; border: 1px dashed var(--border); border-radius: 12px; padding: 16px; display: flex; align-items: center; justify-content: center; color: var(--text-dim); font-size: 13px; cursor: pointer; min-height: 160px; }
+    .note-add-card:hover { border-color: var(--purple); color: var(--purple); }
+
+    .initiative-list { display: flex; flex-direction: column; gap: 12px; }
+    .initiative-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
+    .initiative-item-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .initiative-title { font-size: 14px; font-weight: 600; }
+    .initiative-status { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .status-active { background: #1a3a2a; color: var(--green); }
+    .status-paused { background: #3a2a1a; color: var(--yellow); }
+    .status-done { background: #2a2a3a; color: var(--text-dim); }
+    .initiative-body { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 12px; }
+    .initiative-footer { display: flex; gap: 8px; align-items: center; }
+    .initiative-footer select { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 12px; padding: 4px 8px; cursor: pointer; }
+
+    .activity-list { display: flex; flex-direction: column; gap: 8px; }
+    .activity-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--purple); margin-top: 5px; flex-shrink: 0; }
+    .activity-dot.green { background: var(--green); }
+    .activity-dot.yellow { background: var(--yellow); }
+    .activity-dot.red { background: var(--red); }
+    .activity-time { color: var(--text-dim); font-size: 11px; min-width: 60px; }
+    .activity-text { font-size: 13px; color: var(--text); flex: 1; }
+
+    .session-log-list { display: flex; flex-direction: column; gap: 8px; }
+    .session-log-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; }
+    .session-log-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .session-log-date { font-size: 12px; font-weight: 600; }
+    .session-log-summary { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+    .modal-overlay.show { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; width: 520px; max-width: 90vw; }
+    .modal h2 { font-size: 18px; margin-bottom: 20px; }
+    .modal label { display: block; font-size: 12px; color: var(--text-dim); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .modal input, .modal textarea, .modal select { width: 100%; padding: 10px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; font-family: 'Inter', sans-serif; margin-bottom: 16px; outline: none; }
+    .modal input:focus, .modal textarea:focus, .modal select:focus { border-color: var(--purple); }
+    .modal textarea { resize: vertical; min-height: 80px; }
+    .modal-actions { display: flex; gap: 12px; justify-content: flex-end; }
+
+    .refresh-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-dim); }
+    .refresh-badge.loading { color: var(--yellow); }
+    .refresh-badge.ok { color: var(--green); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner { width: 12px; height: 12px; border: 2px solid var(--border); border-top-color: var(--purple); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    .pane { display: none; }
+    .pane.active { display: block; }
+    .sub-section { margin-bottom: 40px; }
+    .empty-state { text-align: center; padding: 48px; color: var(--text-dim); font-size: 13px; }
+    .empty-state strong { display: block; font-size: 16px; color: var(--text); margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+<div id="login-screen">
+  <div class="login-box">
+    <div style="font-size:40px;margin-bottom:16px">🎯</div>
+    <h1>HQ</h1>
+    <p>Prompt Helper Gemini — Solo Founder Dashboard</p>
+    <input type="password" id="login-password" placeholder="Enter your HQ password" onkeydown="if(event.key==='Enter')attemptLogin()">
+    <button onclick="attemptLogin()">Sign In</button>
+    <div class="login-error" id="login-error">Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo">Prompt Helper Gemini <span>/ HQ</span></div>
+      <span class="refresh-badge" id="refresh-badge"><div class="spinner"></div> Loading...</span>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn" onclick="openNewSessionModal()">+ Log Session</button>
+      <button class="topbar-btn danger" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('overview')">Overview</div>
+    <div class="tab" onclick="switchTab('decisions')">Decisions</div>
+    <div class="tab" onclick="switchTab('sessions')">Sessions</div>
+    <div class="tab" onclick="switchTab('notes')">Notes</div>
+    <div class="tab" onclick="switchTab('initiatives')">Initiatives</div>
+    <div class="tab" onclick="switchTab('activity')">Activity</div>
+  </div>
+
+  <div class="content">
+
+    <div class="pane active" id="pane-overview">
+      <div class="stat-grid" id="stat-grid">
+        <div class="stat-card"><div class="label">CWS Installs</div><div class="value purple" id="stat-installs">—</div><div class="sub" id="stat-installs-sub">Loading...</div></div>
+        <div class="stat-card"><div class="label">CWS Rating</div><div class="value yellow" id="stat-rating">—</div><div class="sub" id="stat-rating-sub">Chrome Web Store</div></div>
+        <div class="stat-card"><div class="label">Premium Subs</div><div class="value green" id="stat-subs">—</div><div class="sub" id="stat-subs-sub">Loading...</div></div>
+        <div class="stat-card"><div class="label">MRR</div><div class="value" id="stat-mrr">—</div><div class="sub" id="stat-mrr-sub">Loading...</div></div>
+        <div class="stat-card"><div class="label">Decisions</div><div class="value purple" id="stat-decisions">—</div><div class="sub">total</div></div>
+        <div class="stat-card"><div class="label">Sessions</div><div class="value" id="stat-sessions">—</div><div class="sub" id="stat-sessions-sub">this week</div></div>
+      </div>
+      <div class="sub-section">
+        <div class="section-header"><div class="section-title">Recent Activity</div></div>
+        <div class="activity-list" id="activity-list-overview"></div>
+      </div>
+      <div class="sub-section">
+        <div class="section-header"><div class="section-title">Active Initiatives</div></div>
+        <div class="initiative-list" id="initiative-list-overview"></div>
+      </div>
+    </div>
+
+    <div class="pane" id="pane-decisions">
+      <div class="section-header"><div class="section-title">Decision Ledger</div><button class="btn" onclick="openNewDecisionModal()">+ Log Decision</button></div>
+      <div class="decision-list" id="decision-list"></div>
+    </div>
+
+    <div class="pane" id="pane-sessions">
+      <div class="section-header"><div class="section-title">Session Log</div><button class="btn" onclick="openNewSessionModal()">+ Log Session</button></div>
+      <div class="session-log-list" id="session-log-list"></div>
+    </div>
+
+    <div class="pane" id="pane-notes">
+      <div class="section-header"><div class="section-title">Quick Notes</div></div>
+      <div class="notes-grid" id="notes-grid"></div>
+    </div>
+
+    <div class="pane" id="pane-initiatives">
+      <div class="section-header"><div class="section-title">Initiatives</div><button class="btn" onclick="openNewInitiativeModal()">+ New Initiative</button></div>
+      <div class="initiative-list" id="initiative-list-full"></div>
+    </div>
+
+    <div class="pane" id="pane-activity">
+      <div class="section-header"><div class="section-title">Full Activity Log</div></div>
+      <div class="activity-list" id="activity-list-full"></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10/7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10/7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10/7.0/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDFc2goNz0MQS8W9LYg7DQ3pWfB-QE-qrI",
+  authDomain: "prompt-enhancer-ai.firebaseapp.com",
+  projectId: "prompt-enhancer-ai",
+  storageBucket: "prompt-enhancer-ai.firebasestorage.app",
+  messagingSenderId: "1097186279139",
+  appId: "1:1097186279139:web:4578ddc11ca5c5283f4fd6"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const HQ_PASSWORD = 'hq-solo-founder-2026';
+let sessionToken = localStorage.getItem('hq_session') || null;
+
+function attemptLogin() {
+  const pw = document.getElementById('login-password').value;
+  if (pw === HQ_PASSWORD) {
+    sessionToken = 'local-auth';
+    localStorage.setItem('hq_session', sessionToken);
+    document.getElementById('login-error').style.display = 'none';
+    showApp();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+  }
+}
+
+function logout() {
+  localStorage.removeItem('hq_session');
+  location.reload();
+}
+
+function showApp() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  loadAll();
+}
+
+if (sessionToken) showApp();
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.tab[onclick="switchTab('${name}')"]`).classList.add('active');
+  document.getElementById(`pane-${name}`).classList.add('active');
+}
+
+let decisions = [], sessions = [], initiatives = [], activities = [];
+
+async function loadAll() {
+  setRefreshStatus('loading');
+  try {
+    await Promise.all([loadDecisions(), loadSessions(), loadInitiatives(), loadActivity(), loadStats()]);
+    renderAll();
+    setRefreshStatus('ok');
+  } catch(e) { console.error(e); setRefreshStatus('error'); }
+}
+
+function setRefreshStatus(status) {
+  const badge = document.getElementById('refresh-badge');
+  if (status === 'loading') badge.innerHTML = '<div class="spinner"></div> Loading...';
+  else if (status === 'ok') badge.innerHTML = '✓ Live · Updated just now';
+  else badge.innerHTML = '⚠ Refresh failed · <a href="#" onclick="loadAll();return false">Retry</a>';
+}
+
+async function loadDecisions() {
+  const snap = await db.collection('admin').doc('decisions').collection('log').orderBy('createdAt','desc').limit(50).get();
+  decisions = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+}
+async function loadSessions() {
+  const snap = await db.collection('admin').doc('sessions').collection('log').orderBy('createdAt','desc').limit(30).get();
+  sessions = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+}
+async function loadInitiatives() {
+  const snap = await db.collection('admin').doc('initiatives').collection('items').orderBy('createdAt','desc').get();
+  initiatives = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+}
+async function loadActivity() {
+  const snap = await db.collection('admin').doc('activity').collection('log').orderBy('createdAt','desc').limit(50).get();
+  activities = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+}
+async function loadStats() {
+  try {
+    const subsSnap = await db.collection('users').where('subscriptionStatus','==','active').get();
+    const subCount = subsSnap.size;
+    document.getElementById('stat-subs').textContent = subCount;
+    document.getElementById('stat-subs-sub').textContent = 'active subscribers';
+    document.getElementById('stat-decisions').textContent = decisions.length;
+    const oneWeekAgo = new Date(Date.now() - 7*24*60*60*1000);
+    const weekSessions = sessions.filter(s => s.createdAt?.toDate?.() > oneWeekAgo);
+    document.getElementById('stat-sessions').textContent = weekSessions.length;
+    document.getElementById('stat-installs').textContent = '~464';
+    document.getElementById('stat-installs-sub').textContent = 'CWS Sep 2026 est.';
+    document.getElementById('stat-rating').textContent = '3.9 ★';
+    const mrr = subCount * 9.99;
+    document.getElementById('stat-mrr').textContent = mrr > 0 ? '$'+mrr.toFixed(0) : '—';
+    document.getElementById('stat-mrr-sub').textContent = subCount > 0 ? 'monthly recurring revenue' : 'no active subs detected';
+  } catch(e) { console.error(e); }
+}
+
+function renderAll() {
+  renderActivityOverview();
+  renderInitiativesOverview();
+  renderDecisions();
+  renderSessions();
+  renderNotes();
+  renderInitiativesFull();
+  renderActivityFull();
+}
+
+function renderActivityOverview() {
+  const el = document.getElementById('activity-list-overview');
+  const items = activities.slice(0, 8);
+  if (!items.length) { el.innerHTML = '<div class="empty-state"><strong>No activity yet</strong>Start a session and I\'ll log it here automatically.</div>'; return; }
+  el.innerHTML = items.map(a => `<div class="activity-item"><div class="activity-dot ${a.dotColor||''}"></div><div class="activity-time">${a.createdAt?new Date(a.createdAt.seconds*1000).toLocaleDateString():'—'}</div><div class="activity-text">${escHtml(a.text||'')}</div></div>`).join('');
+}
+function renderInitiativesOverview() {
+  const el = document.getElementById('initiative-list-overview');
+  const active = initiatives.filter(i => i.status==='active').slice(0,3);
+  if (!active.length) { el.innerHTML = '<div class="empty-state"><strong>No active initiatives</strong><a href="#" onclick="switchTab(\'initiatives\');return false">Add one →</a></div>'; return; }
+  el.innerHTML = active.map(i => `<div class="initiative-item"><div class="initiative-item-header"><div class="initiative-title">${escHtml(i.title||'')}</div><div class="initiative-status status-active">active</div></div><div class="initiative-body">${escHtml(i.body||'')}</div></div>`).join('');
+}
+function renderDecisions() {
+  const el = document.getElementById('decision-list');
+  if (!decisions.length) { el.innerHTML = '<div class="empty-state"><strong>No decisions logged yet</strong>Click "+ Log Decision" and I\'ll add them as we work.</div>'; return; }
+  el.innerHTML = decisions.map(d => `<div class="decision-item"><div class="decision-item-header"><div class="decision-date">${d.createdAt?new Date(d.createdAt.seconds*1000).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—'}</div><div class="decision-tag tag-${d.tag||'decision'}">${d.tag||'decision'}</div></div><div class="decision-title">${escHtml(d.title||'')}</div><div class="decision-body">${escHtml(d.body||'')}</div></div>`).join('');
+}
+function renderSessions() {
+  const el = document.getElementById('session-log-list');
+  if (!sessions.length) { el.innerHTML = '<div class="empty-state"><strong>No sessions logged yet</strong>These appear automatically after our conversations.</div>'; return; }
+  el.innerHTML = sessions.map(s => `<div class="session-log-item"><div class="session-log-header"><div class="session-log-date">${s.createdAt?new Date(s.createdAt.seconds*1000).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}):'—'}</div></div><div class="session-log-summary">${escHtml(s.summary||'')}</div></div>`).join('');
+}
+function renderNotes() {
+  const el = document.getElementById('notes-grid');
+  const savedNotes = JSON.parse(localStorage.getItem('hq_notes')||'[]');
+  let html = savedNotes.map((n,i) => `<div class="note-card"><textarea placeholder="Write a note..." onchange="saveNote(${i},this.value)">${escHtml(n.text||'')}</textarea><div class="note-card-footer"><div class="note-date">${n.date||'—'}</div><div class="note-delete" onclick="deleteNote(${i})">Delete</div></div></div>`).join('');
+  html += `<div class="note-add-card" onclick="addNote()">+ Add note</div>`;
+  el.innerHTML = html;
+}
+function renderInitiativesFull() {
+  const el = document.getElementById('initiative-list-full');
+  if (!initiatives.length) { el.innerHTML = '<div class="empty-state"><strong>No initiatives yet</strong>Add the 2-3 things you\'re working on right now.</div>'; return; }
+  el.innerHTML = initiatives.map(i => `<div class="initiative-item"><div class="initiative-item-header"><div class="initiative-title">${escHtml(i.title||'')}</div><div class="initiative-status status-${i.status||'active'}">${i.status||'active'}</div></div><div class="initiative-body">${escHtml(i.body||'')}</div><div class="initiative-footer"><select onchange="updateInitiativeStatus('${i.id}',this.value)"><option value="active" ${i.status==='active'?'selected':''}>Active</option><option value="paused" ${i.status==='paused'?'selected':''}>Paused</option><option value="done" ${i.status==='done'?'selected':''}>Done</option></select></div></div>`).join('');
+}
+function renderActivityFull() {
+  const el = document.getElementById('activity-list-full');
+  if (!activities.length) { el.innerHTML = '<div class="empty-state"><strong>No activity yet</strong></div>'; return; }
+  el.innerHTML = activities.map(a => `<div class="activity-item"><div class="activity-dot ${a.dotColor||''}"></div><div class="activity-time">${a.createdAt?new Date(a.createdAt.seconds*1000).toLocaleDateString():'—'}</div><div class="activity-text">${escHtml(a.text||'')}</div></div>`).join('');
+}
+
+function addNote() { const notes = JSON.parse(localStorage.getItem('hq_notes')||'[]'); notes.unshift({text:'',date:new Date().toLocaleDateString()}); localStorage.setItem('hq_notes',JSON.stringify(notes)); renderNotes(); }
+function saveNote(index,text) { const notes = JSON.parse(localStorage.getItem('hq_notes')||'[]'); notes[index].text=text; localStorage.setItem('hq_notes',JSON.stringify(notes)); }
+function deleteNote(index) { const notes = JSON.parse(localStorage.getItem('hq_notes')||'[]'); notes.splice(index,1); localStorage.setItem('hq_notes',JSON.stringify(notes)); renderNotes(); }
+
+async function logDecision(title,body,tag) {
+  await db.collection('admin').doc('decisions').collection('log').add({title,body,tag:tag||'decision',createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+  await logActivity(`Decision logged: "${title}"`,'purple');
+  loadAll();
+}
+async function logSession(summary) {
+  await db.collection('admin').doc('sessions').collection('log').add({summary,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+  await logActivity(`Session logged`,'green');
+  loadAll();
+}
+async function createInitiative(title,body) {
+  await db.collection('admin').doc('initiatives').collection('items').add({title,body,status:'active',createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+  await logActivity(`New initiative: "${title}"`,'yellow');
+  loadAll();
+}
+async function updateInitiativeStatus(id,status) {
+  await db.collection('admin').doc('initiatives').collection('items').doc(id).update({status});
+  loadAll();
+}
+async function logActivity(text,dotColor) {
+  await db.collection('admin').doc('activity').collection('log').add({text,dotColor,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+}
+
+function openModal(html) { document.getElementById('modal-content').innerHTML=html; document.getElementById('modal-overlay').classList.add('show'); }
+function closeModal() { document.getElementById('modal-overlay').classList.remove('show'); }
+function openNewDecisionModal() {
+  openModal(`<h2>Log a Decision</h2><label>Title</label><input id="modal-title" placeholder="What was decided?"><label>Details</label><textarea id="modal-body" placeholder="Why, context, alternatives considered..."></textarea><label>Tag</label><select id="modal-tag"><option value="decision">Decision</option><option value="feature">Feature</option><option value="bug">Bug</option><option value="growth">Growth</option><option value="admin">Admin</option></select><div class="modal-actions"><button class="btn-ghost" onclick="closeModal()">Cancel</button><button class="btn" onclick="submitDecision()">Save</button></div>`);
+}
+async function submitDecision() { const t=document.getElementById('modal-title').value.trim(),b=document.getElementById('modal-body').value.trim(),g=document.getElementById('modal-tag').value; if(!t)return; await logDecision(t,b,g); closeModal(); }
+function openNewSessionModal() { openModal(`<h2>Log a Session</h2><label>Summary</label><textarea id="modal-summary" placeholder="What did we work on? What was decided?" style="min-height:120px"></textarea><div class="modal-actions"><button class="btn-ghost" onclick="closeModal()">Cancel</button><button class="btn" onclick="submitSession()">Save</button></div>`); }
+async function submitSession() { const s=document.getElementById('modal-summary').value.trim(); if(!s)return; await logSession(s); closeModal(); }
+function openNewInitiativeModal() { openModal(`<h2>New Initiative</h2><label>Title</label><input id="modal-initiative-title" placeholder="e.g. Increase CWS rating to 4.5★"><label>Description</label><textarea id="modal-initiative-body" placeholder="What needs to happen and why does it matter?"></textarea><div class="modal-actions"><button class="btn-ghost" onclick="closeModal()">Cancel</button><button class="btn" onclick="submitInitiative()">Create</button></div>`); }
+async function submitInitiative() { const t=document.getElementById('modal-initiative-title').value.trim(),b=document.getElementById('modal-initiative-body').value.trim(); if(!t)return; await createInitiative(t,b); closeModal(); }
+document.getElementById('modal-overlay').addEventListener('click',e => { if(e.target.id==='modal-overlay')closeModal(); });
+function escHtml(str) { return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+</script>
+</body>
+</html>
