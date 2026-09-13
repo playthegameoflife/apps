@@ -135,8 +135,8 @@
     <div style="font-size:40px;margin-bottom:16px">🎯</div>
     <h1>HQ</h1>
     <p>Prompt Helper Gemini — Solo Founder Dashboard</p>
-    <input type="password" id="login-password" placeholder="Enter your HQ password" onkeydown="if(event.key==='Enter')attemptLogin()">
-    <button onclick="attemptLogin()">Sign In</button>
+    <input type="password" id="login-password" placeholder="Enter your HQ password">
+    <button id="login-btn">Sign In</button>
     <div class="login-error" id="login-error">Incorrect password. Try again.</div>
   </div>
 </div>
@@ -232,10 +232,8 @@ function attemptLogin() {
 }
 
 function showApp() {
-  console.log('showApp called');
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
-  console.log('app display set to block');
   loadAll();
 }
 
@@ -244,7 +242,13 @@ function logout() {
   location.reload();
 }
 
-if (sessionToken) { console.log('auto-showApp'); showApp(); }
+if (sessionToken) { showApp(); }
+
+// Wire login button (after DOM + const HQ_PASSWORD are ready)
+document.getElementById('login-btn').addEventListener('click', attemptLogin);
+document.getElementById('login-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') attemptLogin();
+});
 
 // ─── Data Store (localStorage) ───────────────────────────────────────────────
 const STORE_KEYS = {
