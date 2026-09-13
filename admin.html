@@ -221,15 +221,27 @@ const HQ_PASSWORD = 'hq-solo-founder-2026';
 let sessionToken = localStorage.getItem('hq_session') || null;
 
 function attemptLogin() {
+  console.log('attemptLogin called');
   const pw = document.getElementById('login-password').value;
+  console.log('pw:', pw);
   if (pw === HQ_PASSWORD) {
+    console.log('password correct');
     sessionToken = 'local-auth';
     localStorage.setItem('hq_session', sessionToken);
     document.getElementById('login-error').style.display = 'none';
     showApp();
   } else {
+    console.log('password wrong');
     document.getElementById('login-error').style.display = 'block';
   }
+}
+
+function showApp() {
+  console.log('showApp called');
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  console.log('app display set to block');
+  loadAll();
 }
 
 function logout() {
@@ -237,13 +249,7 @@ function logout() {
   location.reload();
 }
 
-function showApp() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  loadAll();
-}
-
-if (sessionToken) showApp();
+if (sessionToken) { console.log('auto-showApp'); showApp(); }
 
 // ─── Data Store (localStorage) ───────────────────────────────────────────────
 const STORE_KEYS = {
