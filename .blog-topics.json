@@ -3,95 +3,369 @@
   "_updated": "2026-09-14",
   "_note": "Seeded from 105 existing blog posts on gamifiedlivingapps.com. primary_keyword is the normalized topic. The cron also covers MyCombat + Postiz, so this tracker is shared across those too.",
   "used": [
-    {"slug": "blog-ai-prompt-examples-2026", "primary_keyword": "AI prompt examples"},
-    {"slug": "blog-ai-prompt-framework-2026-20261919", "primary_keyword": "AI prompt framework"},
-    {"slug": "blog-ai-prompt-specificity-framework-2026", "primary_keyword": "AI prompt specificity framework"},
-    {"slug": "blog-ai-prompt-tips-productivity-2026-20260802", "primary_keyword": "AI prompt tips productivity"},
-    {"slug": "blog-ai-video-prompt-creator-extension-20261601", "primary_keyword": "AI video prompt creator extension"},
-    {"slug": "blog-ai-writing-assistant-brand-voice-20262716", "primary_keyword": "AI writing assistant brand voice"},
-    {"slug": "blog-automate-ai-prompt-enhancement-20261530", "primary_keyword": "automate AI prompt enhancement"},
-    {"slug": "blog-best-ai-prompt-generator-chrome-extension-20262726", "primary_keyword": "AI prompt generator Chrome extension"},
-    {"slug": "blog-best-ai-prompt-generator-tools-2026", "primary_keyword": "AI prompt generator tools"},
-    {"slug": "blog-best-paid-ai-prompt-tool-creators-20261603", "primary_keyword": "paid AI prompt tool creators"},
-    {"slug": "blog-brand-voice-ai-prompt-generator-20261416", "primary_keyword": "brand voice AI prompt generator"},
-    {"slug": "blog-chain-of-thought-prompting-2026", "primary_keyword": "chain of thought prompting"},
-    {"slug": "blog-chatgpt-premium-prompt-templates-20261916", "primary_keyword": "ChatGPT premium prompt templates"},
-    {"slug": "blog-chatgpt-prompt-helper-beginners-20261422", "primary_keyword": "ChatGPT prompt helper beginners"},
-    {"slug": "blog-chatgpt-prompt-mistakes-to-avoid", "primary_keyword": "ChatGPT prompt mistakes"},
-    {"slug": "blog-chatgpt-prompts-for-students", "primary_keyword": "ChatGPT prompts for students"},
-    {"slug": "blog-chatgpt-prompts-for-teachers", "primary_keyword": "ChatGPT prompts for teachers"},
-    {"slug": "blog-chatgpt-prompts-social-media-marketing", "primary_keyword": "ChatGPT prompts social media marketing"},
-    {"slug": "blog-claude-ai-prompt-tips-2026", "primary_keyword": "Claude AI prompt tips"},
-    {"slug": "blog-claude-prompt-enhancement-tool-20261730", "primary_keyword": "Claude prompt enhancement tool"},
-    {"slug": "blog-claude-prompts-20260513", "primary_keyword": "Claude prompts"},
-    {"slug": "blog-code-prompt-generator-developers-20261431", "primary_keyword": "code prompt generator developers"},
-    {"slug": "blog-code-prompts-ai-20260514", "primary_keyword": "code prompts AI"},
-    {"slug": "blog-context-engineering-2026", "primary_keyword": "context engineering"},
-    {"slug": "blog-cross-platform-ai-prompt-assistant-20261606", "primary_keyword": "cross platform AI prompt assistant"},
-    {"slug": "blog-custom-prompt-writing-brand-consistency-20261609", "primary_keyword": "custom prompt writing brand consistency"},
-    {"slug": "blog-easy-ai-prompt-generator-beginners-20262516", "primary_keyword": "AI prompt generator beginners"},
-    {"slug": "blog-enhance-code-prompts-ai-20261602", "primary_keyword": "enhance code prompts AI"},
-    {"slug": "blog-enhance-image-prompts-ai-art-20261517", "primary_keyword": "enhance image prompts AI art"},
-    {"slug": "blog-enhance-text-prompts-ai-20261525", "primary_keyword": "enhance text prompts AI"},
-    {"slug": "blog-fast-ai-prompt-builder-chrome-extension-20261611", "primary_keyword": "AI prompt builder Chrome extension"},
-    {"slug": "blog-few-shot-prompting-examples", "primary_keyword": "few shot prompting examples"},
-    {"slug": "blog-gemini-prompt-tips-2026", "primary_keyword": "Gemini prompt tips"},
-    {"slug": "blog-how-long-should-a-chatgpt-prompt-be", "primary_keyword": "how long should a ChatGPT prompt be"},
-    {"slug": "blog-how-to-improve-chatgpt-prompts", "primary_keyword": "how to improve ChatGPT prompts"},
-    {"slug": "blog-how-to-reduce-ai-hallucinations", "primary_keyword": "reduce AI hallucinations"},
-    {"slug": "blog-how-to-stop-getting-generic-ai-responses", "primary_keyword": "stop getting generic AI responses"},
-    {"slug": "blog-how-to-structure-ai-prompts", "primary_keyword": "how to structure AI prompts"},
-    {"slug": "blog-how-to-write-better-ai-prompts-20260722", "primary_keyword": "how to write better AI prompts"},
-    {"slug": "blog-how-to-write-better-grok-prompts", "primary_keyword": "how to write better Grok prompts"},
-    {"slug": "blog-how-to-write-midjourney-prompts-2026", "primary_keyword": "how to write Midjourney prompts"},
-    {"slug": "blog-multi-ai-prompt-generator-power-users-20261514", "primary_keyword": "multi AI prompt generator power users"},
-    {"slug": "blog-one-click-ai-prompt-generator-20261510", "primary_keyword": "one click AI prompt generator"},
-    {"slug": "blog-one-click-prompt-enhancement-ai-chat-20261612", "primary_keyword": "one click prompt enhancement AI chat"},
-    {"slug": "blog-phg-seo-blog-2026-07-13", "primary_keyword": "improve ChatGPT prompts techniques"},
-    {"slug": "blog-precision-prompting-framework-2026", "primary_keyword": "precision prompting framework"},
-    {"slug": "blog-prompt-builder-ai-power-users-20262127", "primary_keyword": "prompt builder AI power users"},
-    {"slug": "blog-prompt-chaining-guide", "primary_keyword": "prompt chaining"},
-    {"slug": "blog-prompt-engineering-best-practices-2026", "primary_keyword": "prompt engineering best practices"},
-    {"slug": "blog-prompt-engineering-techniques-2026", "primary_keyword": "prompt engineering techniques"},
-    {"slug": "blog-prompt-enhancement-software-context-20261604", "primary_keyword": "prompt enhancement software context"},
-    {"slug": "blog-prompt-fatigue-how-to-fix", "primary_keyword": "prompt fatigue"},
-    {"slug": "blog-prompt-optimizer-predictable-results-20261731", "primary_keyword": "prompt optimizer predictable results"},
-    {"slug": "blog-role-prompting-examples", "primary_keyword": "role prompting examples"},
-    {"slug": "blog-stable-diffusion-prompt-generator-professional-20261523", "primary_keyword": "stable diffusion prompt generator"},
-    {"slug": "blog-stop-ai-generic-responses-precision-prompting-2026", "primary_keyword": "AI generic answers precision prompting"},
-    {"slug": "blog-stop-ai-generic-responses-specificity-framework", "primary_keyword": "generic AI responses specificity framework"},
-    {"slug": "blog-stop-generic-ai-negative-constraints-2026", "primary_keyword": "generic AI responses negative constraints"},
-    {"slug": "blog-what-is-prompt-engineering", "primary_keyword": "what is prompt engineering"},
-    {"slug": "blog-why-ai-gives-generic-answers", "primary_keyword": "why AI gives generic answers"},
-    {"slug": "blog-write-professional-prompts-ai-20261607", "primary_keyword": "write professional prompts AI"},
-    {"slug": "blog-HIIT-timer-martial-arts-training-20262107", "primary_keyword": "HIIT timer martial arts"},
-    {"slug": "blog-MMA-striking-drills-apartment-20262108", "primary_keyword": "MMA striking drills apartment"},
-    {"slug": "blog-best-boxing-timer-apps-2025-20262010", "primary_keyword": "boxing timer apps"},
-    {"slug": "blog-best-solo-boxing-training-apps-compared-20261422", "primary_keyword": "solo boxing training apps"},
-    {"slug": "blog-boxing-timer-with-rounds-setup-20260513", "primary_keyword": "boxing timer with rounds setup"},
-    {"slug": "blog-define-own-combat-style-mycombat-20262716", "primary_keyword": "define own combat style mycombat"},
-    {"slug": "blog-fight-combination-generator-MMA-20260514", "primary_keyword": "fight combination generator MMA"},
-    {"slug": "blog-focus-mitt-solo-training-app-20262104", "primary_keyword": "focus mitt solo training app"},
-    {"slug": "blog-free-boxing-workout-app-20262627", "primary_keyword": "free boxing workout app"},
-    {"slug": "blog-free-shadow-boxing-timer-app-20262111", "primary_keyword": "free shadow boxing timer app"},
-    {"slug": "blog-judo-throw-solo-training-20262017", "primary_keyword": "judo throw solo training"},
-    {"slug": "blog-kickboxing-combination-drills-home-20262102", "primary_keyword": "kickboxing combination drills home"},
-    {"slug": "blog-maintain-training-intensity-solo-fighter-20262007", "primary_keyword": "maintain training intensity solo fighter"},
-    {"slug": "blog-mycombat-dark-mode-night-training-20262106", "primary_keyword": "mycombat dark mode night training"},
-    {"slug": "blog-mycombat-drag-drop-style-organizer-20261416", "primary_keyword": "mycombat drag drop style organizer"},
-    {"slug": "blog-mycombat-favorites-training-speed-20262103", "primary_keyword": "mycombat favorites training speed"},
-    {"slug": "blog-mycombat-random-combo-mode-20262030", "primary_keyword": "mycombat random combo mode"},
-    {"slug": "blog-mycombat-vs-real-pad-work-20262014", "primary_keyword": "mycombat vs real pad work"},
-    {"slug": "blog-personal-combo-arsenal-mycombat-20262023", "primary_keyword": "personal combo arsenal mycombat"},
-    {"slug": "blog-shadow-boxing-muay-thai-kicks-20262025", "primary_keyword": "shadow boxing muay thai kicks"},
-    {"slug": "blog-solo-martial-arts-training-home-20262101", "primary_keyword": "solo martial arts training home"},
-    {"slug": "blog-voice-guided-combat-training-20262109", "primary_keyword": "voice guided combat training"},
-    {"slug": "blog-voice-guided-workout-partner-20261930", "primary_keyword": "voice guided workout partner"},
-    {"slug": "blog-postiz-agency-client-management-2026", "primary_keyword": "Postiz agency client management"},
-    {"slug": "blog-postiz-ai-automation-workflow-2026", "primary_keyword": "Postiz AI automation workflow"},
-    {"slug": "blog-postiz-api-automation-2026", "primary_keyword": "Postiz API automation"},
-    {"slug": "blog-postiz-open-source-social-media-scheduler-postiz-guide", "primary_keyword": "Postiz open source social media scheduler"},
-    {"slug": "blog-postiz-self-host-docker-2026", "primary_keyword": "Postiz self host Docker"},
-    {"slug": "blog-postiz-vs-buffer-2026", "primary_keyword": "Postiz vs Buffer"}
+    {
+      "slug": "blog-ai-prompt-examples-2026",
+      "primary_keyword": "AI prompt examples"
+    },
+    {
+      "slug": "blog-ai-prompt-framework-2026-20261919",
+      "primary_keyword": "AI prompt framework"
+    },
+    {
+      "slug": "blog-ai-prompt-specificity-framework-2026",
+      "primary_keyword": "AI prompt specificity framework"
+    },
+    {
+      "slug": "blog-ai-prompt-tips-productivity-2026-20260802",
+      "primary_keyword": "AI prompt tips productivity"
+    },
+    {
+      "slug": "blog-ai-video-prompt-creator-extension-20261601",
+      "primary_keyword": "AI video prompt creator extension"
+    },
+    {
+      "slug": "blog-ai-writing-assistant-brand-voice-20262716",
+      "primary_keyword": "AI writing assistant brand voice"
+    },
+    {
+      "slug": "blog-automate-ai-prompt-enhancement-20261530",
+      "primary_keyword": "automate AI prompt enhancement"
+    },
+    {
+      "slug": "blog-best-ai-prompt-generator-chrome-extension-20262726",
+      "primary_keyword": "AI prompt generator Chrome extension"
+    },
+    {
+      "slug": "blog-best-ai-prompt-generator-tools-2026",
+      "primary_keyword": "AI prompt generator tools"
+    },
+    {
+      "slug": "blog-best-paid-ai-prompt-tool-creators-20261603",
+      "primary_keyword": "paid AI prompt tool creators"
+    },
+    {
+      "slug": "blog-brand-voice-ai-prompt-generator-20261416",
+      "primary_keyword": "brand voice AI prompt generator"
+    },
+    {
+      "slug": "blog-chain-of-thought-prompting-2026",
+      "primary_keyword": "chain of thought prompting"
+    },
+    {
+      "slug": "blog-chatgpt-premium-prompt-templates-20261916",
+      "primary_keyword": "ChatGPT premium prompt templates"
+    },
+    {
+      "slug": "blog-chatgpt-prompt-helper-beginners-20261422",
+      "primary_keyword": "ChatGPT prompt helper beginners"
+    },
+    {
+      "slug": "blog-chatgpt-prompt-mistakes-to-avoid",
+      "primary_keyword": "ChatGPT prompt mistakes"
+    },
+    {
+      "slug": "blog-chatgpt-prompts-for-students",
+      "primary_keyword": "ChatGPT prompts for students"
+    },
+    {
+      "slug": "blog-chatgpt-prompts-for-teachers",
+      "primary_keyword": "ChatGPT prompts for teachers"
+    },
+    {
+      "slug": "blog-chatgpt-prompts-social-media-marketing",
+      "primary_keyword": "ChatGPT prompts social media marketing"
+    },
+    {
+      "slug": "blog-claude-ai-prompt-tips-2026",
+      "primary_keyword": "Claude AI prompt tips"
+    },
+    {
+      "slug": "blog-claude-prompt-enhancement-tool-20261730",
+      "primary_keyword": "Claude prompt enhancement tool"
+    },
+    {
+      "slug": "blog-claude-prompts-20260513",
+      "primary_keyword": "Claude prompts"
+    },
+    {
+      "slug": "blog-code-prompt-generator-developers-20261431",
+      "primary_keyword": "code prompt generator developers"
+    },
+    {
+      "slug": "blog-code-prompts-ai-20260514",
+      "primary_keyword": "code prompts AI"
+    },
+    {
+      "slug": "blog-context-engineering-2026",
+      "primary_keyword": "context engineering"
+    },
+    {
+      "slug": "blog-cross-platform-ai-prompt-assistant-20261606",
+      "primary_keyword": "cross platform AI prompt assistant"
+    },
+    {
+      "slug": "blog-custom-prompt-writing-brand-consistency-20261609",
+      "primary_keyword": "custom prompt writing brand consistency"
+    },
+    {
+      "slug": "blog-easy-ai-prompt-generator-beginners-20262516",
+      "primary_keyword": "AI prompt generator beginners"
+    },
+    {
+      "slug": "blog-enhance-code-prompts-ai-20261602",
+      "primary_keyword": "enhance code prompts AI"
+    },
+    {
+      "slug": "blog-enhance-image-prompts-ai-art-20261517",
+      "primary_keyword": "enhance image prompts AI art"
+    },
+    {
+      "slug": "blog-enhance-text-prompts-ai-20261525",
+      "primary_keyword": "enhance text prompts AI"
+    },
+    {
+      "slug": "blog-fast-ai-prompt-builder-chrome-extension-20261611",
+      "primary_keyword": "AI prompt builder Chrome extension"
+    },
+    {
+      "slug": "blog-few-shot-prompting-examples",
+      "primary_keyword": "few shot prompting examples"
+    },
+    {
+      "slug": "blog-gemini-prompt-tips-2026",
+      "primary_keyword": "Gemini prompt tips"
+    },
+    {
+      "slug": "blog-how-long-should-a-chatgpt-prompt-be",
+      "primary_keyword": "how long should a ChatGPT prompt be"
+    },
+    {
+      "slug": "blog-how-to-improve-chatgpt-prompts",
+      "primary_keyword": "how to improve ChatGPT prompts"
+    },
+    {
+      "slug": "blog-how-to-reduce-ai-hallucinations",
+      "primary_keyword": "reduce AI hallucinations"
+    },
+    {
+      "slug": "blog-how-to-stop-getting-generic-ai-responses",
+      "primary_keyword": "stop getting generic AI responses"
+    },
+    {
+      "slug": "blog-how-to-structure-ai-prompts",
+      "primary_keyword": "how to structure AI prompts"
+    },
+    {
+      "slug": "blog-how-to-write-better-ai-prompts-20260722",
+      "primary_keyword": "how to write better AI prompts"
+    },
+    {
+      "slug": "blog-how-to-write-better-grok-prompts",
+      "primary_keyword": "how to write better Grok prompts"
+    },
+    {
+      "slug": "blog-how-to-write-midjourney-prompts-2026",
+      "primary_keyword": "how to write Midjourney prompts"
+    },
+    {
+      "slug": "blog-multi-ai-prompt-generator-power-users-20261514",
+      "primary_keyword": "multi AI prompt generator power users"
+    },
+    {
+      "slug": "blog-one-click-ai-prompt-generator-20261510",
+      "primary_keyword": "one click AI prompt generator"
+    },
+    {
+      "slug": "blog-one-click-prompt-enhancement-ai-chat-20261612",
+      "primary_keyword": "one click prompt enhancement AI chat"
+    },
+    {
+      "slug": "blog-phg-seo-blog-2026-07-13",
+      "primary_keyword": "improve ChatGPT prompts techniques"
+    },
+    {
+      "slug": "blog-precision-prompting-framework-2026",
+      "primary_keyword": "precision prompting framework"
+    },
+    {
+      "slug": "blog-prompt-builder-ai-power-users-20262127",
+      "primary_keyword": "prompt builder AI power users"
+    },
+    {
+      "slug": "blog-prompt-chaining-guide",
+      "primary_keyword": "prompt chaining"
+    },
+    {
+      "slug": "blog-prompt-engineering-best-practices-2026",
+      "primary_keyword": "prompt engineering best practices"
+    },
+    {
+      "slug": "blog-prompt-engineering-techniques-2026",
+      "primary_keyword": "prompt engineering techniques"
+    },
+    {
+      "slug": "blog-prompt-enhancement-software-context-20261604",
+      "primary_keyword": "prompt enhancement software context"
+    },
+    {
+      "slug": "blog-prompt-fatigue-how-to-fix",
+      "primary_keyword": "prompt fatigue"
+    },
+    {
+      "slug": "blog-prompt-optimizer-predictable-results-20261731",
+      "primary_keyword": "prompt optimizer predictable results"
+    },
+    {
+      "slug": "blog-role-prompting-examples",
+      "primary_keyword": "role prompting examples"
+    },
+    {
+      "slug": "blog-stable-diffusion-prompt-generator-professional-20261523",
+      "primary_keyword": "stable diffusion prompt generator"
+    },
+    {
+      "slug": "blog-stop-ai-generic-responses-precision-prompting-2026",
+      "primary_keyword": "AI generic answers precision prompting"
+    },
+    {
+      "slug": "blog-stop-ai-generic-responses-specificity-framework",
+      "primary_keyword": "generic AI responses specificity framework"
+    },
+    {
+      "slug": "blog-stop-generic-ai-negative-constraints-2026",
+      "primary_keyword": "generic AI responses negative constraints"
+    },
+    {
+      "slug": "blog-what-is-prompt-engineering",
+      "primary_keyword": "what is prompt engineering"
+    },
+    {
+      "slug": "blog-why-ai-gives-generic-answers",
+      "primary_keyword": "why AI gives generic answers"
+    },
+    {
+      "slug": "blog-write-professional-prompts-ai-20261607",
+      "primary_keyword": "write professional prompts AI"
+    },
+    {
+      "slug": "blog-HIIT-timer-martial-arts-training-20262107",
+      "primary_keyword": "HIIT timer martial arts"
+    },
+    {
+      "slug": "blog-MMA-striking-drills-apartment-20262108",
+      "primary_keyword": "MMA striking drills apartment"
+    },
+    {
+      "slug": "blog-best-boxing-timer-apps-2025-20262010",
+      "primary_keyword": "boxing timer apps"
+    },
+    {
+      "slug": "blog-best-solo-boxing-training-apps-compared-20261422",
+      "primary_keyword": "solo boxing training apps"
+    },
+    {
+      "slug": "blog-boxing-timer-with-rounds-setup-20260513",
+      "primary_keyword": "boxing timer with rounds setup"
+    },
+    {
+      "slug": "blog-define-own-combat-style-mycombat-20262716",
+      "primary_keyword": "define own combat style mycombat"
+    },
+    {
+      "slug": "blog-fight-combination-generator-MMA-20260514",
+      "primary_keyword": "fight combination generator MMA"
+    },
+    {
+      "slug": "blog-focus-mitt-solo-training-app-20262104",
+      "primary_keyword": "focus mitt solo training app"
+    },
+    {
+      "slug": "blog-free-boxing-workout-app-20262627",
+      "primary_keyword": "free boxing workout app"
+    },
+    {
+      "slug": "blog-free-shadow-boxing-timer-app-20262111",
+      "primary_keyword": "free shadow boxing timer app"
+    },
+    {
+      "slug": "blog-judo-throw-solo-training-20262017",
+      "primary_keyword": "judo throw solo training"
+    },
+    {
+      "slug": "blog-kickboxing-combination-drills-home-20262102",
+      "primary_keyword": "kickboxing combination drills home"
+    },
+    {
+      "slug": "blog-maintain-training-intensity-solo-fighter-20262007",
+      "primary_keyword": "maintain training intensity solo fighter"
+    },
+    {
+      "slug": "blog-mycombat-dark-mode-night-training-20262106",
+      "primary_keyword": "mycombat dark mode night training"
+    },
+    {
+      "slug": "blog-mycombat-drag-drop-style-organizer-20261416",
+      "primary_keyword": "mycombat drag drop style organizer"
+    },
+    {
+      "slug": "blog-mycombat-favorites-training-speed-20262103",
+      "primary_keyword": "mycombat favorites training speed"
+    },
+    {
+      "slug": "blog-mycombat-random-combo-mode-20262030",
+      "primary_keyword": "mycombat random combo mode"
+    },
+    {
+      "slug": "blog-mycombat-vs-real-pad-work-20262014",
+      "primary_keyword": "mycombat vs real pad work"
+    },
+    {
+      "slug": "blog-personal-combo-arsenal-mycombat-20262023",
+      "primary_keyword": "personal combo arsenal mycombat"
+    },
+    {
+      "slug": "blog-shadow-boxing-muay-thai-kicks-20262025",
+      "primary_keyword": "shadow boxing muay thai kicks"
+    },
+    {
+      "slug": "blog-solo-martial-arts-training-home-20262101",
+      "primary_keyword": "solo martial arts training home"
+    },
+    {
+      "slug": "blog-voice-guided-combat-training-20262109",
+      "primary_keyword": "voice guided combat training"
+    },
+    {
+      "slug": "blog-voice-guided-workout-partner-20261930",
+      "primary_keyword": "voice guided workout partner"
+    },
+    {
+      "slug": "blog-postiz-agency-client-management-2026",
+      "primary_keyword": "Postiz agency client management"
+    },
+    {
+      "slug": "blog-postiz-ai-automation-workflow-2026",
+      "primary_keyword": "Postiz AI automation workflow"
+    },
+    {
+      "slug": "blog-postiz-api-automation-2026",
+      "primary_keyword": "Postiz API automation"
+    },
+    {
+      "slug": "blog-postiz-open-source-social-media-scheduler-postiz-guide",
+      "primary_keyword": "Postiz open source social media scheduler"
+    },
+    {
+      "slug": "blog-postiz-self-host-docker-2026",
+      "primary_keyword": "Postiz self host Docker"
+    },
+    {
+      "slug": "blog-postiz-vs-buffer-2026",
+      "primary_keyword": "Postiz vs Buffer"
+    },
+    {
+      "slug": "blog-system-prompts-ai-chatbots-2026",
+      "primary_keyword": "AI system prompts"
+    }
   ]
 }
