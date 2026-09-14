@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Postiz API & Automation: Connect Any Tool to Your Social Media Queue</title>
+  <meta name="description" content="Unlock Postiz API and webhook automation. Connect n8n, Zapier, or your own code to schedule posts across 15+ platforms. Free trial inside.">
+  <link rel="canonical" href="https://gamifiedlivingapps.com/blog-postiz-api-automation-2026.html">
+  <meta property="og:title" content="Postiz API & Automation: Connect Any Tool to Your Social Media Queue">
+  <meta property="og:description" content="Unlock Postiz API and webhook automation. Connect n8n, Zapier, or your own code to schedule posts across 15+ platforms. Free trial inside.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://gamifiedlivingapps.com/blog-postiz-api-automation-2026.html">
+  <meta property="og:site_name" content="Gamified Living Apps">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Postiz API & Automation: Connect Any Tool to Your Social Media Queue">
+  <meta name="twitter:description" content="Unlock Postiz API and webhook automation. Connect n8n, Zapier, or your own code to schedule posts across 15+ platforms.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Postiz API & Automation: Connect Any Tool to Your Social Media Queue",
+        "description": "Unlock Postiz API and webhook automation. Connect n8n, Zapier, or your own code to schedule posts across 15+ platforms.",
+        "author": { "@type": "Person", "name": "Gamified Living Apps" },
+        "publisher": { "@type": "Organization", "name": "Gamified Living Apps", "url": "https://gamifiedlivingapps.com" },
+        "datePublished": "2026-09-14",
+        "dateModified": "2026-09-14",
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://gamifiedlivingapps.com/blog-postiz-api-automation-2026.html" },
+        "image": { "@type": "ImageObject", "url": "https://gamifiedlivingapps.com/_965f47fb-b6bb-4dba-8f13-3fdc38b64d34-removebg-preview.png" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does Postiz have an API?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Every paid Postiz plan includes a REST API for creating posts, uploading media, managing channels, and retrieving analytics. The Standard plan and above also include webhooks for real-time event automation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I automate Postiz with n8n or Zapier?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. Postiz exposes standard REST endpoints and webhooks, making it compatible with every major automation platform including n8n, Make.com (formerly Integromat), Zapier, and any tool that can send HTTP requests."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What can I automate with the Postiz API?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can automate post creation, media uploads, scheduling, queue management, team member invitations, and analytics retrieval. With webhooks you can trigger downstream actions when posts go live, are published, or fail."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many platforms does Postiz support via API?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Postiz API covers all 15+ integrated platforms: YouTube, TikTok, Instagram, Facebook, X (Twitter), LinkedIn, Reddit, Pinterest, Google Business, GitLab, and more. Each platform maps to its own channel endpoint in the REST API."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the Postiz API free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "API access is included with every paid Postiz plan. The free plan is limited to manual scheduling through the UI. API access starts on the Standard plan, which also adds webhook support and higher AI generation limits."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="https://gamifiedlivingapps.com/">Home</a>
+    <a href="https://gamifiedlivingapps.com/blog.html">Blog</a>
+    <a href="https://gamifiedlivingapps.com/mycombat.html">MyCombat</a>
+  </nav>
+</header>
+
+<main>
+  <article>
+
+    <h1>Postiz API & Automation: Connect Any Tool to Your Social Media Queue</h1>
+
+    <p class="intro">If you are running a creator business, agency, or growing brand, manually pasting content into a scheduler is a bottleneck you cannot afford. Postiz ships a full REST API and webhook system that lets you connect any automation platform — n8n, Zapier, Make.com, or your own code — directly into your publishing queue. This guide shows you exactly what the Postiz API can do, how to authenticate, and the automation patterns that save hours every week.</p>
+
+    <h2>What Is the Postiz API?</h2>
+    <p>The <strong>Postiz API</strong> is a RESTful interface built into every paid plan. It lets you programmatically create posts, upload media, manage channels, pull analytics, and control queue settings without touching the Postiz dashboard. Whether you are a developer building a custom content pipeline or a marketer using no-code tools, the API gives you programmatic access to the same scheduling engine that powers Postiz's visual calendar.</p>
+
+    <p>Every paid tier includes API credentials. The Standard plan and above unlock webhooks — letting Postiz push events outward to trigger downstream automations in real time.</p>
+
+    <h2>What Can You Do With the Postiz API?</h2>
+    <p>The API covers the full content lifecycle:</p>
+    <ul>
+      <li><strong>Create posts</strong> — Submit text, media, captions, and platform-specific metadata via POST requests.</li>
+      <li><strong>Upload media</strong> — Attach images, videos, and GIFs to posts before scheduling.</li>
+      <li><strong>Manage channels</strong> — Add, remove, or refresh OAuth connections for any supported platform.</li>
+      <li><strong>Schedule and queue</strong> — Set exact publish timestamps or let Postiz optimize via its built-in queue system.</li>
+      <li><strong>Retrieve analytics</strong> — Pull post-level performance data programmatically.</li>
+      <li><strong>Team management</strong> — Invite collaborators and assign publishing permissions via API.</li>
+    </ul>
+
+    <h2>Key API Endpoints Every Automation User Should Know</h2>
+
+    <h3>Authentication</h3>
+    <p>The API uses Bearer token authentication. Your API key lives in your Postiz account settings under <strong>Settings → Developer → API Keys</strong>. Pass it in every request:</p>
+    <pre><code>Authorization: Bearer your_postiz_api_key</code></pre>
+
+    <h3>Create a Post</h3>
+    <pre><code>POST https://api.postiz.com/v1/posts
+{
+  "content": "Check out our latest tutorial on AI prompting frameworks",
+  "mediaUrls": ["https://your-cdn.com/video-thumb.png"],
+  "scheduledAt": "2026-09-20T10:00:00Z",
+  "channels": ["youtube", "instagram"]
+}</code></pre>
+
+    <h3>Upload Media</h3>
+    <pre><code>POST https://api.postiz.com/v1/media
+Content-Type: multipart/form-data
+
+file: [binary]</code></pre>
+
+    <h3>List Channels</h3>
+    <pre><code>GET https://api.postiz.com/v1/channels</code></pre>
+
+    <h3>Get Post Analytics</h3>
+    <pre><code>GET https://api.postiz.com/v1/posts?analytics=true</code></pre>
+
+    <h2>Webhooks: Trigger Actions in Real Time</h2>
+    <p>Webhooks turn Postiz from a one-way scheduler into a reactive automation hub. Instead of polling the API every few minutes, register endpoint URLs and Postiz will push events as they happen. Useful webhook events include:</p>
+    <ul>
+      <li><code>post.published</code> — Fires when a post goes live on any channel.</li>
+      <li><code>post.failed</code> — Triggers when a scheduled post fails (e.g., OAuth token expired).</li>
+      <li><code>media.uploaded</code> — Confirms a media asset is ready to attach to a post.</li>
+      <li><code>queue.processed</code> — Notifies when the queue has finished a processing cycle.</li>
+    </ul>
+
+    <p>Webhook payloads are JSON and include the full post object, making it easy to pass data downstream to CRM systems, analytics dashboards, or notification tools.</p>
+
+    <h2>Automation Integrations That Work With Postiz</h2>
+
+    <h3>n8n</h3>
+    <p><a href="https://n8n.io" target="_blank" rel="noopener">n8n</a> is a powerful open-source workflow automation tool. Connect Postiz to trigger posts from a Google Sheet, a Notion database, or an RSS feed. The HTTP Request node in n8n handles Postiz API calls natively — no custom code required. A common pattern: watch a Notion page for a new "Approved" status, then POST that content directly to your Postiz queue.</p>
+
+    <h3>Zapier</h3>
+    <p>Zapier users can connect Postiz through Zapier's Webhooks by Zap or HTTP app. A typical zap: new Shopify product → POST to Postiz API → scheduled launch post across Instagram and X simultaneously. Zapier handles the OAuth handshake for you, so you do not manage tokens manually.</p>
+
+    <h3>Make.com (Integromat)</h3>
+    <p>Make.com offers a visual scenario builder with pre-built HTTP module support. Build multi-step automations: ingest a newsletter, split it into platform-specific captions using an AI module, then push each variant to a separate Postiz channel queue — all without writing a line of code.</p>
+
+    <h3>Your Own Code</h3>
+    <p>Because Postiz uses standard REST + JSON, any programming language with an HTTP client works. Python, JavaScript/TypeScript, Go, Ruby — your choice. The <a href="https://github.com/gitroomhq/postiz-app" target="_blank" rel="noopener">Postiz GitHub repository</a> includes community SDK contributions and example scripts for common workflows.</p>
+
+    <h2>AI Copilot Integration via API</h2>
+    <p>Postiz includes an AI copilot that generates post captions, suggests hashtags, and can auto-generate images. When you create a post via API, set <code>"useAI": true</code> to let the copilot draft the caption before you review and publish. The Standard plan includes 100 AI generations per month; the Pro plan raises that to 500. If you are batch-posting from a content pipeline, the AI copilot can auto-generate platform-specific variations from a single source article.</p>
+
+    <h2>Queue Mode: Let Postiz Optimize Your Timing</h2>
+    <p>Rather than hard-coding publish times, enable <strong>Queue Mode</strong> via the API by omitting <code>scheduledAt</code>. Postiz's algorithm analyzes each channel's audience activity patterns and selects optimal publish windows automatically. This is ideal for creators who batch-create content on Sundays and want the system to handle distribution timing throughout the week.</p>
+
+    <h2>Practical Example: Automated Newsletter-to-Post Pipeline</h2>
+    <p>Here is a real-world pattern used by newsletter operators:</p>
+    <ol>
+      <li>A new subscriber joins via ConvertKit or Mailchimp.</li>
+      <li>A webhook fires → triggers an n8n workflow.</li>
+      <li>n8n fetches the latest newsletter content via RSS.</li>
+      <li>AI module rewrites the content as three platform-native posts (LinkedIn thought leadership, X thread, Instagram caption).</li>
+      <li>Each variant is POSTed to Postiz's <code>/v1/posts</code> endpoint, assigned to the correct channel.</li>
+      <li>Postiz Queue Mode selects optimal publish times.</li>
+    </ol>
+    <p>The result: a newsletter goes out in the morning, and by afternoon all social channels are queued — fully automated, zero manual intervention.</p>
+
+    <h2>API Rate Limits and Plan Details</h2>
+    <p>Postiz does not publicly disclose hard rate limits, but the API is designed for typical creator and small-agency workloads. Higher-tier plans (Pro, Agency) include increased API call quotas and dedicated webhook endpoints. If you hit limits, batching requests or switching to queue mode reduces API call volume significantly.</p>
+
+    <p>Webhooks are available from Standard plan and up. The free plan includes the full Postiz UI but API access requires a paid subscription.</p>
+
+    <h2>FAQ</h2>
+
+    <h3>Does Postiz have an API?</h3>
+    <p>Yes. Every paid Postiz plan includes a REST API for creating posts, uploading media, managing channels, and retrieving analytics. The Standard plan and above also include webhooks for real-time event automation.</p>
+
+    <h3>Can I automate Postiz with n8n or Zapier?</h3>
+    <p>Absolutely. Postiz exposes standard REST endpoints and webhooks, making it compatible with every major automation platform including n8n, Make.com (formerly Integromat), Zapier, and any tool that can send HTTP requests.</p>
+
+    <h3>What can I automate with the Postiz API?</h3>
+    <p>You can automate post creation, media uploads, scheduling, queue management, team member invitations, and analytics retrieval. With webhooks you can trigger downstream actions when posts go live, are published, or fail.</p>
+
+    <h3>How many platforms does Postiz support via API?</h3>
+    <p>Postiz API covers all 15+ integrated platforms: YouTube, TikTok, Instagram, Facebook, X (Twitter), LinkedIn, Reddit, Pinterest, Google Business, GitLab, and more. Each platform maps to its own channel endpoint in the REST API.</p>
+
+    <h3>Is the Postiz API free?</h3>
+    <p>API access is included with every paid Postiz plan. The free plan is limited to manual scheduling through the UI. API access starts on the Standard plan, which also adds webhook support and higher AI generation limits.</p>
+
+    <h2>Get Started With Postiz API</h2>
+    <p>Whether you are a developer building custom publishing workflows or a marketer connecting Postiz to your existing stack, the API and webhook system give you the flexibility to automate without limits. <a href="https://postiz.pro/try" target="_blank">Try Postiz free</a> and activate API access from your account settings — no credit card required to start.</p>
+
+    <p>If you prefer a fully self-hosted option, Postiz also offers a Docker-based deployment with no API restrictions and no per-account fees. Check out the <a href="https://github.com/gitroomhq/postiz-app" target="_blank" rel="noopener">official GitHub repository</a> for installation instructions and self-hosting documentation.</p>
+
+    <p><strong><a href="https://postiz.pro/try">Get started with Postiz free trial</a></strong> and bring your entire social media workflow into one automated queue.</p>
+
+  </article>
+</main>
+
+<footer>
+  <a href="https://gamifiedlivingapps.com/blog.html">← Back to Blog</a>
+</footer>
+
+</body>
+</html>
