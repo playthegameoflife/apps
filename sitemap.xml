@@ -358,4 +358,10 @@
     <lastmod>2026-09-16</lastmod>
     <changefreq>monthly</changefreq>
   </url>
+  <url>
+    <loc>https://gamifiedlivingapps.com/blog-why-ai-prompts-generic.html</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
