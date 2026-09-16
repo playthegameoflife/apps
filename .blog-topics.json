@@ -1,24 +1,52 @@
 {
   "used": [
-    {
-      "slug": "blog-ai-image-prompts-midjourney-dall-e",
-      "primary_keyword": "how to write AI image prompts for Midjourney and DALL-E",
-      "published": "2026-09-15"
-    },
-    {
-      "slug": "blog-system-prompts-ai-chatbots",
-      "primary_keyword": "how to write system prompts for AI chatbots",
-      "published": "2026-09-17"
-    },
-    {
-      "slug": "blog-common-ai-prompting-mistakes-beginners",
-      "primary_keyword": "common AI prompting mistakes beginners make",
-      "published": "2026-09-20"
-    },
-    {
-      "slug": "blog-why-ai-prompts-feel-vague",
-      "primary_keyword": "why your AI prompts feel vague",
-      "published": "2026-09-30"
-    }
+    "why-chatgpt-gives-generic-answers",
+    "how-to-write-better-ai-prompts",
+    "how-to-improve-chatgpt-prompts",
+    "how-to-reduce-ai-hallucinations",
+    "chatgpt-prompt-mistakes-to-avoid",
+    "ai-prompt-tips-productivity-2026-20260802",
+    "claude-ai-prompt-tips-2026",
+    "why-does-ai-give-generic-answers",
+    "prompt-fatigue-how-to-fix",
+    "gemini-prompt-tips-2026",
+    "few-shot-prompting-examples",
+    "role-prompting-examples",
+    "best-ai-prompt-generator-tools-2026",
+    "how-to-write-midjourney-prompts-2026",
+    "prompt-engineering-techniques-2026",
+    "chain-of-thought-prompting-2026",
+    "context-engineering-2026",
+    "what-is-prompt-engineering",
+    "prompt-chaining-guide",
+    "how-to-structure-ai-prompts",
+    "ai-prompt-examples-2026",
+    "how-long-should-a-chatgpt-prompt-be",
+    "chatgpt-prompts-social-media-marketing",
+    "how-to-write-better-grok-prompts",
+    "chatgpt-prompts-for-students",
+    "chatgpt-prompts-for-teachers",
+    "ai-prompt-specificity-framework-2026",
+    "stop-ai-generic-responses-specificity-framework",
+    "stop-generic-ai-negative-constraints-2026",
+    "stop-ai-generic-responses-precision-prompting-2026",
+    "why-ai-gives-generic-answers",
+    "precision-prompting-framework-2026",
+    "postiz-vs-buffer-2026",
+    "postiz-agency-client-management-2026",
+    "postiz-self-host-docker-2026",
+    "postiz-open-source-social-media-scheduler-postiz-guide",
+    "postiz-api-automation-2026",
+    "postiz-open-source-social-media-scheduler-postiz",
+    "postiz-self-hosted-scheduler-guide",
+    "postiz-open-source-social-media-scheduler",
+    "postiz-ai-automation-workflow-2026",
+    "system-prompts-ai-chatbots-2026",
+    "ai-image-prompts-midjourney-dall-e",
+    "postiz-open-source-social-media-scheduler-34-platforms",
+    "system-prompts-ai-chatbots",
+    "common-ai-prompting-mistakes-beginners",
+    "postiz-schedule-tiktok-posts-open-source",
+    "why-ai-prompts-feel-vague"
   ]
 }
