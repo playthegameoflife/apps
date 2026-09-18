@@ -399,7 +399,6 @@
     <lastmod>2026-09-18</lastmod>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://gamifiedlivingapps.com/blog-how-to-get-consistent-ai-results-every-time.html</loc>
     <lastmod>2026-09-18</lastmod>
@@ -412,6 +411,10 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://gamifiedlivingapps.com/blog-why-ai-misses-the-point.html</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
-
-78e00a7d65d02f4b02769dd4e8017faef93fd9af
