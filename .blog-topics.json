@@ -1,1 +1,19 @@
-{"used": [{"slug": "blog-chatgpt-system-prompts-beginners", "primary_keyword": "ChatGPT system prompts for beginners", "published": "2026-09-20"}, {"slug": "blog-how-to-write-prompts-ai-understands", "primary_keyword": "how to write prompts AI actually understands not just reads", "published": "2026-09-20"}]}
+{
+  "used": [
+    {
+      "slug": "blog-chatgpt-system-prompts-beginners",
+      "primary_keyword": "ChatGPT system prompts for beginners",
+      "published": "2026-09-20"
+    },
+    {
+      "slug": "blog-how-to-write-prompts-ai-understands",
+      "primary_keyword": "how to write prompts AI actually understands not just reads",
+      "published": "2026-09-20"
+    },
+    {
+      "slug": "blog-ai-temperature-setting-prompts-guide",
+      "primary_keyword": "how to use AI temperature settings for better prompts",
+      "published": "2026-09-21"
+    }
+  ]
+}
