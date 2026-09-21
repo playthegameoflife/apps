@@ -106,9 +106,9 @@ html_out = f'''<!DOCTYPE html>
   <title>Blog — Prompt Helper Gemini, MyCombat & AI Tools | Gamified Living Apps</title>
   <meta name="description" content="Explore {total} expert blogs on AI prompt engineering, martial arts training apps, boxing timers, MyCombat guides, and AI art creation. Free tips & tutorials.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://gamifiedlivingapps.com/blog.html">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog.html">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://gamifiedlivingapps.com/blog.html">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog.html">
   <meta property="og:title" content="Blog — Gamified Living Apps">
   <meta property="og:description" content="{total} expert guides on AI prompts, martial arts training, boxing timers, and AI art. Free tutorials & tips.">
   <meta property="og:site_name" content="Gamified Living Apps">

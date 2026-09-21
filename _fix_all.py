@@ -33,7 +33,7 @@ if app_section_match:
         '  <title>All Apps — Gamified Living Apps</title>\n'
         '  <meta name="description" content="Browse all Gamified Living Apps: FitClick, FitXtreme, Life Quest, Financial Quest, MyCombat, Combat Companion, MarketMaster, Real Estate Mastery, TaskMaster.">\n'
         '  <meta name="robots" content="index, follow">\n'
-        '  <link rel="canonical" href="https://gamifiedlivingapps.com/apps.html">\n'
+        '  <link rel="canonical" href="https://promptgenerator.fyi/apps.html">\n'
         '  <meta property="og:title" content="All Apps — Gamified Living Apps">\n'
         '  <meta property="og:description" content="Browse all apps from Gamified Living Apps.">\n'
         '  <link rel="stylesheet" type="text/css" href="style.css">\n'
@@ -115,7 +115,7 @@ redirect_html = """<!DOCTYPE html>
   <meta charset="UTF-8">
   <title>Blog — Gamified Living Apps</title>
   <meta http-equiv="refresh" content="0; url=/blog.html">
-  <link rel="canonical" href="https://gamifiedlivingapps.com/blog.html">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog.html">
   <script>window.location.href = '/blog.html';</script>
 </head>
 <body>
@@ -245,9 +245,9 @@ with open(os.path.join(blog_dir, "sitemap.xml"), "w") as f:
 print(f"✅ Sitemap dates updated")
 
 # Add apps.html to sitemap
-if '<loc>https://gamifiedlivingapps.com/apps.html</loc>' not in sitemap:
+if '<loc>https://promptgenerator.fyi/apps.html</loc>' not in sitemap:
     apps_entry = f'''  <url>
-    <loc>https://gamifiedlivingapps.com/apps.html</loc>
+    <loc>https://promptgenerator.fyi/apps.html</loc>
     <lastmod>{today.strftime("%Y-%m-%d")}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

@@ -48,7 +48,7 @@ APPS = {
     }
 }
 
-SITE_DOMAIN = "gamifiedlivingapps.com"
+SITE_DOMAIN = "promptgenerator.fyi"
 STATE_FILE = "/root/.hermes/prompt_helper_blog_state.json"
 MYCOMBAT_TOPICS_FILE = "/root/.hermes/scripts/mycombat_blog_topics.json"
 
