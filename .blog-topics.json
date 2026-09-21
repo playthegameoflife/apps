@@ -29,6 +29,11 @@
       "slug": "blog-ai-prompt-length-paradox",
       "primary_keyword": "why more context makes AI worse",
       "published": "2026-09-22"
+    },
+    {
+      "slug": "blog-chain-of-thought-prompting-examples-2026",
+      "primary_keyword": "chain of thought prompting",
+      "published": "2026-09-21"
     }
   ]
 }
