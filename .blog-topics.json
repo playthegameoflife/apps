@@ -24,6 +24,11 @@
       "slug": "blog-ai-stop-wrong-answers",
       "primary_keyword": "how to stop AI giving wrong answers",
       "published": "2026-09-21"
+    },
+    {
+      "slug": "blog-ai-prompt-length-paradox",
+      "primary_keyword": "why more context makes AI worse",
+      "published": "2026-09-22"
     }
   ]
 }
