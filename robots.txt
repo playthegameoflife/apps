@@ -4,15 +4,22 @@ Allow: /
 # Sitemap
 Sitemap: https://promptgenerator.fyi/sitemap.xml
 
-# Disallow specific paths if needed
-# Disallow: /admin/
-# Disallow: /private/
+# Block non-prompt-generator pages from indexing
+Disallow: /admin.html
+Disallow: /apps.html
+Disallow: /combat-companion.html
+Disallow: /dumbbelltrainer/
+Disallow: /financial-quest.html
+Disallow: /fitclick.html
+Disallow: /fitxtreme.html
+Disallow: /library.html
+Disallow: /life-quest.html
+Disallow: /marketmaster.html
+Disallow: /mycombat/
+Disallow: /real-estate-mastery.html
+Disallow: /taskmaster.html
 
-# Block development files and sensitive directories
-Disallow: /dumbbelltrainer/copy-of-dumbbell-workout-trainer/
-Disallow: /dumbbelltrainer/copy-of-dumbbell-workout-trainer/node_modules/
-Disallow: /dumbbelltrainer/copy-of-dumbbell-workout-trainer/dist/
+# Block development files
 Disallow: /*/.env
 Disallow: /*/.env.local
 Disallow: /*/.env.*
-
