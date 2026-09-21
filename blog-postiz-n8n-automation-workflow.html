@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Postiz n8n Automation: Build a Smart Social Media Workflow in 2026</title>
+  <meta name="description" content="Combine Postiz with n8n for intelligent social media automation. AI-generated content, auto-posting, cross-platform workflows, and RSS-driven publishing — all free and self-hosted.">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-postiz-n8n-automation-workflow.html">
+  <link rel="stylesheet" href="style.css">
+  <meta property="og:title" content="Postiz n8n Automation: Build a Smart Social Media Workflow in 2026">
+  <meta property="og:description" content="Combine Postiz with n8n for intelligent social media automation. AI-generated content, auto-posting, and RSS-driven publishing — all free and self-hosted.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-postiz-n8n-automation-workflow.html">
+  <meta property="og:site_name" content="Gamified Living Apps">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Postiz n8n Automation: Build a Smart Social Media Workflow in 2026">
+  <meta name="twitter:description" content="Combine Postiz with n8n for intelligent social media automation. AI-generated content, auto-posting, and RSS-driven publishing — all free and self-hosted.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Postiz n8n Automation: Build a Smart Social Media Workflow in 2026",
+        "description": "Combine Postiz with n8n for intelligent social media automation. AI-generated content, auto-posting, cross-platform workflows, and RSS-driven publishing — all free and self-hosted.",
+        "author": { "@type": "Person", "name": "Gamified Living Apps" },
+        "publisher": { "@type": "Organization", "name": "Gamified Living Apps", "url": "https://promptgenerator.fyi" },
+        "datePublished": "2026-09-21",
+        "dateModified": "2026-09-21",
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://promptgenerator.fyi/blog-postiz-n8n-automation-workflow.html" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can I automate Postiz with n8n?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Postiz has a full REST API that n8n can connect to directly. You can trigger posts from Google Sheets, automate AI-generated captions via OpenAI, import content from RSS feeds, and auto-post to multiple platforms on a schedule — all without writing code or paying for a SaaS automation tool."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What can I automate between Postiz and n8n?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The most popular n8n + Postiz automations include: auto-posting from RSS feeds, AI-generated captions via OpenAI/Claude, content calendar imports from Google Sheets, cross-platform reposting (e.g., blog → Twitter + LinkedIn + Facebook), and analytics collection into Notion or Airtable. The Postiz API covers all core scheduling operations."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I connect Postiz to n8n?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Postiz exposes its API at http://your-postiz-instance/api/v1. Generate an API token from Postiz Settings → API Keys, then use n8n's HTTP Request node to authenticate with Bearer token auth. The Postiz GitHub wiki documents all available endpoints including queues, analytics, users, and workspace management."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Postiz + n8n really free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Postiz is MIT-licensed open source (free), and n8n is also open source and free to self-host. Both run on Docker. Combined with a $5-$10/month VPS, you get a full enterprise-grade social media automation stack for under $10/month total — no per-post fees, no per-channel costs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does RSS-to-Postiz automation work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "n8n monitors an RSS feed (e.g., your blog or industry news) using its RSS Read node. When new items appear, n8n extracts the title, description, and link, formats the content for each social platform, and calls the Postiz API to create queued posts for each channel. This keeps your social profiles active with zero manual effort."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; color: #cbd5e1; }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; white-space: pre; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; border-bottom: none; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Postiz n8n Automation: Build a Smart Social Media Workflow in 2026</h1>
+    <p class="meta">Published September 21, 2026 · 14 min read</p>
+  </header>
+
+  <main>
+    <p class="intro">Postiz handles your social media scheduling. n8n handles everything else. Combine these two free, open source tools and you get AI-generated captions, RSS-driven auto-posting, cross-platform workflows, and analytics collection — all running on a $5/month VPS with no per-post fees. Here's exactly how to build it.</p>
+
+    <h2>What Is n8n and Why Pair It with Postiz?</h2>
+    <p><a href="https://n8n.io/" target="_blank" rel="noopener">n8n</a> is a free, open source workflow automation platform — similar to Zapier or Make, but self-hostable and without per-task pricing. You connect apps, services, and APIs into visual workflows that run automatically based on triggers you define.</p>
+    <p>Postiz is the best open source social media scheduler in 2026. It has a full REST API that covers queues, scheduling, analytics, users, and workspaces. n8n can call that API to build intelligent automation on top of Postiz's scheduling engine.</p>
+    <p>Together, they create a system where content flows automatically from your sources — RSS feeds, Google Sheets, AI models, Notion databases — into scheduled posts across 20+ platforms, without any manual publishing.</p>
+
+    <div class="key-takeaways">
+      <h3>What You'll Build</h3>
+      <ul>
+        <li><strong>RSS-to-Postiz</strong>: Auto-post from your blog or industry news feeds to all platforms</li>
+        <li><strong>AI caption generation</strong>: OpenAI or Claude writes captions, Postiz queues them</li>
+        <li><strong>Google Sheets content calendar</strong>: Bulk schedule posts from a spreadsheet</li>
+        <li><strong>Cross-platform syndication</strong>: One source post → Twitter, LinkedIn, Facebook, Threads</li>
+        <li><strong>Analytics collection</strong>: Pull Postiz stats into Notion or Airtable automatically</li>
+        <li><strong>Total cost</strong>: ~$10/month for both tools on one VPS</li>
+      </ul>
+    </div>
+
+    <h2>Postiz API: Your Automation Foundation</h2>
+    <p>Before building workflows, you need to understand what Postiz exposes. The API is available at:</p>
+    <div class="code-block">
+<span class="label">Base URL (self-hosted)</span>
+http://YOUR-POSTIZ-URL/api/v1
+
+<span class="label">Authentication</span>
+Authorization: Bearer YOUR_API_TOKEN
+Generate tokens at: Postiz Settings → API Keys</div>
+
+    <p>Key API endpoints you'll use in n8n:</p>
+    <ul>
+      <li><code>GET /queues</code> — List all queues and their IDs</li>
+      <li><code>POST /queues</code> — Create a new queue</li>
+      <li><code>GET /queues/:id</code> — Get a specific queue's posts</li>
+      <li><code>POST /posts</code> — Create and schedule a new post</li>
+      <li><code>GET /analytics</code> — Fetch performance analytics</li>
+      <li><code>GET /users</code> — List workspace members</li>
+    </ul>
+    <p>Check the <a href="https://github.com/gitroomhq/postiz-app/wiki" target="_blank" rel="noopener">Postiz GitHub wiki</a> for the full API documentation.</p>
+
+    <h2>Setting Up n8n (Quick Start)</h2>
+    <p>n8n is easier to deploy than Postiz. Here's the fastest route:</p>
+
+    <h3>Option 1: n8n Cloud (Free Tier)</h3>
+    <p>n8n offers a free hosted tier at <a href="https://n8n.io/" target="_blank" rel="noopener">n8n.io</a> — no server required. Sign up, connect your Postiz instance via the API, and start building. Best for testing workflows before self-hosting.</p>
+
+    <h3>Option 2: Docker on Your VPS</h3>
+    <div class="code-block">
+<span class="label">Deploy n8n with Docker</span>
+docker run -d \
+  --name n8n \
+  -p 5678:5678 \
+  -v n8n_data:/home/node/.n8n \
+  -e N8N_BASIC_AUTH_ACTIVE=true \
+  -e N8N_HOST=n8n.yourdomain.com \
+  -e N8N_PROTOCOL=https \
+  n8nio/n8n
+
+# Access at http://YOUR_SERVER:5678
+# Set up HTTPS with Nginx or Caddy reverse proxy</div>
+
+    <p>If you're already running Postiz on Docker, add n8n to the same Docker Compose stack for unified management.</p>
+
+    <h3>Option 3: One-Click on Railway</h3>
+    <p>n8n also has a one-click deploy on Railway — similar to Postiz, you connect GitHub, Railway auto-detects n8n, and spins up the container with environment variables pre-configured.</p>
+
+    <div class="cta-box">
+      <h2>Ready to Automate Your Social Media?</h2>
+      <p>Postiz handles the scheduling. n8n handles the intelligence. Together they're a free, enterprise-grade social media automation stack. Start with Postiz — it's free and takes 5 minutes to deploy.</p>
+      <a href="https://postiz.pro/try" target="_blank" rel="noopener">Try Postiz Free →</a>
+    </div>
+
+    <h2>Workflow 1: RSS Feed → Auto-Post to All Platforms</h2>
+    <p>The most popular n8n + Postiz automation. Every time your blog publishes a new article, n8n detects it, extracts the title and summary, formats posts for each platform, and queues them in Postiz.</p>
+
+    <h3>Trigger: RSS Read Node</h3>
+    <p>n8n has a built-in RSS Read node. Point it at your blog's RSS feed:</p>
+    <div class="code-block">
+<span class="label">n8n workflow node configuration</span>
+Node: RSS Read
+URL: https://yourblog.com/feed.xml
+Trigger: Schedule (Cron) — Run every hour
+Frequency: Every 60 minutes</div>
+
+    <h3>Step 2: Format for Each Platform</h3>
+    <p>Use n8n's Switch node to route different formats to each social channel. Or use a single format and rely on Postiz's per-platform preview to tweak before publishing.</p>
+    <div class="code-block">
+<span class="label">n8n HTTP Request node — Create Postiz post</span>
+Method: POST
+URL: http://YOUR-POSTIZ/api/v1/posts
+Authentication: Bearer Token
+
+Body (JSON):
+{
+  "content": "{{ $json.title }}",
+  "socialMediaTypes": ["X", "LINKEDIN", "FACEBOOK", "THREADS"],
+  "queued": true,
+  "scheduledAt": "{{ $json['scheduledDate'] || new Date().toISOString() }}",
+  "workspaceId": "YOUR_WORKSPACE_ID"
+}
+
+Headers:
+Content-Type: application/json
+Authorization: Bearer YOUR_POSTIZ_API_KEY</div>
+
+    <p>Set <code>queued: true</code> to add posts to your Postiz queue rather than publishing immediately. This lets you review and approve before anything goes live.</p>
+
+    <h3>Step 3: Auto-Schedule with n8n Expressions</h3>
+    <p>Use n8n expressions to spread posts across optimal times. For example, space new blog posts across Monday, Wednesday, and Friday at 10 AM:</p>
+    <div class="code-block">
+<span class="label">n8n Expression for smart scheduling</span>
+// In the scheduledAt field:
+{{ new Date().toISOString() }}
+
+// For queue-based posting (recommended):
+"queued": true
+// Postiz will use your queue's default posting schedule</div>
+
+    <h2>Workflow 2: AI-Generated Captions with OpenAI</h2>
+    <p>Write a product description or bullet points. n8n calls OpenAI (or Claude via Anthropic) to generate platform-specific captions. Postiz queues the result.</p>
+
+    <h3>The n8n Workflow</h3>
+    <ul>
+      <li><strong>Trigger</strong>: Google Sheets row added (or Notion page created, or manual trigger)</li>
+      <li><strong>AI node</strong>: n8n's built-in AI node calls OpenAI's GPT-4o to generate 5 platform-specific captions</li>
+      <li><strong>Iterator</strong>: Split the 5 captions into individual items</li>
+      <li><strong>HTTP Request</strong>: POST each caption to Postiz as a separate queued post</li>
+    </ul>
+
+    <div class="code-block">
+<span class="label">n8n AI node configuration</span>
+Node: AI Agent (or OpenAI node)
+Model: gpt-4o
+
+Prompt:
+"Generate 5 different social media captions for this product update.
+Each caption should be platform-specific:
+1. Twitter/X: punchy, max 280 chars, include a hook
+2. LinkedIn: professional, 150-200 words, include a insight
+3. Facebook: conversational, 50-100 words, include a question
+4. Threads: casual, 50-100 words, trendy tone
+5. Instagram: visual-first, 100-150 words, include 3 hashtags
+
+Product update: {{ $json.productUpdate }}"
+
+Output: Array of 5 caption objects</div>
+
+    <p>Postiz's own AI caption feature already handles this natively — but chaining it through n8n lets you pull source data from your own databases, CRMs, or content management systems before generation.</p>
+
+    <h2>Workflow 3: Google Sheets Content Calendar</h2>
+    <p>Manage your entire social media calendar in Google Sheets. n8n reads new rows, validates the data, and bulk-creates Postiz posts. This is how agencies manage 50+ client accounts without logging into each one.</p>
+
+    <div class="code-block">
+<span class="label">Google Sheets → Postiz bulk scheduling</span>
+Node: Google Sheets (Watch New Rows)
+Spreadsheet: Social Media Calendar
+Sheet: Content Queue
+
+Node: Function (transform data)
+const rows = $input.all();
+const posts = rows.map((row, i) => ({
+  content: row.json.caption,
+  socialMediaTypes: row.json.platforms.split(','),
+  scheduledAt: row.json.publishDate,
+  queued: false,
+  workspaceId: 'YOUR_WORKSPACE_ID'
+}));
+return posts.map(p => ({ json: p }));
+
+Node: HTTP Request (POST to Postiz)
+Runs once per row (set "Execute Once" = false)
+URL: http://YOUR-POSTIZ/api/v1/posts
+Body: {{ $json }}</div>
+
+    <h3>Google Sheets Template Structure</h3>
+    <p>Create a sheet with these columns:</p>
+    <ul>
+      <li><strong>Caption</strong> — The post text</li>
+      <li><strong>Platforms</strong> — Comma-separated: X,LINKEDIN,FACEBOOK</li>
+      <li><strong>Publish Date</strong> — ISO date: 2026-09-25T10:00:00Z</li>
+      <li><strong>Queue</strong> — Queue ID from Postiz (optional)</li>
+      <li><strong>Status</strong> — Pending / Posted / Failed</li>
+    </ul>
+    <p>n8n can also write back to the Status column after successful posting, creating a complete audit trail.</p>
+
+    <h2>Workflow 4: Cross-Platform Content Syndication</h2>
+    <p>Write once, publish everywhere. n8n takes a single source (a blog post, a YouTube video, a podcast episode) and automatically distributes adapted versions across your entire social network.</p>
+
+    <div class="code-block">
+<span class="label">Cross-platform syndication flow</span>
+Trigger: New blog post (RSS or webhook)
+     │
+     ├──► Format for X/Twitter (280 char hook + link)
+     │         └──► POST /posts to Postiz (X queue)
+     │
+     ├──► Format for LinkedIn (professional summary + insights)
+     │         └──► POST /posts to Postiz (LinkedIn queue)
+     │
+     ├──► Format for Facebook (engaging question + image idea)
+     │         └──► POST /posts to Postiz (Facebook queue)
+     │
+     ├──► Format for Threads (casual, trendy, short)
+     │         └──► POST /posts to Postiz (Threads queue)
+     │
+     └──► Format for Reddit (valuable, community-aware)
+              └──► POST /posts to Postiz (Reddit queue)</div>
+
+    <p>Each transformation uses n8n's AI node to adapt the source content for the specific platform's tone, length, and audience expectations. LinkedIn posts get professional framing. Reddit posts drop the marketing language and focus on genuine value. Twitter gets a sharp hook.</p>
+
+    <h2>Workflow 5: Analytics Collection to Notion</h2>
+    <p>Postiz tracks post performance. n8n pulls those analytics weekly and writes them to a Notion database — giving you a historical record of what works, without logging into Postiz every time.</p>
+
+    <div class="code-block">
+<span class="label">Postiz analytics → Notion</span>
+Trigger: Schedule (every Monday 9 AM)
+     │
+Node: HTTP Request
+GET http://YOUR-POSTIZ/api/v1/analytics?from=2026-09-14&to=2026-09-21
+Headers: Authorization: Bearer YOUR_API_KEY
+
+Node: Notion (Update Database Page)
+Database: Social Media Weekly Report
+Properties:
+  - Week: {{ $json.week }}
+  - Total Posts: {{ $json.totalPosts }}
+  - Total Reach: {{ $json.reach }}
+  - Top Platform: {{ $json.topPlatform }}
+  - Top Post: {{ $json.topPostContent }}</div>
+
+    <h2>How to Connect n8n to Postiz (API Setup)</h2>
+    <p>Getting n8n and Postiz talking to each other takes about 5 minutes:</p>
+
+    <ol>
+      <li><strong>Get your Postiz API key</strong>: Log into Postiz → Settings → API Keys → Generate new key. Copy it immediately — it won't be shown again.</li>
+      <li><strong>Get your workspace ID</strong>: Found in Postiz Settings → Workspace. You'll need this for all API calls.</li>
+      <li><strong>Add credentials in n8n</strong>: n8n → Settings → Credentials → Create New → Bearer Token Auth. Paste your Postiz API key.</li>
+      <li><strong>Test the connection</strong>: Create a simple n8n workflow with an HTTP Request node calling <code>GET /api/v1/queues</code> with your credentials. You should see your Postiz queues returned.</li>
+    </ol>
+
+    <h2>Self-Hosting Both: The Complete Stack</h2>
+    <p>Run Postiz and n8n together on a single $10/month VPS using Docker Compose:</p>
+    <div class="code-block">
+<span class="label">docker-compose.yml for Postiz + n8n</span>
+version: '3.8'
+services:
+  postiz:
+    image: gitroom/postiz-app
+    container_name: postiz
+    ports:
+      - "5002:5002"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/postiz
+    depends_on:
+      - db
+
+  n8n:
+    image: n8nio/n8n
+    container_name: n8n
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=postiz
+
+volumes:
+  n8n_data:</div>
+
+    <div class="code-block">
+<span class="label">Start the stack</span>
+docker compose up -d
+# Postiz: http://your-server:5002
+# n8n: http://your-server:5678</div>
+
+    <p>Add a reverse proxy (Nginx or Caddy) with HTTPS in front of both services for production use. Point subdomains at each: postiz.yourdomain.com and n8n.yourdomain.com.</p>
+
+    <h2>How This Compares to Commercial Alternatives</h2>
+
+    <div class="comparison">
+      <div class="comparison-box bad">
+        <h4>Zapier + Buffer</h4>
+        <ul>
+          <li>$20-$49/month for Zapier</li>
+          <li>$6/channel/month for Buffer</li>
+          <li>Limited platform support</li>
+          <li>No self-hosting option</li>
+          <li>Zaps limited to 2-step flows</li>
+          <li>No AI caption generation</li>
+        </ul>
+      </div>
+      <div class="comparison-box good">
+        <h4>n8n + Postiz</h4>
+        <ul>
+          <li><strong>Free</strong> (both are MIT/open source)</li>
+          <li><strong>$10/month VPS</strong> (both tools)</li>
+          <li>20+ platforms via Postiz</li>
+          <li>Full self-hosting control</li>
+          <li><strong>Unlimited workflow steps</strong></li>
+          <li>AI captions via OpenAI/Claude</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Getting Started Today</h2>
+    <p>You don't need to build all five workflows at once. Start with the simplest one — RSS auto-posting. It takes 30 minutes to set up, and you'll immediately see the value of automated social publishing.</p>
+    <p>Here's your launch sequence:</p>
+    <ol>
+      <li>Deploy Postiz (Railway one-click or Docker on a VPS)</li>
+      <li>Connect your social accounts in Postiz</li>
+      <li>Deploy n8n (Docker or Railway)</li>
+      <li>Generate a Postiz API key</li>
+      <li>Build your first RSS workflow in n8n</li>
+      <li>Expand from there as you discover what your content workflow needs</li>
+    </ol>
+    <p>Both tools have active Discord communities and documentation. If you get stuck, the <a href="https://discord.gg/n8n" target="_blank" rel="noopener">n8n Discord</a> and <a href="https://discord.gg/postiz" target="_blank" rel="noopener">Postiz Discord</a> are responsive and beginner-friendly.</p>
+
+    <div class="cta-box">
+      <h2>Start Building Your Automation Stack</h2>
+      <p>Postiz is the scheduling layer. n8n is the intelligence layer. Together they're free, self-hosted, and infinitely extensible. Get Postiz running in 5 minutes and connect it to n8n to unlock powerful automations.</p>
+      <a href="https://postiz.pro/try" target="_blank" rel="noopener">Try Postiz Free →</a>
+    </div>
+
+    <div class="faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>Can I automate Postiz with n8n?</h3>
+        <p>Yes. Postiz has a full REST API that n8n can connect to directly. You can trigger posts from Google Sheets, automate AI-generated captions via OpenAI, import content from RSS feeds, and auto-post to multiple platforms on a schedule — all without writing code or paying for a SaaS automation tool.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What can I automate between Postiz and n8n?</h3>
+        <p>The most popular n8n + Postiz automations include: auto-posting from RSS feeds, AI-generated captions via OpenAI/Claude, content calendar imports from Google Sheets, cross-platform reposting (e.g., blog → Twitter + LinkedIn + Facebook), and analytics collection into Notion or Airtable. The Postiz API covers all core scheduling operations.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do I connect Postiz to n8n?</h3>
+        <p>Postiz exposes its API at http://your-postiz-instance/api/v1. Generate an API token from Postiz Settings → API Keys, then use n8n's HTTP Request node to authenticate with Bearer token auth. The Postiz GitHub wiki documents all available endpoints including queues, analytics, users, and workspace management.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Is Postiz + n8n really free?</h3>
+        <p>Yes. Postiz is MIT-licensed open source (free), and n8n is also open source and free to self-host. Both run on Docker. Combined with a $5-$10/month VPS, you get a full enterprise-grade social media automation stack for under $10/month total — no per-post fees, no per-channel costs.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How does RSS-to-Postiz automation work?</h3>
+        <p>n8n monitors an RSS feed (e.g., your blog or industry news) using its RSS Read node. When new items appear, n8n extracts the title, description, and link, formats the content for each social platform, and calls the Postiz API to create queued posts for each channel. This keeps your social profiles active with zero manual effort.</p>
+      </div>
+    </div>
+
+    <h2>Conclusion: Two Free Tools, One Powerful System</h2>
+    <p>Postiz and n8n are each the best-in-class open source tool for their respective roles — scheduling and automation. Combined, they rival commercial stacks costing $200-$500/month. The catch? You manage your own infrastructure. But for creators and small teams who want full control, maximum flexibility, and zero per-channel pricing, this stack is unmatched in 2026.</p>
+    <p>Start small. Deploy Postiz first, connect your accounts, and feel the difference of managing all your social channels in one free dashboard. Then add n8n when you're ready to automate the repetitive parts. Each workflow you build saves you time every week, forever.</p>
+
+    <div class="cta-box">
+      <h2>Get Started with Postiz</h2>
+      <p>Deploy in minutes. Connect 20+ platforms. Schedule unlimited posts. Start building your free automation stack today.</p>
+      <a href="https://postiz.pro/try" target="_blank" rel="noopener">Try Postiz Free →</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Gamified Living Apps · <a href="https://promptgenerator.fyi">promptgenerator.fyi</a></p>
+  </footer>
+</body>
+</html>
