@@ -753,8 +753,16 @@
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-postiz-getting-started-guide-2026.html</loc>
+    <lastmod>2026-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://promptgenerator.fyi/blog-ai-ignores-instructions-fix.html</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
+
