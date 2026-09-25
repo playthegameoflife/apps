@@ -79,6 +79,11 @@
       "slug": "blog-why-ai-keeps-missing-the-point",
       "primary_keyword": "why AI keeps missing the point even with context",
       "published": "2026-09-25"
+    },
+    {
+      "slug": "blog-structured-output-prompting-every-time",
+      "primary_keyword": "structured output prompting",
+      "published": "2026-09-25"
     }
   ]
 }
