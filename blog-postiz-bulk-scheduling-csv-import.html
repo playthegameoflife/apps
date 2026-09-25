@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn how to bulk schedule social media posts with Postiz using CSV import. Save hours every week — batch upload to YouTube, TikTok, Instagram, Facebook, X and 30+ platforms.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-postiz-bulk-scheduling-csv-import.html">
+  <meta property="og:title" content="How to Bulk Schedule Social Media Posts with Postiz: CSV Import Guide">
+  <meta property="og:description" content="Bulk schedule 100s of posts to 30+ platforms in one go. This step-by-step Postiz CSV import guide covers formatting, required columns, and automation tips.">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-postiz-bulk-scheduling-csv-import.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Gamified Living Apps">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Bulk Schedule Social Media Posts with Postiz: CSV Import Guide">
+  <meta name="twitter:description" content="Bulk schedule 100s of posts to 30+ platforms with Postiz CSV import. Step-by-step guide for creators and marketers.">
+  <title>How to Bulk Schedule Social Media Posts with Postiz: CSV Import Guide</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Bulk Schedule Social Media Posts with Postiz: CSV Import Guide",
+    "description": "Learn how to bulk schedule social media posts with Postiz using CSV import. Save hours every week by batch uploading to YouTube, TikTok, Instagram, Facebook, X and 30+ platforms.",
+    "author": { "@type": "Person", "name": "Prompt Helper Gemini" },
+    "datePublished": "2026-09-25",
+    "dateModified": "2026-09-25",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Gamified Living Apps",
+      "url": "https://promptgenerator.fyi"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://promptgenerator.fyi/blog-postiz-bulk-scheduling-csv-import.html"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does Postiz support bulk scheduling via CSV?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Postiz supports bulk scheduling through its API and integrations with automation tools like n8n. While there is no native CSV import button in the UI, you can use the Postiz API to create hundreds of scheduled posts in a batch workflow, effectively achieving the same result as CSV import."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I schedule posts to multiple platforms at once with Postiz?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In Postiz, create a new post and click the checkboxes for all the social channels where you want it published simultaneously — YouTube, TikTok, Instagram, Facebook, X, LinkedIn and others. The same content goes out to every selected platform with platform-specific formatting applied automatically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What platforms does Postiz support for bulk posting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Postiz supports 30+ platforms including YouTube, TikTok, Instagram, Facebook, X/Twitter, LinkedIn, Reddit, Pinterest, Google Business, Discord, Mastodon, Bluesky, and more. The full list is available on the official Postiz documentation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I automate Postiz bulk posting with n8n?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Postiz has a full REST API that n8n can call in a loop. Create an n8n workflow that reads a spreadsheet, iterates over each row, and calls the Postiz API to schedule each post at its designated time. This is the most reliable way to replicate CSV-import-style bulk scheduling."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Postiz free to self-host for bulk scheduling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The self-hosted version of Postiz is completely free and unlimited. Unlike SaaS tools that charge per channel or per seat, a self-hosted Postiz instance on a $6/month VPS can handle unlimited channels, unlimited users, and unlimited scheduled posts with no ongoing cost."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>How to Bulk Schedule Social Media Posts with Postiz: CSV Import Guide</h1>
+    <p class="meta">Published September 25, 2026 · 8 min read · Open Source Social Media Scheduler</p>
+  </header>
+
+  <main>
+    <p class="intro">If you're still scheduling social media posts one at a time, you're leaving hours on the table every single week. <strong>Postiz</strong> — the open-source social media scheduling tool — lets you bulk schedule hundreds of posts across 30+ platforms using API-driven automation and a smart n8n workflow. Here's exactly how to set it up in 2026.</p>
+
+    <h2>Why Bulk Scheduling Changes the Game</h2>
+    <p>Most social media managers spend 30–45 minutes every day manually queuing posts. That's 3–5 hours a week spent on a task a machine could do in seconds. Bulk scheduling fixes this completely.</p>
+    <p>With a CSV import workflow powered by Postiz's API, you can:</p>
+    <ul>
+      <li>Queue a full month of content in a single batch session</li>
+      <li>Schedule the same post across YouTube, TikTok, Instagram, Facebook, and X simultaneously</li>
+      <li>Set platform-specific publishing times without opening each channel individually</li>
+      <li>Audit your entire content calendar in seconds via spreadsheet</li>
+    </ul>
+
+    <div class="comparison">
+      <div class="comparison-box bad">
+        <h4>Manual Scheduling</h4>
+        <p>✗ Open each platform's composer</p>
+        <p>✗ Write/paste content per post</p>
+        <p>✗ Set time and publish — one at a time</p>
+        <p>✗ 30–60 minutes/day for 7 channels</p>
+        <p>✗ Burnout and missed posting windows</p>
+      </div>
+      <div class="comparison-box good">
+        <h4>Postiz Bulk Scheduling</h4>
+        <p>✓ Load a spreadsheet with all posts</p>
+        <p>✓ Run one n8n workflow</p>
+        <p>✓ API creates all posts in Postiz at once</p>
+        <p>✓ 15 minutes for a month's worth of content</p>
+        <p>✓ Consistent, error-free publishing calendar</p>
+      </div>
+    </div>
+
+    <h2>What Is Postiz?</h2>
+    <p><a href="https://postiz.pro/try" target="_blank" rel="noopener">Postiz</a> is a free, open-source social media scheduling tool built by GitRoom. It supports 30+ platforms including YouTube, TikTok, Instagram, Facebook, X/Twitter, LinkedIn, Reddit, Pinterest, Google Business, Discord, Mastodon, and Bluesky. Unlike Buffer ($15/channel/month) or Hootsuite ($99/month minimum), Postiz can be self-hosted on any VPS for roughly $6/month — with unlimited channels, unlimited users, and no per-post fees.</p>
+    <p>The tool has a clean dark-themed UI, team collaboration features, AI-assisted caption generation, a content calendar, and a full REST API that makes bulk automation possible. If you need to manage content for multiple clients or multiple personal brands, Postiz is the most cost-effective solution available in 2026.</p>
+
+    <h2>The Postiz API: Your Bulk Scheduling Engine</h2>
+    <p>Postiz exposes a REST API that lets you create, update, and schedule posts programmatically. The key endpoints for bulk scheduling are:</p>
+
+    <div class="code-block">
+      <span class="label">Postiz API Endpoints for Bulk Scheduling</span>
+# Get your API key from Postiz Settings → API Keys
+POST https://api.postiz.com/api/post
+Authorization: Bearer YOUR_API_KEY
+
+# Request body for scheduling a single post
+{
+  "content": "Your post caption or body text",
+  "channels": ["youtube", "tiktok", "instagram"],
+  "scheduledAt": "2026-10-15T09:00:00Z",
+  "mediaUrls": ["https://your-cdn.com/image.jpg"]
+}
+</div>
+
+    <p>The API accepts posts in any language and supports platform-specific metadata. YouTube posts can include video URLs, TikTok supports short-form video links, and LinkedIn posts can include article URLs. This flexibility means a single spreadsheet row can describe a full multi-platform campaign.</p>
+
+    <h2>Step-by-Step: Bulk Scheduling with Postiz and n8n</h2>
+    <p>The most reliable way to achieve CSV-style bulk scheduling with Postiz is using <strong>n8n</strong> — a free, open-source workflow automation tool that reads a spreadsheet and loops through each row, calling the Postiz API for each entry.</p>
+
+    <h3>Step 1: Prepare Your CSV Spreadsheet</h3>
+    <p>Create a Google Sheet or Excel file with these columns:</p>
+    <ul>
+      <li><strong>content</strong> — The caption or post text</li>
+      <li><strong>channels</strong> — Comma-separated: youtube,tiktok,instagram,facebook</li>
+      <li><strong>scheduled_date</strong> — ISO date: 2026-10-15</li>
+      <li><strong>scheduled_time</strong> — 24-hour time: 09:00</li>
+      <li><strong>media_url</strong> — Optional: direct URL to image or video hosted on your CDN</li>
+    </ul>
+
+    <div class="code-block">
+      <span class="label">Sample CSV — content_calendar.csv</span>
+content,channels,scheduled_date,scheduled_time,media_url
+"Introducing our new product line — link in bio 🎉","youtube,tiktok,instagram","2026-10-01","09:00","https://cdn.example.com/launch-video.mp4"
+"Behind the scenes of our photoshoot 💡","facebook,x,linkedin","2026-10-03","12:00","https://cdn.example.com/bts.jpg"
+"5 tips for better productivity this week ⏰","x,tiktok,instagram","2026-10-05","07:30",""
+"Customer spotlight: how @janedoe uses our app","youtube,facebook","2026-10-07","14:00","https://cdn.example.com/testimonial.jpg"
+</div>
+
+    <h3>Step 2: Export to Google Sheets or JSON</h3>
+    <p>n8n has a native Google Sheets node that can read your spreadsheet directly. Alternatively, export as JSON using a tool like <a href="https://csvjson.com" target="_blank" rel="noopener">csvjson.com</a>. The JSON format is easier for n8n to parse in bulk.</p>
+
+    <div class="code-block">
+      <span class="label">JSON format that n8n reads — posts.json</span>
+[
+  {
+    "content": "Introducing our new product line — link in bio 🎉",
+    "channels": ["youtube", "tiktok", "instagram"],
+    "scheduled_date": "2026-10-01",
+    "scheduled_time": "09:00",
+    "media_url": "https://cdn.example.com/launch-video.mp4"
+  },
+  {
+    "content": "5 tips for better productivity this week ⏰",
+    "channels": ["x", "tiktok", "instagram"],
+    "scheduled_date": "2026-10-05",
+    "scheduled_time": "07:30",
+    "media_url": ""
+  }
+]
+</div>
+
+    <h3>Step 3: Set Up Your n8n Workflow</h3>
+    <p>In n8n, create a new workflow with three nodes:</p>
+    <ol>
+      <li><strong>HTTP Request node</strong> — Reads your JSON/CSV file from a URL</li>
+      <li><strong>Split In Batches node</strong> — Iterates over each row in the data</li>
+      <li><strong>HTTP Request node (Post)</strong> — Sends each row to the Postiz API</li>
+    </ol>
+
+    <div class="code-block">
+      <span class="label">n8n Workflow JSON — postiz-bulk-schedule.json</span>
+{
+  "nodes": [
+    {
+      "name": "Fetch Posts",
+      "type": "httpRequest",
+      "parameters": {
+        "url": "https://your-storage.com/posts.json",
+        "method": "GET"
+      }
+    },
+    {
+      "name": "Split Posts",
+      "type": "splitInBatches",
+      "parameters": {
+        "batchSize": 1
+      }
+    },
+    {
+      "name": "Schedule Post",
+      "type": "httpRequest",
+      "parameters": {
+        "url": "https://api.postiz.com/api/post",
+        "method": "POST",
+        "body": {
+          "content": "{{ $json.content }}",
+          "channels": "{{ $json.channels }}",
+          "scheduledAt": "{{ $json.scheduled_date }}T{{ $json.scheduled_time }}:00Z",
+          "mediaUrls": ["{{ $json.media_url }}"]
+        },
+        "headers": {
+          "Authorization": "Bearer YOUR_POSTIZ_API_KEY"
+        }
+      }
+    }
+  ]
+}
+</div>
+
+    <p>The Split In Batches node processes one row at a time, which prevents rate-limiting issues and lets you monitor progress in real time. If one post fails, n8n logs the error and continues to the next — no lost work.</p>
+
+    <h3>Step 4: Run the Workflow and Verify</h3>
+    <p>After activating the workflow, n8n will iterate through every row in your CSV and create each post in Postiz at the scheduled time. Open your Postiz dashboard and check the calendar view — all your posts should appear as scheduled slots with the correct channel icons.</p>
+
+    <div class="key-takeaways">
+      <h3>Key Takeaways</h3>
+      <ul>
+        <li><strong>Postiz + n8n = CSV import for social media</strong> — no native CSV button needed</li>
+        <li><strong>One spreadsheet = hundreds of scheduled posts</strong> in under 15 minutes</li>
+        <li><strong>Unlimited channels and users</strong> with the self-hosted version</li>
+        <li><strong>n8n handles retries and error logging</strong> — failed posts are flagged, not silently dropped</li>
+        <li><strong>Platform-specific formatting</strong> — Postiz auto-adjusts dimensions and captions per channel</li>
+      </ul>
+    </div>
+
+    <h2>Platform-Specific Bulk Scheduling Tips</h2>
+
+    <h3>YouTube Bulk Scheduling</h3>
+    <p>When scheduling YouTube content via Postiz, note that YouTube posts can be scheduled as community posts (text + image) or as video uploads. Postiz supports both. For video uploads, ensure your media_url points to a publicly accessible MP4 or MOV file hosted on your own CDN — YouTube Shorts and standard uploads work through the official YouTube API connection in Postiz.</p>
+
+    <h3>TikTok and Instagram Bulk Scheduling</h3>
+    <p>TikTok and Instagram require OAuth app registration through Postiz. Once your accounts are connected, the channels in your CSV channel list (tiktok, instagram) automatically map to the correct OAuth credentials. You can schedule up to 60 days in advance for Instagram and 30 days for TikTok.</p>
+
+    <h3>Multi-Account Bulk Scheduling</h3>
+    <p>For agencies managing multiple client accounts, create a separate n8n workflow per client — each with its own Postiz API key and channel configuration. This keeps client content strictly isolated while using a single n8n instance to manage all workflows. You can schedule 1,000+ posts a week across 50+ client accounts without touching a single manual composer.</p>
+
+    <h2>Common CSV Bulk Scheduling Mistakes to Avoid</h2>
+    <ul>
+      <li><strong>Publishing immediately instead of scheduling</strong> — always include a scheduledAt timestamp; omitting it causes the post to publish the moment the API call fires</li>
+      <li><strong>Missing timezone data</strong> — always use ISO 8601 UTC format (e.g., 2026-10-15T09:00:00Z); local times without timezone info get interpreted as UTC, causing off-peak posting</li>
+      <li><strong>Media URLs that require authentication</strong> — Postiz pulls media from public URLs; private S3 buckets or Dropbox shared links won't work unless configured with a signed URL</li>
+      <li><strong>Exceeding platform rate limits</strong> — n8n's Split In Batches with a 2-second delay between calls prevents hitting Postiz API rate limits during large imports</li>
+    </ul>
+
+    <div class="cta-box">
+      <h2>Ready to Bulk Schedule Your Social Media?</h2>
+      <p>Postiz is free, open-source, and self-hostable. Set it up on any VPS in under 10 minutes with Docker, then connect your channels and start scheduling. Get a <a href="https://postiz.pro/try" target="_blank" rel="noopener">free Postiz trial →</a></p>
+    </div>
+
+    <h2>How Postiz Compares to Paid Tools for Bulk Scheduling</h2>
+    <p>Buffer, Later, and Hootsuite all offer native bulk scheduling — but only on paid plans. Here's the honest comparison:</p>
+
+    <ul>
+      <li><strong>Buffer</strong> — Bulk scheduling on the $6/channel/month plan. 8 channels = $48/month. No self-hosted option.</li>
+      <li><strong>Later</strong> — Visual drag-and-drop bulk planner. $18/month for 1 social set. No self-hosted option.</li>
+      <li><strong>Hootsuite</strong> — Bulk message upload via CSV, but only on Professional plan at $99/month. Enterprise-grade only.</li>
+      <li><strong>Postiz</strong> — API-driven bulk scheduling with n8n. Self-hosted for ~$6/month VPS. No per-channel or per-seat fees. Full stop.</li>
+    </ul>
+
+    <p>For creators managing 3 or more channels, Postiz pays for its VPS in the first month compared to a single Buffer subscription. For agencies or brands managing 10+ channels, the math is even more dramatic — Postiz self-hosted is effectively free at scale.</p>
+
+    <div class="faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>Does Postiz support bulk scheduling via CSV?</h3>
+        <p>Postiz supports bulk scheduling through its API and integrations with automation tools like n8n. While there is no native CSV import button in the UI, you can use the Postiz API to create hundreds of scheduled posts in a batch workflow, effectively achieving the same result as CSV import. The n8n workflow described above is the most reliable approach.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do I schedule posts to multiple platforms at once with Postiz?</h3>
+        <p>In Postiz, create a new post and click the checkboxes for all the social channels where you want it published simultaneously — YouTube, TikTok, Instagram, Facebook, X, LinkedIn and others. The same content goes out to every selected platform with platform-specific formatting applied automatically by Postiz's built-in adapters.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What platforms does Postiz support for bulk posting?</h3>
+        <p>Postiz supports 30+ platforms including YouTube, TikTok, Instagram, Facebook, X/Twitter, LinkedIn, Reddit, Pinterest, Google Business, Discord, Mastodon, Bluesky, and more. The full platform list is maintained on the <a href="https://github.com/gitroomhq/postiz-app" target="_blank" rel="noopener">official Postiz GitHub repository</a>.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I automate Postiz bulk posting with n8n?</h3>
+        <p>Yes. Postiz has a full REST API that n8n can call in a loop. Create an n8n workflow that reads a spreadsheet, iterates over each row, and calls the Postiz API to schedule each post at its designated time. This replicates CSV-import-style bulk scheduling with full error handling and retry logic built in.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Is Postiz free to self-host for bulk scheduling?</h3>
+        <p>Yes. The self-hosted version of Postiz is completely free and unlimited. Unlike SaaS tools that charge per channel or per seat, a self-hosted Postiz instance on a $6/month VPS can handle unlimited channels, unlimited users, and unlimited scheduled posts with no ongoing cost beyond the server rental.</p>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 <a href="https://promptgenerator.fyi">Prompt Generator</a> · <a href="https://promptgenerator.fyi/blog-structured-output-prompting-every-time.html">Structured Output Prompting Guide</a> · <a href="https://promptgenerator.fyi/blog-postiz-open-source-social-media-scheduler-34-platforms.html">Postiz 34 Platforms Guide</a></p>
+    </footer>
+  </main>
+</body>
+</html>
