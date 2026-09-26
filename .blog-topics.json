@@ -89,6 +89,11 @@
       "slug": "blog-why-ai-prompts-work-one-day-not-another",
       "primary_keyword": "why AI prompts work one day and not the next",
       "published": "2026-09-26"
+    },
+    {
+      "slug": "blog-zero-shot-prompting-vs-few-shot-prompting",
+      "primary_keyword": "zero-shot prompting vs few-shot prompting",
+      "published": "2026-09-26"
     }
   ]
 }
