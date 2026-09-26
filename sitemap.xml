@@ -48,4 +48,10 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-</urlset>
+    <url>
+      <loc>https://promptgenerator.fyi/blog-postiz-open-source-social-media-scheduler-2026.html</loc>
+      <lastmod>2026-09-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  </urlset>
