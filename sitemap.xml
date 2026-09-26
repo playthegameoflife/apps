@@ -54,4 +54,10 @@
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
     </url>
-  </urlset>
+    <url>
+    <loc>https://promptgenerator.fyi/blog-postiz-ai-agents-autonomous-social-media-2026.html</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
