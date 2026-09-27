@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReAct Prompting: The 2026 Framework for AI That Thinks AND Acts</title>
+  <meta name="description" content="ReAct prompting combines reasoning traces with actionable steps. Learn the full framework, see real examples for ChatGPT and Claude, and get 8 copy-paste templates for 2026.">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-react-prompting-ai-2026.html">
+  <meta name="author" content="Gamified Living Apps">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ReAct Prompting: The 2026 Framework for AI That Thinks AND Acts">
+  <meta property="og:description" content="ReAct prompting combines reasoning traces with actionable steps. Full framework, real examples, and 8 copy-paste templates for ChatGPT, Claude and Gemini.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-react-prompting-ai-2026.html">
+  <meta property="og:site_name" content="Gamified Living Apps">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ReAct Prompting: The 2026 Framework for AI That Thinks AND Acts">
+  <meta name="twitter:description" content="ReAct prompting: reasoning + action in one loop. 8 templates for ChatGPT, Claude and Gemini.">
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "ReAct Prompting: The 2026 Framework for AI That Thinks AND Acts",
+    "description": "ReAct prompting combines reasoning traces with actionable steps. Learn the full framework, see real examples for ChatGPT and Claude, and get 8 copy-paste templates for 2026.",
+    "author": {
+      "@type": "Organization",
+      "name": "Gamified Living Apps",
+      "url": "https://promptgenerator.fyi"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Gamified Living Apps",
+      "url": "https://promptgenerator.fyi"
+    },
+    "datePublished": "2026-09-27",
+    "dateModified": "2026-09-27",
+    "url": "https://promptgenerator.fyi/blog-react-prompting-ai-2026.html",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://promptgenerator.fyi/blog-react-prompting-ai-2026.html"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is ReAct prompting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ReAct (Synonym: Reason + Act) is an AI prompting framework that interleaves reasoning traces with actions, letting the model consult external tools like search or calculators between reasoning steps. This creates a deliberate think-act-observe loop that dramatically improves accuracy on complex, multi-step tasks.",
+          "about": "ReAct Prompting"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does ReAct differ from chain of thought prompting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Chain of thought prompting generates a single reasoning chain before answering. ReAct prompting adds tool calls and observations between reasoning steps, so the model actively consults external information rather than relying solely on what it already knows. On HotpotQA and Fever, ReAct outperforms CoT by 5-8 percentage points.",
+          "about": "ReAct Prompting"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What tools does ReAct prompting use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ReAct uses three primary tool categories: search engines for factual lookups, knowledge bases or vector stores for retrieval, and calculators or code interpreters for arithmetic and data processing. The model decides which tool to call at each reasoning step based on what it observes.",
+          "about": "ReAct Prompting"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can ReAct prompting be combined with self-consistency?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Research combining ReAct with self-consistency (generate multiple ReAct trajectories and vote on the most common answer) achieves state-of-the-art results on reasoning benchmarks. This pairing works especially well on tasks where multiple reasoning paths could be valid.",
+          "about": "ReAct Prompting"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which AI models support ReAct prompting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "All major frontier models support ReAct prompting: ChatGPT (GPT-4o), Claude 3.5 Sonnet and Opus, Gemini 1.5 and 2.0, and open models like Llama 3 and Mistral. The technique requires models with at least 7B parameters and instruction-tuning to follow the think-act-observe format reliably.",
+          "about": "ReAct Prompting"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* Inlined styles for portability */
+    :root {
+      --color-primary: #1a1a1a;
+      --color-primary-light: #2d2d2d;
+      --color-text: #1a1a1a;
+      --color-text-secondary: #4a4a4a;
+      --color-text-muted: #6a6a6a;
+      --color-bg: #ffffff;
+      --color-bg-alt: #f8f8f8;
+      --color-bg-section: #fafafa;
+      --color-border: #e8e8e8;
+      --color-hover: #f0f0f0;
+      --color-accent: #2563eb;
+      --color-accent-light: #dbeafe;
+      --spacing-unit: 8px;
+      --max-width: 800px;
+      --border-radius: 8px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0; padding: 40px 0 0 0;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--color-accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+    .article-header { padding: 48px 0 32px; border-bottom: 1px solid var(--color-border); margin-bottom: 40px; }
+    .article-header h1 {
+      font-size: 42px; font-weight: 700; line-height: 1.2;
+      letter-spacing: -0.02em; margin: 0 0 16px; color: var(--color-text);
+    }
+    .article-meta { font-size: 14px; color: var(--color-text-muted); display: flex; gap: 16px; flex-wrap: wrap; }
+    .article-meta span { display: flex; align-items: center; gap: 4px; }
+    .lead {
+      font-size: 20px; line-height: 1.6; color: var(--color-text);
+      font-weight: 400; margin: 0 0 32px;
+      border-left: 4px solid var(--color-accent); padding-left: 20px;
+    }
+    h2 {
+      font-size: 28px; font-weight: 600; line-height: 1.3;
+      letter-spacing: -0.01em; margin: 48px 0 20px; color: var(--color-text);
+      padding-top: 16px; border-top: 1px solid var(--color-border);
+    }
+    h3 { font-size: 22px; font-weight: 600; margin: 32px 0 16px; color: var(--color-text); }
+    p { color: var(--color-text-secondary); margin: 0 0 20px; }
+    p:last-child { margin-bottom: 0; }
+    ul, ol { color: var(--color-text-secondary); margin: 0 0 20px; padding-left: 24px; }
+    li { margin-bottom: 8px; line-height: 1.7; }
+    strong { color: var(--color-text); font-weight: 600; }
+    code {
+      background: var(--color-bg-alt); border: 1px solid var(--color-border);
+      border-radius: 4px; padding: 2px 6px; font-size: 14px;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      color: var(--color-primary-light);
+    }
+    pre {
+      background: var(--color-primary); color: #e2e8f0;
+      border-radius: var(--border-radius); padding: 20px 24px;
+      overflow-x: auto; margin: 24px 0; font-size: 14px;
+      line-height: 1.7; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    }
+    pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+    .highlight-box {
+      background: var(--color-accent-light);
+      border-left: 4px solid var(--color-accent);
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      padding: 20px 24px; margin: 24px 0;
+    }
+    .highlight-box p { margin: 0; color: var(--color-primary-light); font-size: 15px; }
+    .template-box {
+      background: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      padding: 20px 24px; margin: 24px 0;
+    }
+    .template-box h3 { margin-top: 0; font-size: 18px; }
+    .template-box pre { margin: 12px 0 0; background: var(--color-bg); border: 1px solid var(--color-border); color: var(--color-text); }
+    .key-takeaways {
+      background: var(--color-bg-section);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      padding: 24px; margin: 32px 0;
+    }
+    .key-takeaways h3 { margin-top: 0; font-size: 18px; }
+    .key-takeaways ul { margin: 0; }
+    .cta-box {
+      background: var(--color-primary); color: #fff;
+      border-radius: var(--border-radius); padding: 32px;
+      margin: 40px 0; text-align: center;
+    }
+    .cta-box h3 { color: #fff; margin: 0 0 12px; font-size: 22px; }
+    .cta-box p { color: #cbd5e1; margin: 0 0 20px; }
+    .cta-box a {
+      display: inline-block; background: #fff; color: var(--color-primary);
+      padding: 12px 28px; border-radius: 6px; font-weight: 600;
+      transition: transform 0.2s;
+    }
+    .cta-box a:hover { text-decoration: none; transform: translateY(-1px); }
+    .related-posts { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--color-border); }
+    .related-posts h3 { margin-bottom: 16px; }
+    .related-posts ul { list-style: none; padding: 0; margin: 0; }
+    .related-posts li { margin-bottom: 10px; padding: 0; }
+    .related-posts a { font-weight: 500; }
+    footer { margin-top: 64px; padding: 32px 0; border-top: 1px solid var(--color-border); color: var(--color-text-muted); font-size: 14px; }
+    @media (max-width: 600px) {
+      .article-header h1 { font-size: 30px; }
+      h2 { font-size: 22px; }
+      .lead { font-size: 18px; }
+      pre { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header class="article-header">
+    <h1>ReAct Prompting: The 2026 Framework for AI That Thinks AND Acts</h1>
+    <div class="article-meta">
+      <span>📅 September 27, 2026</span>
+      <span>⏱️ 11 min read</span>
+      <span>🏷️ Prompt Engineering</span>
+    </div>
+  </header>
+
+  <p class="lead">Chain-of-thought prompting was 2023's breakthrough. In 2026, the technique that consistently outperforms it on real-world tasks is <strong>ReAct prompting</strong> — a framework that makes AI models actively consult external tools, search for fresh information, and take actions between reasoning steps. Here's the complete guide.</p>
+
+  <h2 id="what-is-react">What Is ReAct Prompting?</h2>
+
+  <p><strong>ReAct</strong> (short for <strong>Reason + Act</strong>) is a prompting framework introduced by researchers at Princeton and Google that interleaves <em>verbal reasoning traces</em> with <em>actions</em> in a single loop. Instead of generating a reasoning chain and stopping, a ReAct-powered model continuously cycles through three steps:</p>
+
+  <ol>
+    <li><strong>Thought</strong> — The model decides what to figure out next</li>
+    <li><strong>Action</strong> — The model calls an external tool (search, lookup, calculator)</li>
+    <li><strong>Observation</strong> — The model processes the tool's response and updates its reasoning</li>
+  </ol>
+
+  <p>This cycle repeats until the model has enough information to produce a final answer. The key insight: <strong>reasoning and action are not sequential — they are interleaved</strong>, so the model's thinking evolves in real time as it encounters new information.</p>
+
+  <div class="highlight-box">
+    <p><strong>The core difference from chain of thought:</strong> CoT assumes the model knows everything it needs to reason correctly. ReAct acknowledges that many real tasks require information the model doesn't have in its weights — current prices, medical guidelines updated last week, or a user's personal files. ReAct bridges that gap by design.</p>
+  </div>
+
+  <h2 id="how-react-works">How ReAct Works: The Think-Act-Observe Loop</h2>
+
+  <p>The ReAct loop operates on a state variable — often called <code>context</code> or <code>agent_memory</code> — that accumulates over the cycle. Each iteration appends a thought, an action, and an observation until a terminating condition is met.</p>
+
+  <pre><code>Thought: I need to find the current exchange rate between USD and JPY.
+Action: search[USD to JPY exchange rate today]
+Observation: 1 USD = 149.82 JPY (September 27, 2026)
+Thought: Now I can calculate: 500 USD × 149.82 = 74,910 JPY
+Action: finish[74,910 JPY]</code></pre>
+
+  <p>The <code>search[]</code> and <code>finish[]</code> syntax is how the model signals tool calls. In practice, when you write ReAct prompts for ChatGPT, Claude, or Gemini, you write these as natural-language instructions the model learns to interpret.</p>
+
+  <h2 id="why-react-beats-cot">Why ReAct Consistently Beats Chain of Thought</h2>
+
+  <p>On paper, chain-of-thought (CoT) prompting delivers impressive gains. In practice, ReAct outperforms CoT on five task categories where the gap matters most:</p>
+
+  <ul>
+    <li><strong>Factual question answering with dynamic data</strong> — ReAct queries live information; CoT relies on potentially stale training data</li>
+    <li><strong>Multi-step reasoning with changing context</strong> — Each ReAct observation updates the context; CoT works from a fixed initial prompt</li>
+    <li><strong>Tasks requiring external tool use</strong> — ReAct's action step explicitly calls tools; CoT has no mechanism for this</li>
+    <li><strong>Error recovery mid-reasoning</strong> — ReAct can detect a failed action and try an alternative; CoT blindly continues</li>
+    <li><strong>Tasks where confidence is hard to assess</strong> — ReAct's observation step surfaces whether a retrieved fact supports the current reasoning direction</li>
+  </ul>
+
+  <p>On the <strong>HotpotQA</strong> multi-hop reasoning benchmark, ReAct achieves <strong>73.4% accuracy</strong> versus CoT's 68.1%. On <strong>Fever</strong>, ReAct reaches <strong>83.6%</strong> versus 80.9% for CoT. When combined with self-consistency (generate multiple ReAct trajectories, vote on the most common answer), performance climbs to 87.1% on HotpotQA — a 19-point gain over standard prompting.</p>
+
+  <h2 id="react-vs-other-techniques">ReAct vs. Other Prompting Techniques</h2>
+
+  <table style="width:100%; border-collapse: collapse; margin: 24px 0; font-size: 15px;">
+    <thead>
+      <tr style="background: var(--color-bg-alt);">
+        <th style="padding: 12px 16px; text-align: left; border-bottom: 2px solid var(--color-border);">Technique</th>
+        <th style="padding: 12px 16px; text-align: left; border-bottom: 2px solid var(--color-border);">Reasoning</th>
+        <th style="padding: 12px 16px; text-align: left; border-bottom: 2px solid var(--color-border);">Tools</th>
+        <th style="padding: 12px 16px; text-align: left; border-bottom: 2px solid var(--color-border);">Best For</th>
+      </tr>
+    </thead>
+    <tbody style="color: var(--color-text-secondary);">
+      <tr>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);"><strong>Standard Prompting</strong></td>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);">None</td>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);">None</td>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);">Simple factual questions</td>
+      </tr>
+      <tr style="background: var(--color-bg-alt);">
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);"><strong>Chain of Thought</strong></td>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);">Single linear chain</td>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);">None</td>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);">Math, logic, step-by-step analysis</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);"><strong>Tree of Thoughts</strong></td>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);">Branching exploration</td>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);">Optional</td>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);">Strategic planning, creative ideation</td>
+      </tr>
+      <tr style="background: #dbeafe;">
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);"><strong>ReAct</strong></td>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);">Iterative with observations</td>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);"><strong>Required</strong></td>
+        <td style="padding: 12px 16px; border-bottom: 1px solid var(--color-border);"><strong>Research, dynamic QA, multi-tool workflows</strong></td>
+      </tr>
+      <tr>
+        <td style="padding: 12px 16px;"><strong>ReAct + Self-Consistency</strong></td>
+        <td style="padding: 12px 16px;">Multiple trajectories, vote</td>
+        <td style="padding: 12px 16px;">Required</td>
+        <td style="padding: 12px 16px;">High-stakes reasoning tasks</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 id="tools-react-uses">What Tools Does ReAct Use?</h2>
+
+  <p>ReAct is tool-agnostic — the framework works with any function the model can call. Three tool categories dominate real implementations:</p>
+
+  <h3>1. Search and Retrieval</h3>
+  <p>Web search, internal knowledge bases, or vector database lookups. The model identifies what information it needs, calls the search tool, and incorporates the result into its next reasoning step.</p>
+
+  <h3>2. Computation</h3>
+  <p>Calculators, code interpreters (Python execution), or symbolic math tools. Particularly valuable for financial analysis, data processing, or any task where arithmetic precision matters.</p>
+
+  <h3>3. Action Execution</h3>
+  <p>Sending emails, updating records, triggering workflows via API calls. The model's reasoning determines <em>when</em> and <em>what</em> to execute, while the action step performs it.</p>
+
+  <h2 id="templates">8 ReAct Prompt Templates for 2026</h2>
+
+  <p>These templates are ready to copy into ChatGPT, Claude, or Gemini. Each follows the explicit think-act-observe format and includes a worked example.</p>
+
+  <div class="template-box">
+    <h3>Template 1: Research & Synthesis</h3>
+    <pre><code>You are a research assistant using ReAct prompting. For each question, you will:
+  1. THINK: Decide what you need to know and which query will find it
+  2. ACT: Issue a search in the format search[your search query]
+  3. OBSERVE: Incorporate the result into your reasoning
+
+  Continue this loop until you can give a complete, sourced answer.
+  When you have enough information, respond with: finish[your answer]
+
+  --- EXAMPLE ---
+  Question: What is the current federal funds rate and how does it affect mortgage rates?
+
+  Think: I need the current federal funds rate. The most reliable source is the Federal Reserve's official website.
+  Act: search[Federal Reserve federal funds rate September 2026]
+  Observe: The current federal funds rate is 4.75%–5.00% as of September 2026, set by the FOMC on September 17, 2026.
+
+  Think: Now I need to connect this to mortgage rates. Mortgage rates typically follow the 10-year Treasury yield, which moves in response to Fed rate changes with a lag of several months to a year.
+  Act: search[how federal funds rate affects mortgage rates 2026]
+  Observe: According to Freddie Mac, the 30-year fixed mortgage rate was 6.89% in the week of September 19, 2026. Economists broadly agree that mortgage rates track the 10-year Treasury, not the Fed rate directly, with an approximately 6–18 month transmission lag.
+
+  Think: I now have sufficient information to synthesize the connection between the federal funds rate and mortgage rates.
+  Act: finish[Rates are related but not directly linked. The Fed's 4.75%–5.00% rate influences the 10-year Treasury yield, which drives mortgage rates. The 30-year fixed rate of 6.89% reflects market expectations for future Fed policy.]
+
+  --- YOUR TASK ---
+  Question: [INSERT YOUR QUESTION]</code></pre>
+  </div>
+
+  <div class="template-box">
+    <h3>Template 2: Multi-Step Calculation with Verification</h3>
+    <pre><code>You are solving a multi-step calculation using the ReAct framework.
+
+  Format:
+  Thought: [What I need to calculate and why]
+  Action: calculate[expression to evaluate]
+  Observation: [Result and whether it makes sense]
+
+  Continue until you reach a verified final answer.
+  Respond: finish[answer with units]
+
+  --- EXAMPLE ---
+  Question: If a company has $2.4M in revenue, a 34% gross margin, and operating expenses of $680K, what is its operating profit?
+
+  Thought: I need gross profit first: revenue × gross margin = $2.4M × 0.34
+  Action: calculate[2400000 * 0.34]
+  Observation: Gross profit = $816,000
+
+  Thought: Now subtract operating expenses from gross profit to get operating profit.
+  Action: calculate[816000 - 680000]
+  Observation: Operating profit = $136,000
+
+  Thought: Let me verify: $2.4M revenue, $816K gross profit (34%), $680K opex leaves $136K operating profit. That's a 5.67% operating margin, which is reasonable for a growing software company.
+  Act: finish[Operating profit = $136,000 (5.67% operating margin)]
+
+  --- YOUR TASK ---
+  Question: [INSERT YOUR CALCULATION QUESTION]</code></pre>
+  </div>
+
+  <div class="template-box">
+    <h3>Template 3: Competitive Analysis</h3>
+    <pre><code>You are a business analyst using ReAct prompting to research competitors.
+
+  For each competitor, follow this loop:
+  Think: What do I need to know about this competitor?
+  Act: search[competitor name + specific aspect]
+  Observe: Key finding from the search
+
+  After researching all competitors, synthesize findings in a comparison table.
+  When complete: finish[your synthesized competitive analysis]
+
+  Competitors to research:
+  1. [Competitor A]
+  2. [Competitor B]
+  3. [Competitor C]
+
+  Research dimensions: pricing, key features, market position, and recent news (last 90 days).
+
+  --- YOUR TASK ---
+  Competitors: [LIST COMPETITORS]
+  Research question: [WHAT YOU WANT TO COMPARE]</code></pre>
+  </div>
+
+  <div class="template-box">
+    <h3>Template 4: Code Debugging</h3>
+    <pre><code>You are debugging the following code using ReAct prompting.
+
+  BUG REPORT: [DESCRIBE THE BUG]
+  EXPECTED BEHAVIOR: [WHAT SHOULD HAPPEN]
+  ACTUAL BEHAVIOR: [WHAT HAPPENS INSTEAD]
+
+  Debug loop:
+  Think: Based on the error/bug, what is the most likely cause?
+  Act: explain_code[the specific line or function you suspect]
+  Observe: What the code actually does vs. what it should do
+
+  If you need to test a theory:
+  Action: suggest_fix[your proposed change and why it should work]
+  Observe: [Result of the fix]
+
+  When the bug is fixed:
+  Act: finish[summary of the fix and what caused the problem]
+
+  --- YOUR TASK ---
+  Bug report: [DESCRIBE BUG]
+  Code:
+  [PASTE CODE]</code></pre>
+  </div>
+
+  <div class="template-box">
+    <h3>Template 5: Decision Analysis</h3>
+    <pre><code>You are advising on [DECISION TO MAKE] using ReAct prompting.
+
+  For each option, follow this loop:
+  Think: What information do I need to evaluate this option?
+  Act: search[relevant information]
+  Observe: Key finding that affects this option
+
+  Evaluate at least 3 options, then build a decision matrix.
+  When your analysis is complete:
+  Act: finish[recommendation with reasoning and confidence level]
+
+  --- EXAMPLE ---
+  Decision: Should a startup build in-house or use a third-party API for speech-to-text?
+
+  Option 1: In-house (Whisper)
+  Think: What does it cost to self-host Whisper? What infrastructure is needed?
+  Act: search[Whisper self-hosting infrastructure costs 2026]
+  Observe: Whisper large-v3 model requires ~10GB VRAM. A single A100 80GB instance on AWS costs ~$3.40/hr. At 100 hours/month usage, that's ~$340/month plus engineering overhead of 20-30 hours for setup and maintenance.
+
+  Option 2: Third-party API (Deepgram/AssemblyAI)
+  Think: What are current third-party pricing rates for speech-to-text?
+  Act: search[Deepgram speech-to-text pricing 2026]
+  Observe: Deepgram Nova-2 is $0.0043/min for batch, $0.0143/min for real-time streaming. At 100 hours/month, that's $25.80 (batch) or $85.80 (streaming), plus no infrastructure overhead.
+
+  Option 3: Hybrid (fine-tuned model)
+  Think: What would fine-tuning Whisper for our specific domain require?
+  Act: search[Whisper fine-tuning cost and dataset requirements]
+  Observe: Fine-tuning large-v3 requires ~100+ hours of labeled audio and 4-8 A100 hours. Estimated $14-28 in compute plus 40+ hours of ML engineering time.
+
+  Act: finish[For most early-stage startups: use a third-party API (Deepgram Nova-2) to validate product-market fit before investing in self-hosting. Revisit self-hosting only when usage exceeds ~500 hours/month.]
+
+  --- YOUR TASK ---
+  Decision: [WHAT ARE YOU DECIDING?]
+  Options: [LIST 2-4 OPTIONS]</code></pre>
+  </div>
+
+  <div class="template-box">
+    <h3>Template 6: Legal or Compliance Research</h3>
+    <pre><code>You are conducting legal or compliance research using ReAct prompting.
+
+  TOPIC: [LEGAL QUESTION]
+  JURISDICTION: [COUNTRY/STATE/INDUSTRY]
+
+  Research loop:
+  Think: What specific legal question needs to be answered here?
+  Act: search[specific legal query + jurisdiction + year]
+  Observe: What the search reveals about the current law or regulation
+
+  Important: Distinguish between:
+    - Black-letter law (what the statute or regulation actually says)
+    - Regulatory guidance (how agencies interpret the law)
+    - Case law (how courts have applied it)
+    - My legal opinion (your synthesis of the above)
+
+  When you have sufficient sources:
+  Act: finish[Your answer categorized by black-letter law, regulatory guidance, and your opinion]
+
+  DISCLAIMER: [THIS IS LEGAL RESEARCH, NOT LEGAL ADVICE]
+
+  --- YOUR TASK ---
+  Topic: [LEGAL QUESTION]
+  Jurisdiction: [JURISDICTION]</code></pre>
+  </div>
+
+  <div class="template-box">
+    <h3>Template 7: Content Research Brief</h3>
+    <pre><code>You are researching background information for a content piece using ReAct prompting.
+
+  CONTENT BRIEF:
+  Topic: [MAIN TOPIC]
+  Angle: [YOUR UNIQUE ANGLE OR PERSPECTIVE]
+  Target audience: [AUDIENCE]
+
+  Research loop:
+  Think: What statistics, expert quotes, or current examples would make this content credible and compelling?
+  Act: search[specific query with context]
+  Observe: [KEY FINDING — note the source URL]
+
+  Goal: Gather at least 5 specific statistics or facts with sources, and 2-3 expert perspectives.
+
+  When research is complete:
+  Act: finish[Research brief with: (1) Key statistics with sources, (2) Expert perspectives, (3) 2-3 angles the content should address that competitors miss]</code></pre>
+  </div>
+
+  <div class="template-box">
+    <h3>Template 8: Self-Consistency ReAct (High-Stakes Tasks)</h3>
+    <pre><code>You are answering a high-stakes question using ReAct prompting with self-consistency.
+  This means generating 3 different reasoning trajectories and comparing them.
+
+  QUESTION: [YOUR QUESTION]
+
+  --- TRAJECTORY 1 ---
+  Think: [FIRST APPROACH]
+  Act: search[relevant query]
+  Observe: [RESULT]
+  Think: [NEXT REASONING STEP]
+  Act: [NEXT ACTION]
+  Observe: [RESULT]
+  Act: finish[TRAJECTORY 1 ANSWER]
+
+  --- TRAJECTORY 2 ---
+  Think: [SECOND APPROACH — start from a different angle]
+  Act: search[different relevant query]
+  Observe: [RESULT]
+  Think: [NEXT REASONING STEP]
+  Act: [NEXT ACTION]
+  Observe: [RESULT]
+  Act: finish[TRAJECTORY 2 ANSWER]
+
+  --- TRAJECTORY 3 ---
+  Think: [THIRD APPROACH — try a completely different framing]
+  Act: search[third angle query]
+  Observe: [RESULT]
+  Think: [NEXT REASONING STEP]
+  Act: [NEXT ACTION]
+  Observe: [RESULT]
+  Act: finish[TRAJECTORY 3 ANSWER]
+
+  --- CONSENSUS CHECK ---
+  Compare all three trajectories. If 2+ agree, that is your answer.
+  If all three differ, explain why and give the most conservative interpretation.
+  Act: finish[FINAL CONSENSUS ANSWER]
+
+  --- YOUR TASK ---
+  Question: [INSERT HIGH-STAKES QUESTION]</code></pre>
+  </div>
+
+  <h2 id="common-mistakes">5 Common ReAct Prompting Mistakes to Avoid</h2>
+
+  <h3>1. Skipping the Observation Step</h3>
+  <p>The observation is not a formality — it is the data point that either confirms or contradicts your current reasoning. Models that skip or compress observations tend to double down on incorrect intermediate conclusions.</p>
+
+  <h3>2. Vague Tool Specifications</h3>
+  <p>"Search for information" is ambiguous. "search[GDP growth rate comparison Japan USA 2026]" is precise. The more specific the tool call, the higher the quality of the returned data.</p>
+
+  <h3>3. Forgetting to Check Tool Output</h3>
+  <p>ReAct models sometimes assume a search succeeded when it returned nothing useful. Always include a verification step: if the observation is empty or irrelevant, issue a refined search rather than proceeding with bad data.</p>
+
+  <h3>4. Over-Engineering Simple Tasks</h3>
+  <p>ReAct adds overhead. For a single-step factual question, standard prompting is faster and equally accurate. Reserve ReAct for tasks requiring 3+ reasoning steps or information synthesis across multiple sources.</p>
+
+  <h3>5. No Termination Condition</h3>
+  <p>Without a clear <code>finish[]</code> or equivalent signal, the model may loop indefinitely, especially on open-ended research tasks. Always specify when the model should stop and what a complete answer looks like.</p>
+
+  <div class="key-takeaways">
+    <h3>Key Takeaways</h3>
+    <ul>
+      <li>ReAct prompting interleaves <strong>reasoning traces with tool actions</strong>, letting AI actively consult external information during the reasoning process</li>
+      <li>It consistently outperforms chain-of-thought on <strong>dynamic, multi-step, and tool-dependent tasks</strong> — the gains are largest on research and factual QA</li>
+      <li>The framework requires <strong>at least 3 components</strong>: a thought step, an action (tool call), and an observation from the tool result</li>
+      <li>Combine with <strong>self-consistency</strong> for a further 10-15% accuracy boost on high-stakes reasoning tasks</li>
+      <li>All major models in 2026 — <strong>GPT-4o, Claude 3.5, Gemini 2.0, Llama 3, and Mistral</strong> — support ReAct prompting</li>
+    </ul>
+  </div>
+
+  <div class="cta-box">
+    <h3>Stop Writing Prompts That Get Generic Responses</h3>
+    <p>The Prompt Helper Gemini Chrome extension enhances your prompts using frameworks like ReAct, chain-of-thought, and few-shot directly in your browser. Works with ChatGPT, Claude, Gemini, and Grok.</p>
+    <a href="https://promptgenerator.fyi">Try Prompt Helper Gemini — Free</a>
+  </div>
+
+  <div class="related-posts">
+    <h3>Related Articles</h3>
+    <ul>
+      <li><a href="https://promptgenerator.fyi/blog-chain-of-thought-prompting-2026.html">Chain of Thought Prompting: The 2026 Guide</a></li>
+      <li><a href="https://promptgenerator.fyi/blog-prompt-chaining-ai-technique-2026.html">Prompt Chaining: Break Complex Tasks into Manageable Steps</a></li>
+      <li><a href="https://promptgenerator.fyi/blog-how-to-debug-ai-prompts.html">How to Debug AI Prompts: A Systematic Framework</a></li>
+      <li><a href="https://promptgenerator.fyi/blog-context-engineering-2026.html">Context Engineering: The 2026 Way to Give AI Better Instructions</a></li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>© 2026 <a href="https://promptgenerator.fyi">Prompt Helper Gemini</a> by <a href="https://gamifiedlivingapps.com">Gamified Living Apps</a> · <a href="https://promptgenerator.fyi/privacy">Privacy Policy</a></p>
+  </footer>
+</div>
+
+</body>
+</html>
