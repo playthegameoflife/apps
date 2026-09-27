@@ -48,13 +48,13 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-    <url>
-      <loc>https://promptgenerator.fyi/blog-postiz-open-source-social-media-scheduler-2026.html</loc>
-      <lastmod>2026-09-26</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.8</priority>
-    </url>
-    <url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-postiz-open-source-social-media-scheduler-2026.html</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://promptgenerator.fyi/blog-postiz-ai-agents-autonomous-social-media-2026.html</loc>
     <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
@@ -66,7 +66,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://promptgenerator.fyi/blog-postiz-docker-self-host-guide.html</loc>
     <lastmod>2026-09-28</lastmod>
@@ -81,6 +80,12 @@
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-ai-prompt-chaining-guide-2026.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-how-to-make-ai-answer-all-parts-of-prompt.html</loc>
     <lastmod>2026-09-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
