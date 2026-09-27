@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Self-host Postiz with Docker for free — a complete 2026 guide. Schedule 30+ platforms, AI captions, team queues. No per-channel fees. Start free.">
+  <meta name="keywords" content="self host social media scheduler, Postiz Docker, Postiz self hosted, free social media scheduler, open source social media tool">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-postiz-docker-self-host-guide.html">
+  <meta property="og:title" content="How to Self-Host Postiz with Docker (Free) in 2026">
+  <meta property="og:description" content="Host Postiz on your own server with Docker. Schedule 30+ platforms, AI captions, team queues — no per-channel fees. Full step-by-step guide.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-postiz-docker-self-host-guide.html">
+  <meta property="og:site_name" content="Gamified Living Apps">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Self-Host Postiz with Docker (Free) in 2026">
+  <meta name="twitter:description" content="Host Postiz on your own server with Docker. Schedule 30+ platforms, AI captions, team queues — no per-channel fees. Full step-by-step guide.">
+  <title>How to Self-Host Postiz with Docker (Free) in 2026</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "How to Self-Host Postiz with Docker (Free) in 2026",
+        "description": "A complete step-by-step guide to self-hosting Postiz — the open-source social media scheduler — using Docker on your own server. Covers installation, 30+ platform connections, AI caption generation, team queues, and a direct comparison with Buffer and Hootsuite.",
+        "author": { "@type": "Person", "name": "Gamified Living Apps" },
+        "publisher": { "@type": "Organization", "name": "Gamified Living Apps", "url": "https://promptgenerator.fyi" },
+        "datePublished": "2026-09-28",
+        "dateModified": "2026-09-28",
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://promptgenerator.fyi/blog-postiz-docker-self-host-guide.html" },
+        "wordCount": "1900",
+        "about": {
+          "@type": "SoftwareApplication",
+          "name": "Postiz",
+          "applicationCategory": "SocialMediaApplication",
+          "operatingSystem": "Linux/Docker"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Postiz and how does it differ from Buffer or Hootsuite?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Postiz is an open-source, self-hostable social media scheduling platform. Unlike Buffer and Hootsuite, which charge per connected channel or per seat, Postiz runs on a flat server cost — typically $5–15/month for a VPS — and supports 30+ platforms including rarely-covered ones like Mastodon, the Fediverse, and Google Business Profile."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the minimum server requirements for self-hosting Postiz?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Postiz requires a Linux VPS with at least 2 GB of RAM, a single CPU core, and 10 GB of disk space. Docker and Docker Compose are the only software prerequisites. Many users run it on a $5–10/month VPS from providers like Hetzner, DigitalOcean, or Linode."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which platforms can I connect to Postiz after self-hosting?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Postiz supports 30+ platforms: YouTube, TikTok, Instagram, Facebook, X/Twitter, LinkedIn, Reddit, Pinterest, Google Business, Mastodon, Threads, Bluesky, GitLab, and more. Note that some platforms require you to register your own OAuth developer app — Postiz Cloud handles this for you, but self-hosters must do it manually."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Postiz have AI caption generation built in?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Postiz includes an AI agent that generates platform-native captions from a single idea. You provide the core concept and Postiz writes distinct posts for TikTok, LinkedIn, Instagram, and every other connected platform — with appropriate tone, hashtags, and formatting for each."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Postiz handle team collaboration on a self-hosted instance?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Postiz has built-in workspace, team, and role management. You can invite team members, assign them specific roles (admin, editor, viewer), and route content through approval queues before posts go live. This makes it viable for agencies and content teams — not just solo creators."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I migrate from Buffer or Hootsuite to Postiz without losing my scheduled posts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Postiz supports CSV import for bulk scheduling, making it straightforward to migrate existing posts. You can export your content calendar from Buffer or Hootsuite as CSV and import it directly into Postiz. The queue system then handles publishing at your scheduled times across all connected platforms."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; color: #cbd5e1; }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; border-bottom: none; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+  </style>
+</head>
+<body>
+<header>
+  <h1>How to Self-Host Postiz with Docker (Free) in 2026</h1>
+  <p class="meta">Published September 28, 2026 · 10 min read · Category: Social Media Tools</p>
+</header>
+
+<main>
+  <article>
+    <p class="intro">Buffer wants $6 per connected channel. Hootsuite starts at $99/month. If you're managing eight social accounts, that's $48–$100/month before you've scheduled a single post. <strong>Postiz</strong> changes that equation entirely — self-host it on Docker and you pay only for your server, no per-channel fees, ever. Here's the complete 2026 guide to getting it running.</p>
+
+    <h2>What Is Postiz and Why Self-Host It?</h2>
+    <p><a href="https://postiz.com" target="_blank" rel="noopener noreferrer">Postiz</a> is the open-source, agentic social media scheduling platform that lets you plan, generate, and schedule content across 30+ networks from a single visual calendar. It's built by the team at <strong>gitroom</strong> and licensed under AGPL-3.0 — meaning you can run it on your own infrastructure, forever, at no licensing cost.</p>
+
+    <p>The case for self-hosting is straightforward: <strong>Buffer charges $6/channel/month</strong>, and <strong>Hootsuite runs $99+/month</strong>. If you connect Instagram, TikTok, YouTube, LinkedIn, Facebook, X, Pinterest, and Reddit, you're paying $48/month on Buffer and over $100/month on Hootsuite. Postiz runs on a $5–15/month VPS — flat rate, unlimited channels, unlimited team members.</p>
+
+    <p>When you self-host Postiz, you also own your data. No vendor lock-in, no platform risk if a SaaS pricing model changes, and full control over backups and API access.</p>
+
+    <div class="comparison">
+      <div class="comparison-box bad">
+        <h4>Buffer / Hootsuite</h4>
+        <ul style="margin:8px 0 0 18px; color:#374151; font-size:0.85rem;">
+          <li>$6+ per connected channel</li>
+          <li>$99+/month for teams</li>
+          <li>Data lives on vendor servers</li>
+          <li>Limited platform support</li>
+          <li>AI features behind paywalls</li>
+        </ul>
+      </div>
+      <div class="comparison-box good">
+        <h4>Postiz (Self-Hosted)</h4>
+        <ul style="margin:8px 0 0 18px; color:#374151; font-size:0.85rem;">
+          <li>Flat server cost ($5–15/month)</li>
+          <li>Unlimited channels & team members</li>
+          <li>Data on your infrastructure</li>
+          <li>30+ platforms including Mastodon/Fediverse</li>
+          <li>Built-in AI caption generation</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>What Postiz Can Do That Paid Tools Can't</h2>
+    <p>Beyond pricing, Postiz has genuine feature depth that outpaces most paid schedulers:</p>
+    <ul>
+      <li><strong>30+ platform integrations</strong> — including Mastodon, Threads, Bluesky, GitLab, Google Business Profile, and Pinterest that most tools don't support at all</li>
+      <li><strong>AI copilot</strong> — describe your content once and Postiz writes native captions for every platform with appropriate tone, hashtags, and character limits</li>
+      <li><strong>Visual content calendar</strong> — drag-and-drop scheduling with a queue-first publishing model that spaces out your posts automatically</li>
+      <li><strong>Team roles and approval queues</strong> — invite editors, set approvers, and route posts through a review workflow before they go live</li>
+      <li><strong>REST API and MCP support</strong> — integrate Postiz into your existing workflows or control it from AI agents like Claude and ChatGPT</li>
+      <li><strong>CSV bulk import</strong> — migrate your entire content calendar from Buffer or Hootsuite in one import</li>
+      <li><strong>Self-hosted or cloud</strong> — start free on your own VPS, or use Postiz Cloud if you prefer not to manage infrastructure</li>
+    </ul>
+
+    <h2>Prerequisites: What You Need Before Starting</h2>
+    <p>Self-hosting Postiz is straightforward if you have a basic Linux VPS and 30 minutes. Here's what you'll need:</p>
+    <ul>
+      <li><strong>A Linux VPS</strong> — 2 GB RAM, 1 CPU core, 10 GB disk minimum. Popular options: Hetzner Cloud (from €3.50/month), DigitalOcean Basic ($4/month), or a Raspberry Pi 4 for homelab use</li>
+      <li><strong>Docker & Docker Compose</strong> — installed on your server. Most VPS images come with these pre-installed, or you can run the official installer in under a minute</li>
+      <li><strong>A domain or subdomain</strong> — optional but recommended for accessing Postiz at a memorable URL (e.g., postiz.yourdomain.com)</li>
+      <li><strong>OAuth credentials</strong> — for each social platform you want to connect. This is the one area self-hosting requires more setup than Postiz Cloud (which pre-registers these for you). The <a href="https://docs.postiz.com" target="_blank" rel="noopener noreferrer">Postiz documentation</a> has step-by-step guides for each platform</li>
+    </ul>
+
+    <h2>Step 1: Install Docker on Your VPS</h2>
+    <p>SSH into your server and install Docker if it's not already there:</p>
+    <div class="code-block">
+      <span class="label">Bash — SSH into your VPS</span>
+ssh root@your-server-ip
+    </div>
+    <div class="code-block">
+      <span class="label">Bash — Install Docker (Ubuntu/Debian)</span>
+curl -fsSL https://get.docker.com | sh
+    </div>
+    <p>Verify Docker is running:</p>
+    <div class="code-block">
+      <span class="label">Bash — Verify Docker installation</span>
+docker --version
+docker-compose --version
+    </div>
+    <p>You should see version numbers for both. That's it — Docker is ready to run Postiz.</p>
+
+    <h2>Step 2: Deploy Postiz with Docker Compose</h2>
+    <p>Postiz ships a production-ready Docker Compose configuration. Clone the repository or create the compose file directly:</p>
+    <div class="code-block">
+      <span class="label">Bash — Create project directory</span>
+mkdir -p postiz && cd postiz
+    </div>
+    <div class="code-block">
+      <span class="label">Bash — Download Docker Compose file</span>
+curl -sL https://postiz.com/docker/docker-compose.yml -o docker-compose.yml
+    </div>
+    <p>Now create your environment file with the required configuration:</p>
+    <div class="code-block">
+      <span class="label">Bash — Create .env file</span>
+cat > .env << 'EOF'
+# Required: Generate at https://vault.bitwarden.com
+GENERATE_SECRET_KEY=true
+# PostgreSQL — Docker will create this automatically
+DATABASE_HOST=postgres
+DATABASE_PORT=5432
+DATABASE_NAME=postiz
+DATABASE_USER=postgres
+DATABASE_PASSWORD=change_this_password
+# Redis — Docker will create this automatically
+REDIS_HOST=redis
+REDIS_PORT=6379
+# Postiz frontend URL (your domain or IP)
+FRONTEND_URL=https://postiz.yourdomain.com
+# Optional: SMTP for email notifications
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=your@email.com
+SMTP_PASSWORD=your_smtp_password
+EOF
+    </div>
+    <p>Start the full stack with one command:</p>
+    <div class="code-block">
+      <span class="label">Bash — Start Postiz stack</span>
+docker-compose up -d
+    </div>
+    <p>Docker will download the Postiz backend, frontend, PostgreSQL, and Redis images and start them all. This takes 2–5 minutes on a fresh server.</p>
+    <p>Check that everything is running:</p>
+    <div class="code-block">
+      <span class="label">Bash — Check container status</span>
+docker-compose ps
+    </div>
+    <p>You should see four services: <code>backend</code>, <code>frontend</code>, <code>postgres</code>, and <code>redis</code>, all showing <span class="after">healthy</span> or <code>Up</code>.</p>
+
+    <h2>Step 3: Configure Nginx as a Reverse Proxy (Recommended)</h2>
+    <p>If you're using a domain name, set up Nginx as a reverse proxy so Postiz runs on port 443 with HTTPS:</p>
+    <div class="code-block">
+      <span class="label">Bash — Install Nginx</span>
+apt install -y nginx
+    </div>
+    <div class="code-block">
+      <span class="label">Bash — Nginx config for Postiz</span>
+cat > /etc/nginx/sites-available/postiz << 'EOF'
+server {
+    listen 80;
+    server_name postiz.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+EOF
+ln -s /etc/nginx/sites-available/postiz /etc/nginx/sites-enabled/
+nginx -t && systemctl reload nginx
+    </div>
+    <p>Then set up free HTTPS with Let's Encrypt:</p>
+    <div class="code-block">
+      <span class="label">Bash — Free HTTPS with Certbot</span>
+apt install -y certbot python3-certbot-nginx
+certbot --nginx -d postiz.yourdomain.com
+    </div>
+    <p>Postiz is now live at <code>https://postiz.yourdomain.com</code> with a valid SSL certificate.</p>
+
+    <h2>Step 4: Connect Your Social Platforms</h2>
+    <p>Open Postiz in your browser and create your admin account. Then navigate to <strong>Settings → Integrations</strong> to connect your social accounts.</p>
+
+    <p>The key thing to understand as a self-hoster: Postiz Cloud registers OAuth apps on your behalf. When self-hosting, <strong>you need to create your own developer apps</strong> on each platform. The <a href="https://docs.postiz.com" target="_blank" rel="noopener noreferrer">official Postiz documentation</a> has detailed guides for every platform, but here's the high-level overview:</p>
+
+    <ul>
+      <li><strong>Instagram / Facebook</strong> — Create a Meta Developer App, add the "Instagram Graph API" and "Facebook Platform" products, and provide your Client ID and Secret in Postiz</li>
+      <li><strong>X/Twitter</strong> — Create a X Developer Portal project with "Read and Write" permissions, and enter your API Key and API Secret</li>
+      <li><strong>LinkedIn</strong> — Create an Azure app registration with the "LinkedIn API" product, then provide the Client ID and Secret</li>
+      <li><strong>YouTube</strong> — Use your YouTube channel's OAuth credentials from the Google Cloud Console</li>
+      <li><strong>TikTok</strong> — Register as a TikTok developer, create an app, and enable the "Content Publishing API"</li>
+    </ul>
+
+    <p>Once you've entered the OAuth credentials for each platform, click "Connect" in Postiz — you'll be redirected to authorize the connection, just like any OAuth flow.</p>
+
+    <div class="key-takeaways">
+      <h3>Key Takeaways Before You Start</h3>
+      <ul>
+        <li>Self-hosting Postiz costs $5–15/month vs. $48–100+/month for equivalent Buffer/Hootsuite plans</li>
+        <li>OAuth developer app registration is the main setup step — allow 30–60 minutes for all platforms</li>
+        <li>Postiz Cloud ($23/month) handles OAuth for you if you don't want to self-host but still want to avoid Hootsuite pricing</li>
+        <li>Data stays on your server — no vendor lock-in, no per-seat pricing surprises</li>
+        <li>The visual calendar, AI captions, team queues, and 30+ platform support are included at no extra cost</li>
+      </ul>
+    </div>
+
+    <h2>How Postiz Compares to Buffer and Hootsuite for Teams</h2>
+    <p>Solo creators aren't the only audience for Postiz. Marketing agencies and content teams find significant value in the self-hosted model too:</p>
+    <ul>
+      <li><strong>Buffer's team plan</strong> ($12/channel/month for 5 team members) quickly becomes expensive for agencies managing 20+ client accounts</li>
+      <li><strong>Hootsuite Teams</strong> ($199/month+) includes some collaboration features but locks you into a per-seat model</li>
+      <li><strong>Postiz team features</strong> — workspaces, roles (admin, editor, author), and approval queues — are fully functional in the self-hosted version. You can run an entire agency on a $15/month VPS</li>
+    </ul>
+    <p>The trade-off is that Postiz Cloud (the managed version) at $23/month is still cheaper than Buffer's team tier — and the self-hosted version is free beyond server costs.</p>
+
+    <h2>The AI Copilot: How It Works</h2>
+    <p>One of Postiz's most compelling features is its built-in AI agent. Here's the workflow:</p>
+    <ol>
+      <li><strong>You describe the post</strong> — give Postiz a core idea, product update, or content concept</li>
+      <li><strong>Postiz generates platform-native content</strong> — it writes distinct captions for LinkedIn (professional, 150-char hook), TikTok (casual, hook-first), X (concise, with 2–3 hashtags), and every other connected platform</li>
+      <li><strong>You review in the calendar</strong> — drag posts to different times, edit the AI-generated copy, and approve or reject</li>
+      <li><strong>Postiz auto-publishes</strong> — at your scheduled time, the post goes live on each platform automatically</li>
+    </ol>
+    <p>The AI model is configurable — you can bring your own API key (OpenAI, Anthropic, etc.) if you want to use a specific model rather than the default.</p>
+
+    <h2>CSV Import: Migrating from Buffer or Hootsuite</h2>
+    <p>If you're switching from Buffer or Hootsuite, you don't have to rebuild your content calendar from scratch. Postiz supports CSV bulk import:</p>
+    <div class="code-block">
+      <span class="label">CSV Format for Postiz Import</span>
+date,platform,content,media_url
+2026-10-01 09:00,instagram,Excited to announce our new product launch! Check the link in bio.,https://example.com/image.jpg
+2026-10-01 10:00,twitter,We just launched! Thread incoming... #startup #product,https://example.com/product.jpg
+2026-10-02 14:00,linkedin,Big news: our latest update is live. Here's what's changed and why it matters for your workflow.,https://example.com/update.jpg
+    </div>
+    <p>Export your existing posts from Buffer or Hootsuite, reformat to this structure, and import via <strong>Postiz → Settings → Import → CSV</strong>. Your historical content calendar comes in with all the scheduled dates intact.</p>
+
+    <h2>Is Self-Hosting Right for You?</h2>
+    <p>Self-hosting Postiz is a genuine money-saver if you're comfortable with basic server administration. If you've ever set up a Docker container or run a Linux command line, you'll have no trouble.</p>
+    <p>That said, there are two honest reasons to choose Postiz Cloud instead:</p>
+    <ul>
+      <li><strong>OAuth handling</strong> — Postiz Cloud pre-registers OAuth developer apps so you connect a platform in two clicks. Self-hosting requires you to create and manage each developer app yourself</li>
+      <li><strong>Maintenance</strong> — Docker Compose updates, server security patches, and backups are your responsibility when self-hosting. Postiz Cloud handles all of that</li>
+    </ul>
+    <p>For the price-conscious creator or agency who wants full control, however, self-hosted Postiz is the strongest value proposition in social media scheduling in 2026.</p>
+
+    <div class="cta-box">
+      <h2>Ready to Self-Host Postiz for Free?</h2>
+      <p>Skip the per-channel fees. Run Postiz on a $5/month VPS and schedule unlimited posts across 30+ platforms. Get started with a <a href="https://postiz.pro/try" target="_blank" rel="noopener noreferrer">free Postiz trial on Postiz Cloud</a> first to test all features, then self-host when you're ready.</p>
+      <a href="https://postiz.pro/try" target="_blank" rel="noopener noreferrer">Try Postiz Free →</a>
+    </div>
+
+    <section class="faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>What is Postiz and how does it differ from Buffer or Hootsuite?</h3>
+        <p>Postiz is an open-source, self-hostable social media scheduling platform. Unlike Buffer and Hootsuite, which charge per connected channel or per seat, Postiz runs on a flat server cost — typically $5–15/month for a VPS — and supports 30+ platforms including rarely-covered ones like Mastodon, the Fediverse, and Google Business Profile.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What are the minimum server requirements for self-hosting Postiz?</h3>
+        <p>Postiz requires a Linux VPS with at least 2 GB of RAM, a single CPU core, and 10 GB of disk space. Docker and Docker Compose are the only software prerequisites. Many users run it on a $5–10/month VPS from providers like Hetzner, DigitalOcean, or Linode.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Which platforms can I connect to Postiz after self-hosting?</h3>
+        <p>Postiz supports 30+ platforms: YouTube, TikTok, Instagram, Facebook, X/Twitter, LinkedIn, Reddit, Pinterest, Google Business, Mastodon, Threads, Bluesky, GitLab, and more. Note that some platforms require you to register your own OAuth developer app — Postiz Cloud handles this for you, but self-hosters must do it manually.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Does Postiz have AI caption generation built in?</h3>
+        <p>Yes. Postiz includes an AI agent that generates platform-native captions from a single idea. You provide the core concept and Postiz writes distinct posts for TikTok, LinkedIn, Instagram, and every other connected platform — with appropriate tone, hashtags, and formatting for each.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How does Postiz handle team collaboration on a self-hosted instance?</h3>
+        <p>Postiz has built-in workspace, team, and role management. You can invite team members, assign them specific roles (admin, editor, viewer), and route content through approval queues before posts go live. This makes it viable for agencies and content teams — not just solo creators.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I migrate from Buffer or Hootsuite to Postiz without losing my scheduled posts?</h3>
+        <p>Postiz supports CSV import for bulk scheduling, making it straightforward to migrate existing posts. You can export your content calendar from Buffer or Hootsuite as CSV and import it directly into Postiz. The queue system then handles publishing at your scheduled times across all connected platforms.</p>
+      </div>
+    </section>
+
+  </article>
+</main>
+
+<footer>
+  <p>&copy; 2026 Gamified Living Apps. All rights reserved. | <a href="https://promptgenerator.fyi">Home</a></p>
+</footer>
+</body>
+</html>
