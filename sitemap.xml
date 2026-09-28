@@ -187,4 +187,10 @@
   <url><loc>https://promptgenerator.fyi/mycombat/blog-solo-martial-arts-training-guide.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://promptgenerator.fyi/mycombat/blog-voice-guided-martial-arts-training-apps-2026.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://promptgenerator.fyi/mycombat/blog-voice-guided-martial-arts-training-solo.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-grok-prompt-helper-chrome-20261828.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
