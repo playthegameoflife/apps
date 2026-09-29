@@ -219,4 +219,10 @@
     <priority>0.8</priority>
   </url>
   <url><loc>https://promptgenerator.fyi/blog-how-to-stop-ai-repeating-itself.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-fast-ai-writing-assistant-chrome-extension-20262829.html</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
