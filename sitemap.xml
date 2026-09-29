@@ -189,20 +189,20 @@
   <url><loc>https://promptgenerator.fyi/mycombat/blog-voice-guided-martial-arts-training-solo.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url>
     <loc>https://promptgenerator.fyi/blog-grok-prompt-helper-chrome-20261828.html</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://promptgenerator.fyi/blog-ai-prompt-generator-unique-responses.html</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-context-rot-ai.html</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -210,6 +210,12 @@
     <loc>https://promptgenerator.fyi/blog-postiz-vs-buffer.html</loc>
     <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-claude-prompt-enhancement-tool-20262729.html</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 </urlset>
