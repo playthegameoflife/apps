@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Role Prompting: 12 "Act As" Prompts That Get Better AI Responses</title>
+  <meta name="description" content="Role prompting (act as) transforms generic AI responses into expert-level answers. 12 copy-paste role prompt examples for ChatGPT, Claude, and Gemini, plus the science behind why it works.">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-role-prompting-ai-examples-2026.html">
+  <meta name="author" content="Gamified Living Apps">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Role Prompting: 12 'Act As' Prompts That Get Better AI Responses">
+  <meta property="og:description" content="Role prompting transforms generic AI responses into expert-level answers. 12 copy-paste role prompt examples for ChatGPT, Claude, and Gemini, plus why it works.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-role-prompting-ai-examples-2026.html">
+  <meta property="og:site_name" content="Prompt Generator">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Role Prompting: 12 'Act As' Prompts That Get Better AI Responses">
+  <meta name="twitter:description" content="12 copy-paste role prompting examples that transform AI output quality. Works with ChatGPT, Claude, and Gemini.">
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Role Prompting: 12 'Act As' Prompts That Get Better AI Responses",
+    "description": "Role prompting transforms generic AI responses into expert-level answers. 12 copy-paste role prompt examples for ChatGPT, Claude, and Gemini, plus the science behind why it works.",
+    "author": {
+      "@type": "Organization",
+      "name": "Gamified Living Apps",
+      "url": "https://promptgenerator.fyi"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Gamified Living Apps",
+      "url": "https://promptgenerator.fyi"
+    },
+    "datePublished": "2026-10-01",
+    "dateModified": "2026-10-01",
+    "url": "https://promptgenerator.fyi/blog-role-prompting-ai-examples-2026.html",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://promptgenerator.fyi/blog-role-prompting-ai-examples-2026.html"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is role prompting in AI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Role prompting tells an AI to adopt a specific identity or expertise before answering — for example, 'Act as a senior software engineer' or 'You are a professional copywriter.' This single framing step shapes the tone, depth, vocabulary, and structural choices in every response that follows.",
+          "about": "Role Prompting"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does role prompting actually improve AI output quality?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Multiple benchmarks and A/B prompt tests in 2025-2026 confirm that role prompting measurably improves response quality. A 2026 analysis across ChatGPT, Claude, and Gemini found the same request reworded with a role, context, and format produced dramatically more usable output than a plain one-line question — with no change to the underlying model.",
+          "about": "Role Prompting"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best role prompting format?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The most effective format has four parts: (1) state the role — 'You are an experienced [profession],' (2) add context — describe the situation or audience, (3) define the task — what you need and why, and (4) specify the output format — bullet list, table, paragraph, or step-by-step. This Role + Context + Task + Format structure consistently outperforms bare 'act as' phrases.",
+          "about": "Role Prompting"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you combine role prompting with chain-of-thought?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Layering role prompting with chain-of-thought reasoning gives you expert-level analysis AND visible logic. For example: 'As a senior data analyst, walk through this dataset step by step, showing your reasoning before each conclusion.' This combination works especially well for complex analytical, strategic, or diagnostic tasks.",
+          "about": "Role Prompting"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which AI models support role prompting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "All major frontier models respond well to role prompting: ChatGPT (GPT-4o and later), Claude 3.5 and Opus, Gemini 1.5 and 2.0, and open models like Llama 3 and Mistral. The technique requires a model with at least 7 billion parameters and instruction-tuning — which covers essentially every model you'd use in practice today.",
+          "about": "Role Prompting"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; line-height: 1.7; color: #222; background: #fafafa; max-width: 760px; margin: 0 auto; padding: 20px; }
+    h1 { font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 8px; color: #111; }
+    .subtitle { font-size: 1.1rem; color: #555; margin-bottom: 20px; line-height: 1.5; }
+    .article-meta { font-size: 0.85rem; color: #888; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid #e5e5e5; }
+    h2 { font-size: 1.4rem; font-weight: 700; margin: 36px 0 12px; color: #111; }
+    h3 { font-size: 1.1rem; font-weight: 600; margin: 20px 0 8px; color: #333; }
+    p { margin-bottom: 16px; font-size: 1rem; }
+    a { color: #2563eb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul, ol { margin: 0 0 16px 24px; }
+    li { margin-bottom: 8px; }
+    .prompt-box { background: #f8fafc; border-left: 4px solid #2563eb; padding: 16px 20px; margin: 20px 0; border-radius: 0 6px 6px 0; font-family: 'Courier New', monospace; font-size: 0.9rem; white-space: pre-wrap; word-break: break-word; }
+    .prompt-box .label { font-family: system-ui, sans-serif; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #2563eb; margin-bottom: 8px; display: block; }
+    .tip-box { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 16px 20px; margin: 20px 0; border-radius: 0 6px 6px 0; }
+    .tip-box strong { color: #92400e; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
+    .comparison-table th { background: #1e293b; color: #fff; padding: 10px 14px; text-align: left; }
+    .comparison-table td { padding: 9px 14px; border-bottom: 1px solid #e5e5e5; }
+    .comparison-table tr:nth-child(even) td { background: #f8fafc; }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .highlight { background: #eff6ff; padding: 2px 6px; border-radius: 3px; font-weight: 500; }
+    .cta-box { background: linear-gradient(135deg, #1e40af, #3b82f6); color: #fff; padding: 28px 24px; border-radius: 10px; margin: 36px 0; text-align: center; }
+    .cta-box h2 { color: #fff; margin: 0 0 10px; font-size: 1.3rem; }
+    .cta-box p { color: #dbeafe; margin-bottom: 16px; }
+    .cta-btn { display: inline-block; background: #fff; color: #1e40af; font-weight: 700; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-size: 0.95rem; }
+    .cta-btn:hover { background: #f0f0f0; text-decoration: none; }
+    .faq-section { margin-top: 40px; }
+    .faq-section h2 { border-bottom: 2px solid #1e40af; padding-bottom: 8px; }
+    .faq-item { margin-bottom: 20px; }
+    .faq-item h3 { font-size: 1rem; color: #1e40af; }
+    .faq-item p { color: #444; }
+    .author { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .author-avatar { width: 44px; height: 44px; border-radius: 50%; background: #1e40af; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; }
+    .author-info { font-size: 0.9rem; }
+    .author-name { font-weight: 600; color: #111; }
+    .author-title { color: #888; }
+    .related-posts { background: #f8fafc; border-radius: 8px; padding: 20px; margin-top: 40px; }
+    .related-posts h3 { margin-top: 0; }
+    .related-posts ul { list-style: none; margin: 0; padding: 0; }
+    .related-posts li { padding: 6px 0; border-bottom: 1px solid #e5e5e5; }
+    .related-posts li:last-child { border-bottom: none; }
+  </style>
+</head>
+<body>
+  <article>
+    <header>
+      <h1>Role Prompting: 12 "Act As" Prompts That Get Better AI Responses Every Time</h1>
+      <p class="subtitle">A single line — "act as a senior copywriter" or "you are a financial analyst" — transforms generic AI output into expert-level answers. This guide shows you exactly why role prompting works, which formats produce the best results, and 12 copy-paste examples you can use today.</p>
+      <div class="article-meta">
+        <span>Published October 1, 2026</span> · <span>Updated October 1, 2026</span> · <span>8 min read</span>
+      </div>
+    </header>
+
+    <section>
+      <p>Ask ChatGPT a question and you get a decent answer. Tell ChatGPT it's a <em>senior software architect reviewing a pull request</em> — and suddenly the response is precise, opinionated, and exactly what you needed. That gap between generic and exceptional is what <strong>role prompting</strong> closes.</p>
+
+      <p>Role prompting — sometimes called "act as" prompting — is one of the simplest, most reliable techniques in prompt engineering. You tell the AI to adopt a specific identity, expertise, or perspective before it answers. The result is responses that are deeper, more contextual, and better structured.</p>
+
+      <p>In this guide: how role prompting works, why it outperforms plain questions, the best format to follow, 12 copy-paste examples, and the mistakes to avoid.</p>
+    </section>
+
+    <section>
+      <h2>What Is Role Prompting?</h2>
+
+      <p>Role prompting is a technique where you assign the AI a specific persona, profession, or expertise before giving it a task. Instead of asking:</p>
+
+      <div class="prompt-box"><span class="label">Generic</span>How should I structure my resume?</div>
+
+      <p>You write:</p>
+
+      <div class="prompt-box"><span class="label">With Role Prompting</span>You are a senior HR recruiter with 15 years of experience reviewing tech resumes. I've applied for a senior frontend engineer role. Review my resume and tell me what hiring managers look for and what I should highlight.</div>
+
+      <p>The second version produces a response shaped by real-world hiring experience — specific priorities, terminology, and structural advice the generic version can't match.</p>
+
+      <p>Role prompting works because AI models respond to framing. When you assign a role, the model draws on patterns associated with that identity — vocabulary, reasoning style, organizational priorities, and professional conventions. You're not changing the model's capabilities; you're directing <em>which part</em> of its knowledge it uses.</p>
+    </section>
+
+    <section>
+      <h2>Why Does "Act As…" Work So Well?</h2>
+
+      <p>Three mechanisms explain why role prompting reliably improves output:</p>
+
+      <ul>
+        <li><strong>Expert vocabulary and framing.</strong> A sales trainer uses different language and focuses on different priorities than a product manager. Stating the role activates those specialized patterns.</li>
+        <li><strong>Tone calibration.</strong> A therapist's response to a customer complaint looks very different from a customer support agent's. The role sets the appropriate emotional register.</li>
+        <li><strong>Structural expectations.</strong> An accountant presenting findings structures them differently than a creative director. Role prompting primes the output format as well as the content.</li>
+      </ul>
+
+      <div class="tip-box">
+        <strong>Research finding:</strong> A 2026 cross-model analysis (ChatGPT, Claude, Gemini) found that requests structured with Role + Context + Task + Format produced <em>measurably more actionable output</em> than the same request as a bare question — with no change to the underlying model. Role framing alone accounted for the largest single improvement.
+      </div>
+    </section>
+
+    <section>
+      <h2>Role Prompting vs. Other Prompting Techniques</h2>
+
+      <p>Role prompting is often compared to chain-of-thought (CoT) and few-shot prompting. Here's how they differ:</p>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Technique</th>
+            <th>What it does</th>
+            <th>Best for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Role Prompting</strong></td>
+            <td>Assigns an identity or expertise that shapes all output</td>
+            <td>Getting contextually expert responses</td>
+          </tr>
+          <tr>
+            <td><strong>Chain-of-Thought</strong></td>
+            <td>Asks the model to show reasoning steps before answering</td>
+            <td>Complex logic, math, multi-step analysis</td>
+          </tr>
+          <tr>
+            <td><strong>Few-Shot Prompting</strong></td>
+            <td>Shows 1-3 examples of the desired input/output pattern</td>
+            <td>Consistent format, style, or structure</td>
+          </tr>
+          <tr>
+            <td><strong>Role + CoT combined</strong></td>
+            <td>Expert persona PLUS visible step-by-step reasoning</td>
+            <td>Strategic, analytical, or diagnostic tasks</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The techniques are <em>stackable</em>. Combining role prompting with chain-of-thought or few-shot examples typically outperforms any single technique alone.</p>
+    </section>
+
+    <section>
+      <h2>The Best Role Prompting Format (Role + Context + Task + Format)</h2>
+
+      <p>The most effective role prompts have four components:</p>
+
+      <ol>
+        <li><strong>Role</strong> — "You are a [profession] with [years] of experience."</li>
+        <li><strong>Context</strong> — Describe the situation, audience, or constraints.</li>
+        <li><strong>Task</strong> — What you need and why.</li>
+        <li><strong>Format</strong> — How you want the response structured.</li>
+      </ol>
+
+      <div class="prompt-box"><span class="label">Best Practice Template</span>You are a [ROLE] with [EXPERIENCE LEVEL]. [CONTEXT: situation, audience, or constraints]. [TASK: what you need]. [FORMAT: how you want it delivered — bullet list, table, step-by-step, etc.]</div>
+
+      <p>Adding the format specification is what separates expert-level role prompting from basic "act as" phrasing. It prevents the most common failure mode: a competent but overly verbose response that buries the answer.</p>
+    </section>
+
+    <section>
+      <h2>12 Role Prompting Examples You Can Copy and Use</h2>
+
+      <p>These examples work with ChatGPT, Claude, Gemini, and any other instruction-tuned model. Copy the structure, swap in your specifics.</p>
+
+      <h3>1. Senior Software Engineer — Code Review</h3>
+      <div class="prompt-box"><span class="label">Role Prompt</span>You are a senior software engineer with 12 years of experience in production systems. Review the following code for performance issues, security vulnerabilities, and maintainability problems. For each issue, explain why it matters and suggest a specific fix. Format your response as a prioritized list.</div>
+
+      <h3>2. Senior Copywriter — Landing Page Copy</h3>
+      <div class="prompt-box"><span class="label">Role Prompt</span>You are a senior direct-response copywriter with 10 years of experience writing high-converting landing pages for SaaS products. Write the headline, subheadline, and three bullet points for a landing page that converts. The audience is time-strapped small business owners. Use a tone that is confident, practical, and free of jargon.</div>
+
+      <h3>3. Financial Analyst — Investment Research</h3>
+      <div class="prompt-box"><span class="label">Role Prompt</span>You are a senior financial analyst specializing in early-stage technology companies. Analyze [company name] for a potential angel investment. Cover: market opportunity, competitive moat, unit economics, and the three biggest risks. Present your findings in a structured report with a summary verdict at the top.</div>
+
+      <h3>4. Marketing Strategist — Content Calendar</h3>
+      <div class="prompt-box"><span class="label">Role Prompt</span>You are a content marketing strategist who has managed campaigns for B2B SaaS companies. Create a 4-week social media content calendar for [product/company]. Include platform, post type, topic, and a one-line caption for each post. Vary the content mix across educational, engagement, and promotional posts.</div>
+
+      <h3>5. Fitness Coach — Personalized Training Plan</h3>
+      <div class="prompt-box"><span class="label">Role Prompt</span>You are a certified strength and conditioning coach with expertise in bodyweight training and progressive overload programming. Design a 6-week progressive training plan for [fitness goal — e.g., building upper body strength]. Assume access to minimal equipment. Include warm-up, main workout, and cool-down for each session.</div>
+
+      <h3>6. Career Coach — Interview Preparation</h3>
+      <div class="prompt-box"><span class="label">Role Prompt</span>You are a senior career coach with 8 years of experience preparing candidates for senior product manager interviews at top tech companies. Run a mock interview: ask me three of the most common behavioral questions for this role, then give me feedback on my answer with specific suggestions for improvement.</div>
+
+      <h3>7. UX Researcher — Customer Feedback Analysis</h3>
+      <div class="prompt-box"><span class="label">Role Prompt</span>You are a UX researcher with 10 years of experience analyzing customer feedback for digital products. Analyze the following customer feedback excerpts and identify: the top 3 recurring pain points, the top 2 things users love, and 3 actionable product recommendations ranked by user impact.</div>
+
+      <h3>8. Data Scientist — Dataset Analysis</h3>
+      <div class="prompt-box"><span class="label">Role Prompt</span>You are a senior data scientist with deep expertise in exploratory data analysis and machine learning. Analyze this dataset and tell me: the key distributions and patterns, the most important features, any data quality issues, and three hypotheses worth testing. Use plain English for the findings, and provide the statistical output in a summary table.</div>
+
+      <h3>9. Senior Editor — Writing Feedback</h3>
+      <div class="prompt-box"><span class="label">Role Prompt</span>You are a senior editor at a national publication with 12 years of experience editing feature articles and essays. Review the following piece and give me feedback on: clarity of the main argument, paragraph-level flow and structure, voice consistency, and one specific change that would make the opening stronger. Be direct — tell me what doesn't work and why.</div>
+
+      <h3>10. Tax Advisor — Personal Finance</h3>
+      <div class="prompt-box"><span class="label">Role Prompt</span>You are a certified public accountant specializing in tax strategy for freelancers and self-employed professionals. Given my income range, business expenses, and location, what are the three most impactful tax deductions I'm likely missing? For each one, explain what it is, how much I could save (estimated), and what documentation I need to claim it.</div>
+
+      <h3>11. Product Manager — Feature Prioritization</h3>
+      <div class="prompt-box"><span class="label">Role Prompt</span>You are a senior product manager at a growth-stage SaaS company. Help me prioritize the following feature requests using the RICE framework (Reach, Impact, Confidence, Effort). For each feature, estimate the RICE score and explain the trade-offs. Then give me a recommended roadmap for the next two quarters.</div>
+
+      <h3>12. Legal Analyst — Contract Review</h3>
+      <div class="prompt-box"><span class="label">Role Prompt</span>You are a commercial contracts attorney with 15 years of experience reviewing SaaS agreements. Review the following contract clause and identify: any terms that favor the vendor over the customer, three specific risks to negotiate, and the language I'd want in place of each risky term. Flag anything unusual or concerning.</div>
+    </section>
+
+    <section>
+      <h2>Advanced Role Prompting: Beyond "Act As"</h2>
+
+      <p>Once the basic role prompt feels natural, these advanced variations unlock significantly better output:</p>
+
+      <h3>Layer multiple roles</h3>
+      <p>Combine complementary perspectives in a single prompt:</p>
+      <div class="prompt-box"><span class="label">Multi-Role Prompt</span>You are both a skeptical senior software architect and a pragmatic startup CTO. Review this technical architecture proposal and give me two perspectives: what the architect would praise, and what the CTO would flag as a risk or concern.</div>
+
+      <h3>Add constraints and guardrails</h3>
+      <p>Specify what the role would <em>never</em> do:</p>
+      <div class="prompt-box"><span class="label">Constrained Role Prompt</span>You are a direct-response copywriter. You never use vague superlatives or unsubstantiated claims. Write three email subject lines for [offer]. Each must be under 50 characters, create urgency without being hyperbolic, and make a specific claim the reader can verify.</div>
+
+      <h3>Combine with chain-of-thought</h3>
+      <p>Ask the role to show their reasoning:</p>
+      <div class="prompt-box"><span class="label">Role + CoT</span>You are a senior data analyst. Walk through this dataset step by step, showing your reasoning before each conclusion. Your analysis should include: initial observations, hypotheses, evidence for or against each hypothesis, and a final recommendation with confidence level.</div>
+
+      <h3>Specify the audience</h3>
+      <p>The same role communicates differently depending on who's reading:</p>
+      <div class="prompt-box"><span class="label">Audience-Specific Role</span>You are a senior software engineer explaining a complex distributed systems concept to two audiences simultaneously: (1) a non-technical executive, and (2) a mid-level engineer. Provide both explanations, clearly labeled.</div>
+    </section>
+
+    <section>
+      <h2>5 Common Role Prompting Mistakes to Avoid</h2>
+
+      <p>These errors undermine even well-structured role prompts:</p>
+
+      <ol>
+        <li><strong>Using vague roles.</strong> "Act as an expert" is far less effective than "a senior backend engineer specializing in distributed databases." The more specific the identity, the more targeted the response.</li>
+        <li><strong>Forgetting the format.</strong> Without a specified structure, even expert-level role prompts produce walls of text. Always add "format as" or "structure as" to your prompt.</li>
+        <li><strong>Stacking too many roles.</strong> Two roles work well together. Five roles create contradictory priorities and dilute the output.</li>
+        <li><strong>Not giving context.</strong> "Act as a lawyer" produces generic legal-style language. "Act as a first-chair M&A attorney advising a Series A startup on a term sheet" produces a precise, useful response.</li>
+        <li><strong>Asking the role to do something it wouldn't do.</strong> A financial advisor won't give speculative stock picks; a therapist won't prescribe medication. Stay within the realistic scope of the assigned role.</li>
+      </ol>
+    </section>
+
+    <div class="cta-box">
+      <h2>Stop Writing Generic Prompts</h2>
+      <p>Prompt Helper Gemini brings role prompting and every other technique to your browser. One-click access to 200+ proven prompt templates — no subscription required.</p>
+      <a href="https://promptgenerator.fyi" class="cta-btn">Try Prompt Helper Gemini Free</a>
+    </div>
+
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>What is role prompting in AI?</h3>
+        <p>Role prompting tells an AI to adopt a specific identity or expertise before answering — for example, "Act as a senior software engineer" or "You are a professional copywriter." This single framing step shapes the tone, depth, vocabulary, and structural choices in every response that follows.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Does role prompting actually improve AI output quality?</h3>
+        <p>Yes. Multiple benchmarks and A/B prompt tests in 2025-2026 confirm that role prompting measurably improves response quality. A 2026 cross-model analysis found the same request reworded with a role, context, and format produced dramatically more usable output than a plain one-line question — with no change to the underlying model.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What is the best role prompting format?</h3>
+        <p>The most effective format has four parts: (1) state the role — "You are an experienced [profession]," (2) add context — describe the situation or audience, (3) define the task — what you need and why, and (4) specify the output format — bullet list, table, paragraph, or step-by-step. This Role + Context + Task + Format structure consistently outperforms bare "act as" phrases.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can you combine role prompting with chain-of-thought?</h3>
+        <p>Absolutely. Layering role prompting with chain-of-thought reasoning gives you expert-level analysis AND visible logic. For example: "As a senior data analyst, walk through this dataset step by step, showing your reasoning before each conclusion." This combination works especially well for complex analytical, strategic, or diagnostic tasks.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Which AI models support role prompting?</h3>
+        <p>All major frontier models respond well to role prompting: ChatGPT (GPT-4o and later), Claude 3.5 and Opus, Gemini 1.5 and 2.0, and open models like Llama 3 and Mistral. The technique requires a model with at least 7 billion parameters and instruction-tuning — which covers essentially every model you'd use in practice today.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="related-posts">
+        <h3>Continue Reading</h3>
+        <ul>
+          <li><a href="https://promptgenerator.fyi/blog-chain-of-thought-prompting-examples-2026.html">Chain-of-Thought Prompting: Examples That Actually Work in 2026</a></li>
+          <li><a href="https://promptgenerator.fyi/blog-react-prompting-ai-2026.html">ReAct Prompting: The 2026 Framework for AI That Thinks AND Acts</a></li>
+          <li><a href="https://promptgenerator.fyi/blog-precision-prompting-2026.html">Precision Prompting: The Technique That Eliminates Vague AI Responses</a></li>
+        </ul>
+      </div>
+    </section>
+  </article>
+</body>
+</html>
