@@ -233,4 +233,5 @@
     <priority>0.8</priority>
   </url>
   <url><loc>https://promptgenerator.fyi/blog-ai-prompts-feel-clear-fail.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://promptgenerator.fyi/blog-postiz-social-media-analytics-dashboard-open-source.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
