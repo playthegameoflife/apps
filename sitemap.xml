@@ -144,7 +144,7 @@
   <url><loc>https://promptgenerator.fyi/blog-prompt-optimizer-predictable-results-20261731.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://promptgenerator.fyi/blog-prompt-optimizer-predictable-results-20261732.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://promptgenerator.fyi/blog-react-prompting-ai-2026.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://promptgenerator.fyi/blog-role-prompting-ai-examples-2026.html</loc><lastmod>2026-10-01</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://promptgenerator.fyi/blog-role-prompting-ai-examples-2026.html</loc><lastmod>2026-09-30</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://promptgenerator.fyi/blog-shadow-boxing-muay-thai-kicks-20262025.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://promptgenerator.fyi/blog-shadow-boxing-muay-thai-kicks-20262112.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://promptgenerator.fyi/blog-solo-martial-arts-training-home-20262101.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -190,48 +190,54 @@
   <url><loc>https://promptgenerator.fyi/mycombat/blog-voice-guided-martial-arts-training-solo.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url>
     <loc>https://promptgenerator.fyi/blog-grok-prompt-helper-chrome-20261828.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://promptgenerator.fyi/blog-ai-prompt-generator-unique-responses.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-context-rot-ai.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-postiz-vs-buffer.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-claude-prompt-enhancement-tool-20262729.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url><loc>https://promptgenerator.fyi/blog-how-to-stop-ai-repeating-itself.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url>
     <loc>https://promptgenerator.fyi/blog-fast-ai-writing-assistant-chrome-extension-20262829.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-best-ai-prompt-tool-beginners-20262829.html</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url><loc>https://promptgenerator.fyi/blog-ai-prompts-feel-clear-fail.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://promptgenerator.fyi/blog-postiz-social-media-analytics-dashboard-open-source.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-claude-prompt-enhancement-tool-20262730.html</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
