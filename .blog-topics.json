@@ -134,6 +134,11 @@
       "slug": "blog-why-ai-hallucinates-and-how-to-prevent-it",
       "primary_keyword": "why AI hallucinates and how to prevent it",
       "published": "2026-10-01"
+    },
+    {
+      "slug": "blog-ai-prompting-techniques-compare-guide-2026.html",
+      "primary_keyword": "zero-shot vs few-shot vs chain-of-thought prompting",
+      "published": "2026-10-01"
     }
   ]
 }
