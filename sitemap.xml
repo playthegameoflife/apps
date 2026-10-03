@@ -1176,13 +1176,19 @@
     <priority>0.8</priority>
   </url>  <url>
     <loc>https://promptgenerator.fyi/blog-postiz-open-source-scheduler-guide.html</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-4-types-ai-users-better-outputs.html</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-fast-ai-writing-assistant-chrome-extension-20262803.html</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
