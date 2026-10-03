@@ -779,14 +779,7 @@
     <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-open-source-scheduler-guide.html</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
+  </url><url>
     <loc>https://promptgenerator.fyi/blog-postiz-open-source-social-media-automation-tools-2026.html</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -1181,8 +1174,7 @@
     <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
+  </url>  <url>
     <loc>https://promptgenerator.fyi/blog-postiz-open-source-scheduler-guide.html</loc>
     <lastmod>2026-10-05</lastmod>
     <changefreq>weekly</changefreq>
