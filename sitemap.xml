@@ -116,6 +116,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://promptgenerator.fyi/blog-tree-of-thoughts-vs-chain-of-thought-2026.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://promptgenerator.fyi/blog-chatgpt-generic-responses-fix.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
