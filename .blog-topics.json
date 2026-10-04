@@ -175,6 +175,11 @@
       "slug": "blog-why-ai-gives-generic-responses",
       "primary_keyword": "why AI gives generic responses",
       "published": "2026-10-04"
+    },
+    {
+      "slug": "blog-why-prompts-work-chatgpt-fail-claude",
+      "primary_keyword": "why prompts work on ChatGPT but fail on Claude",
+      "published": "2026-10-04"
     }
   ]
 }
