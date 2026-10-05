@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Prompts for Code Review That Actually Work — Stop Getting Generic Feedback</title>
+  <meta name="description" content="Tired of generic AI code review feedback? Learn the exact prompts that get specific, actionable results from ChatGPT, Claude, and Gemini. Try these today.">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-ai-prompts-for-code-review.html">
+  <meta property="og:title" content="AI Prompts for Code Review That Actually Work">
+  <meta property="og:description" content="Tired of generic AI code review feedback? Learn the exact prompts that get specific, actionable results from ChatGPT, Claude, and Gemini.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-ai-prompts-for-code-review.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AI Prompts for Code Review That Actually Work">
+  <meta name="twitter:description" content="Tired of generic AI code review feedback? Learn the exact prompts that get specific, actionable results from ChatGPT, Claude, and Gemini.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+</style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "AI Prompts for Code Review That Actually Work",
+    "description": "Tired of generic AI code review feedback? Learn the exact prompts that get specific, actionable results from ChatGPT, Claude, and Gemini.",
+    "author": {
+      "@type": "Organization",
+      "name": "Prompt Generator"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Prompt Generator",
+      "url": "https://promptgenerator.fyi"
+    },
+    "datePublished": "2026-10-05",
+    "dateModified": "2026-10-05",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://promptgenerator.fyi/blog-ai-prompts-for-code-review.html"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the best AI prompt for code review?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The best AI prompts for code review specify the programming language, the review focus (bugs, performance, style), and the output format you want. Prompt Helper Gemini's Code mode does this automatically — it restructures vague prompts into precise, review-targeted instructions.",
+          "about": false
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does ChatGPT give generic code review feedback?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ChatGPT gives generic feedback when your prompt lacks specificity. Without naming the language, the problem you're solving, or what kind of issues you care about, it defaults to textbook observations that could apply to any code. The fix is to add concrete context and a clear review goal.",
+          "about": false
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can AI really help with code review?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — AI can catch bugs, suggest performance improvements, and flag security issues. The quality depends entirely on your prompt. Specific prompts that name the language, describe the codebase context, and ask targeted questions produce dramatically better code review results than generic requests.",
+          "about": false
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between prompting ChatGPT vs Claude for code review?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Claude generally handles longer contexts better and responds well to XML-style tags and role assignments. ChatGPT works well with direct, structured prompts. Gemini is fast but needs more explicit format instructions. Prompt Helper Gemini enhances prompts for all three automatically.",
+          "about": false
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I stop AI from giving vague code review comments?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Add a constraint to your prompt: ask for a specific number of findings, require line references, or demand concrete examples for each issue. Prompts like 'List exactly 5 bugs with the buggy line and a one-sentence fix for each' consistently produce more actionable output than open-ended review requests.",
+          "about": false
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>AI Prompts for Code Review That Actually Work — Stop Getting Generic Feedback</h1>
+    <p class="meta">Published October 5, 2026 · 8 min read · AI &amp; Prompts</p>
+  </header>
+
+  <div class="intro">
+    <strong>Here's what developers actually say</strong> in AI prompting communities: <em>"There's an art to prompting it just right — once or twice I've produced close to perfect output in two prompts."</em> And the flip side: <em>"It took more time to prompt it than it would have taken me to just do it myself."</em> The gap between those two outcomes comes down to one thing: how you structure your code review prompt. This guide gives you the prompts that work.
+  </div>
+
+  <h2>Why Your AI Code Review Prompts Keep Failing</h2>
+
+  <p>You've been there. You paste your code into ChatGPT, ask for a review, and get back something like: <em>"This code looks good! Consider adding better error handling and following best practices."</em> Thanks for nothing.</p>
+
+  <p>That's not a bug in the AI. That's a prompt problem. The AI isn't psychic — it can't see your codebase, your coding standards, or the specific pain points you're dealing with. When your prompt says nothing specific, you get nothing specific back.</p>
+
+  <p>The Reddit community r/ChatGPT puts it bluntly: <em>"The output is so generic it could apply to anything."</em> That's the code review equivalent of asking a consultant for feedback and getting "do better."</p>
+
+  <p>There are two reasons AI code review prompts fail:</p>
+  <ul>
+    <li><strong>No context.</strong> The AI doesn't know your language, framework, team conventions, or what "good" means in your codebase.</li>
+    <li><strong>No direction.</strong> A prompt like "review my code" is too broad. The AI has to guess what you care about most — bugs? performance? style? security?</li>
+  </ul>
+
+  <p>The fix for both problems is the same: write prompts that give the AI a specific job to do, with enough context to do it properly. Here's how.</p>
+
+  <h2>The Code Review Prompt Framework That Actually Works</h2>
+
+  <p>Every effective AI code review prompt has four parts. Once you know them, you can write better prompts in seconds — or use a tool like <strong>Prompt Helper Gemini</strong> to transform a rough note into a properly structured prompt automatically.</p>
+
+  <h3>The 4-Part Structure</h3>
+
+  <ol>
+    <li><strong>Role assignment</strong> — Tell the AI who to be</li>
+    <li><strong>Context</strong> — Describe the codebase and what you're building</li>
+    <li><strong>Focus area</strong> — What kind of issues you want found</li>
+    <li><strong>Output format</strong> — How you want the results returned</li>
+  </ol>
+
+  <p>Most generic prompts only have #3 (vaguely). Adding the other three is what separates a useful AI code review from a waste of time.</p>
+
+  <h2>Prompt Templates for Different Code Review Goals</h2>
+
+  <h3>1. Bug-Focused Review</h3>
+
+  <p>When you suspect something is wrong but can't find it:</p>
+
+  <div class="code-block">
+    <span class="label">Prompt</span>
+Act as a senior [language] engineer. I'm debugging a function that [what it should do] but [what it actually does instead].
+
+Context:
+- Language: [language + version]
+- Framework: [framework name]
+- The function is called from [where]
+- I suspect the issue is related to [your guess]
+
+Review this code for logical bugs, edge cases where it could fail silently, and conditions that would cause unexpected behavior. For each bug found, show the exact line and a one-sentence explanation of why it's wrong.
+  </div>
+
+  <p><strong>Why this works:</strong> Naming the suspected area gives the AI a hunting ground rather than asking it to scan everything. The "logical bugs" framing focuses it on the actual problem rather than style notes.</p>
+
+  <h3>2. Security Audit</h3>
+
+  <p>When you're reviewing code that handles user input, authentication, or sensitive data:</p>
+
+  <div class="code-block">
+    <span class="label">Prompt</span>
+Act as a security engineer. Perform a threat-model review of this [language] code.
+
+Focus areas (check all that apply):
+- SQL injection and parameterization
+- Input validation and sanitization
+- Authentication and authorization logic
+- Data exposure in error messages or logs
+- Insecure deserialization
+
+For each vulnerability found: [language], severity (Critical/High/Medium), the vulnerable line, the attack scenario, and a concrete fix.
+  </div>
+
+  <p><strong>Why this works:</strong> Security reviews need a checklist mindset. The AI won't think of every attack vector on its own — giving it the OWASP-style categories makes it thorough rather than surface-level.</p>
+
+  <h3>3. Performance Review</h3>
+
+  <p>When you suspect slow code or want to optimize bottlenecks:</p>
+
+  <div class="code-block">
+    <span class="label">Prompt</span>
+Act as a performance engineer specializing in [language]. Review this code for performance issues.
+
+Assume: the function is called [how often], handles [data size], and runs in a [web server / background job / real-time] context.
+
+Flag: O(n²) or worse patterns, unnecessary iterations, missing indexes in DB queries, N+1 query patterns, and any code that allocates large objects repeatedly. For each issue, estimate the impact and give a concrete alternative.
+  </div>
+
+  <p><strong>Why this works:</strong> "Make it faster" is useless. "Find my O(n²) loops in a function called 10,000 times per minute" is actionable.</p>
+
+  <h3>4. Code Style and Maintainability</h3>
+
+  <p>When you're doing a team code review and want consistent standards:</p>
+
+  <div class="code-block">
+    <span class="label">Prompt</span>
+Review this [language] code for team maintainability. Our team follows [style guide or conventions — e.g., PEP 8, Google Java Style].
+
+Flag: functions over [X] lines, unclear variable names, missing docstrings, magic numbers, deeply nested logic, and any pattern that would confuse a new developer reading this for the first time.
+
+Give each finding a severity (Cosmetic / Should Fix / Must Fix) and suggest the specific change.
+  </div>
+
+  <p><strong>Why this works:</strong> "Improve the code style" is too vague. "Flag functions over 50 lines with no docstrings" gives the AI a concrete rule to enforce.</p>
+
+  <h2>The Before/After Test: Generic vs. Specific Prompts</h2>
+
+  <div class="comparison">
+    <div class="comparison-box bad">
+      <h4>❌ Generic Prompt</h4>
+      <p>Review my Python function and tell me what's wrong.</p>
+    </div>
+    <div class="comparison-box good">
+      <h4>✅ Specific Prompt</h4>
+      <p>Act as a senior Python engineer. Review this auth function for security vulnerabilities and logic bugs. The function validates JWT tokens. Flag anything that could allow token forgery, and any edge cases where auth could be bypassed silently.</p>
+    </div>
+  </div>
+
+  <p>The generic prompt gets you: <em>"Consider adding better error handling."</em></p>
+
+  <p>The specific prompt gets you: <em>"Line 23: the token expiry is checked with <code>datetime.utcnow()</code> which is deprecated in Python 3.12+ and may cause subtle timezone bugs in production. Replace with <code>datetime.now(timezone.utc)</code>. Additionally, line 41: the secret key is hardcoded rather than loaded from an environment variable."</em></p>
+
+  <p>Same AI. Completely different value.</p>
+
+  <h2>What the Community Has Discovered That Works</h2>
+
+  <p>The r/PromptEngineering community has spent months testing what actually produces better AI code review output. Here's what consistently rises to the top:</p>
+
+  <ul>
+    <li><strong>Assign a specific role.</strong> "Act as a senior [language] engineer with 10 years of experience in [specific domain]" produces better technical depth than generic "review this code."</li>
+    <li><strong>Give concrete examples.</strong> If you've had a code review done well before, include it as a reference. The AI learns your standard of "good" from examples, not from instructions alone.</li>
+    <li><strong>Use chain-of-thought.</strong> "Explain your reasoning step by step before giving your verdict" forces the AI to work through the code rather than jumping to generic conclusions.</li>
+    <li><strong>Constrain the output format.</strong> "List exactly 5 issues, each with: line number, severity, and a one-sentence fix" produces far more useful output than "review my code."</li>
+    <li><strong>Tell it what to avoid.</strong> "Do NOT comment on variable naming conventions. Focus only on logic errors and potential runtime failures." This prevents the AI from wasting tokens on things you don't care about.</li>
+  </ul>
+
+  <h2>The #1 Mistake Developers Make with AI Code Review</h2>
+
+  <p>Here's the pattern you see constantly in AI communities: developer pastes 500 lines of code, types "review this," and gets a surface-level response. Then they paste it again with "no, actually I need specific feedback" — and suddenly the AI produces something useful.</p>
+
+  <p>The mistake is thinking the AI is the problem. It's not. The AI is just responding to the information it's given. Every detail you leave out is a decision the AI makes for you — and often not the one you wanted.</p>
+
+  <p>Developers in r/ClaudeAI describe it this way: <em>"Even if I ask ChatGPT for code review, it only gives me generic answers."</em> The fix isn't asking differently — it's giving the AI the context it needs to answer specifically.</p>
+
+  <h2>How to Enhance Any Prompt in Seconds</h2>
+
+  <p>If you don't want to hand-craft these prompts every time, <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp">Prompt Helper Gemini</a> takes your rough code review notes and restructures them using the framework above — automatically adding the role, context, focus area, and format instructions you'd otherwise have to write yourself.</p>
+
+  <p>It works across ChatGPT, Claude, Gemini, Grok, and Perplexity. The free tier gives you 5 enhanced prompts per week, which is enough for regular code review sessions. The keyboard shortcut (Ctrl+Shift+E) means you can enhance a prompt in-place before sending it, with no context switching.</p>
+
+  <p>For developers who review code frequently across multiple AI platforms, that's genuinely useful — you write one rough prompt and get back a properly structured one, whether you're in ChatGPT or Claude.</p>
+
+  <div class="key-takeaways">
+    <h3>Key Takeaways</h3>
+    <ul>
+      <li>Generic prompts get generic feedback — specificity is the entire game</li>
+      <li>Every effective code review prompt has: role + context + focus area + output format</li>
+      <li>Name the language, describe the bug you're hunting, and constrain the output format</li>
+      <li>AI code review quality depends on your prompt, not the AI model</li>
+      <li>Prompt Helper Gemini's Code mode automates prompt structuring across all major AI platforms</li>
+    </ul>
+  </div>
+
+  <div class="cta-box">
+    <h2>Stop Writing Vague Code Review Prompts</h2>
+    <p>Prompt Helper Gemini's Code mode transforms rough notes into structured, AI-friendly review prompts in one click — across ChatGPT, Claude, Gemini, Grok, and Perplexity.</p>
+    <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp">Get the Extension →</a>
+  </div>
+
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq">
+    <div class="faq-item">
+      <h3>What is the best AI prompt for code review?</h3>
+      <p>The best AI prompts for code review specify the programming language, the review focus (bugs, performance, style), and the output format you want. Prompt Helper Gemini's Code mode does this automatically — it restructures vague prompts into precise, review-targeted instructions.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Why does ChatGPT give generic code review feedback?</h3>
+      <p>ChatGPT gives generic feedback when your prompt lacks specificity. Without naming the language, the problem you're solving, or what kind of issues you care about, it defaults to textbook observations that could apply to any code. The fix is to add concrete context and a clear review goal.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can AI really help with code review?</h3>
+      <p>Yes — AI can catch bugs, suggest performance improvements, and flag security issues. The quality depends entirely on your prompt. Specific prompts that name the language, describe the codebase context, and ask targeted questions produce dramatically better code review results than generic requests.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What is the difference between prompting ChatGPT vs Claude for code review?</h3>
+      <p>Claude generally handles longer contexts better and responds well to XML-style tags and role assignments. ChatGPT works well with direct, structured prompts. Gemini is fast but needs more explicit format instructions. Prompt Helper Gemini enhances prompts for all three automatically.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How do I stop AI from giving vague code review comments?</h3>
+      <p>Add a constraint to your prompt: ask for a specific number of findings, require line references, or demand concrete examples for each issue. Prompts like "List exactly 5 bugs with the buggy line and a one-sentence fix for each" consistently produce more actionable output than open-ended review requests.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Prompt Generator · <a href="https://promptgenerator.fyi">promptgenerator.fyi</a></p>
+  </footer>
+</body>
+</html>
