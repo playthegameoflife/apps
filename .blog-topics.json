@@ -1,6 +1,11 @@
 {
   "used": [
     {
+      "slug": "blog-why-ai-gives-different-answers",
+      "primary_keyword": "why does AI give different answers every time",
+      "published": "2026-10-05"
+    },
+    {
       "slug": "blog-how-to-get-consistent-ai-results-20260926",
       "primary_keyword": "how to get consistent AI results every time",
       "published": "2026-09-26"
@@ -78,11 +83,6 @@
     {
       "slug": "blog-how-to-test-ai-prompts-like-a-pro",
       "primary_keyword": "how to test AI prompts like a pro",
-      "published": "2026-10-05"
-    },
-    {
-      "slug": "blog-ai-prompts-for-code-review",
-      "primary_keyword": "AI prompts for code review",
       "published": "2026-10-05"
     }
   ]
