@@ -1,6 +1,11 @@
 {
   "used": [
     {
+      "slug": "blog-how-to-get-consistent-ai-results-20260926",
+      "primary_keyword": "how to get consistent AI results every time",
+      "published": "2026-09-26"
+    },
+    {
       "slug": "blog-postiz-queues-content-calendar-team-2026",
       "primary_keyword": "Postiz queues content calendar team scheduling",
       "published": "2026-09-22"
@@ -71,115 +76,9 @@
       "published": "2026-09-23"
     },
     {
-      "slug": "blog-why-ai-gives-different-answers",
-      "primary_keyword": "why AI gives different answers to the same question",
-      "published": "2026-09-24"
-    },
-    {
-      "slug": "blog-why-ai-keeps-missing-the-point",
-      "primary_keyword": "why AI keeps missing the point even with context",
-      "published": "2026-09-25"
-    },
-    {
-      "slug": "blog-structured-output-prompting-every-time",
-      "primary_keyword": "structured output prompting",
-      "published": "2026-09-25"
-    },
-    {
-      "slug": "blog-why-ai-prompts-work-one-day-not-another",
-      "primary_keyword": "why AI prompts work one day and not the next",
-      "published": "2026-09-26"
-    },
-    {
-      "slug": "blog-zero-shot-prompting-vs-few-shot-prompting",
-      "primary_keyword": "zero-shot prompting vs few-shot prompting",
-      "published": "2026-09-26"
-    },
-    {
-      "slug": "blog-how-to-give-ai-context-without-rambling",
-      "primary_keyword": "how to give AI context without rambling",
-      "published": "2026-09-26"
-    },
-    {
-      "slug": "blog-ai-prompt-chaining-guide-2026",
-      "primary_keyword": "AI prompt chaining multi-step reasoning guide",
-      "published": "2026-09-27"
-    },
-    {
-      "slug": "blog-how-to-make-ai-answer-all-parts-of-prompt",
-      "primary_keyword": "how to make AI answer all parts of prompt",
-      "published": "2026-09-27"
-    },
-    {
-      "slug": "blog-context-rot-ai",
-      "primary_keyword": "context rot AI why conversations get worse",
-      "published": "2026-09-28"
-    },
-    {
-      "slug": "blog-how-to-stop-ai-repeating-itself",
-      "primary_keyword": "how to stop AI repeating itself frequency penalty",
-      "published": "2026-09-29"
-    },
-    {
-      "slug": "blog-ai-prompts-feel-clear-fail",
-      "primary_keyword": "why AI prompts feel clear but fail specificity gap",
-      "published": "2026-09-30"
-    },
-    {
-      "slug": "blog-best-free-ai-chrome-extensions-no-login-2026",
-      "primary_keyword": "best free AI Chrome extensions without login 2026",
-      "published": "2026-09-30"
-    },
-    {
-      "slug": "blog-why-ai-hallucinates-and-how-to-prevent-it",
-      "primary_keyword": "why AI hallucinates and how to prevent it",
-      "published": "2026-10-01"
-    },
-    {
-      "slug": "blog-ai-prompting-techniques-compare-guide-2026.html",
-      "primary_keyword": "zero-shot vs few-shot vs chain-of-thought prompting",
-      "published": "2026-10-01"
-    },
-    {
-      "slug": "blog-how-to-make-ai-remember-things-across-conversations",
-      "primary_keyword": "how to make AI remember things across conversations",
-      "published": "2026-10-02"
-    },
-    {
-      "slug": "blog-how-to-get-better-content-ideas-from-ai",
-      "primary_keyword": "better content ideas from AI generic output",
-      "published": "2026-10-02"
-    },
-    {
-      "slug": "blog-why-ai-ignores-formatting-instructions",
-      "primary_keyword": "why AI ignores formatting instructions",
-      "published": "2026-10-02"
-    },
-    "prompt exhaustion is real",
-    {
-      "slug": "blog-4-types-ai-users-better-outputs",
-      "primary_keyword": "four types of AI users",
-      "published": "2026-10-04"
-    },
-    {
-      "slug": "blog-how-to-get-ai-answer-first-try",
-      "primary_keyword": "how to get the AI answer you want on the first try",
-      "published": "2026-10-04"
-    },
-    {
-      "slug": "blog-what-is-prompt-engineering-simply-explained",
-      "primary_keyword": "what is prompt engineering in simple terms",
-      "published": "2026-10-04"
-    },
-    {
-      "slug": "blog-why-ai-gives-generic-responses",
-      "primary_keyword": "why AI gives generic responses",
-      "published": "2026-10-04"
-    },
-    {
-      "slug": "blog-why-prompts-work-chatgpt-fail-claude",
-      "primary_keyword": "why prompts work on ChatGPT but fail on Claude",
-      "published": "2026-10-04"
+      "slug": "blog-how-to-test-ai-prompts-like-a-pro",
+      "primary_keyword": "how to test AI prompts like a pro",
+      "published": "2026-10-05"
     }
   ]
 }
