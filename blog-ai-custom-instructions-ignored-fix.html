@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why AI Keeps Ignoring Your Custom Instructions (And the Fix That Actually Works)</title>
+  <meta name="description" content="Custom instructions ignored? Here's why AI overrides your settings and the simple prompt trick that forces it to actually listen every time.">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-ai-custom-instructions-ignored-fix.html">
+  <meta name="robots" content="index, follow">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Why AI Keeps Ignoring Your Custom Instructions (And the Fix That Actually Works)">
+  <meta property="og:description" content="Custom instructions ignored? Here's why AI overrides your settings and the simple prompt trick that forces it to actually listen every time.">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-ai-custom-instructions-ignored-fix.html">
+  <meta property="og:site_name" content="Prompt Generator">
+  <meta property="article:published_time" content="2026-10-06">
+  <meta property="article:author" content="Alex Rivera">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why AI Keeps Ignoring Your Custom Instructions (And the Fix That Actually Works)">
+  <meta name="twitter:description" content="Custom instructions ignored? Here's why AI overrides your settings and the simple prompt trick that forces it to actually listen every time.">
+
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+</style>
+
+  <!-- JSON-LD: Article Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Why AI Keeps Ignoring Your Custom Instructions (And the Fix That Actually Works)",
+    "description": "Custom instructions ignored? Here's why AI overrides your settings and the simple prompt trick that forces it to actually listen every time.",
+    "image": "https://promptgenerator.fyi/promptgenerator.png",
+    "author": {
+      "@type": "Person",
+      "name": "Alex Rivera",
+      "jobTitle": "AI Productivity Specialist & Prompt Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Prompt Generator",
+      "url": "https://promptgenerator.fyi",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://promptgenerator.fyi/promptgenerator.png"
+      }
+    },
+    "datePublished": "2026-10-06",
+    "dateModified": "2026-10-06",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://promptgenerator.fyi/blog-ai-custom-instructions-ignored-fix.html"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why does AI ignore my custom instructions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AI ignores custom instructions primarily due to RLHF training, which optimises for perceived helpfulness over strict instruction-following. When your instruction conflicts with what the model considers a better response, it overrides your rules. Context limits and prompt interference can also dilute custom instructions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do custom instructions work on all AI chatbots?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Custom instructions are available on ChatGPT, Claude, and Gemini, but each handles them differently. ChatGPT and Gemini call them Custom Instructions, while Claude uses Instructions and Styles. Not all AI platforms support them, and those that do don't all guarantee they'll be followed consistently."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I make AI actually follow my instructions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Start every conversation with a recapping prompt that restates your key preferences and requirements before diving into the task. This pushes your instructions into the active context window where they're harder for the model to override. Pair this with specific output format requirements in each prompt."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the recapping prompt technique?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The recapping technique involves opening every conversation with a summary of your most important preferences — tone, format, audience, things to avoid. By restating these at the start of each session, you refresh the model's memory of your instructions without relying on the Custom Instructions feature alone."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can Prompt Helper Gemini fix custom instructions being ignored?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Prompt Helper Gemini enhances your prompts automatically before you send them, adding the structural elements that make AI follow instructions more reliably. It works across ChatGPT, Claude, Gemini, Grok, and Perplexity, and applies the recapping technique and format scaffolding automatically so your preferences get followed even when custom instructions fail."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Why AI Keeps Ignoring Your Custom Instructions (And the Fix That Actually Works)</h1>
+    <div class="meta">By Alex Rivera · October 6, 2026 · 8 min read</div>
+  </header>
+
+  <div class="intro">
+    <strong>You set up Custom Instructions.</strong> You told Claude you prefer conversational responses, not bullet points. You told ChatGPT your audience is senior engineers. You told it your name, your role, your tone preferences. And then — it ignored all of it. Sound familiar? You're not imagining it. Here's why it happens and what actually fixes it.
+  </div>
+
+  <p>You spent fifteen minutes crafting the perfect Custom Instructions. You told your AI assistant exactly how you like to work: conversational tone, no filler, senior-level audience, no disclaimers, skip the generic preamble. You saved it. You started a new chat. And thirty seconds later, there it was — bullet points you didn't ask for, disclaimers you specifically said to drop, a response written for a beginner instead of your senior team.</p>
+
+  <p>So you asked on Reddit: <em>"Why is Claude COMPLETELY ignoring basic instructions?"</em> And hundreds of people responded with the exact same experience.</p>
+
+  <p>You are not alone. And it's not you — it's how AI models are trained to handle your instructions.</p>
+
+  <h2>Why Custom Instructions Fail: The Real Reason</h2>
+
+  <p>Custom Instructions sound like a permanent solution. Set them once, and your AI remembers who you are across every conversation. But here's what the product pages don't tell you: <strong>Custom Instructions are treated as suggestions, not commands.</strong></p>
+
+  <p>The core problem is a conflict baked into how modern language models work:</p>
+
+  <ul>
+    <li><strong>RLHF (Reinforcement Learning from Human Feedback)</strong> trains AI to be helpful above all else. When the model decides your instruction conflicts with what it considers a more helpful response, it overrides you — every time.</li>
+    <li><strong>System prompts from the AI company</strong> sit above your Custom Instructions in priority. Updates to the underlying model can quietly override or ignore user-set instructions without warning.</li>
+    <li><strong>Context window interference</strong>: when your current conversation has a lot of back-and-forth, your Custom Instructions can get diluted as the model allocates attention to recent messages over persistent preferences.</li>
+  </ul>
+
+  <p>One user on r/ClaudeAI put it bluntly: <em>"I spent $2k and the hard lesson is that markdown instructions don't work."</em> That's not hyperbole — it's a real experience from paying users who expected the feature to work as advertised.</p>
+
+  <h2>The "Recapping" Technique: What Actually Works</h2>
+
+  <p>The workaround that consistently works in developer communities and power-user forums is something called the <strong>recapping technique</strong>. Instead of relying on Custom Instructions as your single source of truth, you open every conversation by restating your core requirements.</p>
+
+  <p>This sounds tedious — but it's the only approach that reliably works because it places your instructions directly in the active context window, where the model <em>has</em> to pay attention to them.</p>
+
+  <div class="comparison">
+    <div class="comparison-box bad">
+      <h4>❌ Relying Only on Custom Instructions</h4>
+      <p>Set it once, forget it. AI ignores it when it conflicts with RLHF priorities. You get generic responses and have to re-instruct every single chat.</p>
+    </div>
+    <div class="comparison-box good">
+      <h4>✓ Recapping at the Start of Every Session</h4>
+      <p>Open with a 2-3 sentence summary of your key preferences. AI reads it fresh every time. Your requirements stay in the active context window. Consistent results follow.</p>
+    </div>
+  </div>
+
+  <h3>How to Write a Recap Prompt</h3>
+
+  <p>A good recap prompt covers four things in 2-3 sentences:</p>
+
+  <ol>
+    <li><strong>Your role or audience</strong> — who this is for</li>
+    <li><strong>Tone and format</strong> — how you want it written</li>
+    <li><strong>What to avoid</strong> — things that waste your time</li>
+    <li><strong>Your goal</strong> — what you're trying to accomplish</li>
+  </ol>
+
+  <div class="code-block">
+    <span class="label">Recap Prompt — Copy and Paste</span>
+At the start of every chat, paste this:
+
+"I need you to help me as a senior software engineer working on production systems. Write in a direct, technical tone — no beginner explanations, no bullet points unless I ask for them, and no disclaimers. Avoid generic advice. My goal today is [state it]. Let's get to it."
+  </div>
+
+  <p>You can adapt this to any role or use case. The key is that it goes <em>at the top of every conversation</em>, not just when you set up Custom Instructions.</p>
+
+  <h2>Why the Same Prompt Gives Different Answers Every Time</h2>
+
+  <p>A related problem users hit constantly: you ask the same question on different days and get completely different answers. That's not a bug — it's a feature of how LLMs generate text.</p>
+
+  <p>Each response is sampled from a probability distribution. Temperature settings, token limits, and model version updates all shift that distribution over time. Without explicit constraints in your prompt, the model is optimised for variety, not consistency.</p>
+
+  <p>The recapping technique helps here too — by specifying output format and constraints every time, you narrow the model's creative space and get closer to reproducible results.</p>
+
+  <h2>What About Projects and Persistent Context Files?</h2>
+
+  <p>Claude's Projects feature and similar persistent context tools are the next evolution of this problem. Users report that even within a Project — where you've carefully set up instructions — a new conversation thread can feel like talking to a stranger who forgot everything you agreed on.</p>
+
+  <p>Power users have developed workarounds:</p>
+
+  <ul>
+    <li>Keep a <code>PROJECT.md</code> or <code>STATE.md</code> file in every project</li>
+    <li>Drop its contents into the first message of every new conversation thread</li>
+    <li>Specifically reference "as stated in our PROJECT.md" to push the model back to your context</li>
+  </ul>
+
+  <p>This is the community's most upvoted workaround for AI context loss — and it's exactly why the recapping technique generalises so well.</p>
+
+  <h2>How Prompt Helper Gemini Fixes This Automatically</h2>
+
+  <p>If manually recapping every conversation sounds like overhead you don't have time for, <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp">Prompt Helper Gemini</a> handles it for you.</p>
+
+  <p>The extension intercepts your prompt before it reaches the AI and enhances it with the structural scaffolding that forces better instruction-following:</p>
+
+  <ul>
+    <li><strong>Role specification</strong> — tells the AI who you are and what level to write for</li>
+    <li><strong>Output format constraints</strong> — controls whether you get bullet points, prose, numbered lists, or structured output</li>
+    <li><strong>Recapping preamble</strong> — automatically prepends a preference summary that pushes your requirements into active context</li>
+    <li><strong>Multi-platform</strong> — works on ChatGPT, Claude, Gemini, Grok, and Perplexity</li>
+  </ul>
+
+  <p>The free tier gives you 5 enhancements per week — enough to test it on your highest-stakes conversations. One enhancement at the start of a complex task is often all you need.</p>
+
+  <div class="key-takeaways">
+    <h3>Key Takeaways</h3>
+    <ul>
+      <li>Custom Instructions are suggestions, not commands — RLHF training lets AI override them when it conflicts with "helpful" responses</li>
+      <li>The recapping technique (restating your preferences at the start of every conversation) is the most reliable workaround</li>
+      <li>Format constraints in your prompt — "write in prose, not bullet points" — are more reliably followed than Custom Instructions alone</li>
+      <li>Projects and persistent context features still require recapping to work reliably across new conversation threads</li>
+      <li>Prompt Helper Gemini automates the recapping and structural enhancement, so your preferences are followed without manual effort</li>
+    </ul>
+  </div>
+
+  <h2>FAQ: Custom Instructions and AI Instruction-Following</h2>
+
+  <div class="faq">
+    <div class="faq-item">
+      <h3>Why does AI ignore my custom instructions?</h3>
+      <p>AI ignores custom instructions primarily due to RLHF training, which optimises for perceived helpfulness over strict instruction-following. When your instruction conflicts with what the model considers a better response, it overrides your rules. Context limits and prompt interference can also dilute custom instructions over the course of a conversation.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Do custom instructions work on all AI chatbots?</h3>
+      <p>Custom instructions are available on ChatGPT, Claude, and Gemini, but each handles them differently. ChatGPT and Gemini call them Custom Instructions, while Claude uses Instructions and Styles. Not all AI platforms support them, and those that do don't all guarantee they'll be followed consistently.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>How do I make AI actually follow my instructions?</h3>
+      <p>Start every conversation with a recapping prompt that restates your key preferences and requirements before diving into the task. This pushes your instructions into the active context window where they're harder for the model to override. Pair this with specific output format requirements in each prompt rather than relying on Custom Instructions alone.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>What is the recapping prompt technique?</h3>
+      <p>The recapping technique involves opening every conversation with a summary of your most important preferences — tone, format, audience, things to avoid. By restating these at the start of each session, you refresh the model's memory of your instructions without relying on the Custom Instructions feature alone.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Can Prompt Helper Gemini fix custom instructions being ignored?</h3>
+      <p>Prompt Helper Gemini enhances your prompts automatically before you send them, adding the structural elements that make AI follow instructions more reliably. It works across ChatGPT, Claude, Gemini, Grok, and Perplexity, and applies the recapping technique and format scaffolding automatically so your preferences get followed even when custom instructions fail.</p>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h2>Stop Fighting Your AI Every Conversation</h2>
+    <p>Custom instructions fail. Recapping works. Prompt Helper Gemini does the recapping for you — automatically, on any platform. 5 free enhancements per week to start.</p>
+    <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp">Get Prompt Helper Gemini — Free</a>
+  </div>
+
+  <footer>
+    <p>Prompt Generator · Free Chrome Extension for Better AI Prompts · <a href="https://promptgenerator.fyi">promptgenerator.fyi</a></p>
+  </footer>
+</body>
+</html>
