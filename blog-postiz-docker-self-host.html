@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Self-Host Postiz on Docker: A Step-by-Step Guide for 2026</title>
+<meta name="description" content="Host Postiz on your own server with Docker. This guide covers the full self-hosting process, server requirements, tips, and why creators are switching.">
+<link rel="canonical" href="https://promptgenerator.fyi/blog-postiz-docker-self-host.html">
+<link rel="stylesheet" href="style.css">
+<meta property="og:title" content="How to Self-Host Postiz on Docker: A Step-by-Step Guide for 2026">
+<meta property="og:description" content="Host Postiz on your own server with Docker. Full setup guide covering server requirements, installation, and why self-hosting beats expensive SaaS subscriptions.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://promptgenerator.fyi/blog-postiz-docker-self-host.html">
+<meta property="og:site_name" content="Gamified Living Apps">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Self-Host Postiz on Docker: A Step-by-Step Guide for 2026">
+<meta name="twitter:description" content="Host Postiz on your own server with Docker. Full setup guide for creators who want data ownership and unlimited scheduling.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "How to Self-Host Postiz on Docker: A Step-by-Step Guide for 2026",
+      "description": "Host Postiz on your own server with Docker. Full setup guide covering server requirements, installation, and why self-hosting beats expensive SaaS subscriptions.",
+      "author": { "@type": "Person", "name": "Gamified Living Apps" },
+      "publisher": { "@type": "Organization", "name": "Gamified Living Apps", "url": "https://promptgenerator.fyi" },
+      "datePublished": "2026-10-06",
+      "dateModified": "2026-10-06",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://promptgenerator.fyi/blog-postiz-docker-self-host.html" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What are the minimum server requirements for self-hosting Postiz?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Postiz recommends at least 2 GB of RAM, a dual-core CPU, and 20 GB of storage. A cheap VPS (like a $5-10/month instance from DigitalOcean, Hetzner, or Linode) handles a small to medium setup comfortably. The official Docker compose uses three containers, so resource availability matters." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Postiz really free to self-host?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Postiz is fully open source under the MIT license. Self-hosting it costs only your server expenses, typically $5-20/month depending on your VPS provider. There are no Postiz licensing fees, no account limits, and no feature restrictions — everything is included." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I update Postiz when self-hosted?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Update Postiz by pulling the latest Docker images and restarting the containers: git pull, docker compose pull, docker compose down, docker compose up -d. Postiz maintains backward compatibility in updates, and your data is stored in Docker volumes, so it persists across updates." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use a domain with my self-hosted Postiz?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. You can configure a custom domain with SSL via a reverse proxy like Nginx or Caddy. Postiz's Docker compose includes environment variables for setting your domain. Using a domain with HTTPS is essential for OAuth authentication with platforms like TikTok, YouTube, and Instagram." }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens to my data if Postiz shuts down?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Because you host Postiz yourself, you own your data completely. If the project were ever discontinued, you'd still have your database, scheduled posts, and media files on your server. You could switch to another tool without losing anything — unlike SaaS platforms where cancellation means data loss." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; color: #cbd5e1; }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; white-space: pre; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; border-bottom: none; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>How to Self-Host Postiz on Docker: A Step-by-Step Guide for 2026</h1>
+  <p class="meta">Published October 6, 2026 &middot; 10 min read &middot; Self-Hosting &middot; Social Media Tools</p>
+</header>
+
+<main>
+<p class="intro">Commercial social media schedulers charge per channel, per seat, or both — and the bills add up fast once you manage more than a handful of accounts. Postiz changes that equation. As a fully open-source tool, it can be self-hosted on your own server for the cost of a cheap VPS — typically $5 to $20 per month. This guide walks through the complete self-hosting process, from choosing a server to getting your first post scheduled via your own Postiz instance.</p>
+
+<h2 id="why-self-host">Why Self-Host Postiz in 2026?</h2>
+
+<p>Postiz's cloud plan starts at $15/month for 5 channels — already competitive with commercial alternatives. But self-hosting removes even that cost and delivers additional benefits:</p>
+
+<ul>
+  <li><strong>Unlimited channels and posts</strong> — no per-channel pricing</li>
+  <li><strong>Full data ownership</strong> — your posts, analytics, and media stay on your infrastructure</li>
+  <li><strong>No vendor lock-in</strong> — your data isn't trapped in someone else's SaaS</li>
+  <li><strong>Custom domain and white-label</strong> for agencies and client work</li>
+  <li><strong>Privacy-sensitive deployment</strong> — run behind a VPN if needed</li>
+</ul>
+
+<p>For creators managing multiple brands, agencies handling client accounts, or anyone who resents paying escalating subscription fees, self-hosting Postiz is the most cost-effective path to professional-grade scheduling.</p>
+
+<h2 id="server-requirements">Server Requirements</h2>
+
+<p>Postiz runs as three Docker containers (frontend, backend, and queue). The resource demands are modest for small to medium setups:</p>
+
+<div class="comparison">
+  <div class="comparison-box good">
+    <h4>Recommended Minimum</h4>
+    <ul>
+      <li>2 GB RAM (4 GB preferred)</li>
+      <li>2 vCPU cores</li>
+      <li>20 GB storage (more for media-heavy use)</li>
+      <li>Ubuntu 22.04 LTS or Debian 12</li>
+      <li>Docker & Docker Compose installed</li>
+    </ul>
+  </div>
+  <div class="comparison-box good">
+    <h4>Good VPS Options</h4>
+    <ul>
+      <li>Hetzner Cloud (CX21: ~$6/mo)</li>
+      <li>DigitalOcean Basic ($6-12/mo)</li>
+      <li>Linode (2GB: $9/mo)</li>
+      <li>Contabo, Vultr, and Kimsufi all work</li>
+    </ul>
+  </div>
+</div>
+
+<p>A $6-10/month VPS from Hetzner or DigitalOcean handles Postiz comfortably for most creators. If you're running analytics on large accounts or have a large team, bump up to 4 GB RAM.</p>
+
+<h2 id="step-1-server">Step 1: Set Up Your Server</h2>
+
+<p>Spin up a VPS with Ubuntu 22.04 LTS. Once SSH'd in, update the system and install Docker:</p>
+
+<div class="code-block">
+<span class="label">Terminal — Ubuntu setup</span>
+sudo apt update && sudo apt upgrade -y
+curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+docker --version
+docker compose version</div>
+
+<p>Log out and back in for the Docker group permissions to take effect. Then verify:</p>
+
+<div class="code-block">
+<span class="label">Verify Docker</span>
+docker run hello-world
+docker compose version</div>
+
+<p>If both commands report success, your server is ready.</p>
+
+<h2 id="step-2-install">Step 2: Install Postiz</h2>
+
+<p>Clone the Postiz repository and start the Docker containers:</p>
+
+<div class="code-block">
+<span class="label">Terminal — clone and launch Postiz</span>
+git clone https://github.com/gitroomhq/postiz-app.git
+cd postiz-app/docker
+cp .env.example .env
+docker compose up -d</div>
+
+<p>The official Postiz <a href="https://docs.postiz.com/self-host/installation/docker" target="_blank" rel="noopener">Docker installation documentation</a> covers the full environment configuration. Key variables you'll want to set in <code>.env</code>:</p>
+
+<ul>
+  <li><code>APP_URL</code> — your domain (e.g., <code>https://scheduler.yoursite.com</code>)</li>
+  <li><code>FRONTEND_URL</code> — the same URL for OAuth redirects</li>
+  <li><code>DATABASE_URL</code> — set automatically by Docker, usually fine to leave</li>
+</ul>
+
+<h2 id="step-3-domain-ssl">Step 3: Configure Domain and SSL</h2>
+
+<p>For OAuth authentication with TikTok, YouTube, Instagram, and other platforms to work, Postiz needs to run over HTTPS. Use a reverse proxy with free Let's Encrypt certificates.</p>
+
+<p><strong>Using Caddy (recommended — automatic HTTPS):</strong></p>
+
+<div class="code-block">
+<span class="label">Caddyfile — reverse proxy with automatic SSL</span>
+scheduler.yoursite.com {
+    reverse_proxy localhost:3000
+}</div>
+
+<p>Run <code>caddy run</code> and Caddy automatically provisions and renews your SSL certificate. If you prefer Nginx, use Certbot with <code>certbot --nginx</code> to generate certificates.</p>
+
+<p>Point your domain's DNS A record at your server's IP address before starting the proxy — DNS propagation can take up to 24 hours, though it often completes in minutes to a few hours.</p>
+
+<h2 id="step-4-connect-platforms">Step 4: Connect Your Social Platforms</h2>
+
+<p>Navigate to your Postiz instance at your domain. Create your admin account, then add channels from the dashboard:</p>
+
+<ul>
+  <li>Click <strong>Channels</strong> → <strong>Add Channel</strong></li>
+  <li>Select your platform (YouTube, TikTok, Instagram, Facebook, etc.)</li>
+  <li>Authenticate via the official OAuth flow — Postiz uses platform-approved methods and never asks for your passwords</li>
+  <li>Repeat for each account you want to manage</li>
+</ul>
+
+<p>Because Postiz uses official OAuth, it won't get your accounts banned or restricted the way tools based on scraping or unofficial APIs can.</p>
+
+<h2 id="step-5-queue-scheduling">Step 5: Using Queues and Scheduling</h2>
+
+<p>Postiz uses a queue-based system (backed by Temporal since v2.12) to handle scheduling reliably. To schedule a post:</p>
+
+<ol>
+  <li>Click <strong>Create Post</strong> in the dashboard</li>
+  <li>Select which channels to publish to</li>
+  <li>Write your caption, attach media, add hashtags</li>
+  <li>Choose <strong>Publish Now</strong> or pick a future date and time</li>
+  <li>Add to queue — Postiz handles delivery at the scheduled moment</li>
+</ol>
+
+<p>The queue system means posts go out even if your computer is off. Postiz's worker process runs on your server, checking the queue and publishing at the right time across all connected platforms.</p>
+
+<h2 id="ai-agent">Bonus: Using Postiz's AI Smart Agent</h2>
+
+<p>Postiz includes a built-in AI agent that can generate your captions, images, and short videos from a single idea. To use it:</p>
+
+<ol>
+  <li>Click <strong>AI Agent</strong> in the dashboard</li>
+  <li>Enter a topic or concept for your campaign</li>
+  <li>The AI generates platform-native captions, suggested images, hashtag sets, and video concepts for each channel</li>
+  <li>Review, edit, and approve before queuing</li>
+</ol>
+
+<p>The AI agent is included on Postiz's paid cloud plans. For self-hosted, configure your own AI provider via the environment variables, or use the built-in integration options available in the dashboard settings.</p>
+
+<div class="key-takeaways">
+  <h3>Key Takeaways</h3>
+  <ul>
+    <li>A $6-10/month VPS plus Postiz replaces $99+/month commercial schedulers</li>
+    <li>Docker compose makes installation a matter of minutes — no manual server config required</li>
+    <li>Caddy or Nginx + Certbot gives you free automatic SSL for OAuth to work</li>
+    <li>Your data stays on your server — no SaaS vendor lock-in or subscription risk</li>
+    <li>AI content generation is built in, not a paid add-on</li>
+  </ul>
+</div>
+
+<div class="cta-box">
+  <h2>Want to Try Postiz Without the Server Setup?</h2>
+  <p>If you'd rather start with Postiz Cloud — the fully hosted version with all features included — you can <a href="https://postiz.pro/try" target="_blank" rel="noopener">try Postiz free for 7 days</a>. No credit card required. Switch to self-hosting whenever you're ready.</p>
+</div>
+
+<section class="faq">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <h3>What are the minimum server requirements for self-hosting Postiz?</h3>
+    <p>Postiz recommends at least 2 GB of RAM, a dual-core CPU, and 20 GB of storage. A cheap VPS (like a $5-10/month instance from DigitalOcean, Hetzner, or Linode) handles a small to medium setup comfortably. The official Docker compose uses three containers, so resource availability matters.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Is Postiz really free to self-host?</h3>
+    <p>Yes. Postiz is fully open source under the MIT license. Self-hosting it costs only your server expenses, typically $5-20/month depending on your VPS provider. There are no Postiz licensing fees, no account limits, and no feature restrictions — everything is included.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>How do I update Postiz when self-hosted?</h3>
+    <p>Update Postiz by pulling the latest Docker images and restarting the containers: git pull, docker compose pull, docker compose down, docker compose up -d. Postiz maintains backward compatibility in updates, and your data is stored in Docker volumes, so it persists across updates.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Can I use a domain with my self-hosted Postiz?</h3>
+    <p>Yes. You can configure a custom domain with SSL via a reverse proxy like Nginx or Caddy. Postiz's Docker compose includes environment variables for setting your domain. Using a domain with HTTPS is essential for OAuth authentication with platforms like TikTok, YouTube, and Instagram.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>What happens to my data if Postiz shuts down?</h3>
+    <p>Because you host Postiz yourself, you own your data completely. If the project were ever discontinued, you'd still have your database, scheduled posts, and media files on your server. You could switch to another tool without losing anything — unlike SaaS platforms where cancellation means data loss.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 <a href="https://promptgenerator.fyi">Gamified Living Apps</a>. All rights reserved.</p>
+</footer>
+</body>
+</html>
