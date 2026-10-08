@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Write Prompts That Work Across Different AI Chatbots | Prompt Helper</title>
+  <meta name="description" content="Discover why the same prompt fails on ChatGPT but works on Claude. Learn the 4 universal principles that make AI prompts work consistently across any chatbot.">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-how-to-write-prompts-work-across-different-ai-chatbots.html">
+  <meta property="og:title" content="How to Write Prompts That Work Across Different AI Chatbots">
+  <meta property="og:description" content="Discover why the same prompt fails on ChatGPT but works on Claude. Learn the 4 universal principles that make AI prompts work consistently across any chatbot.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-how-to-write-prompts-work-across-different-ai-chatbots.html">
+  <meta property="og:site_name" content="Prompt Helper">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Write Prompts That Work Across Different AI Chatbots">
+  <meta name="twitter:description" content="Discover why the same prompt fails on ChatGPT but works on Claude. Learn the 4 universal principles that make AI prompts work consistently across any chatbot.">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent2: #a371f7;
+      --code-bg: #1c2128;
+      --success: #3fb950;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 20px 20px 60px;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header { border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 32px; }
+    .badge {
+      display: inline-block;
+      background: rgba(88,166,255,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(88,166,255,0.3);
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-size: clamp(22px, 5vw, 30px);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+    .meta { color: var(--text-muted); font-size: 13px; margin-bottom: 24px; }
+    .intro {
+      font-size: 17px;
+      color: var(--text);
+      margin-bottom: 36px;
+      border-left: 3px solid var(--accent);
+      padding-left: 18px;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 40px 0 16px;
+      color: #fff;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; color: var(--accent2); }
+    p { margin-bottom: 16px; color: var(--text); }
+    ul, ol { margin: 0 0 16px 20px; }
+    li { margin-bottom: 8px; }
+    .highlight-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin: 24px 0;
+    }
+    .highlight-box.warning { border-left-color: #d29922; }
+    .highlight-box.tip { border-left-color: var(--success); }
+    .highlight-box h3 { margin-top: 0; color: var(--accent); font-size: 15px; }
+    .highlight-box p { margin-bottom: 0; font-size: 15px; }
+    .code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      overflow-x: auto;
+    }
+    .code-block code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      color: #79c0ff;
+      white-space: pre-wrap;
+    }
+    .code-block .label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: block;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+    th {
+      background: var(--surface);
+      color: var(--accent);
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+    }
+    td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+    .faq-section { margin-top: 40px; }
+    .faq-item { margin-bottom: 20px; }
+    .faq-item h3 { font-size: 15px; color: var(--accent); margin-bottom: 8px; font-weight: 600; }
+    .faq-item p { font-size: 15px; color: var(--text-muted); margin-bottom: 0; }
+    .cta-box {
+      background: linear-gradient(135deg, rgba(88,166,255,0.08), rgba(163,113,247,0.08));
+      border: 1px solid rgba(88,166,255,0.2);
+      border-radius: 12px;
+      padding: 28px;
+      text-align: center;
+      margin: 40px 0;
+    }
+    .cta-box h3 { color: #fff; font-size: 18px; margin-bottom: 10px; }
+    .cta-box p { color: var(--text-muted); font-size: 15px; margin-bottom: 18px; }
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: opacity 0.2s;
+    }
+    .cta-btn:hover { opacity: 0.85; text-decoration: none; }
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+      padding-top: 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    footer a { color: var(--text-muted); }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://promptgenerator.fyi/#organization",
+        "name": "Prompt Helper",
+        "url": "https://promptgenerator.fyi",
+        "sameAs": [
+          "https://chrome.google.com/webstore/detail/prompt-helper-gemini/hfoapapgkogbgkgegfhbicgkdlbjicn"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://promptgenerator.fyi/#website",
+        "url": "https://promptgenerator.fyi",
+        "name": "Prompt Helper",
+        "publisher": { "@id": "https://promptgenerator.fyi/#organization" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://promptgenerator.fyi/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Article",
+        "headline": "How to Write Prompts That Work Across Different AI Chatbots",
+        "description": "Discover why the same prompt fails on ChatGPT but works on Claude. Learn the 4 universal principles that make AI prompts work consistently across any chatbot.",
+        "url": "https://promptgenerator.fyi/blog-how-to-write-prompts-work-across-different-ai-chatbots.html",
+        "datePublished": "2026-10-08",
+        "dateModified": "2026-10-08",
+        "author": { "@type": "Organization", "name": "Prompt Helper" },
+        "publisher": { "@id": "https://promptgenerator.fyi/#organization" },
+        "mainEntityOfPage": "https://promptgenerator.fyi/blog-how-to-write-prompts-work-across-different-ai-chatbots.html",
+        "articleSection": "AI Prompt Engineering",
+        "wordCount": 1850
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why does my prompt work on ChatGPT but fail on Claude or Gemini?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Different AI models are trained on different datasets with different reinforcement learning signals. ChatGPT is tuned to be helpful in a conversational way, while Claude prioritizes accuracy and safety, and Gemini is optimized for factual recall. A vague prompt that ChatGPT infers well might read as incomplete by Claude, which expects more explicit instructions. The fix is to add specific output format instructions and explicit constraints that reduce ambiguity for all models."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the safest prompt format that works on every AI chatbot?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The four-part SAFE format works across all major models: Situation sets the context, Action defines the task, Format specifies the output structure, and Examples provide one or two concrete input-output pairs. Adding explicit Format instructions prevents the model from guessing your preferred structure. Keeping language direct and declarative rather than conversational also reduces the chance of misinterpretation across different model personalities."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need different prompts for ChatGPT, Claude, Gemini, and Grok?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You do not need completely different prompts. The core structure stays the same. Where models diverge is in how much context they need, how they handle system-level instructions, and how they respond to tone cues. A prompt written with the SAFE framework transfers well across models with only minor adjustments to length and specificity. Testing your prompt on two or three models takes five minutes and tells you exactly which adjustments are needed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Prompt Helper Gemini improve prompts for cross-chatbot use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Prompt Helper Gemini is a Chrome extension that helps you write clearer prompts directly in the browser. It provides instant feedback on prompt clarity, specificity, and structure. When you are crafting a prompt you plan to use across multiple chatbots, the extension helps you add the explicit formatting and constraint instructions that make prompts transfer reliably from ChatGPT to Claude to Gemini without losing quality."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use the same few-shot examples across different AI models?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Few-shot examples transfer across models but sometimes need reformatting. Claude and Gemini handle labeled examples in markdown tables very well. ChatGPT responds well to simple numbered lists for examples. Grok prefers plain text without markdown formatting. The principle stays the same: provide one or two representative examples that demonstrate the exact input format and expected output structure you want the model to follow."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <a href="/" style="color: var(--text-muted); font-size: 13px;">← Back to Prompt Helper</a>
+  </header>
+
+  <article>
+    <span class="badge">AI PROMPT ENGINEERING</span>
+    <h1>How to Write Prompts That Work Across Different AI Chatbots</h1>
+    <p class="meta">Published October 8, 2026 · 9 min read</p>
+
+    <p class="intro">You wrote a great prompt. It worked perfectly on ChatGPT. Then you pasted it into Claude and got a completely different response. Run it through Gemini and it falls apart entirely. The prompt has not changed, but the chatbot has. This guide explains why that happens and gives you a transferable framework for writing prompts that deliver consistent results across any AI model.</p>
+
+    <h2>Why AI Prompts Behave Differently Across Chatbots</h2>
+    <p>Every major AI chatbot — ChatGPT, Claude, Gemini, Grok, DeepSeek, and others — is built on a different language model with its own training history, reinforcement learning signals, and personality tuning. That divergence is the root cause of cross-chatbot prompt failure.</p>
+
+    <p>Here are the specific ways models differ:</p>
+    <ul>
+      <li><strong>Inference style:</strong> ChatGPT tends to infer user intent from partial instructions. Claude waits for explicit direction and treats ambiguity as a reason to ask clarifying questions rather than guess. Gemini leans toward factual precision and may default to longer, more structured answers.</li>
+      <li><strong>System prompt handling:</strong> Claude processes system-level instructions with high fidelity. ChatGPT may re-interpret them based on conversation context. Gemini in some interfaces ignores or deprioritizes system prompts in favor of user-level instructions.</li>
+      <li><strong>Output length defaults:</strong> Claude capped responses at roughly 4,096 tokens in many configurations. ChatGPT with GPT-4o defaults to a higher fluid limit. Gemini may truncate or stop early on tasks it considers complete before you expect.</li>
+      <li><strong>Safety and refusal thresholds:</strong> Claude refuses ambiguous requests more readily than ChatGPT. Grok has a much lower refusal threshold for topics that other models handle neutrally. A prompt that sits comfortably within one model guardrails may trigger a refusal in another.</li>
+    </ul>
+
+    <p>These differences do not mean you need to write entirely different prompts for each platform. They mean your prompts need to be more explicit about what you want and how you want it delivered.</p>
+
+    <div class="highlight-box warning">
+      <h3>The Assumption That Breaks Cross-Chatbot Prompts</h3>
+      <p>Do not assume a model will infer what you mean from incomplete instructions. Inference is where models diverge most. The safer strategy is to spell it out — specificity transfers; ambiguity does not.</p>
+    </div>
+
+    <h2>The SAFE Framework: Write Once, Use Everywhere</h2>
+    <p>The SAFE framework gives any prompt the structural completeness that makes it model-agnostic. SAFE stands for Situation, Action, Format, and Examples. Apply all four parts and your prompt transfers across ChatGPT, Claude, Gemini, Grok, and most other mainstream chatbots without modification.</p>
+
+    <h3>1. Situation — Set the Context</h3>
+    <p>Open your prompt with one or two sentences that establish the scenario. This replaces guesswork with shared context. The model does not need your life story — just enough ground truth to frame the task correctly.</p>
+
+    <div class="code-block">
+      <span class="label">Example</span>
+      <code>We are a two-person startup with no dedicated copywriter. Our product is project management software for freelance graphic designers.</code>
+    </div>
+
+    <h3>2. Action — Define the Task</h3>
+    <p>State the specific task in a direct imperative sentence. Avoid vague verbs like "help with" or "do something with." Use precise action verbs: write, analyze, compare, rewrite, list, summarize, classify.</p>
+
+    <div class="code-block">
+      <span class="label">Example</span>
+      <code>Write three email subject lines for a cold outreach campaign targeting this audience.</code>
+    </div>
+
+    <h3>3. Format — Specify the Output Structure</h3>
+    <p>This is the most transferable part of any prompt and the one most often omitted. Tell the model exactly how to structure its response. Format instructions are followed consistently across nearly all modern models because they are explicit constraints rather than interpretive suggestions.</p>
+
+    <div class="code-block">
+      <span class="label">Example</span>
+      <code>Format each subject line as a single line starting with an emoji followed by no more than 60 characters. Include one curiosity-gap opener and one social-proof variant.</code>
+    </div>
+
+    <h3>4. Examples — Show What You Want</h3>
+    <p>One or two concrete examples do more than a paragraph of description. Show the input and the exact output you expect. Examples calibrate the model to your standard faster than any amount of stylistic guidance.</p>
+
+    <div class="code-block">
+      <span class="label">Example</span>
+      <code>Example: "🚀 5 design firms saved 12 hours a week with this one tool" — this is the style and structure I want you to match.</code>
+    </div>
+
+    <div class="highlight-box tip">
+      <h3>Put It Together</h3>
+      <p>A complete SAFE prompt fits in three to five sentences and covers all ambiguity before the model generates a single token. The result is a response that matches your intent on the first try — in ChatGPT, Claude, Gemini, or any other chatbot you use.</p>
+    </div>
+
+    <h2>Real Prompt Before and After SAFE</h2>
+    <p>Here is a before-and-after comparison showing how the SAFE framework transforms a vague prompt into a cross-chatbot-ready instruction.</p>
+
+    <table>
+      <tr><th>Version</th><th>Prompt</th></tr>
+      <tr>
+        <td><strong>Before (Vague)</strong></td>
+        <td>"Write me some LinkedIn posts about productivity."</td>
+      </tr>
+      <tr>
+        <td><strong>After (SAFE)</strong></td>
+        <td>"I run a solo consulting practice and need LinkedIn posts that attract mid-level marketing managers. Write three posts. Each post should be under 150 words, include a personal anecdote in the first line, end with a question that invites comments, and avoid hashtags. Example: 'I used to spend Sunday nights dreading Monday morning. Then I discovered one hour of planning changed everything — here is what I do now. What is your biggest planning struggle?'"</td>
+      </tr>
+    </table>
+
+    <p>The before version produces different results on every model. The after version produces consistent results across all of them because every element is specified.</p>
+
+    <h2>How to Test a Prompt Across Multiple Chatbots</h2>
+    <p>Testing takes five minutes and tells you everything you need to know about where your prompt transfers and where it breaks down.</p>
+
+    <ol>
+      <li><strong>Pick one canonical prompt version.</strong> Write it using the SAFE framework. Do not optimize for any single model — write for transferability.</li>
+      <li><strong>Open ChatGPT, Claude, and Gemini in separate tabs.</strong> Paste the same prompt into all three simultaneously.</li>
+      <li><strong>Compare outputs on four criteria:</strong> accuracy of task completion, output format adherence, response length appropriateness, and factual correctness.</li>
+      <li><strong>Identify the gap.</strong> If one model produces a structurally different answer, add a Format instruction targeting that gap. If a model refuses the task, soften or reframe the sensitive part.</li>
+      <li><strong>Re-test with the adjusted prompt.</strong> The goal is one prompt that scores "good enough" across all three, not a perfect result on one that fails on others.</li>
+    </ol>
+
+    <div class="highlight-box">
+      <h3>When Cross-Chatbot Parity Is Not the Goal</h3>
+      <p>If you use Claude specifically for coding and ChatGPT specifically for brainstorming, you do not need identical outputs — you need reliable outputs on each platform. The SAFE framework still helps because it lets you set platform-specific expectations in the Format section without changing the overall structure.</p>
+    </div>
+
+    <h2>Common Cross-Chatbot Prompt Mistakes</h2>
+
+    <h3>Mistake 1: Relying on Model Inference</h3>
+    <p>Assuming the model will fill in missing context is the single biggest cause of inconsistent results. ChatGPT handles inference well and may cover for a vague prompt in ways Claude and Gemini will not.</p>
+
+    <h3>Mistake 2: Using Platform-Specific jargon</h3>
+    <p>Some prompting techniques that work well on one platform do not transfer. Chain-of-thought prompting in the style optimized for GPT models may not produce the same reasoning path in Gemini. Keep techniques general and principles-based rather than model-specific.</p>
+
+    <h3>Mistake 3: Skipping Format Instructions</h3>
+    <p>Format is the most consistently honored instruction across all models. If you only add one thing to a failing prompt, add a sentence describing the exact output structure you want. This single addition fixes more cross-chatbot failures than any other change.</p>
+
+    <h3>Mistake 4: Using Contractions in Few-Shot Examples</h3>
+    <p>Few-shot examples with contractions like "do not" vs "don't" or "it is" vs "it's" can confuse format-sensitive models in edge cases. Write examples in plain formal English without contractions to maximize cross-model reliability.</p>
+
+    <h2>Using Prompt Helper Gemini for Cross-Chatbot Prompting</h2>
+    <p>Writing SAFE-structured prompts from scratch every time takes practice. <a href="https://chrome.google.com/webstore/detail/prompt-helper-gemini/hfoapapgkogbgkgegfhbicgkdlbjicn">Prompt Helper Gemini</a> is a Chrome extension that helps you build prompts with explicit structure directly in your browser. It flags missing Format instructions, suggests clearer action verbs, and helps you add concrete examples — all of which make your prompts more transferable between chatbots.</p>
+
+    <p>The extension works alongside ChatGPT, Claude, and Gemini in separate tabs, so you can write and test in one workflow. When a prompt works consistently across all three platforms, you know it is built on solid structural ground rather than model-specific inference.</p>
+
+    <div class="cta-box">
+      <h3>Stop Rewriting Prompts for Every Chatbot</h3>
+      <p>Get structured prompt feedback directly in your browser with Prompt Helper Gemini.</p>
+      <a href="https://chrome.google.com/webstore/detail/prompt-helper-gemini/hfoapapgkogbgkgegfhbicgkdlbjicn" class="cta-btn">Install Free from Chrome Web Store</a>
+    </div>
+
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>Why does my prompt work on ChatGPT but fail on Claude or Gemini?</h3>
+        <p>Different AI models are trained on different datasets with different reinforcement learning signals. ChatGPT is tuned to be helpful in a conversational way, while Claude prioritizes accuracy and safety, and Gemini is optimized for factual recall. A vague prompt that ChatGPT infers well might read as incomplete by Claude, which expects more explicit instructions. The fix is to add specific output format instructions and explicit constraints that reduce ambiguity for all models.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What is the safest prompt format that works on every AI chatbot?</h3>
+        <p>The four-part SAFE format works across all major models: Situation sets the context, Action defines the task, Format specifies the output structure, and Examples provide one or two concrete input-output pairs. Adding explicit Format instructions prevents the model from guessing your preferred structure. Keeping language direct and declarative rather than conversational also reduces the chance of misinterpretation across different model personalities.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Do I need different prompts for ChatGPT, Claude, Gemini, and Grok?</h3>
+        <p>You do not need completely different prompts. The core structure stays the same. Where models diverge is in how much context they need, how they handle system-level instructions, and how they respond to tone cues. A prompt written with the SAFE framework transfers well across models with only minor adjustments to length and specificity. Testing your prompt on two or three models takes five minutes and tells you exactly which adjustments are needed.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How does Prompt Helper Gemini improve prompts for cross-chatbot use?</h3>
+        <p>Prompt Helper Gemini is a Chrome extension that helps you write clearer prompts directly in the browser. It provides instant feedback on prompt clarity, specificity, and structure. When you are crafting a prompt you plan to use across multiple chatbots, the extension helps you add the explicit formatting and constraint instructions that make prompts transfer reliably from ChatGPT to Claude to Gemini without losing quality.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I use the same few-shot examples across different AI models?</h3>
+        <p>Few-shot examples transfer across models but sometimes need reformatting. Claude and Gemini handle labeled examples in markdown tables very well. ChatGPT responds well to simple numbered lists for examples. Grok prefers plain text without markdown formatting. The principle stays the same: provide one or two representative examples that demonstrate the exact input format and expected output structure you want the model to follow.</p>
+      </div>
+    </section>
+  </article>
+
+  <footer>
+    <p><a href="/">← Back to Prompt Helper</a> · <a href="https://chrome.google.com/webstore/detail/prompt-helper-gemini/hfoapapgkogbgkgegfhbicgkdlbjicn">Get the Chrome Extension</a></p>
+  </footer>
+</body>
+</html>
