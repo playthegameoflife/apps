@@ -875,6 +875,12 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-claude-vs-chatgpt-vs-gemini-best-ai-for-each-task-2026.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
 
 
