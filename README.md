@@ -1,3 +1,3 @@
-# Prompt Generator
-
-<!-- Updated: 2026-10-08 00:17:35 -->
+# apps
+Self-hosted social media scheduling and more.
+<!-- updated: 2026-10-15T16:27:00Z -->
