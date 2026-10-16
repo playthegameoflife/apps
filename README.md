@@ -1,3 +1,6 @@
-# apps
-Self-hosted social media scheduling and more.
-<!-- updated: 2026-10-15T16:40:00Z force-rebuild -->
+# Prompt Generator Apps
+
+2 page for testing the prompt generator chrome extension.
+
+Manually updated: 2026-10-16T18:20:50Z
+
