@@ -118,6 +118,12 @@
       "primary_keyword": "why AI content sounds generic fix",
       "published": "2026-10-18",
       "angle": "why AI content sounds generic \u2014 customer pain language from r/ChatGPT, 5 concrete prompt fixes"
+    },
+    {
+      "slug": "blog-why-ai-gives-different-answers-same-question.html",
+      "primary_keyword": "why AI gives different answers to the same question",
+      "published": "2026-10-19",
+      "angle": "AI non-determinism explained \u2014 temperature, top_p, prompt structure for consistent results"
     }
   ]
 }
