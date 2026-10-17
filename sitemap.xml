@@ -905,10 +905,14 @@
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-postiz-open-source-scheduler.html</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 </urlset>
 
 
+  <url>
+    <loc>https://promptgenerator.fyi/blog-chatgpt-coding-prompts-that-work-20262817.html</loc>
+    <lastmod>2026-10-17</lastmod>
+  </url>
