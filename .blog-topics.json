@@ -135,6 +135,12 @@
       "slug": "blog-prompt-exhaustion-ai-fix",
       "primary_keyword": "prompt exhaustion AI fix",
       "published": "2026-10-18"
+    },
+    {
+      "slug": "blog-ai-temperature-settings-explained",
+      "primary_keyword": "AI temperature settings explained",
+      "published": "2026-10-18",
+      "angle": "what does AI temperature actually do \u2014 top-p, temperature by task, community workarounds"
     }
   ]
 }
