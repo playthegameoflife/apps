@@ -1480,3 +1480,180 @@ footer p {
     margin-bottom: 16px;
   }
 }
+
+/* ================================================
+   PRICING — Free vs Pro (2-column)
+   ================================================ */
+
+#pricing {
+  background: #1a1a1a;
+  color: #ffffff;
+  padding: 80px 40px;
+  text-align: center;
+}
+
+#pricing h2 {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.pricing-sub {
+  color: rgba(255,255,255,0.6);
+  max-width: 560px;
+  margin: 0 auto 48px;
+  font-size: 16px;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.price-card {
+  background: #252525;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.price-card h3 {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.price-card .price {
+  font-size: 36px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 10px 0 4px;
+}
+
+.price-card .price span {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+}
+
+.pro-everything {
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+  margin: 8px 0 0;
+}
+
+.price-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 28px;
+}
+
+.price-card li {
+  color: rgba(255,255,255,0.78);
+  font-size: 14px;
+  line-height: 2;
+  padding-left: 26px;
+  position: relative;
+}
+
+.price-card li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #FF5722;
+  font-weight: 700;
+}
+
+.price-card .phg-btn-primary {
+  margin-top: auto;
+  justify-content: center;
+}
+
+.price-card-pro {
+  border: 1px solid #FF5722;
+  position: relative;
+}
+
+.pro-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #FF5722;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ================================================
+   TRUST — honest stat cards (light section)
+   ================================================ */
+
+.trust-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.trust-stat {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 26px 34px;
+  text-align: center;
+  min-width: 190px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.trust-stat-value {
+  font-size: 34px;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+}
+
+.trust-stat-label {
+  font-size: 13px;
+  color: #6a6a6a;
+  margin-top: 8px;
+  line-height: 1.5;
+  max-width: 210px;
+}
+
+.trust-note {
+  max-width: 580px;
+  margin: 36px auto 0;
+  font-size: 14px;
+  color: #6a6a6a;
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #pricing {
+    padding: 60px 24px;
+  }
+
+  .trust-stat {
+    min-width: 150px;
+    padding: 20px 24px;
+  }
+}
