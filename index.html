@@ -109,12 +109,22 @@
           "Context-aware tone and length controls",
           "Free forever, no signup required"
         ],
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "url": "https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp"
-        },
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Free",
+            "price": "0",
+            "priceCurrency": "USD",
+            "url": "https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp"
+          },
+          {
+            "@type": "Offer",
+            "name": "Pro",
+            "price": "19.99",
+            "priceCurrency": "USD",
+            "url": "https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp"
+          }
+        ],
         "publisher": { "@id": "https://promptgenerator.fyi/#organization" }
       }
     ]
@@ -192,18 +202,62 @@
   </section>
 
 
+
+  <!-- ================================================
+       PRICING — Free vs Pro
+       ================================================ -->
+  <section id="pricing">
+    <h2>Simple Pricing</h2>
+    <p style="text-align:center;color:#8888a0;max-width:560px;margin:0 auto 32px">Start free. Upgrade when you're enhancing prompts all day.</p>
+    <div class="steps-row">
+      <div class="step-card">
+        <h3>Free</h3>
+        <div style="font-size:32px;font-weight:800;margin:8px 0">$0<span style="font-size:14px;font-weight:500;color:#8888a0"> / forever</span></div>
+        <ul style="text-align:left;color:#b8b8c8;font-size:14px;line-height:1.9;list-style:none;padding:0;margin:16px 0">
+          <li>&#10003; 5 prompt enhancements / week</li>
+          <li>&#10003; 5 Ask questions / week</li>
+          <li>&#10003; Basic style templates</li>
+          <li>&#10003; One-click &#10024; button in AI chats</li>
+          <li>&#10003; Keyboard shortcuts</li>
+        </ul>
+        <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="phg-btn-primary" target="_blank" rel="noopener" style="margin-top:8px;display:inline-block">Add to Chrome &mdash; It&apos;s Free</a>
+      </div>
+      <div class="step-card" style="border:1px solid #BF5AF2">
+        <h3>Pro &#11088;</h3>
+        <div style="font-size:32px;font-weight:800;margin:8px 0">$19.99<span style="font-size:14px;font-weight:500;color:#8888a0"> / month</span></div>
+        <ul style="text-align:left;color:#b8b8c8;font-size:14px;line-height:1.9;list-style:none;padding:0;margin:16px 0">
+          <li>&#10003; Unlimited prompt enhancements</li>
+          <li>&#10003; Unlimited Ask questions</li>
+          <li>&#10003; All style templates + custom styles</li>
+          <li>&#10003; Unlimited history + CSV/JSON export</li>
+          <li>&#10003; Priority support</li>
+        </ul>
+        <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener" style="margin-top:8px;display:inline-block;padding:12px 28px;border-radius:10px;background:#BF5AF2;color:#fff;text-decoration:none;font-weight:700">Go Pro</a>
+      </div>
+    </div>
+  </section>
+
 <section id="trust">
-    <h2>Trust and Certifications</h2>
-    <div class="trust-seals">
-      <img src="https://raw.githubusercontent.com/playthegameoflife/apps/main/mcafee.png" alt="McAfee Secure Trust Seal" class="trust-seal-image" loading="lazy" width="100" height="auto">
-      <img src="https://raw.githubusercontent.com/playthegameoflife/apps/main/new-norton-seal1.png" alt="Norton Security Trust Seal" class="trust-seal-image" loading="lazy" width="100" height="auto">
-      <img src="https://raw.githubusercontent.com/playthegameoflife/apps/main/truste-certified-privacy-2.png" alt="TRUSTe Certified Privacy Seal" class="trust-seal-image" loading="lazy" width="100" height="auto">
+    <h2>Why Users Trust PHG</h2>
+    <div class="trust-seals" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 24px;text-align:center;min-width:160px">
+        <div style="font-size:24px;font-weight:800;color:#fff">430+</div>
+        <div style="font-size:13px;color:#8888a0">happy users</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 24px;text-align:center;min-width:160px">
+        <div style="font-size:24px;font-weight:800;color:#fff">Free</div>
+        <div style="font-size:13px;color:#8888a0">forever &middot; no signup required</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 24px;text-align:center;min-width:160px">
+        <div style="font-size:24px;font-weight:800;color:#fff">5 AI chats</div>
+        <div style="font-size:13px;color:#8888a0">ChatGPT &middot; Gemini &middot; Claude &middot; Grok &middot; Perplexity</div>
+      </div>
     </div>
   </section>
 
   <section id="feedback">
     <h2>We value your opinion!</h2>
-    <p>If you have any suggestions for new stats/categories or new app ideas, we would love to hear from you. Please take a moment to write a review on the Google Play Store. Your feedback is greatly appreciated!</p>
+    <p>If you have any suggestions for new stats/categories or new app ideas, we would love to hear from you. Please take a moment to write a review on the <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener" style="color:#BF5AF2">Chrome Web Store</a>. Your feedback is greatly appreciated!</p>
     <script type="text/javascript" src="https://app.getresponse.com/view_webform_v2.js?u=MoqZK&webforms_id=zt5Ir" data-webform-id="zt5Ir"></script>
   </section>
 
