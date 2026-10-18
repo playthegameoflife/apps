@@ -1,22 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Open Source Social Media Scheduler: The 2026 Guide to Self-Hosting with Postiz</title>
-  <meta name="description" content="Tired of paying $99/mo for Hootsuite? Learn how to self-host Postiz — the open source social media scheduler — for free. Full Docker setup, 30+ integrations, AI captions, and a visual calendar in 2026.">
-  <link rel="canonical" href="https://promptgenerator.fyi/blog-postiz-open-source-scheduler-guide.html">
-  <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Open Source Social Media Scheduler: The 2026 Self-Hosting Guide">
-  <meta property="og:description" content="Self-host Postiz for free and schedule across 30+ platforms. Docker setup, AI captions, team workflows — no per-user fees.">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://promptgenerator.fyi/blog-postiz-open-source-scheduler-guide.html">
-  <meta property="og:site_name" content="Gamified Living Apps">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Open Source Social Media Scheduler: The 2026 Self-Hosting Guide">
-  <meta name="twitter:description" content="Self-host Postiz for free and schedule across 30+ platforms. Docker setup, AI captions, team workflows.">
-  <link rel="stylesheet" href="style.css">
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Best Open Source Social Media Scheduler 2026 — Postiz Review & Setup Guide</title>
+<meta name="description" content="Postiz is the best open source social media scheduler in 2026. Schedule to 30+ platforms, AI agents, team workflow. Try Postiz free.">
+<link rel="canonical" href="https://promptgenerator.fyi/blog-postiz-open-source-scheduler-guide.html">
+<meta property="og:title" content="Best Open Source Social Media Scheduler 2026 — Postiz Review & Setup Guide">
+<meta property="og:description" content="Postiz is the best open source social media scheduler in 2026. Schedule to 30+ platforms, AI agents, team workflow. Try Postiz free.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://promptgenerator.fyi/blog-postiz-open-source-scheduler-guide.html">
+<meta property="og:site_name" content="Gamified Living Apps">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Best Open Source Social Media Scheduler 2026">
+<meta name="twitter:description" content="Postiz is the best open source social media scheduler in 2026. Schedule to 30+ platforms, AI agents, team workflow.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Best Open Source Social Media Scheduler 2026 — Postiz Review & Setup Guide",
+      "description": "Postiz is the best open source social media scheduler in 2026. Schedule to 30+ platforms, AI agents, team workflow.",
+      "author": {"@type": "Person", "name": "Gamified Living Apps"},
+      "publisher": {"@type": "Organization", "name": "Gamified Living Apps", "url": "https://promptgenerator.fyi"},
+      "datePublished": "2026-10-19",
+      "dateModified": "2026-10-19",
+      "mainEntityOfPage": {"@type": "WebPage", "@id": "https://promptgenerator.fyi/blog-postiz-open-source-scheduler-guide.html"}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the best open source social media scheduler in 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Postiz is the best open source social media scheduler in 2026. It supports 30+ platforms, includes AI agents for content generation and scheduling, offers a visual calendar, team workflows, and can be self-hosted for free on any VPS via Docker."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I self-host Postiz for free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Postiz is open source (AGPL-3.0) and can be self-hosted on any VPS with Docker. A $5/mo VPS is enough for most creators. You only pay for hosting — there is no Postiz license fee."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Postiz compare to Buffer and Hootsuite?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Postiz matches Buffer and Hootsuite on core scheduling features but wins on ownership and price. Buffer starts at $6/channel/month, Hootsuite at $99/user/month. Postiz Cloud is a flat $29/month with unlimited channels, and the self-hosted version is free."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which platforms does Postiz support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Postiz supports 30+ platforms including X/Twitter, Facebook, Instagram, LinkedIn, TikTok, YouTube, Threads, Pinterest, Reddit, Bluesky, Mastodon, Discord, Slack, Telegram, WordPress, Medium, and more."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Postiz have AI features?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Postiz includes AI agents that can generate post captions, suggest optimal posting times, adapt content per platform, and automate content workflows. All plans include AI copilot access."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
 header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
@@ -58,340 +118,210 @@ a:hover { text-decoration: underline; }
 footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
 @media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
 </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Article",
-      "headline": "Open Source Social Media Scheduler: The 2026 Guide to Self-Hosting with Postiz",
-      "description": "Tired of paying $99/mo for Hootsuite? Learn how to self-host Postiz — the open source social media scheduler — for free. Full Docker setup, 30+ integrations, AI captions, and a visual calendar.",
-      "author": { "@type": "Organization", "name": "Gamified Living Apps", "url": "https://promptgenerator.fyi" },
-      "publisher": { "@type": "Organization", "name": "Gamified Living Apps", "url": "https://promptgenerator.fyi" },
-      "datePublished": "2026-01-20",
-      "dateModified": "2026-01-20",
-      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://promptgenerator.fyi/blog-postiz-open-source-scheduler-guide.html" },
-      "wordCount": 1800
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Is Postiz really free to self-host?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. Postiz is 100% open source under the AGPL-3.0 license. Self-hosting with Docker on your own server costs nothing beyond your server costs — typically $5/month on a minimal VPS. There are no per-user fees, no feature caps, and no watermarks."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Which social media platforms does Postiz support?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Postiz supports 30+ platforms including YouTube, TikTok, Instagram, Facebook, X/Twitter, Bluesky, Mastodon, LinkedIn, Reddit, Pinterest, Google Business, and GitLab. New platforms are added regularly through community contributions."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How does Postiz compare to Buffer or Hootsuite?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Postiz is open source and self-hostable, while Buffer and Hootsuite are SaaS-only. Postiz has no per-user pricing (flat $15/mo cloud or free self-hosted), built-in AI caption generation, an MCP server and API for automation, and a visual calendar. Hootsuite charges $99/user/month; Buffer starts at $6/user/month."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I use AI to generate social media captions with Postiz?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. Postiz includes built-in AI that generates hooks, captions, threads, and hashtags tuned per platform. You can connect it to ChatGPT, Claude, or other AI providers. It also ships with an MCP server so AI agents can draft and schedule posts autonomously."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What are the minimum requirements to self-host Postiz?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Postiz runs on Docker with 2GB RAM and 2 vCPUs as a minimum. The recommended setup uses Docker Compose with a PostgreSQL database and Redis queue. You can run it on a $5/month VPS, a Raspberry Pi 4, or any Linux server."
-          }
-        }
-      ]
-    }
-  ]
-}
-</script>
 </head>
 <body>
 <article>
 <header>
-  <h1>Open Source Social Media Scheduler: The 2026 Guide to Self-Hosting with Postiz</h1>
-  <p class="meta">Published January 20, 2026 · 8 min read · Social Media Tools</p>
+<h1>Best Open Source Social Media Scheduler 2026 — Postiz Review & Setup Guide</h1>
+<p class="meta">Published October 19, 2026 &bull; 9 min read &bull; Open Source Social Media Tools</p>
 </header>
 
 <div class="intro">
-  If you're paying <strong>$99 per user per month</strong> for Hootsuite, or watching Buffer's per-seat fees eat into your marketing budget, there's a better way. <strong>Postiz</strong> is a fully open source social media scheduler you can run on your own server — for free. It supports 30+ platforms, includes AI caption generation, and costs nothing beyond a $5/month VPS.
+<strong>Why you are reading this:</strong> If you manage content across multiple social platforms and are tired of juggling Buffer, Hootsuite, and a dozen browser tabs — Postiz is the open source social media scheduler that solves exactly that problem. This guide covers what Postiz does, how it compares to paid alternatives, and how to get it running today.
 </div>
 
-<h2>What Is an Open Source Social Media Scheduler?</h2>
+<h2>What Is Postiz?</h2>
+<p><a href="https://postiz.pro/try" target="_blank" rel="noopener">Postiz</a> is an open source, agentic social media scheduling platform. It calls itself "agentic" because AI agents don't just help you draft captions — they plan, generate, and schedule posts across your accounts, leaving you to review everything in a visual calendar before anything goes live.</p>
 
-<p>An <strong>open source social media scheduler</strong> is a scheduling tool whose source code is publicly available, meaning anyone can download, inspect, modify, and self-host it. This stands in contrast to SaaS-only platforms like Buffer, Later, or Sprout Social, where your data lives on their servers and your pricing goes up every time your team grows.</p>
+<p>Unlike commercial tools that charge per-channel or per-user, Postiz charges a flat monthly rate for unlimited channels and team members on its cloud plan. The self-hosted version is free — you supply the VPS and Docker, Postiz supplies the software.</p>
 
-<p>Self-hosting your scheduler means:</p>
+<p>If you have been paying $99/month to Hootsuite or $15/channel to Buffer, the math shifts fast when you discover you can <a href="https://postiz.pro/try" target="_blank" rel="noopener">try Postiz free</a> or self-host it on a $5 VPS.</p>
+
+<h2>Supported Platforms: 30+ Social Networks</h2>
+<p>Postiz supports more social networks than almost any commercial competitor. The platform list spans the major networks plus emerging and niche platforms:</p>
+
 <ul>
-  <li><strong>Zero per-user fees</strong> — add as many team members as you want</li>
-  <li><strong>Data sovereignty</strong> — your analytics and drafts stay on your server</li>
-  <li><strong>Customizability</strong> — modify the code, build integrations, or connect AI agents</li>
-  <li><strong>One-time cost</strong> — only pay for your server (as little as $5/month)</li>
+<li><strong>Video & Short-Form:</strong> YouTube, TikTok, Instagram Reels, Facebook Video</li>
+<li><strong>Microblogging:</strong> X/Twitter, Threads, Bluesky, Mastodon</li>
+<li><strong>Professional:</strong> LinkedIn (Company Pages + Personal), Facebook Pages & Groups</li>
+<li><strong>Image Sharing:</strong> Instagram (Feed + Reels), Pinterest, Dribbble</li>
+<li><strong>Communities:</strong> Reddit, Discord, Telegram, Slack</li>
+<li><strong>Publishing:</strong> WordPress, Medium, Hashnode, Dev.to</li>
+<li><strong>Other:</strong> Google Business Profile, GitLab, Nostr, and more</li>
 </ul>
 
-<h2>Why Postiz Is the Best Open Source Social Media Scheduler in 2026</h2>
+<p>New platform integrations are added regularly by the open source community. You can track the roadmap and request platforms on the official GitHub.</p>
 
-<p>Postiz has emerged as the leading open source alternative to Buffer and Hootsuite. It's not just free — it's actively developed, feature-rich, and used by thousands of creators and agencies. Here's what sets it apart:</p>
-
-<h3>30+ Platform Integrations</h3>
-<p>Postiz connects to more social networks than almost any competitor — open source or paid. Supported platforms include:</p>
-<ul>
-  <li><strong>Video</strong>: YouTube, TikTok, Instagram Reels, Facebook Video</li>
-  <li><strong>Microblogging</strong>: X/Twitter, Bluesky, Mastodon, Threads</li>
-  <li><strong>Professional</strong>: LinkedIn, Reddit, Pinterest</li>
-  <li><strong>Business</strong>: Google Business Profile, Facebook Pages</li>
-  <li><strong>Developer</strong>: GitLab (perfect for tech blogs and DevRel teams)</li>
-</ul>
-
-<h3>AI-Powered Caption Generation</h3>
-<p>Postiz includes built-in AI that generates hooks, captions, threads, and hashtags tuned for each platform. Instead of copying your YouTube description to Twitter and tweaking it manually, Postiz adapts your content per network automatically. You can also connect your own AI provider (OpenAI, Anthropic, or any OpenAI-compatible API) via the built-in MCP server.</p>
-
-<h3>Visual Calendar & Team Workflows</h3>
-<p>See every scheduled post across all accounts in one drag-and-drop calendar. Postiz supports team roles, approval workflows, and draft review — so your content pipeline stays organized whether you're a solo creator or a five-person marketing team.</p>
-
-<h3>MCP Server, CLI, and REST API</h3>
-<p>For developers and agencies, Postiz ships with a built-in MCP server, CLI tool, and REST API. This means AI agents can autonomously draft, approve, and schedule posts on your behalf — a capability no paid scheduler matches at this price point.</p>
+<h2>Postiz vs Buffer vs Hootsuite vs Sprout Social</h2>
+<p>How does an open source tool stack up against the established commercial giants? Here is a direct feature comparison:</p>
 
 <div class="comparison">
-  <div class="comparison-box bad">
-    <h4>❌ Paid SaaS Schedulers</h4>
-    <ul style="margin-left:16px;margin-top:8px;">
-      <li>Hootsuite: $99/user/mo</li>
-      <li>Buffer: $6/user/mo (Starter)</li>
-      <li>Later: $18/mo per social set</li>
-      <li>Sprout Social: $249/user/mo</li>
-      <li>Data lives on vendor servers</li>
-      <li>No self-hosting option</li>
-      <li>AI features cost extra on most</li>
-    </ul>
-  </div>
-  <div class="comparison-box good">
-    <h4>✅ Postiz Open Source</h4>
-    <ul style="margin-left:16px;margin-top:8px;">
-      <li>Self-hosted: Free (server cost only)</li>
-      <li>Cloud plan: flat $15/mo</li>
-      <li>Unlimited team members</li>
-      <li>Your data stays on your server</li>
-      <li>Built-in AI captions included</li>
-      <li>MCP server + API + CLI</li>
-      <li>30+ platform integrations</li>
-    </ul>
-  </div>
+<div class="comparison-box bad">
+<h4>Buffer / Hootsuite</h4>
+<ul>
+<li>Buffer: $6/channel/month</li>
+<li>Hootsuite: $99/user/month</li>
+<li>Limited platform support</li>
+<li>AI features locked in expensive tiers</li>
+<li>No self-hosting option</li>
+<li>Proprietary, closed-source</li>
+</ul>
+</div>
+<div class="comparison-box good">
+<h4>Postiz</h4>
+<ul>
+<li>Cloud: flat $29/month all-inclusive</li>
+<li>Self-hosted: free (pay for VPS only)</li>
+<li>30+ platforms including Reddit, Discord</li>
+<li>AI agents included on all plans</li>
+<li>Docker self-hosting on any VPS</li>
+<li>Open source (AGPL-3.0)</li>
+</ul>
+</div>
 </div>
 
-<h2>Postiz vs Buffer vs Hootsuite: Feature-for-Feature Comparison</h2>
+<p>The gap narrows further when you factor in AI. Buffer and Hootsuite charge $15–$30/month extra for AI caption generation. Postiz includes AI copilot access on every plan, including the free self-hosted tier.</p>
 
-<p>Here's how Postiz stacks up against the two most popular commercial schedulers:</p>
+<h2>Key Features That Set Postiz Apart</h2>
 
-<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:0.9rem;">
-  <thead>
-    <tr style="background:#f1f5f9;">
-      <th style="padding:10px 12px;text-align:left;border:1px solid #e5e7eb;">Feature</th>
-      <th style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">Postiz</th>
-      <th style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">Buffer</th>
-      <th style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">Hootsuite</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="padding:10px 12px;border:1px solid #e5e7eb;">Self-hostable</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;font-weight:bold;color:#16a34a;">✅ Yes</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">❌ No</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">❌ No</td>
-    </tr>
-    <tr>
-      <td style="padding:10px 12px;border:1px solid #e5e7eb;">Free plan</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;font-weight:bold;color:#16a34a;">✅ Self-hosted</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">✅ Limited</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">❌ No</td>
-    </tr>
-    <tr>
-      <td style="padding:10px 12px;border:1px solid #e5e7eb;">AI caption generation</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;font-weight:bold;color:#16a34a;">✅ Built-in</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">Add-on ($5/mo)</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">Add-on ($99/mo)</td>
-    </tr>
-    <tr>
-      <td style="padding:10px 12px;border:1px solid #e5e7eb;">Platform integrations</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">30+</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">12</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">35+</td>
-    </tr>
-    <tr>
-      <td style="padding:10px 12px;border:1px solid #e5e7eb;">MCP server / API</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;font-weight:bold;color:#16a34a;">✅ Yes</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">API (paid)</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">API (enterprise)</td>
-    </tr>
-    <tr>
-      <td style="padding:10px 12px;border:1px solid #e5e7eb;">Pricing model</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">Flat ($15/mo cloud)</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">Per-user</td>
-      <td style="padding:10px 12px;text-align:center;border:1px solid #e5e7eb;">Per-user</td>
-    </tr>
-  </tbody>
-</table>
+<h3>AI Agent Scheduling</h3>
+<p>Postiz AI agents do more than write captions. They can:</p>
+<ul>
+<li>Generate platform-specific captions from a single source post</li>
+<li>Suggest optimal posting times based on your audience activity</li>
+<li>Automatically adapt hashtags, mentions, and media for each network</li>
+<li>Queue content drafts for human review before publishing</li>
+</ul>
 
-<h2>How to Self-Host Postiz with Docker (Step-by-Step)</h2>
+<h3>Visual Content Calendar</h3>
+<p>Every scheduled post appears on a drag-and-drop calendar. You see your entire content pipeline at a glance — across all platforms, all accounts — in one screen. This is the single biggest workflow win over tools like Buffer that show one channel at a time.</p>
 
-<p>Self-hosting Postiz takes about 15 minutes. You need a Linux server (or even a Raspberry Pi 4) with Docker installed. Here's the streamlined setup:</p>
+<h3>Team Collaboration & Role Permissions</h3>
+<p>Postiz includes a full team workflow:</p>
+<ul>
+<li>Role-based access control (Admin, Editor, Author, Viewer)</li>
+<li>Draft → Review → Approve → Schedule workflow</li>
+<li>Comment threads on individual posts</li>
+<li>Shared asset library (images, videos, copy templates)</li>
+</ul>
 
-<h3>Step 1: Install Docker and Docker Compose</h3>
-<p>On Ubuntu/Debian:</p>
+<h3>Public API & Webhooks</h3>
+<p>Every Postiz plan includes API access and webhooks. You can:</p>
+<ul>
+<li>Push posts from Notion, Airtable, or Google Sheets</li>
+<li>Trigger external automations when posts go live</li>
+<li>Build custom integrations for niche workflows</li>
+</ul>
+
+<h3>Analytics & Reporting</h3>
+<p>Built-in analytics cover reach, engagement, and follower growth per platform. Export reports as PDFs or connect to external BI tools via API. Hootsuite charges extra for white-label reporting — Postiz includes it.</p>
+
+<h2>How to Self-Host Postiz on Docker (Free)</h2>
+<p>One of Postiz biggest selling points is that you can run it on your own server for free. Here is what you need and how to get it running in under 30 minutes.</p>
+
+<h3>Prerequisites</h3>
+<ul>
+<li>A VPS with at least 2GB RAM (4GB recommended)</li>
+<li>Docker and Docker Compose installed</li>
+<li>A domain or subdomain pointed to your server</li>
+</ul>
+
+<h3>Installation Steps</h3>
+
 <div class="code-block">
-<span class="label">Terminal</span>
-sudo apt update && sudo apt install docker.io docker-compose -y
-sudo systemctl start docker
-</div>
+<span class="label">Terminal — Docker Compose setup</span># Clone the Postiz repository
+git clone https://github.com/jackminchin/Postiz.git
+cd Postiz
 
-<h3>Step 2: Clone the Postiz Repository</h3>
-<div class="code-block">
-<span class="label">Terminal</span>
-git clone https://github.com/gitroomhq/postiz-app.git
-cd postiz-app
-</div>
-
-<h3>Step 3: Configure Environment Variables</h3>
-<p>Copy the example environment file and configure your database and AI provider:</p>
-<div class="code-block">
-<span class="label">Terminal</span>
+# Copy the environment file
 cp .env.example .env
-# Edit .env and set:
-# DATABASE_URL=postgres://user:password@localhost:5432/postiz
-# REDIS_URL=redis://localhost:6379
-# AI_OPENAI_KEY=your-openai-api-key
-</div>
 
-<h3>Step 4: Launch with Docker Compose</h3>
-<div class="code-block">
-<span class="label">Terminal</span>
+# Start all services
 docker-compose up -d
-</div>
 
-<p>Postiz will start on <strong>http://your-server-ip:3000</strong>. The first time you visit, you'll set up your admin account and connect your social media channels via OAuth.</p>
+# Check that everything is running
+docker-compose ps</div>
 
-<h3>Step 5: Set Up a Reverse Proxy (Recommended)</h3>
-<p>For production, route traffic through Nginx or Cloudflare Tunnel for HTTPS and security:</p>
-<div class="code-block">
-<span class="label">Nginx Reverse Proxy (recommended)</span>
-server {
-    listen 80;
-    server_name scheduler.yourdomain.com;
+<p>The default <code>.env</code> file is pre-configured for a single-node setup with PostgreSQL and Redis included in the Compose stack. On first run, Docker creates the database volume automatically.</p>
 
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-</div>
+<p>After starting, visit <code>http://YOUR_SERVER_IP:3000</code> and complete the onboarding wizard to connect your first social accounts.</p>
+
+<h3>Production Hardening</h3>
+<p>For a public-facing deployment, you will want to add Traefik or Nginx Proxy Manager for automatic HTTPS, set up a proper <code>.env</code> with a strong <code>SUPER_ADMIN_TOKEN</code>, and configure PostgreSQL backups. The <a href="https://docs.postiz.com/self-host/installation/docker" target="_blank" rel="noopener">official Postiz Docker documentation</a> covers production setup in detail.</p>
+
+<h2>Postiz Cloud Pricing</h2>
+<p>If self-hosting is not for you, Postiz Cloud handles everything. All plans include:</p>
+<ul>
+<li>Unlimited posts and scheduled content</li>
+<li>All 30+ platform integrations</li>
+<li>AI copilot for caption generation</li>
+<li>Visual calendar and team workflows</li>
+<li>Analytics and reporting</li>
+<li>Public API and webhooks</li>
+<li>7-day free trial (no credit card required)</li>
+</ul>
+
+<p>Postiz Cloud is priced as a flat monthly subscription — not per-channel, not per-user. For agencies and creators managing multiple brands, this is significantly cheaper than Buffer or Hootsuite.</p>
 
 <div class="key-takeaways">
-  <h3>Key Takeaways</h3>
-  <ul>
-    <li>Postiz runs on Docker with as little as 2GB RAM and 2 vCPUs</li>
-    <li>A $5/month VPS (DigitalOcean, Hetzner, or AWS Lightsail) is enough for personal use</li>
-    <li>Connect your own AI provider via .env to unlock AI caption generation</li>
-    <li>Use Cloudflare Tunnel instead of opening ports on your firewall</li>
-    <li>Postiz updates via <code>git pull && docker-compose up -d</code></li>
-  </ul>
+<h3>Key Takeaways</h3>
+<ul>
+<li>Postiz is the most capable open source social media scheduler in 2026, supporting 30+ platforms</li>
+<li>Self-hosting on Docker is free — you only pay for a cheap VPS</li>
+<li>AI agents handle caption generation, scheduling optimization, and cross-platform adaptation</li>
+<li>Postiz Cloud flat pricing undercuts Buffer ($6/channel) and Hootsuite ($99/user) for multi-account users</li>
+<li>Built-in team workflows with role-based access replace paid tools like Asana or Notion for social workflows</li>
+</ul>
 </div>
 
-<h2>Who Should Use the Open Source Social Media Scheduler?</h2>
+<h2>When Is Postiz Not the Right Tool?</h2>
+<p>Postiz is not a social inbox or customer support tool. If you need to monitor brand mentions, reply to DMs, or run a full social customer service operation, Hootsuite or Sprout Social are still better fits. Postiz is primarily a scheduling and content planning tool — powerful for that use case, but not a full social media management suite.</p>
 
-<p>Postiz is ideal for:</p>
-
-<ul>
-  <li><strong>Solopreneurs and creators</strong> tired of Buffer's per-post limits and per-user pricing</li>
-  <li><strong>Marketing agencies</strong> managing multiple client accounts without multiplying their SaaS bills</li>
-  <li><strong>DevRel and tech teams</strong> using GitLab and needing integrated scheduling for technical content</li>
-  <li><strong>Privacy-conscious businesses</strong> that don't want their analytics data on a third-party server</li>
-  <li><strong>Developers and AI enthusiasts</strong> who want to build automated content pipelines using the MCP server and API</li>
-</ul>
-
-<h2>The Agentic Future: AI Agents Scheduling Posts for You</h2>
-
-<p>In 2026, Postiz has evolved beyond a simple scheduler. With its built-in MCP server, AI agents can autonomously:</p>
-<ul>
-  <li>Monitor your content calendar for gaps</li>
-  <li>Draft posts based on your content strategy</li>
-  <li>Generate platform-specific captions and hashtags</li>
-  <li>Submit drafts for human approval in the workflow queue</li>
-  <li>Publish approved posts at optimal engagement times</li>
-</ul>
-
-<p>This "agentic" approach means you spend less time on logistics and more time on strategy. Connect Postiz to Claude, ChatGPT, or any MCP-compatible AI, and your content machine runs in the background.</p>
+<p>For creators and marketers focused on content volume, consistency, and cross-platform distribution — Postiz is the strongest open source option available in 2026.</p>
 
 <div class="cta-box">
-  <h2>Ready to Ditch Your $99/Mo Social Media Tool?</h2>
-  <p>Postiz gives you every feature of Hootsuite or Buffer — self-hosted, with AI captions included, and no per-user fee. Get started with a free trial of Postiz Cloud, or deploy it on your own server today.</p>
-  <a href="https://postiz.pro/try" target="_blank" rel="noopener">Try Postiz Free →</a>
+<h2>Ready to Switch from Buffer or Hootsuite?</h2>
+<p>Postiz gives you the same scheduling power — plus AI agents, unlimited channels, and full data ownership — at a fraction of the cost. Self-host it free on any VPS, or start a free cloud trial today.</p>
+<p><a href="https://postiz.pro/try" target="_blank" rel="noopener">Try Postiz Free &rarr;</a></p>
 </div>
 
 <h2>Frequently Asked Questions</h2>
 
 <div class="faq">
-  <div class="faq-item">
-    <h3>Is Postiz really free to self-host?</h3>
-    <p>Yes. Postiz is 100% open source under the AGPL-3.0 license. Self-hosting with Docker on your own server costs nothing beyond your server costs — typically $5/month on a minimal VPS. There are no per-user fees, no feature caps, and no watermarks.</p>
-  </div>
-
-  <div class="faq-item">
-    <h3>Which social media platforms does Postiz support?</h3>
-    <p>Postiz supports 30+ platforms including YouTube, TikTok, Instagram, Facebook, X/Twitter, Bluesky, Mastodon, LinkedIn, Reddit, Pinterest, Google Business, and GitLab. New platforms are added regularly through community contributions.</p>
-  </div>
-
-  <div class="faq-item">
-    <h3>How does Postiz compare to Buffer or Hootsuite?</h3>
-    <p>Postiz is open source and self-hostable, while Buffer and Hootsuite are SaaS-only. Postiz has no per-user pricing (flat $15/mo cloud or free self-hosted), built-in AI caption generation, an MCP server and API for automation, and a visual calendar. Hootsuite charges $99/user/month; Buffer starts at $6/user/month.</p>
-  </div>
-
-  <div class="faq-item">
-    <h3>Can I use AI to generate social media captions with Postiz?</h3>
-    <p>Yes. Postiz includes built-in AI that generates hooks, captions, threads, and hashtags tuned per platform. You can connect it to ChatGPT, Claude, or other AI providers via OpenAI-compatible API. It also ships with an MCP server so AI agents can draft and schedule posts autonomously.</p>
-  </div>
-
-  <div class="faq-item">
-    <h3>What are the minimum requirements to self-host Postiz?</h3>
-    <p>Postiz runs on Docker with 2GB RAM and 2 vCPUs as a minimum. The recommended setup uses Docker Compose with a PostgreSQL database and Redis queue. You can run it on a $5/month VPS, a Raspberry Pi 4, or any Linux server.</p>
-  </div>
-
-  <div class="faq-item">
-    <h3>Does Postiz have a team collaboration feature?</h3>
-    <p>Yes. Postiz supports multi-user teams with role-based permissions, draft approval workflows, and a shared calendar. You can assign roles like Admin, Editor, and Viewer — making it suitable for agencies managing client content pipelines.</p>
-  </div>
+<div class="faq-item">
+<h3>What is the best open source social media scheduler in 2026?</h3>
+<p>Postiz is the best open source social media scheduler in 2026. It supports 30+ platforms, includes AI agents for content generation and scheduling, offers a visual calendar, team workflows, and can be self-hosted for free on any VPS via Docker.</p>
 </div>
 
-<h2>Conclusion</h2>
+<div class="faq-item">
+<h3>Can I self-host Postiz for free?</h3>
+<p>Yes. Postiz is open source (AGPL-3.0) and can be self-hosted on any VPS with Docker. A $5/month VPS is enough for most creators. You only pay for hosting — there is no Postiz license fee.</p>
+</div>
 
-<p>In 2026, paying $99 per user per month for a social media scheduler is a choice, not a necessity. <strong>Postiz</strong> delivers every core feature that Hootsuite and Buffer offer — calendar scheduling, multi-platform posting, team workflows, analytics, and AI caption generation — in an open source package you can run on a $5/month VPS.</p>
+<div class="faq-item">
+<h3>How does Postiz compare to Buffer and Hootsuite?</h3>
+<p>Postiz matches Buffer and Hootsuite on core scheduling features but wins on ownership and price. Buffer starts at $6/channel/month, Hootsuite at $99/user/month. Postiz Cloud is a flat $29/month with unlimited channels, and the self-hosted version is free.</p>
+</div>
 
-<p>Whether you're a solo creator tired of per-post limits, a growing agency watching SaaS bills multiply with your headcount, or a developer building AI-powered content automations, Postiz has the integrations, the API, and the flexibility to replace your current stack.</p>
+<div class="faq-item">
+<h3>Which platforms does Postiz support?</h3>
+<p>Postiz supports 30+ platforms including X/Twitter, Facebook, Instagram, LinkedIn, TikTok, YouTube, Threads, Pinterest, Reddit, Bluesky, Mastodon, Discord, Slack, Telegram, WordPress, Medium, and more.</p>
+</div>
 
-<p>The transition is simpler than you think: Docker Compose up, connect your channels, and your scheduler is live. <a href="https://postiz.pro/try">Try Postiz free</a> and see what open source social media scheduling looks like in 2026.</p>
+<div class="faq-item">
+<h3>Does Postiz have AI features?</h3>
+<p>Yes. Postiz includes AI agents that can generate post captions, suggest optimal posting times, adapt content per platform, and automate content workflows. All plans include AI copilot access.</p>
+</div>
 
-</article>
+<div class="faq-item">
+<h3>Is Postiz good for teams?</h3>
+<p>Yes. Postiz includes role-based access control (Admin, Editor, Author, Viewer), a draft-review-approve workflow, comment threads on posts, and a shared asset library. It replaces both a scheduler and a light project management tool.</p>
+</div>
+</div>
+
 <footer>
-  <p>&copy; 2026 <a href="https://promptgenerator.fyi">Gamified Living Apps</a> · <a href="https://promptgenerator.fyi/blog-postiz-open-source-scheduler-guide.html">Original article</a></p>
+<p>&copy; 2026 Gamified Living Apps &bull; <a href="https://promptgenerator.fyi/blog-postiz-open-source-scheduler-guide.html">Canonical URL</a></p>
 </footer>
+</article>
 </body>
 </html>
