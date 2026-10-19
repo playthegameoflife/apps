@@ -152,6 +152,12 @@
       "slug": "blog-how-to-make-ai-give-consistent-answers-2026.html",
       "primary_keyword": "how to make AI give consistent answers",
       "published": "2026-10-19"
+    },
+    {
+      "slug": "blog-how-to-stop-ai-over-explaining",
+      "primary_keyword": "how to stop AI over-explaining",
+      "published": "2026-10-20",
+      "angle": "why AI verbosity happens + 5 concrete prompt templates for concise output"
     }
   ]
 }
