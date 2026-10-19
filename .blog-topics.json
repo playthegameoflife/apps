@@ -163,6 +163,12 @@
       "slug": "blog-why-ai-makes-things-up-stop-hallucinations",
       "primary_keyword": "how to stop AI hallucinations",
       "published": "2026-10-19"
+    },
+    {
+      "slug": "blog-ai-prompt-rewording-fix",
+      "primary_keyword": "why rephrasing AI prompts doesn't work constraints instead",
+      "published": "2026-10-20",
+      "angle": "rephrasing cycle pain \u2014 rewording doesn't fix generic output, adding constraints does"
     }
   ]
 }
