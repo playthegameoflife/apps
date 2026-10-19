@@ -1480,3 +1480,320 @@ footer p {
     margin-bottom: 16px;
   }
 }
+
+/* ================================================
+   TRY IT NOW — Prompt Generator Section
+   ================================================ */
+#try-phg {
+  background: #1a1a1a;
+  color: #ffffff;
+  padding: 0;
+  overflow: hidden;
+}
+
+.try-phg-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 80px 40px;
+}
+
+.try-phg-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.try-phg-badge {
+  display: inline-block;
+  background: rgba(255, 87, 34, 0.15);
+  color: #FF5722;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 87, 34, 0.3);
+}
+
+.try-phg-title {
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+}
+
+.try-phg-accent {
+  color: #FF5722;
+}
+
+.try-phg-subtitle {
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.try-phg-generator {
+  background: #252525;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.try-phg-input-area {
+  padding: 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.try-phg-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 10px;
+}
+
+.try-phg-textarea {
+  width: 100%;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 16px;
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  resize: vertical;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.try-phg-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.try-phg-textarea:focus {
+  outline: none;
+  border-color: #FF5722;
+}
+
+.try-phg-char-count {
+  text-align: right;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.25);
+  margin-top: 6px;
+  margin-bottom: 20px;
+}
+
+.try-phg-mode-row {
+  margin-bottom: 16px;
+}
+
+.try-phg-mode-row .try-phg-label {
+  margin-bottom: 8px;
+}
+
+.try-phg-modes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.try-phg-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.try-phg-mode-btn:hover {
+  border-color: rgba(255, 87, 34, 0.5);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.try-phg-mode-btn.active {
+  background: #FF5722;
+  border-color: #FF5722;
+  color: #ffffff;
+}
+
+.try-phg-generate-btn {
+  width: 100%;
+  background: #FF5722;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 24px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.try-phg-generate-btn:hover:not(:disabled) {
+  background: #f04e22;
+  transform: translateY(-1px);
+}
+
+.try-phg-generate-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.try-phg-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: phg-spin 0.7s linear infinite;
+}
+
+@keyframes phg-spin {
+  to { transform: rotate(360deg); }
+}
+
+.try-phg-error {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  color: #fca5a5;
+  font-size: 13px;
+}
+
+/* Output area */
+.try-phg-output-area {
+  padding: 32px;
+  background: #1e1e1e;
+}
+
+.try-phg-output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.try-phg-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.try-phg-copy-btn:hover {
+  border-color: rgba(255, 87, 34, 0.5);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.try-phg-enhanced-text {
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.88);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Extension CTA */
+.try-phg-extension-cta {
+  background: #1a1a1a;
+}
+
+.try-phg-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  background: #1e1e1e;
+  flex-wrap: wrap;
+}
+
+.try-phg-cta-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.try-phg-cta-text strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.try-phg-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  background: #BF5AF2;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.try-phg-cta-btn:hover {
+  background: #a855f7;
+  color: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .try-phg-inner {
+    padding: 56px 20px;
+  }
+  .try-phg-input-area,
+  .try-phg-output-area {
+    padding: 24px 20px;
+  }
+  .try-phg-cta-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .try-phg-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
