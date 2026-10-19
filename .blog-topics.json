@@ -158,6 +158,11 @@
       "primary_keyword": "how to stop AI over-explaining",
       "published": "2026-10-20",
       "angle": "why AI verbosity happens + 5 concrete prompt templates for concise output"
+    },
+    {
+      "slug": "blog-why-ai-makes-things-up-stop-hallucinations",
+      "primary_keyword": "how to stop AI hallucinations",
+      "published": "2026-10-19"
     }
   ]
 }
