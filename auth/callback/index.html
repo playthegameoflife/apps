@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signing in… — Prompt Helper Gemini</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #1a1a1a;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      background: #252525;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(255,255,255,0.15);
+      border-top-color: #FF5722;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    h1 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+    .error { color: #fca5a5; }
+    .error-icon { font-size: 40px; margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+  <div class="card" id="content">
+    <div class="spinner"></div>
+    <h1>Completing sign in…</h1>
+    <p>Please wait while we authenticate your account.</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script>
+    var SUPABASE_URL = 'https://dygmisaatzihbckfdywo.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR5Z21pc2F0dHpoYmNrZmR5d28iLCJyb2xlIjoiYW5vbiIsImlhdCI6MTY2Mjg2NzgwMCwiZXhwIjoxOTc4NDQzODAwfQ.DxyuGimAMx9hu0T3eK3H3hQZ3-F3N2YjVMyz6xtHmPQ';
+
+    var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    var content = document.getElementById('content');
+
+    async function handleCallback() {
+      try {
+        // Handle the OAuth callback — exchanges code for session
+        var _data = await supabase.auth.getSession();
+        if (_data.data.session) {
+          // Already have a session (e.g., PKCE flow stored it)
+          redirectToApp();
+          return;
+        }
+
+        // If we have an error from the OAuth provider
+        var urlParams = new URLSearchParams(window.location.search);
+        var error = urlParams.get('error');
+        var errorDescription = urlParams.get('error_description');
+        if (error) {
+          showError(errorDescription || error);
+          return;
+        }
+
+        // Exchange auth code for session via handleOAuthCallback
+        // For PKCE, Supabase handles this if we pass the current URL
+        var result = await supabase.auth.handleOAuthCallback({
+          url: window.location.href,
+        });
+
+        if (result.error) {
+          // If PKCE handle fails, try the session check again
+          var retry = await supabase.auth.getSession();
+          if (retry.data.session) {
+            redirectToApp();
+            return;
+          }
+          showError(result.error.message);
+        } else {
+          redirectToApp();
+        }
+      } catch (err) {
+        showError(err.message || 'Authentication failed');
+      }
+    }
+
+    function redirectToApp() {
+      var returnTo = sessionStorage.getItem('authReturnPath') || '/';
+      sessionStorage.removeItem('authReturnPath');
+      window.location.href = returnTo;
+    }
+
+    function showError(msg) {
+      content.innerHTML =
+        '<div class="error-icon">⚠️</div>' +
+        '<h1 class="error">Authentication Failed</h1>' +
+        '<p>' + escapeHtml(msg || 'Something went wrong during sign in.') + '</p>' +
+        '<p style="margin-top:16px;font-size:13px">Redirecting you back to the home page…</p>';
+      setTimeout(function() {
+        window.location.href = '/';
+      }, 4000);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    handleCallback();
+  </script>
+</body>
+</html>
