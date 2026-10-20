@@ -720,8 +720,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
-
   <url>
     <loc>https://promptgenerator.fyi/blog-postiz-n8n-automation-workflow.html</loc>
     <changefreq>weekly</changefreq>
@@ -762,22 +760,18 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://promptgenerator.fyi/blog-ai-ignores-instructions-fix.html</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://promptgenerator.fyi/blog-few-shot-prompting-examples-templates-2026.html</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
-
   <url>
     <loc>https://promptgenerator.fyi/blog-how-to-think-with-ai.html</loc>
     <lastmod>2026-10-17</lastmod>
@@ -812,7 +806,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://promptgenerator.fyi/blog-how-to-test-ai-prompts-like-a-pro.html</loc>
     <lastmod>2026-10-17</lastmod>
@@ -842,7 +835,6 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://promptgenerator.fyi/blog-ai-custom-instructions-ignored-fix.html</loc>
     <lastmod>2026-10-17</lastmod>
@@ -874,24 +866,16 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-schedule-youtube-shorts.html</loc>
-    <lastmod>2026-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://promptgenerator.fyi/blog-postiz-vs-buffer-open-source-alternative-2026.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://promptgenerator.fyi/blog-chatgpt-premium-prompt-assistant-agency-20261016.html</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://promptgenerator.fyi/blog-enhance-video-prompts-ai-videos-20261917.html</loc>
     <lastmod>2026-10-17</lastmod>
@@ -1008,10 +992,14 @@
     <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
   </url>
-</urlset>
-
-
   <url>
     <loc>https://promptgenerator.fyi/blog-chatgpt-coding-prompts-that-work-20262817.html</loc>
     <lastmod>2026-10-17</lastmod>
   </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-stop-rewording-prompts.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
