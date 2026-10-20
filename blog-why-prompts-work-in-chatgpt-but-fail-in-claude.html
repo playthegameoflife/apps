@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Your Prompts Work in ChatGPT But Fail in Claude (And How to Fix Both)</title>
+  <meta name="description" content="Why does the same prompt crush it in ChatGPT but fall flat in Claude? The answer isn't you — it's how each model reads your words. Here's how to fix prompts for both.">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-why-prompts-work-in-chatgpt-but-fail-in-claude.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Why Your Prompts Work in ChatGPT But Fail in Claude (And How to Fix Both)">
+  <meta property="og:description" content="Same prompt, different AI, completely different results. Here's why — and how to fix it.">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-why-prompts-work-in-chatgpt-but-fail-in-claude.html">
+  <meta property="og:image" content="https://promptgenerator.fyi/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why Your Prompts Work in ChatGPT But Fail in Claude (And How to Fix Both)">
+  <meta name="twitter:description" content="Same prompt, different AI, completely different results. Here's why — and how to fix it.">
+  <link rel="stylesheet" href="style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Why Your Prompts Work in ChatGPT But Fail in Claude (And How to Fix Both)",
+        "description": "Why does the same prompt crush it in ChatGPT but fall flat in Claude? The answer isn't you — it's how each model reads your words. Here's how to fix prompts for both.",
+        "author": {"@type": "Person", "name": "Prompt Helper Team"},
+        "publisher": {"@type": "Organization", "name": "Prompt Helper", "url": "https://promptgenerator.fyi"},
+        "datePublished": "2026-10-20",
+        "dateModified": "2026-10-20",
+        "url": "https://promptgenerator.fyi/blog-why-prompts-work-in-chatgpt-but-fail-in-claude.html",
+        "keywords": "ChatGPT Claude prompting differences, why prompts fail in Claude, cross-platform AI prompts"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why does my prompt work in ChatGPT but not in Claude?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ChatGPT and Claude were fine-tuned on different feedback patterns. ChatGPT rewards format-first, step-by-step instructions. Claude responds better to explicit role assignment and natural-language direction. A prompt that works in one model is often silently filling gaps that the other model doesn't assume."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I write prompts that work on both ChatGPT and Claude?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Be explicit where each model is implicit. State the output format, audience, tone, and goal directly instead of implying them. Add XML tags for Claude and numbered steps for ChatGPT. The more you say explicitly, the less each model has to guess — and the more consistent your results across both."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Claude harder to prompt than ChatGPT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not harder — different. Claude requires more upfront context and responds better to direct instruction than ChatGPT does. Where ChatGPT can fill gaps on its own, Claude often needs you to spell things out that ChatGPT would infer. Once you know what Claude needs, it becomes just as reliable."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Prompt Helper work across ChatGPT, Claude, and Gemini?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Prompt Helper Gemini is a free Chrome extension (5 enhanced prompts per week on the free tier) that works directly in ChatGPT, Gemini, Claude, Grok, and Perplexity. It enhances your rough prompt on the spot, adapting it for whichever AI you're using."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does AI give different answers to the same prompt?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Temperature and top_p settings control randomness, but even identical settings produce variation because LLMs sample from a probability distribution. Beyond that, small prompt wording changes create large output swings — which is exactly why a prompt tuned for ChatGPT may completely miss the mark in Claude."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Why Your Prompts Work in ChatGPT But Fail in Claude (And How to Fix Both)</h1>
+  <p class="meta">Published October 20, 2026 &nbsp;·&nbsp; 8 min read &nbsp;·&nbsp; AI Prompting</p>
+</header>
+
+<div class="intro">
+  You know the feeling. You write a prompt in ChatGPT and it nails it — clear, specific, exactly what you needed. You paste the same prompt into Claude and it gives you something reasonable but <em>not quite right</em>. You tweak it. You rephrase it. You spend 20 minutes doing the same back-and-forth you just did with ChatGPT. Sound familiar?
+  <br><br>
+  You're not imagining it. And it's not just you. Across Reddit, communities like r/PromptEngineering and r/ClaudeAI are full of people discovering the same frustrating pattern: <strong>"A prompt that moves well between ChatGPT, Claude and Gemini is mostly a prompt that says out loud what one model was quietly filling in."</strong> The problem isn't you — it's that each AI model reads your words differently.
+</div>
+
+<p>That quote — pulled from real community discussions — perfectly captures what's happening. ChatGPT and Claude were trained on different feedback patterns, different datasets, and different reinforcement-learning signals. That means the same prompt structure that sings in one model can fall completely flat in another.</p>
+
+<p>In this guide, you'll learn <strong>why prompts fail across models</strong>, <strong>the specific differences in how ChatGPT and Claude read instructions</strong>, and <strong>exactly how to fix your prompts so they work reliably on both</strong>.</p>
+
+<h2>Why Your Prompts Work in ChatGPT But Fail in Claude: The Real Reason</h2>
+
+<p>Here's the uncomfortable truth most prompting guides skip: <strong>ChatGPT and Claude respond to fundamentally different signals.</strong></p>
+
+<p>ChatGPT was fine-tuned with a strong emphasis on following format-first, step-by-step instructions. Give it a numbered list and it tends to follow it precisely. Claude, on the other hand, was trained more heavily on natural-language reasoning and responds better to explicit role assignment and conversational direction. What Claude infers from silence, ChatGPT ignores. What ChatGPT fills in automatically, Claude waits to be told.</p>
+
+<p>This creates a specific failure mode that one developer described in a widely-shared post:</p>
+
+<blockquote style="background:#f9fafb;border-left:4px solid #e5e7eb;padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0;font-style:italic;color:#374151;">
+  "It often felt like a ping-pong match with ChatGPT, providing more and more context just to get the result I actually meant. The same prompt in Claude would either ignore half the instructions or give me something technically correct but completely miss the spirit of what I wanted."
+</blockquote>
+
+<p>The fix isn't to write longer prompts. It's to write <em>differently structured</em> prompts for each model — or better yet, to write prompts so explicit that both models get the same message.</p>
+
+<h2>What Actually Differs: ChatGPT vs Claude Prompt Expectations</h2>
+
+<p>Understanding the architectural difference between how these models interpret prompts is the key to writing prompts that work everywhere.</p>
+
+<h3>Format Assumptions</h3>
+<p>ChatGPT has a strong tendency to follow explicit format cues — numbered lists, bullet points, markdown headings. If you want structured output in ChatGPT, give it a template and it will usually follow it closely.</p>
+
+<p>Claude is more flexible but also more literal. Say "be concise" and ChatGPT interprets it as "shorter paragraphs." Claude interprets it as "fewer ideas, same depth" — and those are very different outputs. Specify <em>exactly</em> what you mean by "concise" when prompting Claude.</p>
+
+<h3>Instruction Following</h3>
+<p>Both models can ignore instructions, but they do it differently. ChatGPT tends to drift toward pleasing the user, sometimes softening strong constraints you set. Claude tends to be more literal — if your constraint is ambiguous, it will pick one interpretation and stick with it, even if it wasn't what you intended.</p>
+
+<p>A prompt that includes a constraint like "don't use jargon" will get more reliable compliance in Claude than in ChatGPT, which may decide the user's intent was more important than the literal instruction.</p>
+
+<h3>Context Window Behavior</h3>
+<p>Both models have context limits, but Claude's are tighter in practice for free users and more aggressively enforced. A prompt that's right at the edge of "too long" will work fine in ChatGPT but get a "prompt too long" error in Claude. Watch your prompt length when switching between them.</p>
+
+<h2>How to Fix Your Prompts to Work on Both ChatGPT and Claude</h2>
+
+<p>You don't need separate prompt libraries for each AI. You need prompts that are <strong>explicit enough that no model has to guess</strong>. Here's how to do it.</p>
+
+<h3>1. Replace Implied Instructions with Explicit Ones</h3>
+
+<p>The biggest reason prompts fail across models is that they rely on inference. Each model fills in the gaps differently — which is exactly why the same prompt produces different results.</p>
+
+<div class="comparison">
+  <div class="comparison-box bad">
+    <h4>❌ Generic Prompt (fills gaps differently per model)</h4>
+    <p>Write me an email to my client about the project delay.</p>
+  </div>
+  <div class="comparison-box good">
+    <h4>✓ Explicit Prompt (works across models)</h4>
+    <p>Write a professional email to my client explaining that their project delivery is delayed by 2 weeks. Tone: apologetic but confident — don't sound panicked. Length: under 150 words. Format: 3 short paragraphs. No jargon. End with a clear revised timeline.</p>
+  </div>
+</div>
+
+<p>The explicit version tells each model <em>exactly</em> what "professional" means in this context, what length to hit, and what format to use. No model has to guess. The result is consistent regardless of which AI runs it.</p>
+
+<h3>2. Use Model-Specific Formatting Signals</h3>
+
+<p>While you're writing prompts that work universally, you can also add gentle model-specific signals to get the best out of each:</p>
+
+<ul>
+  <li><strong>For ChatGPT:</strong> Use numbered steps, markdown headers, and explicit output templates. ChatGPT follows structure reliably.</li>
+  <li><strong>For Claude:</strong> Use XML tags (like &lt;task&gt; and &lt;output&gt;), assign a clear role ("you are a senior software engineer"), and state the goal in a single directive sentence before adding context.</li>
+  <li><strong>For Gemini:</strong> Gemini responds well to very direct, plain-English instructions without heavy formatting — keep it clean and conversational.</li>
+</ul>
+
+<h3>3. Front-Load the Most Important Instruction</h3>
+
+<p>Both models pay more attention to instructions that appear early in the prompt. If you bury your key constraint at the end, there's a good chance it gets deprioritized. Put the core ask first, supporting context second.</p>
+
+<div class="code-block">
+  <span class="label">✓ Better Prompt Structure</span>
+# Role
+You are a senior product manager.
+
+# Task
+Give me 3 specific features to add to my SaaS app based on user feedback.
+
+# Context
+We serve 500 small businesses. Recent feedback mentions: slow onboarding, no mobile app, and confusing billing UI.
+
+# Constraints
+- Keep each suggestion to 2 sentences
+- Prioritize by user impact, not development effort
+</div>
+
+<h3>4. Test Once, Adapt for Both</h3>
+
+<p>The fastest way to build cross-model prompts is to test in one model, note what drifted, and add that as an explicit constraint for the other. If Claude gave you bullet points when you wanted paragraphs, add "output format: prose paragraphs, no bullet points" next time. Each iteration makes your prompt more model-agnostic.</p>
+
+<h2>Common Prompt Fixes That Work on Both Models</h2>
+
+<p>These three adjustments solve the majority of cross-model prompt failures:</p>
+
+<ul>
+  <li><strong>"Be concise"</strong> → "Write 3 sentences maximum. No preamble."</li>
+  <li><strong>"Don't be generic"</strong> → "Write in a direct, opinionated voice. Give specific examples, not general principles."</li>
+  <li><strong>"Make it professional"</strong> → "Write for a VP-level audience. Use active voice. No corporate buzzwords."</li>
+</ul>
+
+<p>The pattern is the same every time: replace a vague quality word with a concrete behavioral instruction. Both ChatGPT and Claude interpret vague instructions through their own training priors — and those priors differ.</p>
+
+<h2>The 5-Second Fix: Use Prompt Helper to Handle This Automatically</h2>
+
+<p>If all of this feels like a lot to remember and apply every time you open a new chat — that's exactly why we built <a href="https://promptgenerator.fyi">Prompt Helper Gemini</a>. It's a free Chrome extension that sits right in your browser and enhances your rough prompt on the spot, adapting it for whichever AI you're using.</p>
+
+<p>You type your rough idea — "help me write an email about project delay" — and it expands it into a properly structured prompt with explicit constraints, the right tone, and a clear output format. It works directly in ChatGPT, Claude, Gemini, Grok, and Perplexity. Free tier gives you 5 enhanced prompts per week. No credit card required.</p>
+
+<div class="key-takeaways">
+  <h3>Key Takeaways</h3>
+  <ul>
+    <li>Same prompts produce different results across AI models because each was fine-tuned on different feedback signals — this is normal, not a prompting failure</li>
+    <li>The fix is explicitness, not length: replace vague quality words ("concise," "professional," "helpful") with concrete behavioral instructions</li>
+    <li>Front-load your core ask — both models pay more attention to instructions that appear early in the prompt</li>
+    <li>Use model-specific formatting signals: numbered steps for ChatGPT, XML tags and role assignment for Claude</li>
+    <li>Prompt Helper adapts your rough prompt for whichever AI you're using, automatically — 5 free enhancements per week</li>
+  </ul>
+</div>
+
+<div class="cta-box">
+  <h2>Stop Rewording Prompts for Every AI</h2>
+  <p>Prompt Helper Gemini enhances your rough prompt in 5 seconds flat — for ChatGPT, Claude, Gemini, Grok, and Perplexity. Free tier: 5 prompts per week. No subscription required.</p>
+  <a href="https://promptgenerator.fyi">Get Prompt Helper Free →</a>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq-item">
+  <h3>Why does my prompt work in ChatGPT but not in Claude?</h3>
+  <p>ChatGPT and Claude were fine-tuned on different feedback patterns. ChatGPT rewards format-first, step-by-step instructions. Claude responds better to explicit role assignment and natural-language direction. A prompt that works in one model is often silently filling gaps that the other model doesn't assume.</p>
+</div>
+
+<div class="faq-item">
+  <h3>How do I write prompts that work on both ChatGPT and Claude?</h3>
+  <p>Be explicit where each model is implicit. State the output format, audience, tone, and goal directly instead of implying them. Add XML tags for Claude and numbered steps for ChatGPT. The more you say explicitly, the less each model has to guess — and the more consistent your results across both.</p>
+</div>
+
+<div class="faq-item">
+  <h3>Is Claude harder to prompt than ChatGPT?</h3>
+  <p>Not harder — different. Claude requires more upfront context and responds better to direct instruction than ChatGPT does. Where ChatGPT can fill gaps on its own, Claude often needs you to spell things out that ChatGPT would infer. Once you know what Claude needs, it becomes just as reliable.</p>
+</div>
+
+<div class="faq-item">
+  <h3>Does Prompt Helper work across ChatGPT, Claude, and Gemini?</h3>
+  <p>Yes. Prompt Helper Gemini is a free Chrome extension (5 enhanced prompts per week on the free tier) that works directly in ChatGPT, Gemini, Claude, Grok, and Perplexity. It enhances your rough prompt on the spot, adapting it for whichever AI you're using.</p>
+</div>
+
+<div class="faq-item">
+  <h3>Why does AI give different answers to the same prompt?</h3>
+  <p>Temperature and top_p settings control randomness, but even identical settings produce variation because LLMs sample from a probability distribution. Beyond that, small prompt wording changes create large output swings — which is exactly why a prompt tuned for ChatGPT may completely miss the mark in Claude.</p>
+</div>
+
+<footer>
+  <p>&copy; 2026 Prompt Helper &nbsp;·&nbsp; <a href="https://promptgenerator.fyi">promptgenerator.fyi</a></p>
+</footer>
+</body>
+</html>
