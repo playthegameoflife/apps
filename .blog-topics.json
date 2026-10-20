@@ -180,6 +180,11 @@
       "primary_keyword": "why prompts work in ChatGPT but fail in Claude cross-platform AI prompts",
       "published": "2026-10-20",
       "angle": "model-specific prompting differences \u2014 why same prompt fails across ChatGPT/Claude/Gemini, concrete fixes"
+    },
+    {
+      "slug": "blog-prompt-helper-vs-aiprm-vs-prompt-storm",
+      "primary_keyword": "prompt helper aiprm prompt storm",
+      "published": "2026-10-20"
     }
   ]
 }
