@@ -2,6 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 const MINIMAX_BASE_URL = 'https://api.minimax.io/v1'
 const MODEL = 'MiniMax-Text-01'
+const SUPABASE_URL = 'https://dygmisaatzihbckfdywo.supabase.co'
 
 const STYLE_MAP: Record<string, string> = {
   creative: 'creative, imaginative, and thought-provoking',
@@ -35,9 +36,68 @@ function buildEnhancementPrompt(
   return `${base}${styleLine}${customLine}\n\nUSER_PROMPT: "${originalPrompt.replace(/"/g, '\\"')}"\n\nReturn ONLY the enhanced prompt without any explanations, additional text, formatting, or commentary.`
 }
 
+async function getUserSubscriptionTier(
+  userId: string,
+  accessToken: string,
+): Promise<string> {
+  // Call the check-subscription edge function
+  const response = await fetch(`${SUPABASE_URL}/functions/v1/check-subscription`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  })
+
+  if (!response.ok) {
+    console.error('[enhance] check-subscription failed:', await response.text())
+    return 'free'
+  }
+
+  const data = await response.json()
+  return data.tier ?? 'free'
+}
+
+async function verifyJwtAndGetUser(token: string): Promise<{ userId: string; email: string } | null> {
+  const response = await fetch(
+    `${SUPABASE_URL}/auth/v1/user`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        apikey: process.env.SUPABASE_ANON_KEY!,
+      },
+    },
+  )
+  if (!response.ok) return null
+  const user = await response.json()
+  return { userId: user.id, email: user.email }
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
+  }
+
+  const authHeader = req.headers.authorization ?? ''
+  const accessToken = authHeader.replace('Bearer ', '').trim()
+
+  if (!accessToken) {
+    return res.status(401).json({ error: 'Not authenticated — please sign in' })
+  }
+
+  // Verify the JWT and get user info
+  const user = await verifyJwtAndGetUser(accessToken)
+  if (!user) {
+    return res.status(401).json({ error: 'Invalid session — please sign in again' })
+  }
+
+  // Check subscription tier
+  const tier = await getUserSubscriptionTier(user.userId, accessToken)
+  if (tier === 'free') {
+    // Free users get 10 generations per day via the landing page
+    // (the extension has its own usage tracking via Supabase auth)
+    // We count against the user's row in user_prompt_usage
+    // For now, let them through — usage enforcement happens in the DB
+    // via the incrementUserPromptUsage call in prompt-usage tracking
   }
 
   const { originalPrompt, mode = 'text', style = 'default', customInstructions = '' } = req.body
@@ -81,7 +141,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const data = await minimaxRes.json()
     const enhanced = data.choices?.[0]?.message?.content ?? ''
 
-    return res.status(200).json({ enhanced })
+    return res.status(200).json({
+      enhanced,
+      tier,
+      userId: user.userId,
+    })
   } catch (err: any) {
     return res.status(500).json({ error: 'Request failed', detail: err.message })
   }
