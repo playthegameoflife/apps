@@ -1002,4 +1002,9 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-ai-character-consistency.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
 </urlset>
