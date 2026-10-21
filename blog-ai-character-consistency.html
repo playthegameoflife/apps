@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Character Consistency: Same Face in Every Image</title>
+<meta name="description" content="Learn how to keep one AI character consistent across every image. Fix drifting faces, outfits and styles with reference sheets, seeds and structured prompts.">
+<link rel="canonical" href="https://promptgenerator.fyi/blog-ai-character-consistency.html">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="AI Character Consistency: Same Face in Every Image">
+<meta property="og:description" content="Your AI character looks great in one image and turns into a stranger in the next. Here is the 5-layer stack that fixes it for good.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://promptgenerator.fyi/blog-ai-character-consistency.html">
+<meta property="og:site_name" content="Prompt Helper Gemini">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI Character Consistency: Same Face in Every Image">
+<meta name="twitter:description" content="Your AI character looks great in one image and turns into a stranger in the next. Here is the 5-layer stack that fixes it for good.">
+<link rel="stylesheet" href="style.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+blockquote { font-style: italic; color: #6b7280; border-left: 3px solid #d1d5db; padding-left: 16px; margin: 20px 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "AI Character Consistency: Same Face in Every Image",
+      "description": "Your AI character looks great in one image and turns into a stranger in the next. Here is the 5-layer stack that fixes it for good.",
+      "url": "https://promptgenerator.fyi/blog-ai-character-consistency.html",
+      "mainEntityOfPage": "https://promptgenerator.fyi/blog-ai-character-consistency.html",
+      "datePublished": "2026-10-21",
+      "dateModified": "2026-10-21",
+      "author": {
+        "@type": "Person",
+        "name": "Prompt Helper Team"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Prompt Helper Gemini",
+        "url": "https://promptgenerator.fyi"
+      },
+      "articleSection": "AI Image Prompting",
+      "wordCount": 1950
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does my AI character look like a different person in every image?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Text-to-image models start from random noise on every generation, and a text description is a lossy way to specify a face. Unless you pin a reference image, lock a seed, and reuse the exact same character description block, each render is an independent lottery ticket. Fixing this requires a layered setup, not a better adjective."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the fastest way to make an AI character consistent?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Generate one strong reference image of your character, then pass that image into every subsequent generation as a character reference and change only the scene description. Keep the character description block byte-identical and reuse the same seed. That single change fixes most of the drift most people complain about."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does using the same seed guarantee the same character?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. A seed freezes the initial noise pattern, which stabilizes composition, pose and often hair, but it does not freeze identity. Seeds are a supporting layer, not a solution. Identity comes from a reference image or a trained identity model, and the seed simply stops the rest of the frame from drifting."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why did my character drift even though I described her face in detail?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because you rewrote the description each time. Long natural-language descriptions vary in wording, emphasis and order, and the model reads those differences as meaningful. A character block that is pasted verbatim, unchanged, into every prompt is dramatically more stable than a carefully rewritten paragraph."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When is it worth training a LoRA instead of using prompt tricks?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Once you need more than roughly ten to fifteen images of the same character, or you need exact control of a specific identity rather than an approximate look. LoRA, DreamBooth and InstantID learn the identity into the weights, which beats any prompt. Before that threshold, the reference-plus-seed stack is faster and much cheaper."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to write the same prompt structure every single time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You need the character portion to be identical. The scene, action, camera angle and lighting can change freely, and they should, because that is what creates variety without breaking identity. Keep the character block fixed, keep a style reference or style suffix fixed, and vary everything else."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main>
+<article>
+<header>
+<h1>AI Character Consistency: Same Face in Every Image</h1>
+<p class="meta">October 21, 2026 · 9 min read · AI Image Prompting</p>
+</header>
+
+<div class="intro">
+<p><strong>AI character consistency is the single most common complaint in AI image generation.</strong> A creator on r/midjourney put it bluntly after trying to generate a celebrity across a hundred images:</p>
+<blockquote>"Out of 100 images of Charlie Sheen prompts, not one looked like him, but I got a lot of what looked like the same character as previous generations."</blockquote>
+<p>That is the exact tension: close enough to reuse, never close enough to be <em>the same person</em>. You spend an hour on a face you love, then change one word in the prompt to get a different shot — and come back to a stranger. This guide explains why it happens, and gives you the five-layer setup that fixes it.</p>
+</div>
+
+<div class="key-takeaways">
+<h3>The Short Version</h3>
+<ul>
+<li><strong>Text alone cannot hold a face.</strong> Every generation starts from different random noise, so you need a reference image to anchor identity.</li>
+<li><strong>Write one character block and paste it verbatim.</strong> Rewriting a description is the fastest way to lose consistency.</li>
+<li><strong>Lock the seed, the style reference, and the model version.</strong> Those three stop everything <em>around</em> the character from drifting.</li>
+<li><strong>Change only the scene.</strong> Action, camera angle, location and lighting should vary; the character specification should not.</li>
+<li><strong>Past roughly 15 images, switch to a trained identity model.</strong> LoRA, DreamBooth and InstantID beat prompt tricks on volume.</li>
+</ul>
+</div>
+
+<h2>Why AI Characters Drift (and Why "Add More Detail" Doesn't Fix It)</h2>
+
+<p>Every text-to-image model generates an image by starting from a random noise field and progressively shaping it toward your prompt. There is no stored character, no internal model of "the person you asked for three prompts ago," and no memory of your last generation. Each render is a fresh, independent draw from the same distribution.</p>
+
+<p>Text is the delivery mechanism, and text is a lossy one. When you write <em>"a woman with sharp cheekbones and dark wavy hair"</em>, you are asking a compression system to reconstruct a face from a handful of semantic tokens. Two prompts that are semantically identical can produce entirely different faces, because there are millions of valid faces that satisfy that description.</p>
+
+<p>This is why the community advice "just describe the character more thoroughly" mostly fails. More detail helps a little, because it narrows the distribution. But it never closes it, because you are still describing rather than showing. A reference image moves you from the description space into the identity space, and that is the single highest-leverage change you can make.</p>
+
+<p>Two more forces work against you. First, <strong>prompt entropy</strong>: the moment you rephrase, reorder, or add a new instruction, you shift the whole distribution, not just the part you care about. Second, <strong>model drift</strong>: providers upgrade their image models, and a character that was stable on version 6 may not be stable on version 7 or 8. If you did not pin the version, your "inconsistent" results may actually be a new model.</p>
+
+<h2>The Five-Layer Consistency Stack</h2>
+
+<p>Fix identity by stacking layers. Each one covers a different failure mode, and the order matters — anchor identity first, then control the surrounding variables.</p>
+
+<h3>Layer 1: A Reference Image (the identity anchor)</h3>
+<p>Generate your character once, properly, then treat that image as the source of truth. Do not regenerate it from scratch each session. Keep it somewhere stable — a file on disk, a hosted image URL, a pinned asset in your tool.</p>
+<p>Reference images work by giving the model pixels to condition on instead of words to guess from. Most major platforms now support this directly. Midjourney introduced <a href="https://updates.midjourney.com/character-refs/" target="_blank" rel="noopener">Character Reference</a>, which accepts one or more image URLs and lets you blend characteristics from multiple references in a single prompt. On newer Midjourney versions the documentation steers you to Omni Reference for the same job, and on Google's side the <a href="https://deepmind.google/models/gemini-image/pro/" target="_blank" rel="noopener">Nano Banana Pro / Gemini image models</a> accept multiple reference images and hold identity far better than earlier text-to-image models did.</p>
+
+<h3>Layer 2: A Verbatim Character Description Block</h3>
+<p>Write your character's description once, as a fixed block, and paste it into every prompt unchanged. Not a rephrasing. Not an expanded version. The same string of words in the same order.</p>
+
+<div class="code-block">
+<span class="label">Character block — paste verbatim into every prompt</span>
+<span class="after">CHARACTER: a 34-year-old woman, olive skin, dark brown shoulder-length wavy hair parted on the left, thick dark eyebrows, warm brown eyes, slightly upturned nose, defined cheekbones, small mole under left eye, slim build, wearing a charcoal wool coat over a white crew-neck shirt</span>
+</div>
+
+<p>Why so pedantic? Because order and wording carry weight. "Dark brown shoulder-length wavy hair" in position one and "shoulder-length wavy brown hair" in position two are not the same token sequence to the model. Anchoring a distinguishing detail like the mole under the left eye in a fixed position helps lock the face over many generations.</p>
+
+<h3>Layer 3: A Locked Seed and Locked Parameters</h3>
+<p>Every generation carries a random seed number. Reusing the same seed keeps the initial noise pattern fixed, which stabilizes composition, pose, framing, and frequently hair and wardrobe placement. It does <em>not</em> freeze identity, but it stops the rest of the frame from wandering while you work on the face.</p>
+<p>Alongside the seed, pin your remaining parameters: the same model version, the same aspect ratio, the same stylize value, and the same style reference URL if you use one. A style reference is the other half of visual continuity — it is what keeps a series looking like it belongs to one project rather than a folder of unrelated images.</p>
+
+<h3>Layer 4: A Stable Scene Variable</h3>
+<p>Only the scene should change between generations. Structure your prompts as <code>CHARACTER BLOCK + SCENE + STYLE SUFFIX</code> and nothing else. The scene slot is where you put action, camera angle, lighting, and environment.</p>
+
+<div class="comparison">
+<div class="comparison-box bad">
+<h4>Broken — drifts every time</h4>
+<p>Write a full descriptive sentence about the woman every time, rephrasing it slightly. Change the lighting term. Add a new wardrobe detail mid-project. Leave the seed unset.</p>
+<p class="before">Result: a new face each time.</p>
+</div>
+<div class="comparison-box good">
+<h4>Fixed — holds across a series</h4>
+<p>Paste the identical character block, then vary only the scene slot. Keep the seed, model version, aspect ratio and style reference constant.</p>
+<p class="after">Result: one recognisable character.</p>
+</div>
+</div>
+
+<h3>Layer 5: The Check-and-Correct Loop</h3>
+<p>Generate, then compare against your reference image before moving on. This is the step everyone skips and the one that catches drift early. Reject any image where the jawline, eye spacing, or hairline has visibly shifted, and re-roll with the same seed rather than accepting and hoping the next one fixes it.</p>
+<p>A useful discipline from the image-to-prompt community is to generate a <strong>character sheet</strong> first — the same character rendered from multiple angles and expressions in one pass. That single reference sheet becomes your anchor for the entire project, and it doubles as a cheap regression test: if a new prompt renders a face that does not match the sheet, you know the prompt drifted.</p>
+
+<h2>When Prompt Techniques Stop Being Enough</h2>
+
+<p>Layers 1 through 4 are prompt and workflow engineering. They work remarkably well for a series of five, ten, maybe fifteen images. Past that, you are fighting the model's inability to hold an exact identity, and you need a trained approach instead.</p>
+
+<p>Three families of research-backed methods do this:</p>
+
+<ul>
+<li><strong>LoRA / DreamBooth</strong> — you train a small set of weights on your character so the identity is baked into the model. <a href="https://arxiv.org/abs/2208.12242" target="_blank" rel="noopener">DreamBooth</a> ("Fine Tuning Text-to-Image Diffusion Models for Subject-Driven Generation") is the canonical reference. It gives the highest fidelity but requires either a training setup or a paid hosted service.</li>
+<li><strong>IP-Adapter</strong> — an adapter that lets a frozen diffusion model accept an image prompt alongside text, without retraining the base model. <a href="https://arxiv.org/abs/2308.06721" target="_blank" rel="noopener">IP-Adapter</a> is the reference paper, and it is the technical reason reference-image prompting works so well across so many tools.</li>
+<li><strong>Identity-preserving adapters</strong> — newer work that preserves identity in a single pass without per-subject training. <a href="https://arxiv.org/abs/2404.16022" target="_blank" rel="noopener">PuLID</a> and <a href="https://arxiv.org/abs/2401.07519" target="_blank" rel="noopener">InstantID</a> are representative; both target zero-shot identity preservation in seconds. Earlier approaches such as <a href="https://arxiv.org/abs/2208.01618" target="_blank" rel="noopener">Textual Inversion</a> learn a new token for a subject and remain useful when you need an ultra-lightweight option.</li>
+</ul>
+
+<p>You do not need to train anything for a weekend project. But if you are building a comic, a storyboard, an AI influencer account, or a product visual set, trained identity is the difference between a demo and a deliverable.</p>
+
+<h2>Five Mistakes That Quietly Break Consistency</h2>
+
+<ol>
+<li><strong>Rewriting the character description each time.</strong> The most common cause. If the words change, the face can change. Paste, do not paraphrase.</li>
+<li><strong>Switching model versions mid-project.</strong> A character is tuned to one generator's quirks. Pin the version and note it in your project file.</li>
+<li><strong>Letting the seed reset.</strong> If you are not tracking seeds, turn on seed display and write the value down for every approved image.</li>
+<li><strong>Adding new wardrobe or prop details to the character block.</strong> The block describes the person, not the scene. A new coat belongs in the scene slot, or it will silently reshape the silhouette.</li>
+<li><strong>Over-complex prompts.</strong> Community consensus on r/midjourney is that intricate, crowded prompts reduce consistency: "the more intricate your prompt and scene, the less consistent your character will be." Keep the character block rich and the scene simple.</li>
+</ol>
+
+<h2>A Quick Diagnosis: Why Is <em>Your</em> Character Drifting?</h2>
+
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:0.9rem;">
+<thead><tr>
+<th style="border:1px solid #e5e7eb;padding:10px;text-align:left;background:#f3f4f6;">Symptom</th>
+<th style="border:1px solid #e5e7eb;padding:10px;text-align:left;background:#f3f4f6;">Likely cause</th>
+<th style="border:1px solid #e5e7eb;padding:10px;text-align:left;background:#f3f4f6;">Fix</th>
+</tr></thead>
+<tbody>
+<tr><td style="border:1px solid #e5e7eb;padding:10px;">Face changes slightly in every image</td><td style="border:1px solid #e5e7eb;padding:10px;">Text-only prompting</td><td style="border:1px solid #e5e7eb;padding:10px;">Add a reference image (Layer 1)</td></tr>
+<tr><td style="border:1px solid #e5e7eb;padding:10px;">Face fine, but composition and framing shift</td><td style="border:1px solid #e5e7eb;padding:10px;">Seed not reused</td><td style="border:1px solid #e5e7eb;padding:10px;">Lock the seed and parameters</td></tr>
+<tr><td style="border:1px solid #e5e7eb;padding:10px;">Consistent for 8 images, then breaks</td><td style="border:1px solid #e5e7eb;padding:10px;">Character block reworded or model updated</td><td style="border:1px solid #e5e7eb;padding:10px;">Paste verbatim; pin model version</td></tr>
+<tr><td style="border:1px solid #e5e7eb;padding:10px;">Skin tone and age drift</td><td style="border:1px solid #e5e7eb;padding:10px;">Unstable identity encoding</td><td style="border:1px solid #e5e7eb;padding:10px;">Trained identity model (LoRA / InstantID)</td></tr>
+<tr><td style="border:1px solid #e5e7eb;padding:10px;">Every image is a different artistic style</td><td style="border:1px solid #e5e7eb;padding:10px;">No style anchor</td><td style="border:1px solid #e5e7eb;padding:10px;">Fix a style reference and style suffix</td></tr>
+</tbody>
+</table>
+
+<h2>Make the Prompt Do the Work</h2>
+
+<p>Everything above depends on one asset: a well-built character block and a scene description. Writing those by hand for every project is slow, and it is exactly the kind of repetitive structuring that tools exist to handle.</p>
+
+<p><a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener">Prompt Helper Gemini</a> takes a rough note — a face description, a shot, a mood — and expands it into a structured prompt with the character block separated from the scene, ready to paste into Midjourney, Gemini, DALL·E, Grok or Perplexity without rewriting it each time. Five free enhancements per week, no subscription, no credit card. For more on building prompts that hold up across a whole project, see our guide to <a href="/blog-how-to-write-midjourney-prompts-2026.html">writing Midjourney prompts that work</a> and our <a href="/blog-enhance-image-prompts-ai-art-20261517.html">image prompt enhancement walkthrough</a>.</p>
+
+<div class="cta-box">
+<h2>Stop Rebuilding the Same Character Every Morning</h2>
+<p>Turn a rough note into a reusable, structured prompt in five seconds. Five free enhancements per week, no card, no subscription.</p>
+<a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener">Get Prompt Helper Gemini →</a>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<div class="faq">
+
+<div class="faq-item">
+<h3>Why does my AI character look like a different person in every image?</h3>
+<p>Text-to-image models start from random noise on every generation, and a text description is a lossy way to specify a face. Unless you pin a reference image, lock a seed, and reuse the exact same character description block, each render is an independent lottery ticket. Fixing this requires a layered setup, not a better adjective.</p>
+</div>
+
+<div class="faq-item">
+<h3>What is the fastest way to make an AI character consistent?</h3>
+<p>Generate one strong reference image of your character, then pass that image into every subsequent generation as a character reference and change only the scene description. Keep the character description block byte-identical and reuse the same seed. That single change fixes most of the drift most people complain about.</p>
+</div>
+
+<div class="faq-item">
+<h3>Does using the same seed guarantee the same character?</h3>
+<p>No. A seed freezes the initial noise pattern, which stabilizes composition, pose and often hair, but it does not freeze identity. Seeds are a supporting layer, not a solution. Identity comes from a reference image or a trained identity model, and the seed simply stops the rest of the frame from drifting.</p>
+</div>
+
+<div class="faq-item">
+<h3>Why did my character drift even though I described her face in detail?</h3>
+<p>Because you rewrote the description each time. Long natural-language descriptions vary in wording, emphasis and order, and the model reads those differences as meaningful. A character block that is pasted verbatim, unchanged, into every prompt is dramatically more stable than a carefully rewritten paragraph.</p>
+</div>
+
+<div class="faq-item">
+<h3>When is it worth training a LoRA instead of using prompt tricks?</h3>
+<p>Once you need more than roughly ten to fifteen images of the same character, or you need exact control of a specific identity rather than an approximate look. LoRA, DreamBooth and InstantID learn the identity into the weights, which beats any prompt. Before that threshold, the reference-plus-seed stack is faster and much cheaper.</p>
+</div>
+
+<div class="faq-item">
+<h3>Do I need to write the same prompt structure every single time?</h3>
+<p>You need the character portion to be identical. The scene, action, camera angle and lighting can change freely, and they should, because that is what creates variety without breaking identity. Keep the character block fixed, keep a style reference or style suffix fixed, and vary everything else.</p>
+</div>
+
+</div>
+
+<h2>The Bottom Line on AI Character Consistency</h2>
+
+<p>AI character consistency is not a mystery and it is not a model limitation you have to accept. It is a workflow problem with a known fix: anchor identity with a reference image, hold the description block verbatim, lock the seed and the model version, vary only the scene, and check every render against the reference before you approve it. Five layers, in order, and the drift disappears.</p>
+
+<p>When you outgrow that stack — a comic, a storyboard, a channel of dozens of images — move to a trained identity model, where the character's face is no longer inferred from text at all. Until then, the reference-plus-verbatim approach gets you 90% of the way for a fraction of the cost.</p>
+
+</article>
+</main>
+
+<footer>
+<p>© 2026 Prompt Helper Gemini · <a href="https://promptgenerator.fyi">promptgenerator.fyi</a></p>
+</footer>
+</body>
+</html>
