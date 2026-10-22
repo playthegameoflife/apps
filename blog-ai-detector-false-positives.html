@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Detector False Positives: Why Good Writing Gets Flagged</title>
+<meta name="description" content="AI detector false positives put real work at risk. Learn why detectors flag human writing, who gets hit hardest, and how to prove your writing is yours.">
+<link rel="canonical" href="https://promptgenerator.fyi/blog-ai-detector-false-positives.html">
+<meta property="og:title" content="AI Detector False Positives: Why Good Writing Gets Flagged">
+<meta property="og:description" content="AI detector false positives put real work at risk. Learn why detectors flag human writing, who gets hit hardest, and how to prove your writing is yours.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://promptgenerator.fyi/blog-ai-detector-false-positives.html">
+<meta property="og:site_name" content="Prompt Helper Gemini">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Detector False Positives: Why Good Writing Gets Flagged">
+<meta name="twitter:description" content="AI detector false positives put real work at risk. Learn why detectors flag human writing, who gets hit hardest, and how to prove your writing is yours.">
+<link rel="stylesheet" href="style.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+blockquote { font-style: italic; color: #6b7280; border-left: 3px solid #d1d5db; padding-left: 16px; margin: 20px 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AI Detector False Positives: Why Good Writing Gets Flagged",
+  "description": "AI detector false positives put real work at risk. Learn why detectors flag human writing, who gets hit hardest, and how to prove your writing is yours.",
+  "author": {
+    "@type": "Organization",
+    "name": "Prompt Helper Gemini"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Prompt Helper Gemini",
+    "url": "https://promptgenerator.fyi"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://promptgenerator.fyi/blog-ai-detector-false-positives.html"
+  },
+  "datePublished": "2026-10-22",
+  "dateModified": "2026-10-22",
+  "inLanguage": "en"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why did my writing get flagged as AI if I didn't use AI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Detectors do not measure authorship. They measure statistical properties of your prose: how predictable each word is, how much your sentence lengths vary, how often you use formal connectors. Clean, well-edited, formally structured writing scores as machine-like. Stanford research found detectors mislabelled 61.22 percent of TOEFL essays as AI-generated. A percentage is a classifier output, never proof."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the AI detector false positive rate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Turnitin publishes a document-level false positive rate below 1 percent, but only for documents scoring above its 20 percent detection threshold. Below that threshold results are far less reliable, and several universities have disabled the tool. Vanderbilt turned it off in 2023 over false-positive risk at scale, estimating roughly 750 wrongful accusations a year at one percent across its volume."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are AI detectors biased against non-native English writers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, and it is documented rather than anecdotal. The 2023 Stanford paper found detectors flagged 61.22 percent of TOEFL essays written by non-native English students as AI-generated, while performance on US eighth-grade essays was near perfect. The reason is mechanical: non-native writers produce more predictable word choices and less bursty sentence rhythm, exactly what the classifier treats as machine-like."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I actually prove I didn't use AI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not by arguing with the score. You prove it with a record of the work happening over time. The strongest evidence is your document's version history, followed by dated drafts, reading notes, source citations, outline documents and anything you sent to a classmate while writing. A professor or integrity board accepts a timeline. None of them accept a detector score."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use an AI humanizer tool to beat the detector?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Usually a bad trade. Humanizers rewrite your sentences into deliberately noisy, varied prose to escape the classifier, which flattens your voice and can introduce errors or awkward phrasing. It also produces text you did not write, which is a worse position to defend in an academic integrity dispute. Fix the process and the record instead of mangling the words."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why did Vanderbilt turn off Turnitin's AI detector?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because at one percent false positives applied across roughly 75,000 papers a year, the tool would generate about 750 innocent students facing accusations each year. Vanderbilt's stated concerns were reliability, the scale of false-positive risk, and how little transparency the vendor offered about how the score is computed. Other institutions followed, citing the same harm."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <h1>AI Detector False Positives: Why Good Writing Gets Flagged</h1>
+  <p class="meta">Updated October 22, 2026 &middot; 9 min read &middot; Built from peer-reviewed research, university policy decisions and 40+ forum threads</p>
+</header>
+
+<div class="intro">
+  <p><strong>&ldquo;I didn&rsquo;t use AI at all. I wrote my essay on Word, and used the spellcheck feature they provide. I basically am receiving a 0 for something I didn&rsquo;t do.&rdquo;</strong> &mdash; a student on r/college, describing a Turnitin AI flag on an essay they wrote by hand.</p>
+  <p style="margin-top:12px;">Another student reported being told their work was &ldquo;62% AI&rdquo; on a professor&rsquo;s screen, despite never opening a chatbot. A developer on Hacker News put two short stories he wrote in 2013 through a detector; both came back <strong>99.9% AI</strong>.</p>
+</div>
+
+<p>If you have been accused of using AI when you did not, the first thing to understand is that <strong>AI detector false positives are a documented, measurable phenomenon</strong> &mdash; not an excuse, and not a conspiracy. Detectors do not look at your document and decide whether a machine wrote it. They measure statistical properties of your sentences and output a probability. Polished, formal, well-edited writing scores as machine-like for the same reason that a well-spoken human sounds like a well-spoken machine.</p>
+
+<p>This guide explains exactly why <strong>AI detector false positives</strong> happen, who gets hit hardest, what to do the moment your work is flagged, and why &ldquo;detector score as evidence&rdquo; is losing in academic integrity disputes. It also covers the step most people skip: making your writing process so well documented that the question never comes up again.</p>
+
+<div class="key-takeaways">
+  <h3>Key Takeaways</h3>
+  <ul>
+    <li><strong>A detector score is not proof of authorship.</strong> It is a classifier output on statistical features like predictability and sentence-length variation.</li>
+    <li><strong>Non-native English writers are flagged most.</strong> Stanford research found 61.22% of TOEFL essays were mislabelled as AI-generated, versus near-perfect accuracy on US eighth-grade essays.</li>
+    <li><strong>Institutions are turning the tool off.</strong> Vanderbilt disabled Turnitin&rsquo;s AI detector in August 2023 over false-positive risk at scale.</li>
+    <li><strong>Your defence is a timeline, not a rebuttal.</strong> Version history, dated drafts, notes and source citations outperform any argument about the score.</li>
+    <li><strong>Do not run your work through a &ldquo;humanizer.&rdquo;</strong> It wrecks your voice and hands your opponent evidence that you did not write it.</li>
+  </ul>
+</div>
+
+<h2>Why AI Detectors Flag Writing You Wrote Yourself</h2>
+
+<p>The commercially available detectors &mdash; GPTZero, Turnitin&rsquo;s AI writing report, Copyleaks, Originality.ai &mdash; all work on the same basic idea. They compute two properties of your text and compare them against a threshold.</p>
+
+<h3>Perplexity: how predictable are your word choices?</h3>
+
+<p><strong>Perplexity</strong> measures how surprising the next word is, given the words before it. Machine-generated text tends to be <em>predictable</em>: given &ldquo;the mitochondria is the powerhouse of the,&rdquo; the model expects &ldquo;cell.&rdquo; Human writing is often less predictable, which is exactly why models sometimes sound strange &mdash; they are optimising for likelihood, and humans are not.</p>
+
+<p>But human writing has predictable registers too. Academic prose, legal writing, technical documentation and non-native English all lean on conventional phrasing. A student who has been told to &ldquo;write formally&rdquo; produces text with low perplexity by design. The detector cannot tell the difference between <em>someone sounding like a textbook</em> and <em>someone sounding like a language model</em>. Both produce the same statistic.</p>
+
+<h3>Burstiness: how much do your sentence lengths vary?</h3>
+
+<p><strong>Burstiness</strong> measures the variation in sentence length and structure. Human writing, the theory goes, alternates: a long sentence, then a short one. Machines tend toward uniformity, because every sentence is generated under the same probability distribution and a similar rhetorical plan.</p>
+
+<p>Here is where the false positive rate spikes. If your essay has a consistent structure &mdash; an introduction paragraph that does one job, three body paragraphs of roughly equal length, a conclusion that restates &mdash; you have written a text with low burstiness. That structure is not evidence of AI. It is evidence of a competent writer following an assignment brief. The detector is measuring the assignment, not the author.</p>
+
+<h3>The number is a classifier output, not a verdict</h3>
+
+<p>When a detector says &ldquo;78% AI,&rdquo; it means: given the statistical features of this text, our model assigned 78 percent probability to the &ldquo;AI-generated&rdquo; class. It does not mean 78 percent of the text is AI. It does not mean the writer cheated. And critically, it does not establish who wrote it in either direction. The original 2023 paper <a href="https://arxiv.org/abs/2303.11156">Can AI-Generated Text be Reliably Detected?</a> laid out why: the signal is a statistical property of the output, and that property is shared by a large population of human writers.</p>
+
+<h2>Who Gets Flagged Most</h2>
+
+<p>The false positives are not random. They cluster tightly around specific groups, and understanding the pattern tells you whether a flag against your work is likely a false positive.</p>
+
+<ul>
+  <li><strong>Non-native English writers.</strong> This is the single biggest documented effect. The <a href="https://arxiv.org/abs/2304.02819">Stanford paper on GPT detector bias</a> found detectors classified <strong>61.22% of TOEFL essays</strong> as AI-generated, while performance on essays by US-born eighth-graders was near perfect. <a href="https://hai.stanford.edu/news/ai-detectors-biased-against-non-native-english-writers">Stanford HAI summarised it plainly</a>: the detectors penalised the writing of people whose first language is not English.</li>
+  <li><strong>Formal academic and technical prose.</strong> Legal, medical, engineering and philosophical writing is deliberately smooth and precise. One developer reported that <em>every</em> detector he tried flagged a cover letter he had personally written by hand as 100% AI.</li>
+  <li><strong>Heavily edited drafts.</strong> Grammar tools, spellcheck and second-draft polish raise consistency and lower perplexity. A student who ran their own writing through Grammarly is, mechanically, closer to the machine distribution.</li>
+  <li><strong>Non-fiction and structured genres.</strong> Reviews, summaries, reports and explainers follow conventions that language models also follow. Fiction and opinionated first-person essays trip far fewer detectors.</li>
+  <li><strong>Writers who write in a personal, idiosyncratic voice.</strong> A distinctive style with unusual word choices is the clearest human signal a detector has. If your prose is distinctive, you are safer. If it is clean and conventional, you are not.</li>
+</ul>
+
+<p>None of this makes the accusation fair. It makes the <em>tool</em> inaccurate &mdash; which is precisely why universities are abandoning it.</p>
+
+<h2>Why Universities Turned AI Detection Off</h2>
+
+<p>In August 2023, Vanderbilt University disabled Turnitin&rsquo;s AI writing detection entirely. The reasoning was arithmetic: at a one percent false positive rate applied across roughly 75,000 submitted papers a year, the tool produces on the order of 750 innocent students facing accusations annually. Johns Hopkins and a number of other institutions followed, citing the same harm.</p>
+
+<p>Turnitin&rsquo;s own guidance is that false positive rates below one percent apply only to documents scoring above its 20 percent detection threshold, and that scores below that threshold are less reliable. Institutions have now documented the pattern in the academic literature &mdash; a 2026 review in <a href="https://link.springer.com/article/10.1007/s43681-026-01376-w">Artificial Intelligence &amp; Society</a> covers the bias, false positive and transparency failures across deployed detection tools.</p>
+
+<p>If your institution has disabled the detector, a flag against your work is an instructor&rsquo;s individual decision, not a policy. If it still runs the detector, a percentage is still not evidence. Either way, the response you need is the same, and it is not a technical one.</p>
+
+<h2>What To Do When Your Writing Gets Flagged</h2>
+
+<h3>Step 1: Ask for the specific sentences</h3>
+
+<p>Turnitin now reports the passages it flagged rather than only a document percentage. Ask your instructor for the highlighted passages and the exact score. This is often the moment the dispute deflates, because many students discover the flagged text is the <em>most</em> polished section &mdash; the abstract, the literature review, the paragraph they rewrote three times.</p>
+
+<h3>Step 2: Build the proof-of-process record</h3>
+
+<p>This is the part that actually changes outcomes. A detector score is an assertion by a vendor. A timeline is evidence. Assemble, in one document:</p>
+
+<ul>
+  <li><strong>Version history with timestamps.</strong> Google Docs and Microsoft Word both record the full edit history with dates. This is the single strongest artifact because it is machine-generated by a third party and cannot be fabricated after the fact.</li>
+  <li><strong>Dated drafts</strong>, including rough notes, half-sentences and abandoned openings. Drafts with visible thinking are hard to fake and highly persuasive.</li>
+  <li><strong>Source citations and reading notes.</strong> The actual links, PDFs and highlight exports you used, with the dates you accessed them.</li>
+  <li><strong>Outlines and structural artefacts</strong> &mdash; a plan made in a notes app, a diagram, a voice memo transcript.</li>
+  <li><strong>Correspondence</strong> &mdash; emails to a tutor or a classmate asking about a section, or a photo of a whiteboard you photographed.</li>
+</ul>
+
+<p>Nobody who genuinely wrote a document over several days has no record of that process. People who did not write it cannot produce one.</p>
+
+<h3>Step 3: Appeal on process, not on the score</h3>
+
+<p>Do not argue that the detector is wrong. That argument, however true, requires you to win a technical debate your instructor is not equipped to adjudicate. Instead say: <em>&ldquo;I understand the flag; here is the version history showing the draft on the 3rd, the outline on the 1st, and the sources I read. I am happy to discuss the passages flagged and talk through how I approached them.&rdquo;</em></p>
+
+<p>Keep the tone calm and professional, and put the evidence in front of them in a single message. In the reported student cases that ended in cleared accusations, this was the approach that worked.</p>
+
+<h3>Step 4: Change the workflow, not the words</h3>
+
+<p>If you use AI as part of your process &mdash; for research, outlining, understanding a concept, finding counterarguments, or stress-testing a position &mdash; keep the record of that usage honest and separate from the sentences you submit. The risk is not the tool; it is the gap between what you used and what you can account for.</p>
+
+<div class="code-block">
+  <span class="label">A prompt that keeps your thinking yours</span>
+  <span class="before">RISKY &mdash; delegating the writing:</span><br>
+  &ldquo;Write my 1,200-word essay arguing that remote work increases junior developer productivity. Include three studies.&rdquo;<br><br>
+  <span class="after">SAFER &mdash; keeping the thinking yours:</span><br>
+  &ldquo;I&rsquo;m arguing that remote work increases junior developer productivity. Before I write, ask me four questions that would expose the weakest parts of this claim. Then give me the strongest counter-arguments a reviewer would raise, with names of the researchers who hold those positions.&rdquo;
+</div>
+
+<p>Notice the difference in what each version produces. The first hands you a finished document you did not write. The second hands you a set of objections and sources that <em>you</em> then have to read, argue with and integrate &mdash; which is exactly the work that produces the specific, cited, opinionated prose that detectors read as human in the first place.</p>
+
+<p>If you want that workflow to be faster, tools like <a href="https://promptgenerator.fyi/">Prompt Helper Gemini</a> exist to turn a rough idea into a structured, specific prompt in about thirty seconds &mdash; so the AI does the sharpening and the sourcing, and the argument and the sentences stay yours. The <a href="https://promptgenerator.fyi/library.html">prompt library</a> covers the same patterns for research, outlining and critique. What you should <em>not</em> do is use one of them to generate the essay itself.</p>
+
+<h2>Do Not Use an AI &ldquo;Humanizer&rdquo;</h2>
+
+<p>Search for a false positive fix and the top results are pages selling &ldquo;AI humanizer&rdquo; tools. Understand what they do: they take your writing and rewrite it with deliberate noise &mdash; broken syntax, random contractions, misplaced words &mdash; to push the perplexity statistics out of the machine range.</p>
+
+<p>This is a bad trade for three reasons. It flattens the voice that made your work worth reading. It introduces errors into an argument you were going to be held responsible for. And if it ever comes up in an integrity dispute, you now have a document you demonstrably did not write, in a process where you were already accused of that.</p>
+
+<div class="comparison">
+  <div class="comparison-box bad">
+    <h4>Fighting the score</h4>
+    <p>Running your paper through a humanizer, then another one, then a different detector until the number falls. You end up with noisier prose, a weaker argument, and a paper you cannot describe as your own. The number may also still read as AI, because the tools are now trained on each other&rsquo;s output.</p>
+  </div>
+  <div class="comparison-box good">
+    <h4>Building the record</h4>
+    <p>Keep version history on, name your draft files with dates, save your reading notes, and draft in a tool that tracks changes. Answer a flag with a timeline. This fixes the problem permanently, for this paper and every paper after it, and it costs nothing.</p>
+  </div>
+</div>
+
+<h2>The Part Nobody Tells You: Your Writing Should Sound Like You</h2>
+
+<p>There is a strange irony in all of this. The same quality that makes writing good &mdash; clear structure, precise vocabulary, consistent grammar &mdash; is what makes it look machine-generated. The defences against AI detector false positives and the qualities of strong academic writing overlap almost completely.</p>
+
+<p>The difference is specificity. Machine-generated prose is generic because it is generated from the average of everything written about a topic. Human prose is specific because it comes from one particular person with one particular set of observations, reading a particular set of sources, on a particular day.</p>
+
+<p>So the practical advice for avoiding a false positive is also the practical advice for writing well: put the specific thing in. The number from the study you actually read. The exact quote with a page number. The example from your own workplace. The thing you got wrong and corrected. That material does not cluster around a mean, and it does not come out predictable, and that is precisely why it registers as human.</p>
+
+<p>Which is also why the best defence against a flag is not cosmetic. If your essay contains only the kind of sentence a model would produce, the detector is not making an error &mdash; it is reading the document accurately.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq">
+<div class="faq-item">
+  <h3>Why did my writing get flagged as AI if I didn't use AI?</h3>
+  <p>Detectors do not measure authorship. They measure statistical properties of your prose: how predictable each word is, how much your sentence lengths vary, how often you use formal connectors. Clean, well-edited, formally structured writing scores as machine-like. Stanford research found detectors mislabelled 61.22 percent of TOEFL essays as AI-generated. A percentage is a classifier output, never proof.</p>
+</div>
+<div class="faq-item">
+  <h3>What is the AI detector false positive rate?</h3>
+  <p>Turnitin publishes a document-level false positive rate below 1 percent, but only for documents scoring above its 20 percent detection threshold. Below that threshold results are far less reliable, and several universities have disabled the tool. Vanderbilt turned it off in 2023 over false-positive risk at scale, estimating roughly 750 wrongful accusations a year at one percent across its volume.</p>
+</div>
+<div class="faq-item">
+  <h3>Are AI detectors biased against non-native English writers?</h3>
+  <p>Yes, and it is documented rather than anecdotal. The 2023 Stanford paper found detectors flagged 61.22 percent of TOEFL essays written by non-native English students as AI-generated, while performance on US eighth-grade essays was near perfect. The reason is mechanical: non-native writers produce more predictable word choices and less bursty sentence rhythm, exactly what the classifier treats as machine-like.</p>
+</div>
+<div class="faq-item">
+  <h3>Can I actually prove I didn't use AI?</h3>
+  <p>Not by arguing with the score. You prove it with a record of the work happening over time. The strongest evidence is your document's version history, followed by dated drafts, reading notes, source citations, outline documents and anything you sent to a classmate while writing. A professor or integrity board accepts a timeline. None of them accept a detector score.</p>
+</div>
+<div class="faq-item">
+  <h3>Should I use an AI humanizer tool to beat the detector?</h3>
+  <p>Usually a bad trade. Humanizers rewrite your sentences into deliberately noisy, varied prose to escape the classifier, which flattens your voice and can introduce errors or awkward phrasing. It also produces text you did not write, which is a worse position to defend in an academic integrity dispute. Fix the process and the record instead of mangling the words.</p>
+</div>
+<div class="faq-item">
+  <h3>Why did Vanderbilt turn off Turnitin's AI detector?</h3>
+  <p>Because at one percent false positives applied across roughly 75,000 papers a year, the tool would generate about 750 innocent students facing accusations each year. Vanderbilt's stated concerns were reliability, the scale of false-positive risk, and how little transparency the vendor offered about how the score is computed. Other institutions followed, citing the same harm.</p>
+</div>
+</div>
+
+<div class="cta-box">
+  <h2>Keep the sharpening. Keep the writing.</h2>
+  <p>The safest AI workflow is the one where the model helps you think and you do the writing. Prompt Helper Gemini turns a rough idea into a specific, structured prompt in about thirty seconds &mdash; so you get sharper questions, better sources and a clear plan, and every sentence you submit is one you actually wrote.</p>
+  <a href="https://promptgenerator.fyi/">Try it free &mdash; no prompt engineering degree required</a>
+</div>
+
+<h2>Conclusion: AI Detector False Positives Are a Workflow Problem</h2>
+
+<p>AI detector false positives are real, documented and disproportionately harmful to non-native English writers, formal academic prose and anyone whose work has been carefully edited. That is why a growing list of universities has switched the tools off, and why vendor accuracy claims are not a sufficient basis for an accusation against a specific piece of writing.</p>
+
+<p>Three things actually resolve a false accusation. The first is knowing how the detector works, so you understand what it is measuring &mdash; predictability and variation, not authorship. The second is knowing your audience, so you know whether a flag against your work is statistically likely to be an error. The third is the boring, reliable, unglamorous one: <strong>keep a record of yourself writing.</strong></p>
+
+<p>Turn on version history. Date your drafts. Save your sources. Write like a person with a point of view, because that is the cheapest and the only permanent defence. And if it happens anyway, do not try to beat the score &mdash; hand over the timeline instead. The score was never evidence of anything. Your process always was.</p>
+
+<p>More practical prompting guides live in the <a href="https://promptgenerator.fyi/blog.html">promptgenerator.fyi blog</a>.</p>
+
+<footer>
+  <p>Published on <a href="https://promptgenerator.fyi">promptgenerator.fyi</a> &mdash; practical AI prompting guides built from real user research.</p>
+</footer>
+
+</body>
+</html>
