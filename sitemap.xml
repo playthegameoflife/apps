@@ -1033,4 +1033,10 @@
     <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
   </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-why-does-chatgpt-refuse-my-request.html</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
