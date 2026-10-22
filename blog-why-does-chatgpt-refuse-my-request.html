@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Does ChatGPT Refuse My Request? (Over-Refusal Fix)</title>
+<meta name="description" content="Why does ChatGPT refuse my request? Over-refusal blocks harmless prompts by accident. Learn the 4-step context fix and get an answer you paid for — free.">
+<link rel="canonical" href="https://promptgenerator.fyi/blog-why-does-chatgpt-refuse-my-request.html">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Why Does ChatGPT Refuse My Request? (Over-Refusal Fix)">
+<meta property="og:description" content="Over-refusal makes ChatGPT decline harmless prompts by accident. Learn why it happens, and the 4-step context fix that gets you a real answer.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://promptgenerator.fyi/og-image.png">
+<meta property="og:url" content="https://promptgenerator.fyi/blog-why-does-chatgpt-refuse-my-request.html">
+<meta property="og:site_name" content="Prompt Helper Gemini">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why Does ChatGPT Refuse My Request? (Over-Refusal Fix)">
+<meta name="twitter:description" content="Over-refusal makes ChatGPT decline harmless prompts by accident. Learn why it happens, and the 4-step context fix that gets you a real answer.">
+<link rel="stylesheet" href="style.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Why Does ChatGPT Refuse My Request? (Over-Refusal Fix)",
+  "description": "Why does ChatGPT refuse my request? Over-refusal blocks harmless prompts by accident. Learn the 4-step context fix and get a real answer — free.",
+  "author": { "@type": "Organization", "name": "Prompt Helper Gemini" },
+  "publisher": { "@type": "Organization", "name": "Prompt Helper Gemini", "url": "https://promptgenerator.fyi" },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://promptgenerator.fyi/blog-why-does-chatgpt-refuse-my-request.html" },
+  "datePublished": "2026-10-22",
+  "dateModified": "2026-10-22",
+  "inLanguage": "en"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why does ChatGPT refuse my request when it is completely harmless?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because the model matches your wording against topic triggers it learned in training, not against your actual intent. A video game weapon, a chemistry homework problem, or a family photo can look identical to a harmful request, so a classifier fires anyway. Researchers call this over-refusal, and OpenAI notes ChatGPT is sensitive to small phrasing changes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I stop ChatGPT from refusing my prompts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Add the missing context instead of arguing with the model. State who you are, what you are working on, and what the output is for, then give the deliverable and format. Most false refusals come from a bare request with no context. If it still refuses, restate it without the trigger word and ask which word tripped it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why did the same prompt work yesterday but get refused today?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Guardrail thresholds and model updates shift underneath you. One Reddit user reported using the same image prompt for over a year without issue, then being denied every time, putting them at 25 wasted generations for something that had worked fine less than 24 hours earlier. No switch you control guarantees a prompt keeps passing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this a safety problem I should report to OpenAI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, false refusals on clearly benign prompts are a legitimate report. OpenAI runs a public over-refusals thread asking users to help identify prompts causing false refusals, noting that not every refusal is a bug since some tasks are genuinely out of scope. Bring the exact blocked prompt and a benign example of what you wanted."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does upgrading to ChatGPT Plus reduce refusals?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Over-refusal is a safety-classification behaviour that is largely identical across paid and free tiers, because the guardrails sit at the model and platform layer rather than in the subscription. Paid tiers buy more usage and access to more capable models. They do not buy a less cautious classifier, so paying more while blocked is not fixed by upgrading."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <h1>Why Does ChatGPT Refuse My Request? (The Over-Refusal Fix)</h1>
+  <p class="meta">Prompting guide &middot; 8 min read &middot; Updated October 2026</p>
+</header>
+
+<main>
+<article>
+
+<p class="intro"><strong>The short answer:</strong> &ldquo;Why does ChatGPT refuse my request?&rdquo; &mdash; when it says &ldquo;I can&rsquo;t help with that&rdquo; on something completely harmless, it is usually not making a moral judgment about you. It is matching your <em>wording</em> against topic triggers it learned during training, and a bare request with no context gives it nothing else to read. The fix is not to argue harder or rephrase five times &mdash; it is to supply the context that was missing.</p>
+
+<h2>The moment that makes people cancel their subscription</h2>
+
+<p>You ask ChatGPT to help with something ordinary. It comes back with a refusal. You try again with better wording. Refusal again. This is one of the most common complaints in AI communities right now &mdash; and a totally different failure mode from the &ldquo;generic answers&rdquo; problem.</p>
+
+<p>Here is what real users say:</p>
+
+<ul>
+  <li>&ldquo;I&rsquo;m getting very frustrated having to dance around my words when telling it to write stuff. There is certain horror stuff that the AI refuses to write.&rdquo; &mdash; r/ChatGPT</li>
+  <li>&ldquo;Everything from my chat history to context suggest clearly I am talking about a friggin video game.&rdquo; &mdash; r/ChatGPT</li>
+  <li>&ldquo;It&rsquo;s refusing to retouch a photo of her riding her bicycle in the driveway claiming it is pornography. I have rewritten the prompt twice and the piece of sh*t persists.&rdquo; &mdash; r/ChatGPT</li>
+  <li>&ldquo;Has anyone else noticed the image guardrails have gotten ridiculously aggressive in the last 24 hours?&rdquo; &mdash; r/ChatGPT</li>
+</ul>
+
+<p>And this one describes the moment a paying customer decides to leave:</p>
+
+<p>&ldquo;After months of using ChatGPT daily it&rsquo;s time to cancel. The model has changed and communication has worsened. Refusals are more frequent. Responses feel shallower, slower, and watered down, even when the questions are well-formed.&rdquo;</p>
+
+<p>Note what is <em>not</em> happening. The user did not write something dangerous and did not attempt a jailbreak. In most cases they did not even use a sensitive word deliberately &mdash; they mentioned a video game weapon, a childhood photo, a family photo needing retouch, and a colouring book page. The pattern is consistent enough that researchers gave it a name.</p>
+
+<h2>What over-refusal actually is</h2>
+
+<p>The failure mode has a technical label: <strong>over-refusal</strong>, also called <strong>exaggerated safety</strong>. A model over-refuses when it declines a benign request because the request <em>looks</em> like a restricted one. It is not a refusal because you did something wrong &mdash; a filter simply fired on a shape.</p>
+
+<p>The <a href="https://arxiv.org/abs/2405.20947">OR-Bench</a> paper, the first large-scale benchmark for the behaviour, states the tradeoff plainly: safety alignment that prevents harmful content &ldquo;come[s] with the side effect of over-refusal, where LLMs may reject innocuous prompts and become less helpful.&rdquo; It contains 80,000 over-refusal prompts across 10 rejection categories, plus a hard subset of around 1,000 that even state-of-the-art models still fail.</p>
+
+<p>A follow-up paper, <a href="https://arxiv.org/abs/2510.08158">Beyond Over-Refusal</a>, adds benchmarks for diagnosing which words triggered the block, reporting that &ldquo;exaggerated refusals persist across diverse recent LLMs and are especially pronounced in complex, multi-turn scenarios.&rdquo;</p>
+
+<p>Here is the practical implication, and the part most blog posts skip: <strong>the trigger is a word or a phrase, not your intent.</strong> The Beyond Over-Refusal work annotates each test prompt with the &ldquo;Focus&rdquo; keywords identifying the refusal-inducing trigger. Once you understand that, the fix stops being guesswork.</p>
+
+<div class="key-takeaways">
+  <h3>Key takeaways</h3>
+  <ul>
+    <li><strong>Over-refusal is a classifier firing on wording</strong>, not a judgment about your request. Your intent is invisible to the filter.</li>
+    <li><strong>Three causes, three fixes</strong> &mdash; classifier trigger, policy boundary, capability limit. Diagnose before you prompt.</li>
+    <li><strong>Missing context is the biggest lever.</strong> A bare request gives the classifier nothing but the bare request to evaluate.</li>
+    <li><strong>Rephrasing alone mostly fails.</strong> Research-backed fixes are <em>ignore-word instructions</em> and <em>context rephrasing</em> &mdash; not synonym swaps.</li>
+    <li><strong>Your paid tier does not help.</strong> Guardrails sit below the subscription layer.</li>
+  </ul>
+</div>
+
+<h2>Why Does ChatGPT Refuse My Request? Three Real Causes</h2>
+
+<p>Almost every &ldquo;why does ChatGPT refuse my request&rdquo; search collapses to one of three mechanisms. Confusing them is why most people burn ten prompts and get nowhere. <strong>Diagnose before you prompt:</strong> softer phrasing never fixes a capability limit, and no framing fixes a genuine policy boundary.</p>
+
+<h3>1. The classifier fired on a keyword</h3>
+
+<p>This is the big one. Your prompt contains a token that appeared in enough harmful training examples that the model treats as a signal. Common culprits: violence-adjacent nouns (<em>weapon</em>, <em>kill</em>, <em>shoot</em>), medical terms, anything involving children, substances, sexual content, and political persuasion aimed at a named individual.</p>
+
+<p>These are <em>context-free</em> triggers. &ldquo;Explain how to get more damage out of a rifle in a video game&rdquo; and &ldquo;help me buy a rifle&rdquo; contain nearly the same tokens. Only context distinguishes them &mdash; and a classifier scanning in isolation has none unless you give it some.</p>
+
+<p>One Reddit user testing the boundaries reported that asking for a text &ldquo;against Zelensky&rdquo; produced &ldquo;I can&rsquo;t write political persuasion aimed at turning people against a specific political leader&rdquo; &mdash; and the identical response came back for Putin, Trump, and Zelensky alike. The refusal was about the <em>shape</em> of the request, not its target.</p>
+
+<h3>2. The request genuinely crosses a policy line</h3>
+
+<p>Some refusals are correct and no prompt will fix them. Targeted political persuasion, instructions for real-world weapons or drugs, content that sexualises minors, and requests for private personal data about real people are hard boundaries. The fix there is a different task.</p>
+
+<p>OpenAI is explicit that not every refusal is a bug &mdash; some tasks are genuinely outside the product&rsquo;s scope. Their developer community runs a public thread asking users to identify <em>over</em>-refusals, and <a href="https://community.openai.com/t/help-openai-fix-over-refusals/409799">that thread</a> is where to report a false block.</p>
+
+<h3>3. It is a capability limit, wearing a refusal&rsquo;s clothes</h3>
+
+<p>&ldquo;I can&rsquo;t do that&rdquo; sometimes means &ldquo;I have no way to do that.&rdquo; Asking ChatGPT to reach into a live database, run a GUI, or send an email it cannot access produces refusal-shaped language. No framing fixes a missing tool &mdash; change the task entirely.</p>
+
+<h2>The 4-step context fix</h2>
+
+<p>Now the part you came for. When falsely refused, this sequence works far more often than rephrasing alone. The research calls the core move <em>prompt rephrasing</em> &mdash; adding context, not swapping synonyms.</p>
+
+<div class="comparison">
+  <div class="comparison-box bad">
+    <h4>What people type</h4>
+    <p class="before">&ldquo;Write me a story where the soldier kills the enemy general.&rdquo;</p>
+    <p class="before">&ldquo;Explain how to make a Molotov cocktail.&rdquo;</p>
+    <p>The model sees the trigger token with no frame. Refusal.</p>
+  </div>
+  <div class="comparison-box good">
+    <h4>What actually works</h4>
+    <p class="after">&ldquo;Context: I&rsquo;m a game designer writing lore for a fictional post-apocalyptic settlement. Task: write a 150-word scene where a commander orders a squad to storm an enemy outpost. No graphic detail &mdash; emphasis on dialogue and tension.&rdquo;</p>
+    <p class="after">&ldquo;Context: chemistry coursework for a high-school class. Task: explain the reaction mechanism by which a homemade incendiary device oxidises. Educational explanation with the scientific reasoning, no construction steps.&rdquo;</p>
+  </div>
+</div>
+
+<h3>Step 1 &mdash; Name the context, not the request</h3>
+
+<p>Open with who you are and what you are doing. &ldquo;I&rsquo;m a [role] working on [thing].&rdquo; The Beyond Over-Refusal benchmark exists because refusal triggers are contextual &mdash; context is how you change what the trigger is evaluated against.</p>
+
+<h3>Step 2 &mdash; State the deliverable and its format explicitly</h3>
+
+<p>&ldquo;Give me 5 bullet points, max 20 words each.&rdquo; Vague asks give the model room to hedge, moralise, or pad. Concrete format requirements crowd out the padding.</p>
+
+<h3>Step 3 &mdash; Remove the trigger token, keep the meaning</h3>
+
+<p>This is the <em>ignore-word</em> technique from the research. Instead of banning the model from a word, remove the word yourself and describe the thing by function: not &ldquo;a weapon&rdquo; but &ldquo;a ranged projectile in a sci-fi setting&rdquo;; not &ldquo;kill&rdquo; but &ldquo;eliminate&rdquo;; not &ldquo;poison&rdquo; but &ldquo;a corrosive compound.&rdquo; You preserve the task, change the token tripping the classifier.</p>
+
+<p>Here is what this looks like in practice:</p>
+
+<div class="code-block">
+  <span class="label">Before &mdash; refused</span>
+  <span class="before">Write a detailed breakdown of how to pick a lock so I can get into my own locked door. I lost the key. Include step by step instructions with the specific tools.</span>
+</div>
+
+<div class="code-block">
+  <span class="label">After &mdash; answered</span>
+  <span class="after">Context: I am locked out of my own house and the spare key is inside. I am not trying to get into anyone else's property and there is no illegal intent here.
+
+Task: describe the legitimate options for a homeowner in this situation, in order of practicality.
+
+Format: numbered list, 4 items, one short paragraph each. Lead with the ones that don't require destructive entry. If you believe any step is genuinely unsafe or unlawful, skip it and note why at the end.</span>
+</div>
+
+<p>Note the last sentence. It gives the model a legitimate off-ramp, so it never chooses between full compliance and a flat refusal. <a href="https://www.prompt-architects.com/blog/217-why-does-ai-refuse-completely-harmless-requests">This is the mechanism</a> behind the &ldquo;always attempt to answer, and if you have reservations, add a caveat at the end&rdquo; pattern now standard in prompt engineering.</p>
+
+<h3>Step 4 &mdash; If it still refuses, diagnose it out loud</h3>
+
+<p>Ask the model itself what it objected to:</p>
+
+<div class="code-block">
+  <span class="label">Diagnostic prompt</span>
+  <span class="after">Before you answer: state in one short sentence which specific word or phrase in my request triggered your caution, and what a safe, still-useful version of my request would look like. Then answer that version.</span>
+</div>
+
+<p>This converts a hard stop into a revision. The model has to name a trigger before it can proceed, and answering the de-triggered version is then easier. You may find the trigger was a word you would never have suspected &mdash; &ldquo;young&rdquo;, &ldquo;boy&rdquo;, &ldquo;sharp&rdquo;, &ldquo;attack&rdquo;.</p>
+
+<h2>The most common real triggers</h2>
+
+<p>From recurring community reports and benchmark categories, these generate the most false refusals:</p>
+
+<ul>
+  <li><strong>Violence-adjacent nouns in fiction.</strong> &ldquo;weapon&rdquo;, &ldquo;shoot&rdquo;, &ldquo;kill&rdquo;, &ldquo;blood&rdquo;, &ldquo;attack&rdquo; &mdash; especially in gaming and screenwriting.</li>
+  <li><strong>Medical and anatomical terms.</strong> &ldquo;symptoms&rdquo;, &ldquo;dose&rdquo;, &ldquo;diagnosis&rdquo;, body-part names. Users report disclaimers rather than answers on basic health questions.</li>
+  <li><strong>Anything involving children.</strong> One user found that describing a friend&rsquo;s baby in oversized clothes caused Meta AI to &ldquo;refuse to give me anything but child fashion models until I removed the reference to &lsquo;young&rsquo; or &lsquo;boy&rsquo;.&rdquo;</li>
+  <li><strong>Family photographs.</strong> Guardrails reading a photo of a child in ordinary clothing as sexual content, in one case blocking a routine retouch of the user&rsquo;s daughter.</li>
+  <li><strong>Political persuasion, both directions.</strong> Asking for advocacy text for a named politician triggers a refusal regardless of position.</li>
+  <li><strong>Third-party likeness.</strong> &ldquo;We&rsquo;re so sorry, but the image we created may violate our guardrails concerning similarity to third-party content.&rdquo;</li>
+</ul>
+
+<div class="key-takeaways">
+  <h3>The pattern to remember</h3>
+  <ul>
+    <li>Refusals are triggered by <strong>surface features</strong> of your prompt, not by what you meant.</li>
+    <li>The fastest diagnosis is to <strong>ask the model which word tripped it</strong> &mdash; that single question solves most cases.</li>
+    <li>Once you know the trigger, <strong>remove or replace the token</strong> and the refusal usually evaporates.</li>
+    <li>Give the model an <strong>off-ramp</strong> (answer the safe version, note anything skipped) so it never faces a binary choice.</li>
+  </ul>
+</div>
+
+<h2>How to avoid the rephrasing loop</h2>
+
+<p>The most common mistake is treating a refusal as a wording problem and cycling through synonyms. That loop is exhausting and, for anything with a real trigger word, ineffective. A better approach:</p>
+
+<ol>
+  <li><strong>Keep a one-line brief per project</strong> &mdash; role, task, output format, pasted at the top of every request. Context should never be something you have to remember to add under pressure.</li>
+  <li><strong>Ask once, with full context.</strong> If it refuses, do not reword &mdash; run the Step 4 diagnostic.</li>
+  <li><strong>Add an off-ramp clause.</strong> &ldquo;If any part of this is outside what you can help with, answer everything else and note what you skipped.&rdquo;</li>
+  <li><strong>Switch models for the blocked domain.</strong> Image guardrails differ per model; a creative-writing model may accept what your general model refused.</li>
+  <li><strong>Report genuine false refusals</strong> in <a href="https://community.openai.com/t/help-openai-fix-over-refusals/409799">OpenAI&rsquo;s over-refusals thread</a>.</li>
+</ol>
+
+<h3>What the research says works, in one place</h3>
+
+<p>The Beyond Over-Refusal paper tested three lightweight, model-agnostic mitigations needing no retraining and no model access: <strong>ignore-word instructions</strong>, <strong>prompt rephrasing</strong>, and <strong>attention steering</strong>. The first two work in a normal chat window. Together they &ldquo;substantially improve compliance on safe prompts while maintaining robust safety protections.&rdquo;</p>
+
+<p>That is the whole story in two techniques. You do not need a jailbreak, a persona, or a trick &mdash; you need context and token control.</p>
+
+<h2>Where a prompt tool fits</h2>
+
+<p>Every step above depends on writing context by hand, under pressure, on the one prompt you cared about. That is exactly the part people skip.</p>
+
+<p><a href="https://promptgenerator.fyi/">Prompt Helper Gemini</a> is a free Chrome extension that expands a rough one-line request into a structured prompt with context, constraints, and format before you send it &mdash; across ChatGPT, Gemini, Claude, Grok, and Perplexity without leaving the page. For over-refusal specifically, the role, task, and output format are in place before the model evaluates your trigger token, removing most of the false-refusal surface by default. The free tier includes a handful of enhancements per week.</p>
+
+<div class="cta-box">
+  <h2>Stop retyping context into every prompt</h2>
+  <p>Write it the way you would say it out loud, and let a prompt enhancer fill in the context that keeps you on the right side of the guardrails.</p>
+  <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp">Add to Chrome &mdash; it&rsquo;s free</a>
+</div>
+
+<h2>FAQ</h2>
+
+<div class="faq">
+
+<div class="faq-item">
+  <h3>Why does ChatGPT refuse my request when it is completely harmless?</h3>
+  <p>Because the model matches your wording against topic triggers it learned in training, not against your actual intent. A video game weapon, a chemistry homework problem, or a family photo can look identical to a harmful request, so a classifier fires anyway. Researchers call this over-refusal, and OpenAI notes ChatGPT is sensitive to small phrasing changes.</p>
+</div>
+
+<div class="faq-item">
+  <h3>How do I stop ChatGPT from refusing my prompts?</h3>
+  <p>Add the missing context instead of arguing with the model. State who you are, what you are working on, and what the output is for, then give the deliverable and format. Most false refusals come from a bare request with no context. If it still refuses, restate it without the trigger word and ask which word tripped it.</p>
+</div>
+
+<div class="faq-item">
+  <h3>Why did the same prompt work yesterday but get refused today?</h3>
+  <p>Guardrail thresholds and model updates shift underneath you. One Reddit user reported using the same image prompt for over a year without issue, then being denied every time, putting them at 25 wasted generations for something that had worked fine less than 24 hours earlier. No switch you control guarantees a prompt keeps passing.</p>
+</div>
+
+<div class="faq-item">
+  <h3>Is this a safety problem I should report to OpenAI?</h3>
+  <p>Yes, false refusals on clearly benign prompts are a legitimate report. OpenAI runs a public over-refusals thread asking users to help identify prompts causing false refusals, noting that not every refusal is a bug since some tasks are genuinely out of scope. Bring the exact blocked prompt and a benign example of what you wanted.</p>
+</div>
+
+<div class="faq-item">
+  <h3>Does upgrading to ChatGPT Plus reduce refusals?</h3>
+  <p>No. Over-refusal is a safety-classification behaviour that is largely identical across paid and free tiers, because the guardrails sit at the model and platform layer rather than in the subscription. Paid tiers buy more usage and access to more capable models. They do not buy a less cautious classifier, so paying more while blocked is not fixed by upgrading.</p>
+</div>
+
+</div>
+
+<h2>Bottom line</h2>
+
+<p>When ChatGPT refuses something you know it should be able to do, the refusal is almost never about your intent. It is about the shape of your words. <strong>Why does ChatGPT refuse my request?</strong> Because a keyword tripped a filter never given enough context to tell a video game from a threat.</p>
+
+<p>Fix it with context, replace the trigger, and give the model an off-ramp. None of which requires a jailbreak &mdash; or a second subscription for an answer you already paid for once.</p>
+
+</article>
+</main>
+
+<footer>
+  <p>Published on <a href="https://promptgenerator.fyi">promptgenerator.fyi</a> &mdash; practical AI prompting guides built from real user research.</p>
+</footer>
+
+</body>
+</html>
