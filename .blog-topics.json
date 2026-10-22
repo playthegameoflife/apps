@@ -123,13 +123,13 @@
       "slug": "blog-why-ai-content-sounds-generic-fix.html",
       "primary_keyword": "why AI content sounds generic fix",
       "published": "2026-10-18",
-      "angle": "why AI content sounds generic \u2014 customer pain language from r/ChatGPT, 5 concrete prompt fixes"
+      "angle": "why AI content sounds generic — customer pain language from r/ChatGPT, 5 concrete prompt fixes"
     },
     {
       "slug": "blog-why-ai-gives-different-answers-same-question.html",
       "primary_keyword": "why AI gives different answers to the same question",
       "published": "2026-10-19",
-      "angle": "AI non-determinism explained \u2014 temperature, top_p, prompt structure for consistent results"
+      "angle": "AI non-determinism explained — temperature, top_p, prompt structure for consistent results"
     },
     {
       "slug": "blog-prompt-exhaustion-ai-fix",
@@ -140,7 +140,7 @@
       "slug": "blog-ai-temperature-settings-explained",
       "primary_keyword": "AI temperature settings explained",
       "published": "2026-10-18",
-      "angle": "what does AI temperature actually do \u2014 top-p, temperature by task, community workarounds"
+      "angle": "what does AI temperature actually do — top-p, temperature by task, community workarounds"
     },
     {
       "slug": "blog-what-is-an-ai-agent-explained",
@@ -168,7 +168,7 @@
       "slug": "blog-ai-prompt-rewording-fix",
       "primary_keyword": "why rephrasing AI prompts doesn't work constraints instead",
       "published": "2026-10-20",
-      "angle": "rephrasing cycle pain \u2014 rewording doesn't fix generic output, adding constraints does"
+      "angle": "rephrasing cycle pain — rewording doesn't fix generic output, adding constraints does"
     },
     {
       "slug": "blog-how-to-catch-ai-hallucinations.html",
@@ -179,7 +179,7 @@
       "slug": "blog-why-prompts-work-in-chatgpt-but-fail-in-claude.html",
       "primary_keyword": "why prompts work in ChatGPT but fail in Claude cross-platform AI prompts",
       "published": "2026-10-20",
-      "angle": "model-specific prompting differences \u2014 why same prompt fails across ChatGPT/Claude/Gemini, concrete fixes"
+      "angle": "model-specific prompting differences — why same prompt fails across ChatGPT/Claude/Gemini, concrete fixes"
     },
     {
       "slug": "blog-prompt-helper-vs-aiprm-vs-prompt-storm",
@@ -190,7 +190,7 @@
       "slug": "blog-stop-rewording-prompts",
       "primary_keyword": "stop rewording your prompts AI understand you",
       "published": "2026-10-20",
-      "angle": "why rewording is a trap \u2014 3 context gaps (role/audience/format) + ask-before-answering technique to stop the rephrasing loop"
+      "angle": "why rewording is a trap — 3 context gaps (role/audience/format) + ask-before-answering technique to stop the rephrasing loop"
     },
     {
       "slug": "blog-ai-character-consistency",
@@ -211,6 +211,14 @@
       "slug": "blog-ai-detector-false-positives",
       "primary_keyword": "AI detector false positives",
       "published": "2026-10-22"
+    },
+    {
+      "slug": "blog-why-does-chatgpt-refuse-my-request.html",
+      "title": "Why Does ChatGPT Refuse My Request? (Over-Refusal Fix)",
+      "primary_keyword": "why does chatgpt refuse my request",
+      "topic": "over-refusal / false refusal of benign prompts",
+      "published": "2026-10-22",
+      "url": "https://promptgenerator.fyi/blog-why-does-chatgpt-refuse-my-request.html"
     }
   ]
 }
