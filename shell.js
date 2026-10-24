@@ -160,23 +160,62 @@
      parse time, so the tabs do not exist yet when this script executes. */
 
   /* ---------- SIDEBAR ACCOUNT MIRROR ---------- */
-  // generate.js owns auth state; mirror it into the sidebar without touching its logic.
-  function mirrorAccount() {
+  // The sidebar account controls exist on every page, but only the
+  // generator page loads generate.js. So the sidebar reads auth state
+  // from the shared auth module (auth.js) when it is available, and
+  // falls back to the generator page's #user-label element otherwise.
+  function isSignedIn() {
+    if (window.PHGAuth && typeof window.PHGAuth.getUser === 'function') {
+      const u = window.PHGAuth.getUser();
+      if (u) return true;
+    }
+    const label = $('user-label');
+    return !!(label && /@/.test(label.textContent));
+  }
+  function isPro() {
     const plan = $('plan-pill');
+    if (plan) return plan.textContent.trim() === 'Pro';
+    // No #plan-pill on this page: ask the shared module's stored user.
+    try {
+      const u = window.PHGAuth && window.PHGAuth.getUser();
+      return !!(u && u.isPro);
+    } catch (e) { return false; }
+  }
+  function mirrorAccount() {
     const note = $('sb-plan-note');
-    const isPro = plan && plan.textContent.trim() === 'Pro';
-    if (note) note.textContent = isPro ? 'Pro plan · unlimited enhancements' : 'Free plan · 5 enhancements/week';
-    const signedIn = !!($('user-label') && /@/.test($('user-label').textContent));
+    const pro = isPro();
+    if (note) note.textContent = pro ? 'Pro plan · unlimited enhancements' : 'Free plan · 5 enhancements/week';
+    const signedIn = isSignedIn();
     const sbIn = $('sb-signin'), sbOut = $('sb-signout');
     if (sbIn) sbIn.classList.toggle('hidden', signedIn);
     if (sbOut) sbOut.classList.toggle('hidden', !signedIn);
   }
   setInterval(mirrorAccount, 700);
 
+  // Sign-in is owned by auth.js. The old implementation delegated to a
+  // #signin-btn element, which only exists on the generator page — so the
+  // sidebar buttons on the library page were dead no-ops. Call PHGAuth
+  // directly and fall back to the hidden button only if the module is
+  // missing.
+  function triggerSignIn() {
+    if (window.PHGAuth && typeof window.PHGAuth.signIn === 'function') {
+      window.PHGAuth.signIn().catch(() => {});
+      return;
+    }
+    const b = $('signin-btn'); if (b) b.click();
+  }
+  function triggerSignOut() {
+    if (window.PHGAuth && typeof window.PHGAuth.signOut === 'function') {
+      window.PHGAuth.signOut();
+      return;
+    }
+    const b = $('signout-btn'); if (b) b.click();
+  }
+
   const sbSignin = $('sb-signin');
   const sbSignout = $('sb-signout');
   const sbSigninTop = $('sb-signin-top');
-  if (sbSignin) sbSignin.addEventListener('click', () => { const b = $('signin-btn'); if (b) b.click(); });
-  if (sbSigninTop) sbSigninTop.addEventListener('click', () => { const b = $('signin-btn'); if (b) b.click(); });
-  if (sbSignout) sbSignout.addEventListener('click', () => { const b = $('signout-btn'); if (b) b.click(); });
+  if (sbSignin) sbSignin.addEventListener('click', triggerSignIn);
+  if (sbSigninTop) sbSigninTop.addEventListener('click', triggerSignIn);
+  if (sbSignout) sbSignout.addEventListener('click', triggerSignOut);
 })();

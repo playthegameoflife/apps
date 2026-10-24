@@ -52,6 +52,21 @@
           <span class="muted">/month</span>
         </div>
         <p class="muted" style="margin-bottom:var(--space-5)">Perfect for trying it out. No credit card required.</p>
+        <!-- Account status. The pricing page previously had no way to sign
+             in, so a guest clicking "Upgrade to Pro" was told to sign in
+             but no button existed on this page. -->
+        <div class="account-bar" style="margin-bottom:var(--space-4);padding:var(--space-3);border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-2)">
+          <div style="display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap">
+            <span class="muted" id="user-label" style="flex:1;min-width:140px">Not signed in — using guest mode</span>
+            <span id="plan-pill" class="status-pill free">Free</span>
+          </div>
+          <div style="display:flex;gap:var(--space-2);margin-top:var(--space-3);flex-wrap:wrap">
+            <button id="signin-btn" class="btn btn-sm">Sign in with Google</button>
+            <button id="signout-btn" class="btn btn-sm hidden">Sign out</button>
+            <button id="portal-btn" class="btn btn-sm hidden">Manage Subscription</button>
+          </div>
+          <div id="auth-msg" class="muted" style="margin-top:var(--space-2);font-size:13px" aria-live="polite"></div>
+        </div>
         <ul style="list-style:none;padding:0;margin:0 0 var(--space-6);display:flex;flex-direction:column;gap:var(--space-3)">
           <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> 5 prompt enhancements / week</li>
           <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> 5 Ask questions / week</li>
@@ -113,6 +128,8 @@
     </div>
   </main>
   <footer>© 2026 Prompt Helper. All rights reserved. · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/pricing.html">Pricing</a></footer>
+  <script src="/auth-config.js?v=2"></script>
+  <script src="/auth.js?v=2"></script>
   <script src="generate.js"></script>
   <script>
     // Billing toggle

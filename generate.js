@@ -3,7 +3,9 @@ const BACKEND_URL = 'https://api-clyep56cdq-uc.a.run.app';
 const STRIPE_MONTHLY_PRICE_ID = 'price_1SuFV7GdisCqoeFIRmlo7yb2';
 const STRIPE_ANNUAL_PRICE_ID = 'price_REPLACE_WITH_ANNUAL_PRICE_ID'; // Create in Stripe Dashboard → Products → Add price → $199/yr
 const STRIPE_PRICE_ID = STRIPE_MONTHLY_PRICE_ID;
-const GOOGLE_CLIENT_ID = '1097186279139-00aqbna3di7fch3m5mbvov2824lri3bq.apps.googleusercontent.com';
+// NOTE: the Google OAuth client id used to live here. It was the Chrome
+// extension's client, which Google rejects for web origins (origin_mismatch).
+// OAuth client ids now live in auth-config.js and are managed by auth.js.
 const FREE_LIMIT = 5;
 
 const TEMPLATES = [
@@ -188,33 +190,33 @@ function renderTemplates() {
 }
 
 // ---- auth ----
-let tokenClient = null;
-function initGoogle() {
-  if (typeof google === 'undefined' || !google.accounts) { setTimeout(initGoogle, 500); return; }
-  tokenClient = google.accounts.oauth2.initTokenClient({
-    client_id: GOOGLE_CLIENT_ID,
-    scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
-    callback: async (resp) => {
-      if (resp.error) { $('auth-msg').textContent = 'Sign-in failed: ' + resp.error; return; }
-      try {
-        const r = await fetch(BACKEND_URL + '/verify-google-token', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ accessToken: resp.access_token }) });
-        if (!r.ok) throw new Error('verify failed');
-        const user = await r.json();
-        state.user = user; state.userId = user.uid;
-        lsSet('phg_user', user); lsSet('phg_userId', user.uid);
-        $('auth-msg').textContent = 'Signed in.';
-        await checkSubscription(); renderPlan(); renderUsage();
-        if (state.pendingUpgrade) { state.pendingUpgrade = false; upgrade(); }
-      } catch (e) { $('auth-msg').textContent = 'Sign-in error: ' + e.message; }
-    },
-  });
+// Sign-in lives in auth.js (shared, Authorization Code + PKCE). The old
+// inline implementation used the Chrome extension's OAuth client, which
+// Google rejects for web origins, so sign-in failed on every page.
+async function signIn() {
+  if (!window.PHGAuth) { setText('auth-msg', 'Sign-in is unavailable on this page.'); return; }
+  try {
+    await window.PHGAuth.signIn();
+  } catch (e) {
+    if (!e || e.code !== 'no_authorized_client') {
+      setText('auth-msg', 'Sign-in error: ' + (e && e.message ? e.message : e));
+    }
+  }
 }
-function signIn() { if (!tokenClient) { $('auth-msg').textContent = 'Google not ready yet.'; return; } tokenClient.requestAccessToken({ prompt: 'consent' }); }
 function signOut() {
   state.user = null; lsSet('phg_user', null);
   state.userId = 'anon_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
   lsSet('phg_userId', state.userId); state.isPro = false;
-  renderPlan(); renderUsage(); $('auth-msg').textContent = 'Signed out.';
+  if (window.PHGAuth) window.PHGAuth.signOut();
+  renderPlan(); renderUsage(); setText('auth-msg', 'Signed out.');
+}
+// Called when the shared auth module reports a session change.
+function onAuthChanged(user) {
+  state.user = user;
+  if (user && user.uid) state.userId = user.uid;
+  renderPlan();
+  checkSubscription().then(() => { renderPlan(); renderUsage(); });
+  if (user && state.pendingUpgrade) { state.pendingUpgrade = false; upgrade(); }
 }
 
 // ---- subscription ----
@@ -533,8 +535,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
 
-    const sb=$('signin-btn'); if(sb) sb.addEventListener('click', signIn);
-    const so=$('signout-btn'); if(so) so.addEventListener('click', signOut);
     const gb=$('generate-btn'); if(gb) gb.addEventListener('click', () => generate());
     const rb=$('refine-btn'); if(rb) rb.addEventListener('click', refine);
     const cb2=$('clear-btn'); if(cb2) cb2.addEventListener('click', () => { $('prompt-input').value = ''; $('output').textContent = 'Your enhanced prompt will appear here.'; $('output').classList.add('empty'); $('output').classList.remove('has-content'); const aiMsg = document.getElementById('ai-msg'); if (aiMsg) aiMsg.style.display = 'none'; const conv = document.getElementById('conversation'); if (conv) { conv.innerHTML = ''; conv.style.display = 'none'; } const empty = document.getElementById('empty-state'); if (empty) empty.style.display = 'flex'; $('char-count').textContent = ''; setText('gen-status', ''); });
@@ -544,6 +544,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const smb=$('save-memory-btn'); if(smb) smb.addEventListener('click', () => { state.memory.notes = $('memory-input').value; saveMemory(); setText('memory-msg', 'Saved.'); setTimeout(() => setText('memory-msg',''), 1500); });
     const hs=$('history-search'); if(hs) hs.addEventListener('input', renderHistory);
   }
+
+  // Sign-in controls. These live on the generator page AND the pricing
+  // page, so they must be wired OUTSIDE the isGeneratorPage block — they
+  // used to be inside it, which left the pricing page's sign-in dead.
+  const sb = $('signin-btn'); if (sb) sb.addEventListener('click', signIn);
+  const so = $('signout-btn'); if (so) so.addEventListener('click', signOut);
 
   // Upgrade button exists on pricing page too
   const upgradeBtn = $('upgrade-btn');
@@ -555,5 +561,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderPlan(); renderUsage();
   if (isGeneratorPage) renderHistory();
 
-  initGoogle();
+  // Shared auth module (auth.js) owns the OAuth popup flow.
+  if (window.PHGAuth) {
+    window.PHGAuth.onChange(onAuthChanged);
+    // A restored session should repaint immediately.
+    const restored = window.PHGAuth.getUser();
+    if (restored) onAuthChanged(restored);
+  }
 });

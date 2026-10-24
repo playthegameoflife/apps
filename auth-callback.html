@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Signing you in…</title>
+<style>
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+       font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;background:#0f1115;color:#e8eaed;
+       text-align:center;padding:24px}
+  .box{max-width:420px}
+  .spin{width:28px;height:28px;margin:0 auto 16px;border:3px solid #2a2e36;border-top-color:#7aa2f7;
+       border-radius:50%;animation:sp .8s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  h1{font-size:17px;font-weight:600;margin:0 0 8px}
+  p{margin:0;color:#9aa0a6;font-size:14px}
+  code{background:#1c1f26;padding:1px 5px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="spin" id="spin"></div>
+  <h1 id="h">Signing you in…</h1>
+  <p id="p">Completing Google sign-in.</p>
+</div>
+
+<script>
+/* ============================================================
+   OAuth redirect target. Handles BOTH flows:
+
+   1. IMPLICIT  — Google redirects with the token in the URL
+      FRAGMENT:  #access_token=...&state=...
+      (Used with Google's own Firebase web client, which is a
+      CONFIDENTIAL client and therefore cannot be used with
+      client-side PKCE.)
+
+   2. AUTH CODE + PKCE — Google redirects with ?code=...&state=...
+      (Used with a public "Web application" OAuth client.)
+      This page exchanges the code for an access token using the
+      PKCE verifier that auth.js stored before opening the popup.
+
+   Either way the page posts the access token back to the opener,
+   which hands it to the backend for verification.
+   ============================================================ */
+(function () {
+  var PKCE_STORE = 'phg_auth_pkce';
+  var TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token';
+
+  var h = document.getElementById('h');
+  var p = document.getElementById('p');
+  var spin = document.getElementById('spin');
+
+  function fail(msg, detail) {
+    if (spin) spin.style.display = 'none';
+    h.textContent = msg;
+    p.innerHTML = 'Error code: <code>' + String(detail || 'unknown') + '</code>';
+    try {
+      if (window.opener && !window.opener.closed) {
+        window.opener.postMessage({ phgAuth: 'result', error: String(detail || msg) },
+                                  window.location.origin);
+      }
+    } catch (e) {}
+  }
+
+  function readStore() {
+    try { return JSON.parse(localStorage.getItem(PKCE_STORE) || 'null'); }
+    catch (e) { return null; }
+  }
+  function clearStore() {
+    try { localStorage.removeItem(PKCE_STORE); } catch (e) {}
+  }
+
+  function deliver(accessToken, state) {
+    h.textContent = 'You\'re signed in.';
+    p.textContent = 'You can close this window.';
+    try {
+      if (window.opener && !window.opener.closed) {
+        window.opener.postMessage({ phgAuth: 'result', access_token: accessToken, state: state },
+                                  window.location.origin);
+        setTimeout(function () { try { window.close(); } catch (e) {} }, 600);
+        return true;
+      }
+    } catch (e) {}
+    // No opener: stash the token so auth.js can pick it up.
+    try {
+      localStorage.setItem('phg_pending_token', JSON.stringify({
+        access_token: accessToken, state: state, at: Date.now()
+      }));
+    } catch (e) {}
+    return false;
+  }
+
+  /* ---------- 1. IMPLICIT: token in the fragment ---------- */
+  var hash = location.hash || '';
+  if (hash && hash.indexOf('access_token=') !== -1) {
+    var frag = new URLSearchParams(hash.replace(/^#/, ''));
+    var tok = frag.get('access_token');
+    var err = frag.get('error');
+    if (err) { clearStore(); fail('Sign-in was not completed.', err); return; }
+    if (tok) { clearStore(); deliver(tok, frag.get('state')); return; }
+  }
+
+  /* ---------- 2. AUTH CODE + PKCE ---------- */
+  var params = new URLSearchParams(location.search);
+  var error = params.get('error');
+  var code = params.get('code');
+  var state = params.get('state');
+
+  if (error) {
+    clearStore();
+    fail('Sign-in was not completed.', error);
+    return;
+  }
+  if (!code) {
+    fail('Sign-in failed.', 'No authorization code was returned by Google.');
+    return;
+  }
+
+  var store = readStore();
+  if (!store || !store.verifier) {
+    fail('Sign-in failed.', 'The sign-in session expired. Please try again.');
+    return;
+  }
+  if (state && store.state && state !== store.state) {
+    clearStore();
+    fail('Sign-in failed.', 'state_mismatch');
+    return;
+  }
+
+  var body = new URLSearchParams({
+    code: code,
+    client_id: store.clientId,
+    code_verifier: store.verifier,
+    grant_type: 'authorization_code',
+    redirect_uri: location.origin + '/auth-callback.html'
+  });
+
+  fetch(TOKEN_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: body.toString()
+  }).then(function (r) {
+    return r.json().catch(function () { return {}; }).then(function (j) {
+      return { ok: r.ok, json: j };
+    });
+  }).then(function (res) {
+    if (!res.ok || !res.json.access_token) {
+      clearStore();
+      fail('Sign-in failed.', res.json.error_description || res.json.error || 'token exchange failed');
+      return;
+    }
+    clearStore();
+    deliver(res.json.access_token, state);
+  }).catch(function (e) {
+    clearStore();
+    fail('Sign-in failed.', (e && e.message) || 'network error');
+  });
+})();
+</script>
+</body>
+</html>
