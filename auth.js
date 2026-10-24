@@ -357,6 +357,9 @@
           const user = await verifyTokenAtBackend(accessToken);
           writeLS(STORAGE_KEY, user);
           writeLS(STORAGE_ID, user.uid);
+          // Keep the token so the backend can identify the caller and
+          // enforce quota against the right account.
+          storeToken(accessToken);
           setStatus('Signed in as ' + (user.displayName || user.email || 'your account') + '.');
           notify();
           return user;
@@ -411,6 +414,7 @@
   function signOut() {
     writeLS(STORAGE_KEY, null);
     writeLS(STORAGE_ID, null);
+    clearToken();
     setStatus('Signed out.');
     notify();
   }
@@ -430,6 +434,38 @@
     return t.access_token;
   }
 
+  // --- Access token storage -------------------------------------------------
+  // The backend now enforces quotas server-side, which means it needs to
+  // know WHO is calling. The Google access token is what proves that, so we
+  // keep it around and send it with each request.
+  //
+  // Security notes:
+  //  - It is stored in localStorage, like the rest of this app's session
+  //    state. It is a bearer token scoped to the user's own Google profile,
+  //    and it is the same token the Chrome extension already holds.
+  //  - It is never written into a URL. URLs leak via history, referrers and
+  //    server logs.
+  //  - It is cleared on sign-out.
+  const TOKEN_STORE = 'phg_access_token';
+
+  function storeToken(accessToken) {
+    if (!accessToken) { writeLS(TOKEN_STORE, null); return; }
+    writeLS(TOKEN_STORE, { access_token: accessToken, at: Date.now() });
+  }
+
+  /** The current Google access token, or null if not signed in / expired. */
+  function getAccessToken() {
+    const t = readLS(TOKEN_STORE);
+    if (!t || !t.access_token) return null;
+    // Google tokens issued by the implicit flow are short-lived. If ours is
+    // older than ~50 minutes, treat it as stale rather than sending it and
+    // having the backend reject the request.
+    if (t.at && Date.now() - t.at > 50 * 60 * 1000) return null;
+    return t.access_token;
+  }
+
+  function clearToken() { writeLS(TOKEN_STORE, null); }
+
   window.PHGAuth = {
     signIn,
     signOut,
@@ -439,6 +475,8 @@
     notify,
     adoptPendingToken,
     detectFlow,
+    getAccessToken,
+    clearToken,
     // Exposed for the QA suite and diagnostics tooling.
     _internal: { CANDIDATES, get resolved() { return resolved; } }
   };

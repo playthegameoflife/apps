@@ -187,6 +187,10 @@
               </div>
               <div class="muted" id="usage-label" style="font-size:0.78rem">Enhancements this week: 0 / 5</div>
               <div class="usage-bar" style="max-width:none"><div id="usage-fill" style="width:0%"></div></div>
+              <div id="usage-nudge" class="usage-nudge hidden" role="status" aria-live="polite">
+                <span id="usage-nudge-text"></span>
+                <button id="usage-nudge-cta" class="btn btn-sm btn-warn" type="button">Sign in for free</button>
+              </div>
               <div style="margin-top:var(--space-3)">
                 <button id="upgrade-btn" class="btn btn-warn btn-sm">Upgrade to Pro — $19.99/mo</button>
                 <button id="portal-btn" class="btn hidden btn-sm">Manage Subscription</button>
@@ -213,6 +217,10 @@
               <h3>History</h3>
               <input id="history-search" class="search-input" placeholder="Search history…" aria-label="Search history" style="margin-bottom:var(--space-3)">
               <div id="history-list" class="muted">No history yet.</div>
+              <div id="history-lock-note" class="usage-nudge soft hidden" role="status" aria-live="polite">
+                <span id="history-lock-text"></span>
+                <button id="history-lock-cta" class="btn btn-sm" type="button">Sign in for free</button>
+              </div>
               <div id="auth-msg" class="muted" style="margin-top:var(--space-2)"></div>
             </div>
           </aside>

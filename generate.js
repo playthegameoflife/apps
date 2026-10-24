@@ -6,7 +6,18 @@ const STRIPE_PRICE_ID = STRIPE_MONTHLY_PRICE_ID;
 // NOTE: the Google OAuth client id used to live here. It was the Chrome
 // extension's client, which Google rejects for web origins (origin_mismatch).
 // OAuth client ids now live in auth-config.js and are managed by auth.js.
-const FREE_LIMIT = 5;
+
+// Tier limits. These MIRROR the server's limits in functions/quota.js — the
+// server is authoritative (it enforces), these drive the UI. If they drift,
+// the server still wins and the UI corrects itself on the next response.
+const TIERS = {
+  guest: { label: 'Free', limit: 5,  memory: false, abVariants: false, fullHistory: false },
+  free:  { label: 'Free', limit: 10, memory: true,  abVariants: true,  fullHistory: false },
+  pro:   { label: 'Pro',  limit: Infinity, memory: true, abVariants: true, fullHistory: true },
+};
+
+// Kept for backwards compatibility with anything that referenced it.
+const FREE_LIMIT = TIERS.guest.limit;
 
 const TEMPLATES = [
   // Text
@@ -35,6 +46,8 @@ let state = {
   userId: null,
   user: null,
   isPro: false,
+  tier: 'guest',          // 'guest' | 'free' | 'pro' — authoritative tier
+  usage: null,            // server-reported usage { used, limit, remaining }
   pendingUpgrade: false,
   mode: 'TEXT_ENHANCEMENT',
   style: 'default',
@@ -80,12 +93,172 @@ function setText(id, t) { const e = $(id); if (e) e.textContent = t; }
 function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function renderUsage() {
-  const cur = state.weeklyUsage.enhancements;
-  const limit = state.isPro ? '∞' : FREE_LIMIT;
+  // Prefer the server's number — the local counter is only a hint.
+  const limit = state.tier === 'pro' ? '∞' : (state.usage ? state.usage.limit : TIERS[state.tier].limit);
+  const cur = state.usage ? state.usage.used : state.weeklyUsage.enhancements;
   setText('usage-label', `Enhancements this week: ${cur} / ${limit}`);
-  const pct = state.isPro ? 100 : Math.min(100, (cur / FREE_LIMIT) * 100);
+  const numericLimit = (limit === '∞') ? Infinity : limit;
+  const pct = numericLimit === Infinity ? 100 : Math.min(100, (cur / numericLimit) * 100);
   const f = $('usage-fill'); if (f) f.style.width = pct + '%';
+  renderUsageNudge(cur, numericLimit);
 }
+
+// The upgrade moment. A user who is close to the limit but not over it is
+// the highest-converting moment to offer the upgrade, and the first time a
+// guest sees the reason to sign in.
+function renderUsageNudge(used, limit) {
+  const nudge = $('usage-nudge');
+  if (!nudge) return;
+  if (state.tier === 'pro' || limit === Infinity) { hide(nudge); return; }
+
+  const remaining = Math.max(0, limit - used);
+  const tier = TIERS[state.tier];
+
+  if (remaining === 0) {
+    show(nudge);
+    nudge.className = 'usage-nudge warn';
+    setText('usage-nudge-text',
+      state.tier === 'guest'
+        ? `You've used all ${limit} free enhancements this week. Sign in free to get ${TIERS.free.limit} a week — or go Pro for unlimited.`
+        : `You've used all ${limit} free enhancements this week. Upgrade to Pro for unlimited.`);
+    setText('usage-nudge-cta', state.tier === 'guest' ? 'Sign in for free' : 'Upgrade to Pro');
+    return;
+  }
+
+  // Warn at 80% — the last chance to act before hitting the wall.
+  if (remaining <= Math.max(1, Math.ceil(limit * 0.2))) {
+    show(nudge);
+    nudge.className = 'usage-nudge warn';
+    setText('usage-nudge-text',
+      state.tier === 'guest'
+        ? `${remaining} free enhancement${remaining === 1 ? '' : 's'} left this week. Sign in free to get ${TIERS.free.limit} a week.`
+        : `${remaining} enhancement${remaining === 1 ? '' : 's'} left this week. Upgrade to Pro for unlimited.`);
+    setText('usage-nudge-cta', state.tier === 'guest' ? 'Sign in for free' : 'Upgrade to Pro');
+    return;
+  }
+
+  // Signed-in free users get a gentle reminder of what Pro adds.
+  if (state.tier === 'free' && !tier.fullHistory) {
+    show(nudge);
+    nudge.className = 'usage-nudge soft';
+    setText('usage-nudge-text', 'Pro adds full history, unlimited enhancements and priority support.');
+    setText('usage-nudge-cta', 'See Pro');
+    return;
+  }
+
+  hide(nudge);
+}
+
+/** Which tier the UI should render for. Derived from auth + Pro status. */
+function currentTier() {
+  if (state.isPro) return 'pro';
+  return state.user ? 'free' : 'guest';
+}
+
+/**
+ * Ask the backend what tier we are on and how much is left.
+ * The server is authoritative; this keeps the UI honest.
+ */
+async function refreshUsage() {
+  try {
+    const token = window.PHGAuth && window.PHGAuth.getAccessToken
+      ? window.PHGAuth.getAccessToken()
+      : null;
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['x-phg-access-token'] = token;
+
+    const r = await fetch(BACKEND_URL + '/usage-status', { headers });
+    if (!r.ok) return;
+    const d = await r.json();
+    if (d.tier) {
+      state.tier = d.tier;
+      state.isPro = d.tier === 'pro';
+    }
+    if (d.features) state.features = d.features;
+    if (d.enhancements) state.usage = d.enhancements;
+    renderPlan();
+    renderUsage();
+    renderFeatureGates();
+  } catch (e) {
+    // Offline or backend down — keep whatever we already had.
+  }
+}
+
+/**
+ * Apply the tier gates to the UI: which features are available and what
+ * happens when a locked feature is clicked.
+ */
+function renderFeatureGates() {
+  const tier = TIERS[currentTier()];
+  const memToggle = $('memory-toggle');
+  const memInput = $('memory-input');
+  const abToggle = $('ab-toggle');
+
+  if (memToggle) {
+    memToggle.disabled = !tier.memory;
+    memToggle.title = tier.memory ? '' : 'Sign in free to use Memory';
+  }
+  if (memInput) {
+    memInput.disabled = !tier.memory;
+    memInput.placeholder = tier.memory
+      ? 'e.g. Concise, technical, always include an output format.'
+      : 'Sign in free to unlock Memory';
+  }
+  const memSave = $('save-memory-btn');
+  if (memSave) {
+    memSave.disabled = !tier.memory;
+    memSave.textContent = tier.memory ? 'Save memory' : 'Sign in to save';
+  }
+  if (abToggle) {
+    abToggle.disabled = !tier.abVariants;
+    abToggle.title = tier.abVariants ? '' : 'Sign in free to use A/B variants';
+  }
+  renderHistory();
+}
+/**
+ * Adopt a quota response from the server so the UI always reflects the
+ * authoritative counter, even if our local guess was stale.
+ */
+function applyQuotaFromServer(q) {
+  if (!q) return;
+  if (q.limit !== undefined && q.limit !== null) {
+    state.usage = { used: q.used || 0, limit: q.limit, remaining: q.remaining };
+  }
+  if (q.tier) {
+    state.tier = q.tier;
+    state.isPro = q.tier === 'pro';
+  }
+  renderUsage();
+  renderPlan();
+  renderFeatureGates();
+}
+
+/**
+ * Show the "you hit the limit" state with a real next action, instead of
+ * the old dead-end message that offered no way to act.
+ */
+function showQuotaLimit(q) {
+  const el = $('gen-error');
+  if (!el) return;
+  const tier = q && q.tier ? q.tier : currentTier();
+  const limit = q && q.limit !== undefined ? q.limit : TIERS[tier].limit;
+
+  if (tier === 'guest') {
+    el.innerHTML = `You've used all <strong>${limit}</strong> free enhancements this week. ` +
+      `<a href="#" id="quota-signin">Sign in free</a> to get ${TIERS.free.limit} a week, ` +
+      `or <a href="#" id="quota-upgrade">go Pro</a> for unlimited.`;
+  } else {
+    el.innerHTML = `You've used all <strong>${limit}</strong> free enhancements this week. ` +
+      `<a href="#" id="quota-upgrade">Upgrade to Pro</a> for unlimited enhancements.`;
+  }
+  el.classList.remove('hidden');
+
+  const s = document.getElementById('quota-signin');
+  if (s) s.addEventListener('click', (e) => { e.preventDefault(); signIn(); });
+  const u = document.getElementById('quota-upgrade');
+  if (u) u.addEventListener('click', (e) => { e.preventDefault(); upgrade(); });
+}
+
 function renderPlan() {
   const pill = $('plan-pill');
   const badge = $('plan-badge');
@@ -134,11 +307,14 @@ function scoreLabel(s) {
 
 function renderHistory() {
   const list = $('history-list');
+  if (!list) return;
   const q = ($('history-search')?.value || '').toLowerCase();
   let items = state.history;
   if (q) items = items.filter(h => (h.prompt + ' ' + h.result).toLowerCase().includes(q));
   if (!items.length) { list.innerHTML = '<span class="muted">No history yet.</span>'; return; }
-  const limit = state.isPro ? 100 : 1;
+  const tier = TIERS[currentTier()];
+  const limit = tier.fullHistory ? 100 : (state.user ? 10 : 1);
+  const locked = items.length > limit && !tier.fullHistory;
   items = items.slice(0, limit);
   list.innerHTML = items.map((h, i) => `
     <div class="history-item" data-idx="${i}">
@@ -153,6 +329,23 @@ function renderHistory() {
       if (h) { $('prompt-input').value = h.prompt; state.mode = h.mode; state.style = h.style; populateModes(); populateStyles(state.mode); $('style-select').value = state.style; state.style = $('style-select').value; }
     });
   });
+
+  // Tell the user their older history exists but is behind the tier limit,
+  // and what it takes to see it.
+  const lockNote = $('history-lock-note');
+  if (lockNote) {
+    if (locked) {
+      show(lockNote);
+      setText('history-lock-text',
+        state.user
+          ? `You're seeing ${limit} of ${state.history.length} items. Pro unlocks your full history.`
+          : `You're seeing ${limit} of ${state.history.length} items. Sign in free to keep ${TIERS.free.limit ? 10 : 10}, or go Pro for all 100.`);
+      const cta = $('history-lock-cta');
+      if (cta) cta.textContent = state.user ? 'See Pro' : 'Sign in for free';
+    } else {
+      hide(lockNote);
+    }
+  }
 }
 
 // ---- modes/styles ----
@@ -207,32 +400,49 @@ function signOut() {
   state.user = null; lsSet('phg_user', null);
   state.userId = 'anon_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
   lsSet('phg_userId', state.userId); state.isPro = false;
+  // Drop back to the guest tier and clear the cached server meter so the
+  // UI stops showing the signed-in allowance.
+  state.tier = 'guest';
+  state.usage = null;
   if (window.PHGAuth) window.PHGAuth.signOut();
-  renderPlan(); renderUsage(); setText('auth-msg', 'Signed out.');
+  renderPlan(); renderUsage(); renderFeatureGates();
+  setText('auth-msg', 'Signed out.');
 }
 // Called when the shared auth module reports a session change.
 function onAuthChanged(user) {
   state.user = user;
   if (user && user.uid) state.userId = user.uid;
   renderPlan();
-  checkSubscription().then(() => { renderPlan(); renderUsage(); });
+  // The server now owns quota + tier, so ask it rather than computing
+  // locally. This also picks up a Pro upgrade made on another device.
+  refreshUsage();
   if (user && state.pendingUpgrade) { state.pendingUpgrade = false; upgrade(); }
 }
 
 // ---- subscription ----
 async function checkSubscription() {
   try {
-    const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId));
+    const headers = {};
+    const token = window.PHGAuth && window.PHGAuth.getAccessToken
+      ? window.PHGAuth.getAccessToken() : null;
+    if (token) headers['x-phg-access-token'] = token;
+    const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId), { headers });
     if (!r.ok) { state.isPro = false; return; }
     const d = await r.json(); state.isPro = !!d.active;
   } catch { state.isPro = false; }
 }
 
 // ---- usage ----
+// The local counter is kept only as an offline fallback / optimistic hint.
+// The server counter in Firestore is authoritative.
 function canUse() {
   if (state.isPro) return { allowed: true };
+  if (state.usage && state.usage.remaining !== undefined) {
+    return { allowed: state.usage.remaining > 0, remaining: state.usage.remaining };
+  }
   const cur = state.weeklyUsage.enhancements;
-  return { allowed: cur < FREE_LIMIT, remaining: Math.max(0, FREE_LIMIT - cur) };
+  const limit = TIERS[currentTier()].limit;
+  return { allowed: cur < limit, remaining: Math.max(0, limit - cur) };
 }
 function trackUsage() {
   state.weeklyUsage.weekStart = getWeekStart();
@@ -256,14 +466,40 @@ function buildSystemInstruction(mode, style, target, memoryNotes) {
 // ---- streaming generate ----
 async function streamEnhance(prompt, systemInstruction, onChunk, onDone, onError) {
   try {
+    // Send the Google access token so the backend can identify the caller
+    // and enforce the quota against the right account. Without it the
+    // request is treated as an anonymous guest.
+    const headers = { 'Content-Type': 'application/json' };
+    const token = window.PHGAuth && window.PHGAuth.getAccessToken
+      ? window.PHGAuth.getAccessToken()
+      : null;
+    if (token) headers['x-phg-access-token'] = token;
+
     const r = await fetch(BACKEND_URL + '/enhance-stream', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, systemInstruction }),
+      headers,
+      body: JSON.stringify({
+        prompt,
+        systemInstruction,
+        // One logical action = one credit. A/B variants send the SAME
+        // logicalId so they cost 1, not 2.
+        logicalId: state.currentLogicalId || null,
+        // Ask the server to enforce the tier gates, not just the client.
+        features: state.currentFeatures || null,
+      }),
     });
     if (!r.ok) {
       const d = await r.json().catch(() => ({}));
-      throw new Error(d.error || ('HTTP ' + r.status));
+      const err = new Error(d.error || ('HTTP ' + r.status));
+      err.status = r.status;
+      err.payload = d;
+      // The server rejected us for quota or tier reasons — surface the
+      // server's own numbers rather than a generic message.
+      if (d.quota) {
+        err.quota = d.quota;
+        applyQuotaFromServer(d.quota);
+      }
+      throw err;
     }
     const reader = r.body.getReader();
     const decoder = new TextDecoder();
@@ -331,10 +567,12 @@ async function generate(variantStyle) {
   const prompt = $('prompt-input').value.trim();
   if (!prompt) { $('gen-error').textContent = 'Please enter a prompt.'; show($('gen-error')); return; }
   hide($('gen-error'));
-  const c = canUse();
-  if (!c.allowed && !state.isPro) {
-    $('gen-error').textContent = 'Free limit reached (5/week). Upgrade to Pro for unlimited.';
-    show($('gen-error')); return;
+  // The server is authoritative on quota. We do a cheap optimistic check
+  // against the last known usage so we don't waste a round trip, but the
+  // real decision happens on the server.
+  if (!state.isPro && state.usage && state.usage.remaining !== undefined && state.usage.remaining <= 0) {
+    showQuotaLimit(state.usage);
+    return;
   }
   if (generating) return;
   generating = true;
@@ -343,6 +581,18 @@ async function generate(variantStyle) {
   setText('gen-status', 'Streaming…');
   const sys = buildSystemInstruction(state.mode, variantStyle || state.style, $('target-select').value, state.memory.notes);
   state.refineMode = false;
+
+  // One logical action = one credit. Both A/B variants share this id, so
+  // the pair costs a single enhancement.
+  state.currentLogicalId = 'web_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+
+  // Tell the server which gated features this request is actually using,
+  // so it can enforce the tier server-side.
+  const tier = TIERS[currentTier()];
+  const feats = [];
+  if ($('memory-toggle') && $('memory-toggle').checked && state.memory.use && state.memory.notes) feats.push('memory');
+  if ($('ab-toggle') && $('ab-toggle').checked) feats.push('abVariants');
+  state.currentFeatures = feats;
 
   // Chat UX: show user message + AI bubble
   addUserMessage(prompt);
@@ -375,13 +625,28 @@ async function generate(variantStyle) {
           state.lastOutput = full; state.lastPrompt = prompt;
           trackUsage(); saveHistoryEntry(prompt, full, style);
           renderUsage(); renderHistory();
+          // Ask the server for the authoritative counter now that one has
+          // been consumed. This keeps the meter honest across devices.
+          refreshUsage();
           setText('gen-status', 'Done');
         }
         resolve(full);
       },
       (e) => {
-        $('gen-error').textContent = 'Error: ' + e.message; show($('gen-error'));
-        setText('gen-status', 'Failed');
+        // A quota rejection from the server is a normal state, not a crash:
+        // show the limit with a real next action instead of a raw error.
+        if (e && (e.status === 429 || e.status === 402 || e.quota)) {
+          if (e.payload && e.payload.code === 'feature_requires_plan') {
+            $('gen-error').textContent = e.message; show($('gen-error'));
+            setText('gen-status', 'Upgrade required');
+          } else {
+            showQuotaLimit(e.quota || null);
+            setText('gen-status', 'Limit reached');
+          }
+        } else {
+          $('gen-error').textContent = 'Error: ' + e.message; show($('gen-error'));
+          setText('gen-status', 'Failed');
+        }
         resolve('');
       }
     );
@@ -453,7 +718,11 @@ async function upgrade() {
   }
   msg.textContent = 'Opening checkout...';
   try {
-    const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, successUrl: location.origin + '/success.html', cancelUrl: location.origin + '/cancel.html' }) });
+    const headers = { 'Content-Type': 'application/json' };
+    const token = window.PHGAuth && window.PHGAuth.getAccessToken
+      ? window.PHGAuth.getAccessToken() : null;
+    if (token) headers['x-phg-access-token'] = token;
+    const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, successUrl: location.origin + '/success.html', cancelUrl: location.origin + '/cancel.html' }) });
     if (!r.ok) { const d = await r.json().catch(()=>({})); throw new Error(d.error || ('HTTP ' + r.status)); }
     const d = await r.json();
     if (d.url) window.location.href = d.url; else throw new Error('No checkout URL');
@@ -557,9 +826,42 @@ document.addEventListener('DOMContentLoaded', async () => {
   const portalBtn = $('portal-btn');
   if (portalBtn) portalBtn.addEventListener('click', portal);
 
+  // The usage nudge and the history lock note both end in a call to action.
+  // Guests get sent to sign in (which buys them a bigger allowance);
+  // signed-in users get sent to the upgrade flow.
+  const nudgeCta = $('usage-nudge-cta');
+  if (nudgeCta) nudgeCta.addEventListener('click', () => {
+    if (state.tier === 'guest') signIn();
+    else upgrade();
+  });
+  const lockCta = $('history-lock-cta');
+  if (lockCta) lockCta.addEventListener('click', () => {
+    if (state.tier === 'guest') signIn();
+    else upgrade();
+  });
+
+  // Pricing page: the "Free account" card has its own sign-in button, so a
+  // guest can upgrade their allowance without hunting for the small
+  // sign-in control in the account bar.
+  const signinCta = $('signin-cta-btn');
+  if (signinCta) signinCta.addEventListener('click', async () => {
+    const msg = $('signin-cta-msg');
+    if (state.user) {
+      if (msg) msg.textContent = 'You are signed in and on the free tier.';
+      return;
+    }
+    if (msg) msg.textContent = 'Opening Google sign-in…';
+    await signIn();
+  });
+
   await checkSubscription();
   renderPlan(); renderUsage();
   if (isGeneratorPage) renderHistory();
+
+  // Apply the tier gates to the UI (Memory, A/B variants) and pull the
+  // authoritative usage meter from the server.
+  renderFeatureGates();
+  refreshUsage();
 
   // Shared auth module (auth.js) owns the OAuth popup flow.
   if (window.PHGAuth) {
