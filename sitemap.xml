@@ -1051,4 +1051,10 @@
     <changefreq>weekly</changefreq>
   </url>
 
+  <url>
+    <loc>https://promptgenerator.fyi/blog-postiz-schedule-linkedin-posts-2026.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
