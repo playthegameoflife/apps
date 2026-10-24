@@ -219,6 +219,11 @@
       "topic": "over-refusal / false refusal of benign prompts",
       "published": "2026-10-22",
       "url": "https://promptgenerator.fyi/blog-why-does-chatgpt-refuse-my-request.html"
+    },
+    {
+      "slug": "blog-chatgpt-resume-prompts-no-fabricated-metrics",
+      "primary_keyword": "ChatGPT resume prompts",
+      "published": "2026-10-24"
     }
   ]
 }
