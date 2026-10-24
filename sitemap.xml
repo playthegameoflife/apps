@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
+    <url>
     <loc>https://promptgenerator.fyi/blog-HIIT-timer-martial-arts-training-20262107.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -797,60 +797,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/mycombat/blog-voice-guided-solo-pad-work-training.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-how-to-test-ai-prompts-like-a-pro.html</loc>
-    <lastmod>2026-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-ai-prompts-for-code-review.html</loc>
-    <lastmod>2026-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://promptgenerator.fyi/blog-postiz-all-in-one-social-media-management.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-best-free-ai-chrome-extensions-no-login-2026.html</loc>
-    <lastmod>2026-10-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-ai-wrong-answers-fix.html</loc>
-    <lastmod>2026-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-ai-custom-instructions-ignored-fix.html</loc>
-    <lastmod>2026-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-docker-self-host.html</loc>
-    <lastmod>2026-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-unlimited-pricing-2026.html</loc>
-    <lastmod>2026-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-ai-prompt-engineering-software-business.html</loc>
-    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1063,4 +1010,45 @@
     <lastmod>2026-10-24</lastmod>
     <changefreq>weekly</changefreq>
   </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-claude-vs-chatgpt-vs-gemini-2026.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-contrastive-chain-of-thought-ccot-2026.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-postiz-ai-agent-social-media.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-postiz-vs-buffer-solopreneurs-2026.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-prompt-exhaustion-fix.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-why-ai-ignores-your-context.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-why-your-ai-prompts-sound-clear-but-fail.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://promptgenerator.fyi/blog-zero-shot-prompting.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+
 </urlset>
