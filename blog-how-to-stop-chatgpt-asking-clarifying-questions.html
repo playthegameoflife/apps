@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Stop ChatGPT Asking Clarifying Questions</title>
+  <meta name="description" content="ChatGPT keeps asking clarifying questions instead of answering? Use the answer-first prompt block, the custom-instruction fix, and 4 ways to end the loop.">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-how-to-stop-chatgpt-asking-clarifying-questions.html">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="How to Stop ChatGPT Asking Clarifying Questions">
+  <meta property="og:description" content="ChatGPT keeps asking clarifying questions instead of answering? Use the answer-first prompt block, the custom-instruction fix, and 4 ways to end the loop.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-how-to-stop-chatgpt-asking-clarifying-questions.html">
+  <meta property="og:site_name" content="Prompt Helper Gemini">
+  <meta property="og:image" content="https://promptgenerator.fyi/og.png">
+  <meta property="article:published_time" content="2026-10-24">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Stop ChatGPT Asking Clarifying Questions">
+  <meta name="twitter:description" content="ChatGPT keeps asking clarifying questions instead of answering? Use the answer-first prompt block, the custom-instruction fix, and 4 ways to end the loop.">
+  <meta name="twitter:image" content="https://promptgenerator.fyi/og.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Stop ChatGPT Asking Clarifying Questions",
+  "description": "ChatGPT keeps asking clarifying questions instead of answering? Use the answer-first prompt block, the custom-instruction fix, and 4 ways to end the loop.",
+  "author": {
+    "@type": "Organization",
+    "name": "Prompt Helper Gemini",
+    "url": "https://promptgenerator.fyi"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Prompt Helper Gemini",
+    "url": "https://promptgenerator.fyi"
+  },
+  "datePublished": "2026-10-24",
+  "dateModified": "2026-10-24",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://promptgenerator.fyi/blog-how-to-stop-chatgpt-asking-clarifying-questions.html"
+  },
+  "image": "https://promptgenerator.fyi/og.png",
+  "keywords": "how to stop ChatGPT asking clarifying questions",
+  "inLanguage": "en"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why does ChatGPT keep asking clarifying questions instead of answering?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ChatGPT asks clarifying questions because its training rewards checking with you before committing to an answer on anything ambiguous. When a request could map to several readings, a question is the lowest-risk next token. The problem is it rarely notices your prompt was already clear. The fix is to remove the ambiguity yourself and let the model assume."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I tell ChatGPT not to ask me questions before it answers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Give it a decision-rights rule in the prompt: do not ask clarifying questions, make a reasonable assumption when something is ambiguous, state it in one line, then proceed. Put that rule in your Custom Instructions so it applies before every new chat, because a per-message rule loses to a system-level one. Keep it short; one sentence beats a paragraph."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does saying 'just answer me' not stop the questions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because it states a preference without granting authority. The model still believes asking is the safer move, so it hedges. What changes the behaviour is explicitly transferring the decision: you make the assumption, you accept the risk of being wrong, and the model proceeds. Remove the safety margin and the question has nowhere to go."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it ever a good idea to let ChatGPT ask clarifying questions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, in two situations: Deep Research mode, where the model is scoping a genuinely multi-step task, and any request where getting it wrong is expensive, such as legal, medical, financial, or production code touching live systems. There, one round of questions is cheaper than one wrong answer. The frustration is when the habit applies to routine work needing no clarification."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this work on Claude, Gemini, Grok, and Perplexity too?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The clarifying-question habit shows up across all current chat models, which is why the wording changes as providers retune their systems. The answer-first block transfers as-is to Claude and Gemini, and to Grok and Perplexity with minor tweaks. What matters is not the exact sentence but the structure: ban the question, grant the assumption, require it be stated."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will telling the model not to ask questions make the output worse?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Slightly, where the question was genuinely needed, and not at all where it was not. That is the trade you are making deliberately. To protect accuracy, ask for the assumption in one line so you can catch a wrong guess instantly, and pair the rule with a tight output spec so the model has fewer ways to get it wrong."
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <header>
+    <h1>How to Stop ChatGPT Asking Clarifying Questions</h1>
+    <p class="meta">Published 2026-10-24 &middot; 9 min read &middot; Prompt Helper Gemini</p>
+  </header>
+
+  <div class="intro">
+    <p><strong>&ldquo;GPT-5 is seriously annoying. It asks not just one but multiple clarifying questions, while I just want my answer.&rdquo;</strong></p>
+    <p style="margin-bottom:0"><em>&mdash; a Hacker News commenter describing the exact behaviour that drives people to search for <strong>how to stop ChatGPT asking clarifying questions</strong>.</em></p>
+  </div>
+
+  <p>You asked ChatGPT a question. Instead of an answer, it fired back two or three questions of its own. You
+  answered those. It asked another. Ten minutes later you are still in the interrogation, have written nothing,
+  and have burned part of your message limit doing it.</p>
+
+  <p>Not a glitch in your account &mdash; one of the most reported frustrations in AI chat, and Reddit has a
+  name for it: <strong>&ldquo;the clarifying-question loop.&rdquo;</strong></p>
+
+  <p>Real users describe it almost identically across every forum. One writes that ChatGPT
+  &ldquo;keeps asking questions over and over and derailing the conversation.&rdquo; Another says it
+  &ldquo;ends basically every response with a question.&rdquo; A third, after giving up on polite phrasing,
+  says: <em>&ldquo;just give me the answer already.&rdquo;</em> On Hacker News, one user asks how to get GPT to
+  stop asking questions, calling its insistence on questions his only issue.</p>
+
+
+  <p>Below: why the loop happens, the prompt structure that shuts it down, and where to put it.</p>
+
+  <h2>Why ChatGPT asks clarifying questions instead of just answering</h2>
+
+  <p>Two things are happening at once, and only one is a design choice.</p>
+  <h3>1. The model was trained to check before it commits</h3>
+
+  <p>Current-generation models were deliberately tuned to ask before assuming on requests they judge
+  ambiguous, to reduce confidently-wrong answers. The side effect is a default that fires even on requests
+  never ambiguous to a human, because the model cannot tell <em>&ldquo;I did not specify this&rdquo;</em> from
+  <em>&ldquo;I did not notice you already specified it.&rdquo;</em></p>
+
+  <p>When a request maps to several plausible readings, a question is the lowest-risk next token. The model
+  is not reading your mind. It is hedging.</p>
+
+  <h3>2. Your prompt left a gap, and the question made it visible</h3>
+
+  <p>Every clarifying question points at something genuinely missing. The gap was always there; the question
+  just exposed it &mdash; after you spent a turn, a wait, and a message credit finding out what you should have
+  written. That is why &ldquo;just add more detail&rdquo; only works when you already know what the model will
+  ask. Most people do not, because the question has not been asked yet.</p>
+
+  <h3>3. The follow-up reflex is separate from the clarifying question</h3>
+
+  <p>There is a second, quieter habit: the trailing &ldquo;Want me to...?&rdquo; and the multiple-choice menu
+  at the end of every reply. One Reddit thread complains about the model asking several questions at once and
+  being &ldquo;very distracting.&rdquo; Another notes it keeps saying <em>&ldquo;ok, last question before I
+  generate the pdf&rdquo;</em> then asks another. Stopping the interrogation does not stop the trailing offer,
+  so a complete fix addresses both.</p>
+
+  <h2>What people have already tried (and why it failed)</h2>
+
+  <p>The frustration is that the obvious fix does not work. Here is what the community reports, and why each
+  attempt stalls.</p>
+
+  <div class="comparison">
+    <div class="comparison-box bad">
+      <h4>What people try</h4>
+      <ul>
+        <li>&ldquo;Don't ask me questions.&rdquo; in the first prompt</li>
+        <li>&ldquo;Just do it, use your best judgement.&rdquo; after three rounds of berating</li>
+        <li>Pasting the same rule into Custom Instructions</li>
+        <li>Editing the original prompt instead of answering in chat</li>
+      </ul>
+    </div>
+    <div class="comparison-box good">
+      <h4>What actually changes behaviour</h4>
+      <ul>
+        <li>Banning the question <em>and</em> granting the assumption</li>
+        <li>Stating the assumption must be written out</li>
+        <li>Requiring the finished output before any notes</li>
+        <li>Moving the rule to a persistent, system-level setting</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Every working fix does something the failing attempts do not: it does not just express a preference, it
+  <strong>transfers the decision</strong>. The failing attempts say &ldquo;I would prefer an answer.&rdquo;
+  The working ones say &ldquo;you may assume, and here is what you must do instead of asking.&rdquo;</p>
+
+  <p>That difference is small in words and enormous in effect. While the model believes asking is safer, a
+  request to be less demanding is just one more preference competing with a safety behaviour. Remove the
+  safety margin and the question has nowhere to go.</p>
+
+
+  <p>The practical test: read your own prompt and ask &ldquo;what would the model ask me right now?&rdquo;
+  Every question you can guess, you can answer upfront.</p>
+
+  <h2>How to stop ChatGPT asking clarifying questions: the answer-first block</h2>
+
+  <p>Here is the structure that stops the loop. Copy once, adapt.</p>
+
+  <div class="code-block">
+    <span class="label">The answer-first block</span>
+DECISION RIGHTS — read before answering:
+- Do NOT ask me clarifying questions.
+- If something is ambiguous, make a reasonable assumption yourself.
+- State the assumption in one line under a heading called ASSUMPTIONS, then proceed.
+- Deliver the finished output first. Notes come after, never before.
+- If you truly cannot proceed without something, complete everything else and mark that one item BLOCKED.
+  </div>
+
+  <p>Three details make it work:</p>
+
+  <ul>
+    <li><strong>The ban.</strong> &ldquo;Do not ask me clarifying questions&rdquo; is the part everyone tries
+    and the part that does least alone.</li>
+    <li><strong>The grant.</strong> &ldquo;Make a reasonable assumption yourself&rdquo; gives the model
+    permission it was trying to earn by asking.</li>
+    <li><strong>The receipt.</strong> &ldquo;State the assumption in one line&rdquo; turns an invisible guess
+    into a checkable one. This keeps accuracy from dropping &mdash; you catch a wrong guess in two seconds
+    instead of discovering it later.</li>
+  </ul>
+
+  <div class="code-block">
+    <span class="label">Before &amp; after &mdash; same task, different turn count</span>
+<span class="before">BEFORE: "Help me write a performance review for someone on my team."</span>
+
+<span class="after">AFTER: "Write a performance review for a mid-level software engineer who ships on time but struggles with written communication. Tone: direct and constructive. Length: 200-250 words. Reader: their manager. Do not ask me questions - make reasonable assumptions, list them in one line, then write the review. No preamble."</span>
+  </div>
+
+  <p>The second version is longer to type once. It is faster every time after that, because the questions it
+  prevents are the expensive part. You are not writing a longer prompt &mdash; you are writing it once instead
+  of rewriting it three times.</p>
+
+  <h2>Where to put it so it survives</h2>
+
+  <h3>In the prompt (works, but resets every chat)</h3>
+
+  <p>Pasting the block into every message reliably wins the current turn. It is also the most tedious, which
+  is how habits die. Doing this daily? Move it.</p>
+
+  <h3>In Custom Instructions or your system prompt (the real fix)</h3>
+
+  <p>A persistent system-level setting applies before the model decides to ask, rather than after. Community
+  members consistently report that per-message instructions lose to a persistent rule, and one thread says they
+  had already tried it in the first prompt, later prompts, and custom instructions &mdash; with the same result
+  each time, because the rule had no decision-rights language in it. OpenAI's own
+  <a href="https://platform.openai.com/docs/guides/prompt-engineering">prompt engineering guide</a>
+  makes the same point in general terms: state instructions explicitly and unambiguously, because the model
+  will not infer intent you did not spell out.</p>
+
+  <h3>In a saved prompt or template (for repeatable work)</h3>
+
+  <p>If the same task comes back weekly &mdash; reports, product descriptions, code reviews &mdash; the block
+  belongs inside the template, not in your memory. Every future use is then already protected.</p>
+
+  <p>Claude Code users hit the same reflex in a different setting. An open issue documents the case exactly:
+  the user's intent was already clear from context, and asking for confirmation added unnecessary friction
+  &mdash; the agent should have proceeded.
+  <a href="https://github.com/anthropics/claude-code/issues/21031">The issue thread</a> makes clear the fix
+  belongs in the prompt, not the product.</p>
+
+  <h2>Five fixes, ranked by how fast they work</h2>
+
+  <ol>
+    <li><strong>Add the decision-rights block to your prompt.</strong> Works on the next message, every
+    model, no setup. Do this first.</li>
+    <li><strong>Move it to Custom Instructions or a system prompt.</strong> More setup, but it applies to
+    every new chat from then on. This is the fix that changes daily behaviour.</li>
+    <li><strong>Delete the ambiguity instead of answering the question.</strong> If the model asks about tone,
+    audience, format or length, specify it permanently in your template rather than replying each time.
+    Every question you answer in the chat is a question you will be asked again tomorrow.</li>
+    <li><strong>Ban the trailing offer separately.</strong> Add &ldquo;do not end with a follow-up question or
+    an offer to do more&rdquo; to the same block. It is a different habit with a different trigger.</li>
+    <li><strong>Use the edit-prompt path for the rare important request.</strong> When the answer really
+    matters, answer the clarifying questions in your original message and resubmit. A well-structured first
+    prompt beats a pile of threaded corrections.</li>
+  </ol>
+
+  <div class="key-takeaways">
+    <h3>Key takeaways</h3>
+    <ul>
+      <li>The clarifying-question loop is trained behaviour, not a bug &mdash; and every question points at a
+      gap that was in your prompt already.</li>
+      <li>&ldquo;Don't ask me questions&rdquo; fails because it is a preference. Working fixes <strong>grant
+      the model the right to assume</strong> and require the assumption to be written out.</li>
+      <li>Put the rule in a persistent, system-level setting. Per-message instructions lose to a system
+      rule every time.</li>
+      <li>Ban the trailing &ldquo;want me to?&rdquo; separately &mdash; it is a different habit with a
+      different trigger.</li>
+      <li>Keep the questions when getting it wrong is genuinely expensive: Deep Research, legal, medical,
+      financial, or production code.</li>
+    </ul>
+  </div>
+
+  <h2>Why this matters more than it looks</h2>
+
+  <p>The clarifying-question loop is not only an annoyance. It is a cost, and users are precise about it in
+  three currencies.</p>
+
+
+  <p><strong>Turns.</strong> Every question you answer is a separate round trip with its own latency. One
+  user, describing a fifteen-to-twenty-minute script, wrote that they spent <em>&ldquo;over an hour tweaking
+  my blackbox prompt to get just the...&rdquo;</em> &mdash; the sentence trails off, because the ratio is the
+  point.</p>
+
+  <p><strong>Tokens.</strong> Every question is billed input, every answer billed output, and the fifth
+  request carries the context of the first four.</p>
+
+  <p>Developers building on API access describe the pattern plainly: vibe coding <em>&ldquo;is expensive. It
+  eats tokens, which costs your org dearly.&rdquo;</em></p>
+
+  <p><strong>Attention.</strong> The most telling complaint is about momentum, not cost. One user put it as:
+  <em>&ldquo;I might sound lazy (because I am) but lately it feels like I spend half my day rewriting prompts
+  instead of shipping anything.&rdquo;</em> Another, on Hacker News, named the adoption blocker:
+  <em>&ldquo;composing the first prompt would take me longer than just doing the thing is my biggest blocker
+  to using any of these tools on a regular basis.&rdquo;</em></p>
+
+  <p>Fixing the loop attacks all three at once.</p>
+
+
+  <div class="cta-box">
+    <h2>Write the prompt once, correctly</h2>
+    <p>The decision-rights block works, but hand-writing it every time is exactly the overhead the loop is
+    supposed to remove. <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini-%E2%80%94-ai/iggefchbkdlmljflfcnhahphoojnimbp">Prompt Helper Gemini</a>
+    is a free Chrome extension that adds your decision-rights rules &mdash; no questions, make assumptions,
+    state them, deliver the output first &mdash; to what you type in ChatGPT, Claude, Gemini, Grok, or
+    Perplexity, so the rule is applied before you hit send rather than after you get frustrated. Five
+    enhancements a week on the free tier, no credit card, and it works in the browser tab you are already
+    in.</p>
+    <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini-%E2%80%94-ai/iggefchbkdlmljflfcnhahphoojnimbp">Add Prompt Helper Gemini</a>
+  </div>
+
+  <h2>When to leave the questions in</h2>
+
+  <p>None of this argues for removing clarifying questions from AI. Two cases where one round of questions is
+  cheaper than one wrong answer:</p>
+
+  <p><strong>Deep Research and multi-step agentic tasks.</strong> When the model is scoping a genuinely
+  multi-stage research or build process, those questions are doing real work, not hedging. Answer them. The
+  <a href="https://community.openai.com/t/how-to-get-gpt-to-ask-more-questions-system-message/726656">OpenAI
+  developer forum thread</a> on making a model ask more useful questions is a useful counterweight.</p>
+
+  <p><strong>High-stakes output.</strong> Legal, medical, financial, or production code touching live systems
+  deserves the interrogation. A minute of questions is trivial against a wrong answer that reaches a
+  human.</p>
+
+
+  <p>If a wrong answer would be cheap to catch and expensive to miss, ban the questions. If it would be
+  cheap to miss and expensive to catch, let it ask. Most work falls in the first category, which is why the
+  frustration is so widespread &mdash; and so fixable.</p>
+
+  <h2>The rule that fixes it</h2>
+
+  <p>If you take one thing from this, take the decision-rights block. Stop asking ChatGPT clarifying
+  questions by giving it the authority to assume instead of the request to stop assuming on your behalf. Put
+  it in your persistent settings. State the assumption so you can check it. And let the finished output come
+  first, with notes after it.</p>
+
+  <p>Then notice what changes. The model stops negotiating. You stop answering questions about work you had
+  already decided. And the &ldquo;just give me the answer already&rdquo; feeling &mdash; the one quietly
+  pushing people back to what they were doing before AI &mdash; gets quieter. Because the honest truth about
+  <strong>how to stop ChatGPT asking clarifying questions</strong> is that the model was never the problem. A
+  prompt that answers the obvious question before it gets asked was always the fix.</p>
+
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <h3>Why does ChatGPT keep asking clarifying questions instead of answering?</h3>
+      <p>ChatGPT asks clarifying questions because its training rewards checking with you before committing to an answer on anything ambiguous. When a request could map to several readings, a question is the lowest-risk next token. The problem is it rarely notices your prompt was already clear. The fix is to remove the ambiguity yourself and let the model assume.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How do I tell ChatGPT not to ask me questions before it answers?</h3>
+      <p>Give it a decision-rights rule in the prompt: do not ask clarifying questions, make a reasonable assumption when something is ambiguous, state it in one line, then proceed. Put that rule in your Custom Instructions so it applies before every new chat, because a per-message rule loses to a system-level one. Keep it short; one sentence beats a paragraph.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Why does saying 'just answer me' not stop the questions?</h3>
+      <p>Because it states a preference without granting authority. The model still believes asking is the safer move, so it hedges. What changes the behaviour is explicitly transferring the decision: you make the assumption, you accept the risk of being wrong, and the model proceeds. Remove the safety margin and the question has nowhere to go.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is it ever a good idea to let ChatGPT ask clarifying questions?</h3>
+      <p>Yes, in two situations: Deep Research mode, where the model is scoping a genuinely multi-step task, and any request where getting it wrong is expensive, such as legal, medical, financial, or production code touching live systems. There, one round of questions is cheaper than one wrong answer. The frustration is when the habit applies to routine work needing no clarification.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Does this work on Claude, Gemini, Grok, and Perplexity too?</h3>
+      <p>Yes. The clarifying-question habit shows up across all current chat models, which is why the wording changes as providers retune their systems. The answer-first block transfers as-is to Claude and Gemini, and to Grok and Perplexity with minor tweaks. What matters is not the exact sentence but the structure: ban the question, grant the assumption, require it be stated.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Will telling the model not to ask questions make the output worse?</h3>
+      <p>Slightly, where the question was genuinely needed, and not at all where it was not. That is the trade you are making deliberately. To protect accuracy, ask for the assumption in one line so you can catch a wrong guess instantly, and pair the rule with a tight output spec so the model has fewer ways to get it wrong.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>Published 2026-10-24 by Prompt Helper Gemini &middot;
+    <a href="https://promptgenerator.fyi/">promptgenerator.fyi</a> &middot;
+    <a href="https://promptgenerator.fyi/blog.html">All blog posts</a></p>
+  </footer>
+</body>
+</html>
