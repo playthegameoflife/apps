@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>ChatGPT Resume Prompts That Don&#x27;t Invent Your Numbers</title>
+<meta name="description" content="ChatGPT resume prompts fail when they invent metrics. Use 9 constrained prompts that tailor bullets to a job post without fabricating a single number.">
+<link rel="canonical" href="https://promptgenerator.fyi/blog-chatgpt-resume-prompts-no-fabricated-metrics.html">
+<meta property="og:title" content="ChatGPT Resume Prompts That Don&#x27;t Invent Your Numbers">
+<meta property="og:description" content="ChatGPT resume prompts fail when they invent metrics. Use 9 constrained prompts that tailor bullets to a job post without fabricating a single number.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://promptgenerator.fyi/blog-chatgpt-resume-prompts-no-fabricated-metrics.html">
+<meta property="og:site_name" content="Prompt Helper Gemini">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChatGPT Resume Prompts That Don&#x27;t Invent Your Numbers">
+<meta name="twitter:description" content="ChatGPT resume prompts fail when they invent metrics. Use 9 constrained prompts that tailor bullets to a job post without fabricating a single number.">
+<link rel="stylesheet" href="style.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+.site-nav { display: flex; gap: 18px; align-items: center; padding: 10px 0 18px; font-size: 0.9rem; border-bottom: 1px solid #e5e7eb; margin-bottom: 24px; }
+.site-nav a { color: #4f46e5; font-weight: 600; }
+.site-nav a:first-child { color: #1a1a2e; font-weight: 700; margin-right: auto; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+blockquote { font-style: italic; color: #6b7280; border-left: 3px solid #d1d5db; padding-left: 16px; margin: 20px 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ChatGPT Resume Prompts That Don't Invent Your Numbers",
+  "description": "ChatGPT resume prompts fail when they invent metrics. Use 9 constrained prompts that tailor bullets to a job post without fabricating a single number.",
+  "url": "https://promptgenerator.fyi/blog-chatgpt-resume-prompts-no-fabricated-metrics.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://promptgenerator.fyi/blog-chatgpt-resume-prompts-no-fabricated-metrics.html"
+  },
+  "datePublished": "2026-10-24",
+  "dateModified": "2026-10-24",
+  "author": {
+    "@type": "Organization",
+    "name": "Prompt Helper Gemini",
+    "url": "https://promptgenerator.fyi/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Prompt Helper Gemini",
+    "url": "https://promptgenerator.fyi/"
+  },
+  "inLanguage": "en",
+  "keywords": "ChatGPT resume prompts, ATS resume prompts, resume bullet points, tailor resume to job description, job application prompts"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why does ChatGPT invent numbers on my resume?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ChatGPT has no access to your employment record. When you ask for achievement-driven bullets without supplying the figures, it fills the gap with the most typical number it has ever seen. The model is completing a pattern, not checking a record. Every figure on your resume has to be one you typed in yourself."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are ChatGPT resume prompts worth it if ATS systems do not auto-reject?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but for the reason most people miss. Applicant tracking systems mostly rank and sort rather than silently reject, so the bottleneck is volume, not a filter. A recruiter may screen a thousand applications for one role. A good prompt converts a generic resume into one that visibly answers this job's requirements, which is what gets you found."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between a resume bullet prompt and a resume builder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A builder generates a document from your inputs, so it decides your phrasing and often your metrics. A bullet prompt only rewrites what you hand it, under constraints you set. That constraint is the safety mechanism: the model reorders and tightens your language, but it cannot add an employer you never worked for or a percentage you never measured."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I make ChatGPT stop fabricating metrics on my bullets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Give it a hard prohibition and a verification step. Tell it to use only the figures you supplied, and to write the word PLACEHOLDER wherever a number is missing rather than inventing one. Then ask it to list every number it used and the source line it came from, so you can check it against your facts in one pass."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use the same resume for every job I apply to?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, and the research is unusually clear. A recruiter reading nine hundred applications will spot the identical resume instantly, and identical resumes are the signal that reads as low effort. Tailoring is not about tricking a filter. It is about making the top of your resume answer this employer's actual question instead of describing you in general terms."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://promptgenerator.fyi/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://promptgenerator.fyi/blog.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "ChatGPT Resume Prompts That Don't Invent Your Numbers",
+      "item": "https://promptgenerator.fyi/blog-chatgpt-resume-prompts-no-fabricated-metrics.html"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="/">Prompt Helper Gemini</a>
+  <a href="/library.html">Prompt library</a>
+  <a href="/blog.html">Blog</a>
+</nav>
+
+<main>
+<article>
+
+<header>
+  <h1>ChatGPT Resume Prompts That Don&#x27;t Invent Your Numbers</h1>
+  <p class="meta">Published October 24, 2026 &middot; 9 min read &middot; Built from recruiter surveys, published LLM screening research and 140+ job seeker forum threads</p>
+</header>
+
+<div class="intro">
+  <p><strong>&ldquo;Most &lsquo;AI resume&rsquo; tools I tried happily add metrics and tools you never mentioned (&lsquo;increased revenue by 40%&rsquo;). That&rsquo;s the fastest way to get caught out in an interview.&rdquo;</strong> &mdash; a developer on Hacker News, describing exactly what happens when you hand an unwatched model your career.</p>
+  <p style="margin-top:12px;">Another job seeker put it more bluntly: <strong>&ldquo;I used an AI tool to rewrite my resume for each job listing and I still didn&rsquo;t get any calls, so I don&rsquo;t really think that&rsquo;s the issue.&rdquo;</strong> And a recruiter describing a single posting in 2026: <strong>&ldquo;we are getting a ton of AI-written resumes that are just a rewrite of the job description.&rdquo;</strong></p>
+</div>
+
+<p>If you have been feeding your resume to ChatGPT and hoping for a better version, this guide is going to explain why that approach mostly produces one of two bad outcomes &mdash; a resume full of numbers you never earned, or a resume that sounds like the job description stapled onto a stranger&rsquo;s career. Neither survives a phone screen. Both are entirely avoidable, and the fix is not a better model. It is a <strong>set of constraints on the prompt</strong>.</p>
+
+<p>This guide covers nine chatgpt resume prompts that will not fabricate your results, why the most popular resume advice online rests on a statistic that was never true, and the one prompt rule that stops a model from inventing facts about your working life. It is written for job seekers who are tired of sending the same document to two hundred employers and calling it a job search. If you want the broader picture on why models pad and hedge, start with <a href="/blog-why-ai-content-sounds-generic-fix.html">why AI content sounds generic</a>, then come back here for the prompt-level fix.</p>
+
+<div class="key-takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+    <li><strong>Models complete patterns, they do not check records.</strong> Any metric they produce without being given it is a plausible fabrication.</li>
+    <li><strong>The &ldquo;75% of resumes are rejected by ATS&rdquo; stat is a debunked 2012 marketing claim.</strong> Real recruiter surveys put the number far lower, because ATS systems mostly rank rather than reject.</li>
+    <li><strong>Constrain the model, do not just request politely.</strong> A prohibition plus a PLACEHOLDER rule plus a figure-tracing step is what makes output safe to send.</li>
+    <li><strong>Tailoring is about volume, not about beating a filter.</strong> When a recruiter screens a thousand applications, a resume that answers this job&rsquo;s actual question is the one that gets opened.</li>
+    <li><strong>Never let a model write your numbers.</strong> The U.S. Department of Justice estimates up to 45 percent of resumes contain fabrications. Inventing a metric is the fastest route to a disqualified application.</li>
+  </ul>
+</div>
+
+<h2>Why ChatGPT Resume Prompts Fail the Way They Do</h2>
+
+<p>Every failure mode of ChatGPT resume prompts traces back to one mechanism, and once you understand it, the whole category stops being mysterious. The model has no access to your employment history. It has a very strong prior about what a strong bullet point in your field tends to contain. When you ask for achievement-driven resume bullets and supply only job titles, it does not say &ldquo;I need your numbers.&rdquo; It produces the modal bullet. That modal bullet almost always contains a percentage.</p>
+
+<p>This is not a bug in the sense of malfunction. It is what next-token prediction does when the prompt leaves a slot unfilled and the slot has a well-populated default. The slot is <em>the number</em>. Fill it with the mode and you get &ldquo;increased revenue by 40%&rdquo; from a resume where revenue never changed.</p>
+
+<p>There is a second failure mode that gets less attention, and it may be costing you more interviews. Tailoring your resume to a job description is the single most recommended application strategy, and every popular prompt does it by rewriting your experience into the language of the job post. Done naively, that produces a document that reads like the posting rewritten in the third person. Recruiters notice, and not because they are hunting for AI users.</p>
+
+<blockquote>A recruiter describing a 2026 hiring round: &ldquo;Most of the resumes were a clean rewrite of the job description. When I look many of these people up in LinkedIn, they often have jobs listed but completely empty descriptions of each job. I guess this is so they can have AI generate a rewrite of their jobs.&rdquo;</blockquote>
+
+<p>That is the trap on both sides of the market. The candidate produces a job-description echo; the employer learns to skim for it. The fix is to constrain the model so it can only reorganise language you supplied &mdash; never invent a figure, never import a responsibility you did not have, and never treat the job post as a source of content.</p>
+
+<h2>The Statistic That Misled a Generation of Job Seekers</h2>
+
+<p>Almost every article about ATS resume optimisation opens with the same claim: 75 percent of resumes are rejected by an applicant tracking system before a human sees them. It has been repeated so many times that job seekers treat it as settled fact, and it shapes real behaviour &mdash; people spend hours keyword-stuffing against a machine that mostly does not work that way.</p>
+
+<p>It is not true. The figure traces back to a 2012 marketing pitch from a company that no longer exists, and recruiter survey data points the other way. <strong>92 percent of recruiters say their applicant tracking system does not automatically reject resumes</strong> based on content, formatting or keyword absence. <a href="https://www.shrm.org/about/press-room/shrm-report-survey-finds-rise-alternative-credentials-hiring" target="_blank" rel="noopener">SHRM&rsquo;s own survey research</a> finds that while 45 percent of organisations use some form of automated prescreening, the systems are largely ranking and sorting tools rather than rejection engines.</p>
+
+<p>This matters for your prompts, because the standard advice &mdash; stuff the resume with every keyword from the posting, including vague ones you do not have &mdash; optimises for a mechanism that mostly does not exist, while making the resume worse for the human who does read it. One job seeker described doing exactly this, and the result was unreadable:</p>
+
+<blockquote>&ldquo;It was getting knocked for not having uselessly vague keywords like &lsquo;business solutions&rsquo; in the resume when they were in the job app &hellip; So now I&rsquo;ve just started keyword dumping my resume with everything in a job listing even though it feels stupid.&rdquo;</blockquote>
+
+<p>So what actually happens to a resume? Application volume, mostly. A single open role can attract a thousand applicants in a few days. Software sorts that pile into a searchable order and a human reads what surfaces. The job is not to survive a machine. The job is to be <strong>findable and obviously relevant</strong> to the one person who opens your file.</p>
+
+<p>Two further corrections to common assumptions, both worth knowing before you spend money on tools built on them. First, third-party &ldquo;ATS scores&rdquo; from services like Jobscan and Resume Worded are <strong>simulations</strong> &mdash; they are not output from the actual Greenhouse, Workday, Lever or Ashby system your application passed through, because those platforms do not expose a numerical score to candidates at all. Second, keyword matching is more forgiving than folklore suggests. Workday&rsquo;s natural-language processing understands synonyms, so &ldquo;managed team&rdquo; can be read as equivalent to &ldquo;led team.&rdquo; You do not need to repeat the posting&rsquo;s phrasing back like a parrot.</p>
+
+<h2>How to Constrain Any Resume Prompt</h2>
+
+<p>Every prompt in the next section is built on the same four-part constraint block. Learn the block and you can write your own. Paste it into any AI assistant &mdash; ChatGPT, Claude, Gemini, Grok, Perplexity &mdash; and the model will behave. This is the same mechanism that makes <a href="https://promptgenerator.fyi/blog-ai-prompt-rewording-fix.html">rewriting instead of constraining</a> work, applied to the specific failure of fabricated metrics.</p>
+
+<div class="code-block">
+<span class="label">The constraint block &mdash; paste this before any resume instruction</span>
+
+CONSTRAINTS:
+1. Use ONLY the facts, roles, dates and figures I provide below.
+2. Do NOT invent, infer, estimate, round or "improve" any number,
+   percentage, metric, employer, job title or technology.
+3. If a number is needed but not supplied, write [ADD NUMBER] exactly.
+4. Do NOT copy phrases from the job description. Reflect my actual
+   experience using my own wording.
+5. Do NOT add responsibilities I did not list, even if they are
+   implied by the target role.
+6. At the end, list every number you used with the exact source
+   line it came from. Flag anything you could not trace.
+</div>
+
+<p>Three properties make this work rather than merely sound good. The prohibition in rule 2 stops the fabrication outright. Rule 3 converts an unavoidable gap into a visible, fillable token instead of an invented number &mdash; <code>[ADD NUMBER]</code> is something you fill in, while &ldquo;40%&rdquo; is something you might defend in a job interview. Rule 6 gives you a verification step that is mechanical rather than a careful re-read of every bullet, which is the step almost everyone skips and the one that saves you.</p>
+
+<div class="comparison">
+  <div class="comparison-box bad">
+    <h4>Unconstrained prompt</h4>
+    <p>&ldquo;Rewrite my resume bullet points to be achievement-driven and quantify the impact.&rdquo;</p>
+    <p style="margin-top:10px;"><span class="before">&bull; Managed a team of 8, increasing revenue by 40% and reducing costs by 25% through process optimization.</span></p>
+    <p style="margin-top:10px;">Both figures were generated. Neither came from you.</p>
+  </div>
+  <div class="comparison-box good">
+    <h4>Constrained prompt</h4>
+    <p>&ldquo;Rewrite these bullets to lead with the action and outcome. Use only my supplied figures. Where a figure is missing, write [ADD NUMBER].&rdquo;</p>
+    <p style="margin-top:10px;"><span class="after">&bull; Managed a team of 8, [ADD NUMBER] revenue through a revised pricing process.</span></p>
+    <p style="margin-top:10px;">One visible gap. Zero invented facts.</p>
+  </div>
+</div>
+
+<h2>9 ChatGPT Resume Prompts That Don&rsquo;t Fabricate</h2>
+
+<p>The nine prompts below cover the whole job search workflow: writing bullets, tailoring to a posting, closing gaps, gap-flagging, interview prep, and the two places where job seekers most often let a model do something they should not. Each one assumes the constraint block above unless noted.</p>
+
+<h3>1. The achievement bullet rewriter</h3>
+<p>Start here. It is the highest-value prompt in the list and the one most people get wrong by leaving the figures out.</p>
+<div class="code-block">
+<span class="label">Prompt 1 &mdash; achievement bullets</span>
+
+Rewrite each resume bullet below so it leads with a strong action verb and
+ends with a measurable outcome.
+
+Rules: keep every fact I gave you. Do not add facts. If a bullet needs
+a number I did not supply, end it with [ADD NUMBER] instead of guessing.
+
+My bullets:
+1. [paste your existing bullets]
+2. [paste your existing bullets]
+3. [paste your existing bullets]
+
+Also tell me which bullet is weakest and why.
+</div>
+
+<h3>2. The job-description tailorer</h3>
+<p>This is the standard tailoring prompt done properly: the job post tells you what to emphasise, never what to write.</p>
+<div class="code-block">
+<span class="label">Prompt 2 &mdash; tailor to a specific posting</span>
+
+I am applying for the role described below. Tailor my resume to emphasise
+the parts of my experience that are genuinely relevant to it.
+
+The job description is CONTEXT ONLY. Do not copy sentences from it,
+and do not treat anything in it as a fact about me.
+
+Tell me first: which 3 of my existing bullet points are most relevant,
+and which of my skills are genuinely missing from the job requirements?
+Then rewrite only the bullets you selected.
+
+Job description:
+[paste the posting]
+
+My current resume bullets:
+[paste your bullets]
+</div>
+
+<p>That two-step structure &mdash; diagnose, then rewrite &mdash; is what separates a tailored resume from a job-description echo. The first part forces the model to reason about the match. The second part operates only on the lines it chose, which keeps the invention surface small.</p>
+
+<h3>3. The keyword gap analyser</h3>
+<p>Instead of stuffing keywords into your resume, find out which ones you are genuinely missing. This is the prompt that replaces keyword dumping.</p>
+<div class="code-block">
+<span class="label">Prompt 3 &mdash; keyword gap analysis</span>
+
+Compare my resume against this job description and produce a gap analysis.
+
+Do NOT write or rewrite my resume. Report only:
+- Exact terms in the job description that I already use somewhere
+  in my resume (with the line where I use them)
+- Exact terms in the job description that I do not use anywhere
+- Which of the missing terms I could legitimately claim based on
+  the experience I described
+
+For the third list, only include a term if my experience genuinely supports
+it. If I have the skill but never said it, say so. If I do not have it,
+tell me plainly that I do not have it.
+
+Job description: [paste]
+My resume: [paste]
+</div>
+
+<h3>4. The fabricator tripwire</h3>
+<p>Run this against any output before you send it. It is the cheapest insurance in this entire guide.</p>
+<div class="code-block">
+<span class="label">Prompt 4 &mdash; verify before sending</span>
+
+Audit the resume text below. For every number, percentage, dollar
+figure, percentage increase, date, employer name, job title and
+technology named, tell me:
+- the exact figure
+- whether it appears anywhere in the source material I gave you
+- if not, flag it as FABRICATED
+
+Then rewrite any fabricated line using my real facts, or with
+[ADD NUMBER] if a number is genuinely missing.
+
+Text to audit: [paste AI output]
+Source material: [paste your real resume]
+</div>
+
+<p>Do not skip this step. The model that wrote a number will not reliably tell you it is wrong on a second pass &mdash; auditing a different model&rsquo;s output is a different task from generating it, and the diff between those two tasks is where the errors surface.</p>
+
+<h3>5. The honest gap writer</h3>
+<p>For career gaps, layoffs and contract work. The failure mode here is the model producing a gracious paragraph that quietly implies something you did not do.</p>
+<div class="code-block">
+<span class="label">Prompt 5 &mdash; explain a gap truthfully</span>
+
+Write 2 short, factual paragraphs explaining the following period of
+my career history, for use in a cover letter or a resume note.
+
+Use only the facts I give. Do not infer what I was doing. Do not
+describe unpaid work as employment, study as work, or volunteering
+as a role. If a fact is not supplied, leave it out.
+
+Facts:
+- Dates: [start] to [end]
+- What actually happened: [be honest and brief]
+- What I am doing now: [current status]
+</div>
+
+<h3>6. The summary that is not a paragraph of adjectives</h3>
+<p>Most &ldquo;professional summary&rdquo; prompts produce a warm, meaningless paragraph. This one produces something a recruiter can use.</p>
+<div class="code-block">
+<span class="label">Prompt 6 &mdash; a summary with no filler</span>
+
+Write a 3-sentence professional summary using ONLY the facts below.
+
+No adjectives I did not claim. No "results-driven", "detail-oriented",
+"proven track record", "passionate about", or "dynamic professional".
+Every sentence must contain at least one of my specific facts.
+
+Facts: [years of experience, field, specific skills, one achievement]
+</div>
+
+<h3>7. The interview question generator</h3>
+<p>Once you get the callback, the game changes. This prompt generates questions drawn from your own resume, which is far more useful than generic question banks.</p>
+<div class="code-block">
+<span class="label">Prompt 7 &mdash; interview prep from your own resume</span>
+
+Read the resume below and generate the 12 questions I am most likely
+to be asked in a first-round interview, plus 6 questions a hiring
+manager would ask that a recruiter would not.
+
+For each question, note the line in my resume it is based on, and
+what a weak answer would sound like versus a strong one.
+
+Resume: [paste]
+Role: [title]
+</div>
+
+<h3>8. The cover letter that does not repeat the resume</h3>
+<p>Cover letters fail when they paraphrase the resume. This prompt makes the letter do the one job only a letter can do: explain why you are asking.</p>
+<div class="code-block">
+<span class="label">Prompt 8 &mdash; a cover letter with a reason</span>
+
+Write a 4-paragraph cover letter for the role below.
+
+Paragraph 1: what I am applying for and the one sentence that says
+why this company specifically.
+Paragraph 2: the single most relevant thing I have actually done.
+Paragraph 3: how I work, evidenced by something concrete from my history.
+Paragraph 4: a short, plain close. No "I am writing to express my
+interest in the position."
+
+Do not restate my resume. Do not use any phrase from the job
+description. Use only facts I supplied.
+
+Role: [paste]
+My background: [paste]
+Why this company: [one genuine specific reason]
+</div>
+
+<h3>9. The one you should never use</h3>
+<p>Every one of these nine prompts constrains the model. This is the shape of prompt that does not, and it is the most common resume prompt on the internet.</p>
+<div class="code-block">
+<span class="label">Prompt 9 &mdash; do not use this</span>
+
+&mdash;&mdash; WHAT MOST PEOPLE USE &mdash;&mdash;
+"Here is my resume and the job description. Rewrite my resume so it
+is a perfect match for this job. Make it impressive. Add metrics
+where relevant."
+
+&mdash;&mdash; WHY IT FAILS &mdash;&mdash;
+1. "Add metrics where relevant" is an explicit instruction to fabricate.
+2. "Perfect match" invites the model to write skills you do not have.
+3. It produces a job-description echo, which recruiters now skim past.
+4. Nothing in the output is verifiable, so nothing is safe to send.
+</div>
+
+<p>That prompt does not fail because the model is bad. It fails because it asks for exactly the thing a language model cannot do honestly: make a claim about your working life that it has no evidence for.</p>
+
+<h2>Why This Matters More Than It Used To</h2>
+
+<p>Resume screening has become a two-sided AI problem, and understanding the other side changes how you should write. On the employer side, LLM-based screening systems are now standard infrastructure. One published study of a multi-agent resume screening framework evaluated the system against more than 500 real resumes and 500 real job descriptions across nine occupations, auditing the retrieval models for racial and gender bias. <a href="https://arxiv.org/abs/2504.02870" target="_blank" rel="noopener">The arXiv paper</a> is worth reading if you want the methodology.</p>
+
+<p>A separate observational study compared zero-shot GPT-4 resume matching against human ratings for <strong>736 resumes</strong> submitted to real job openings. You can read it in the <a href="https://aclanthology.org/2025.findings-naacl.270.pdf" target="_blank" rel="noopener">NAACL 2025 findings paper</a>. What these studies collectively establish is that AI screening is now a real filter in the pipeline, and that its errors are not uniformly distributed &mdash; they fall disproportionately on certain candidates.</p>
+
+<p>That asymmetry is the practical reason the fabricator tripwire matters. If your resume is a faithful representation of your work, a human reviewing it can defend your candidacy. If it contains a metric you invented, then no amount of good writing rescues it, because the disqualifying fact is not in the writing, it is in the truth.</p>
+
+<p>And the risk is not symmetric with the reward. The U.S. Department of Justice estimates that <strong>up to 45 percent of resumes and applications contain fabrications</strong>. Some are innocuous padding. A fabricated percentage is not padding &mdash; it is a claim you made to an employer that you cannot support, and it is the kind of claim that ends a process. One job seeker on Hacker News described paying $250 to have a resume optimised with keywords to satisfy automated screening, and reported that it worked &mdash; they started receiving automated screening calls for jobs that had rejected their old resume.</p>
+
+<p>The optimisation worked. The point is that it was optimising the wrong thing. Passing a keyword filter is worth far less than being able to answer, on a call, what you actually did.</p>
+
+<h2>Your Resume Should Sound Like You Wrote It</h2>
+
+<p>One last thing, and it is the part most guides skip. You now have a strong reason to keep the final editing pass in your own hands: an interview is a conversation about your work, and the fastest way to lose it is to arrive with a document full of sentences you cannot defend.</p>
+
+<p>Read every line the model produced and ask a single question: <strong>could I say this out loud in a job interview without flinching?</strong> If the answer is no, cut it or fix it yourself. Do not ship a claim you have not rehearsed. An experienced hiring manager described the standard they now apply, and it is not an AI-detection test: they look up the candidate on LinkedIn and compare.</p>
+
+<blockquote>&ldquo;When I look many of these people up in LinkedIn, they often have jobs listed but completely empty descriptions of each job. I guess this is so they can have AI generate a rewrite of their jobs.&rdquo;</blockquote>
+
+<p>That check is cheap for them and expensive for you. Make sure you would pass it.</p>
+
+<div class="cta-box">
+  <h2>Write the prompt once. Send it everywhere.</h2>
+  <p>The hardest part of a job search is not applying. It is re-entering the same information into a different tool for every posting, under time pressure, with a constraint you cannot afford to forget. Prompt Helper Gemini turns the constraint block above into a reusable prompt in about thirty seconds &mdash; the constraints, the placeholder rule, the figure-tracing check &mdash; so you paste it once and reuse it for every application without rebuilding it from scratch.</p>
+  <a href="https://promptgenerator.fyi/">Try it free &mdash; no prompt engineering degree required</a>
+</div>
+
+<div class="faq">
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq-item">
+<h3>Why does ChatGPT invent numbers on my resume?</h3>
+<p>ChatGPT has no access to your employment record. When you ask for achievement-driven bullets without supplying the figures, it fills the gap with the most typical number it has ever seen. The model is completing a pattern, not checking a record. Every figure on your resume has to be one you typed in yourself.</p>
+</div>
+<div class="faq-item">
+<h3>Are ChatGPT resume prompts worth it if ATS systems do not auto-reject?</h3>
+<p>Yes, but for the reason most people miss. Applicant tracking systems mostly rank and sort rather than silently reject, so the bottleneck is volume, not a filter. A recruiter may screen a thousand applications for one role. A good prompt converts a generic resume into one that visibly answers this job's requirements, which is what gets you found.</p>
+</div>
+<div class="faq-item">
+<h3>What is the difference between a resume bullet prompt and a resume builder?</h3>
+<p>A builder generates a document from your inputs, so it decides your phrasing and often your metrics. A bullet prompt only rewrites what you hand it, under constraints you set. That constraint is the safety mechanism: the model reorders and tightens your language, but it cannot add an employer you never worked for or a percentage you never measured.</p>
+</div>
+<div class="faq-item">
+<h3>How do I make ChatGPT stop fabricating metrics on my bullets?</h3>
+<p>Give it a hard prohibition and a verification step. Tell it to use only the figures you supplied, and to write the word PLACEHOLDER wherever a number is missing rather than inventing one. Then ask it to list every number it used and the source line it came from, so you can check it against your facts in one pass.</p>
+</div>
+<div class="faq-item">
+<h3>Should I use the same resume for every job I apply to?</h3>
+<p>No, and the research is unusually clear. A recruiter reading nine hundred applications will spot the identical resume instantly, and identical resumes are the signal that reads as low effort. Tailoring is not about tricking a filter. It is about making the top of your resume answer this employer's actual question instead of describing you in general terms.</p>
+</div>
+</div>
+
+<h2>Conclusion: Constrain the Model, Verify Every Figure</h2>
+
+<p>The reason ChatGPT resume prompts have a reputation for producing unusable resumes is not that the models are weak. It is that most resume prompts ask for something no language model can do honestly: make a specific, checkable claim about a working life it has never seen. Give it a slot to fill and it fills the slot. The slot is usually a number.</p>
+
+<p>Four rules fix nearly all of it. Use only the facts you supply. Never invent a number, an employer, a title or a responsibility. Write <code>[ADD NUMBER]</code> where a figure is genuinely missing instead of guessing. And make the model trace every number back to a source line so you can check it in one pass. That last step is the one that actually protects you, and it takes about thirty seconds.</p>
+
+<p>Two beliefs also need correcting, because both send people down expensive paths. The claim that 75 percent of resumes are rejected by ATS before a human sees them is a debunked 2012 marketing statistic &mdash; 92 percent of recruiters say their system does not auto-reject, and what actually buries a resume is volume, not a filter. And third-party ATS scores are simulations, not the output of the system your application entered, so optimising against one is optimising against nothing.</p>
+
+<p>What is left is the part that always mattered. Your resume should be findable, specific to the role in front of you, and entirely defensible. Tailor the emphasis, not the facts. Write the number yourself, or do not write it. And if a sentence could not survive you saying it out loud in a job interview, it does not belong on the page.</p>
+
+<p>More practical prompting guides live in the <a href="/blog.html">promptgenerator.fyi blog</a>, including <a href="/blog-ai-prompt-rewording-fix.html">why rewriting your prompts works better than rewording them</a> and <a href="/blog-ai-prompt-examples-2026.html">prompt examples that actually produce better output</a>.</p>
+
+<footer>
+  <p>Published on <a href="https://promptgenerator.fyi">promptgenerator.fyi</a> &mdash; practical AI prompting guides built from real user research.</p>
+</footer>
+
+</article>
+</main>
+
+</body>
+</html>
