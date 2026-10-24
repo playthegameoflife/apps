@@ -19,9 +19,9 @@ if ('serviceWorker' in navigator) {
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
-    // Nav scroll effect
-    const nav = document.querySelector('.nav');
-    window.addEventListener('scroll', () => {
+    // Nav scroll effect (shell pages use .topbar, legacy pages use .nav)
+    const nav = document.querySelector('.nav') || document.querySelector('.topbar');
+    if (nav) window.addEventListener('scroll', () => {
       if (window.scrollY > 20) nav.classList.add('scrolled');
       else nav.classList.remove('scrolled');
     }, { passive: true });

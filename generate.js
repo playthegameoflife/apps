@@ -366,11 +366,10 @@ async function generate(variantStyle) {
         const s = scorePrompt(full);
         const sl = scoreLabel(s);
         if (outputEl === $('output')) {
-          const badge = $('score-badge'); badge.textContent = `${sl.label} · ${s}/100`; badge.className = 'score-badge ' + sl.cls;
           const meta = document.getElementById('output-meta');
           if (meta) meta.innerHTML = '<span id="score-badge" class="score-badge ' + sl.cls + '">' + sl.label + ' · ' + s + '/100</span>';
           const actions = document.getElementById('output-actions');
-          if (actions) actions.innerHTML = '<button onclick="navigator.clipboard.writeText(document.getElementById(\'output\').textContent).then(()=>{const m=document.getElementById(\'copy-msg\');m.textContent=\'Copied!\';setTimeout(()=>m.textContent=\'\',1500)})">Copy</button> <button onclick="document.getElementById(\'prompt-input\').value=document.getElementById(\'output\').textContent;document.getElementById(\'prompt-input\').focus()">Refine</button>';
+          if (actions) actions.innerHTML = '<button class="btn btn-sm" onclick="navigator.clipboard.writeText(document.getElementById(\'output\').textContent).then(()=>{const m=document.getElementById(\'copy-msg\');m.textContent=\'Copied!\';setTimeout(()=>m.textContent=\'\',1500)})">Copy result</button> <button class="btn btn-sm btn-ghost" onclick="document.getElementById(\'prompt-input\').value=document.getElementById(\'output\').textContent;document.getElementById(\'prompt-input\').focus()">Refine</button>';
           state.lastOutput = full; state.lastPrompt = prompt;
           trackUsage(); saveHistoryEntry(prompt, full, style);
           renderUsage(); renderHistory();
