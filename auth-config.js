@@ -52,6 +52,16 @@ window.PHG_AUTH_CONFIG = {
   // Google OAuth client ids, tried in order. See comment above.
   candidates: [
     {
+      clientId: '1000335518380-4fn40utptgdh2i19nuek7qoja9ma8c8s.apps.googleusercontent.com',
+      label: 'Prompt Helper dedicated web client (project 1000335518380)',
+      project: '1000335518380',
+      // CONFIDENTIAL client — auth.js detects this and uses the
+      // implicit flow, because the token endpoint requires a secret.
+      // Already authorized for https://promptgenerator.fyi.
+      kind: 'confidential',
+      requires: 'Authorized JavaScript origin = ' + (location.protocol + '//' + location.host)
+    },
+    {
       clientId: '1097186279139-8deig9lgvgj8korv12fbaj81la3qk079.apps.googleusercontent.com',
       label: 'Firebase web client (project 1097186279139)',
       project: '1097186279139',

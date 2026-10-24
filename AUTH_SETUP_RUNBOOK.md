@@ -1,10 +1,41 @@
 # Google Sign-In — Cloud Console Runbook
 
-**Status:** the code is complete, tested, and deployed-ready. Sign-in is
-blocked by **one** thing that can only be done in Google Cloud Console:
-registering this website's origin with a Google OAuth client.
+**Status:** the code is complete, tested, and deployed. Google sign-in is
+**working** with the dedicated client `1000335518380-4fn40utptgdh2i19nuek7qoja9ma8c8s`.
 
-Follow the steps below and sign-in works. No code changes are required.
+The client is already authorized for `https://promptgenerator.fyi` and
+`http://localhost:8082`. Verified live: clicking "Sign in with Google"
+opens Google's normal "Sign in to continue to Prompt Helper" account
+chooser with no `origin_mismatch` / `redirect_uri_mismatch` error.
+
+This runbook is kept for reference and for restoring a working config.
+No console step is required to use sign-in as it stands.
+
+---
+
+## The client in use
+
+```
+Client id:  1000335518380-4fn40utptgdh2i19nuek7qoja9ma8c8s.apps.googleusercontent.com
+Type:        Web application, CONFIDENTIAL (no PKCE — implicit flow is used)
+Project:     1000335518380
+```
+
+Because the client is confidential, Google's token endpoint rejects a
+secretless code exchange with `"client_secret is missing"`. The shared
+`auth.js` detects this at runtime and automatically uses the **implicit**
+flow, where the token arrives in the redirect fragment. No client secret is
+needed anywhere, and none is stored in the repo.
+
+## The other candidates (fallbacks)
+
+| Client | Project | State |
+|---|---|---|
+| `1000335518380-4fn40utptgdh2i19nuek7qoja9ma8c8s` | 1000335518380 | **Active** — authorized for this site |
+| `1097186279139-8deig9lgvgj8korv12fbaj81la3qk079` | 1097186279139 | Firebase auto-created web client; confidential; needs its own origin entry to work |
+| `097186279139-00aqbna3di7fch3m5mbvov2824lri3bq` | 097186279139 | Deleted from Console — the original bug, an extension-type client |
+
+`auth.js` tries them in order and uses the first one Google accepts.
 
 ---
 
