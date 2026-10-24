@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Pricing — Prompt Helper</title>
+  <meta name="description" content="Simple, transparent pricing for Prompt Helper. Free: 5 prompts/week. Pro: unlimited enhancements, full history, saved library. Monthly or annual.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <link rel="stylesheet" href="/site.css?v=2">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#08080d">
+  <link rel="alternate" hreflang="en" href="https://promptgenerator.fyi/pricing.html">
+  <link rel="alternate" hreflang="x-default" href="https://promptgenerator.fyi/pricing.html">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="nav">
+    <div class="brand">Prompt Helper</div>
+    <nav>
+      <a href="/">Generator</a>
+      <a href="/library.html">Library</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/pricing.html" style="color:var(--text);background:rgba(255,255,255,0.06)">Pricing</a>
+      <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get Extension</a>
+    </nav>
+  </div>
+  <main id="main" class="container">
+    <header class="page-header" style="text-align:center;max-width:640px;margin:0 auto var(--space-10)">
+      <h1 class="page-title">Simple, transparent pricing</h1>
+      <p class="page-sub" style="margin:0 auto">Start free. Upgrade when you need unlimited. No hidden fees, cancel anytime.</p>
+    </header>
+
+    <!-- Billing toggle -->
+    <div style="display:flex;justify-content:center;align-items:center;gap:var(--space-3);margin-bottom:var(--space-8)">
+      <span class="muted" id="billing-label-monthly" style="font-weight:600;color:var(--text)">Monthly</span>
+      <label class="toggle" style="cursor:pointer">
+        <input type="checkbox" id="annual-toggle" aria-label="Toggle annual billing">
+      </label>
+      <span class="muted" id="billing-label-annual">Annual <span style="color:#15803d;font-weight:600">(save 17%)</span></span>
+    </div>
+
+    <!-- Plans -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5);margin-bottom:var(--space-10)" class="plans-grid">
+      <!-- Free -->
+      <div class="card" style="position:relative">
+        <h2>Free</h2>
+        <div style="margin:var(--space-3) 0 var(--space-5)">
+          <span style="font-size:2.5rem;font-weight:800;letter-spacing:-0.03em">$0</span>
+          <span class="muted">/month</span>
+        </div>
+        <p class="muted" style="margin-bottom:var(--space-5)">Perfect for trying it out. No credit card required.</p>
+        <ul style="list-style:none;padding:0;margin:0 0 var(--space-6);display:flex;flex-direction:column;gap:var(--space-3)">
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> 5 prompt enhancements / week</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> 5 Ask questions / week</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> Text, Code, Image, Video modes</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> All 12+ styles</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> Starter templates</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> Quality score</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> History (last 1 item)</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--muted)">—</span> <span class="muted">Memories (personalization)</span></li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--muted)">—</span> <span class="muted">A/B variants</span></li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--muted)">—</span> <span class="muted">Saved prompt library</span></li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--muted)">—</span> <span class="muted">In-chat Improve button</span></li>
+        </ul>
+        <a href="/" class="btn btn-ghost" style="width:100%;justify-content:center">Start free</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="card" style="position:relative;border-color:var(--border-accent);box-shadow:var(--shadow-glow)">
+        <div style="position:absolute;top:-12px;right:var(--space-5);background:linear-gradient(135deg,var(--accent),var(--accent-dark));color:#fff;font-size:0.7rem;font-weight:700;padding:4px 12px;border-radius:999px;letter-spacing:0.05em;text-transform:uppercase">Recommended</div>
+        <h2>Pro</h2>
+        <div style="margin:var(--space-3) 0 var(--space-5)">
+          <span id="pro-price" style="font-size:2.5rem;font-weight:800;letter-spacing:-0.03em">$19.99</span>
+          <span class="muted" id="pro-period">/month</span>
+        </div>
+        <p class="muted" style="margin-bottom:var(--space-5)">For power users who want unlimited. Cancel anytime.</p>
+        <ul style="list-style:none;padding:0;margin:0 0 var(--space-6);display:flex;flex-direction:column;gap:var(--space-3)">
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> <strong>Unlimited</strong> prompt enhancements</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> <strong>Unlimited</strong> Ask questions</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> Text, Code, Image, Video modes</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> All 12+ styles</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> Starter templates</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> Quality score</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> Full history (50 items)</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> Memories (personalization)</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> A/B variants</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> Saved prompt library</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> In-chat Improve button (extension)</li>
+          <li style="display:flex;align-items:center;gap:var(--space-2)"><span style="color:var(--green)">✓</span> Priority support</li>
+        </ul>
+        <button id="upgrade-btn" class="btn btn-primary" style="width:100%;justify-content:center">Upgrade to Pro</button>
+        <span id="upgrade-msg" class="muted" style="display:block;margin-top:var(--space-2);text-align:center" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <section class="card" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently asked questions</h2>
+      <details><summary>Can I cancel anytime?</summary><p class="muted" style="margin:var(--space-2) 0 0">Yes. Cancel from your account settings and you won't be charged again. You keep Pro access until the end of your billing period.</p></details>
+      <details><summary>Is there a free trial?</summary><p class="muted" style="margin:var(--space-2) 0 0">The free tier is free forever — no trial needed. You can use 5 enhancements per week with no credit card.</p></details>
+      <details><summary>Does Pro work on both the website and the extension?</summary><p class="muted" style="margin:var(--space-2) 0 0">Yes. Sign in with the same Google account on both and your Pro subscription syncs automatically.</p></details>
+      <details><summary>What payment methods do you accept?</summary><p class="muted" style="margin:var(--space-2) 0 0">All major credit and debit cards via Stripe. Secure checkout.</p></details>
+      <details><summary>Do you offer team plans?</summary><p class="muted" style="margin:var(--space-2) 0 0">Team plans are coming soon. Contact us for early access.</p></details>
+      <details><summary>Is there a lifetime deal?</summary><p class="muted" style="margin:var(--space-2) 0 0">Not currently, but we're considering a one-time lifetime option. Sign up for the free tier to be notified.</p></details>
+    </section>
+
+    <!-- Trust -->
+    <div style="text-align:center;margin-top:var(--space-8)">
+      <p class="muted">Secure checkout powered by Stripe. Cancel anytime. No hidden fees.</p>
+    </div>
+  </main>
+  <footer>© 2026 Prompt Helper. All rights reserved. · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/pricing.html">Pricing</a></footer>
+  <script src="generate.js"></script>
+  <script>
+    // Billing toggle
+    const toggle = document.getElementById('annual-toggle');
+    const priceEl = document.getElementById('pro-price');
+    const periodEl = document.getElementById('pro-period');
+    const labelMonthly = document.getElementById('billing-label-monthly');
+    const labelAnnual = document.getElementById('billing-label-annual');
+    toggle.addEventListener('change', () => {
+      if (toggle.checked) {
+        priceEl.textContent = '$199';
+        periodEl.textContent = '/year';
+        labelMonthly.style.color = 'var(--muted)';
+        labelMonthly.style.fontWeight = '400';
+        labelAnnual.style.color = 'var(--text)';
+        labelAnnual.style.fontWeight = '600';
+      } else {
+        priceEl.textContent = '$19.99';
+        periodEl.textContent = '/month';
+        labelMonthly.style.color = 'var(--text)';
+        labelMonthly.style.fontWeight = '600';
+        labelAnnual.style.color = 'var(--muted)';
+        labelAnnual.style.fontWeight = '400';
+      }
+    });
+    // Upgrade button (gated behind sign-in via generate.js)
+    document.getElementById('upgrade-btn').addEventListener('click', () => {
+      if (typeof upgrade === 'function') upgrade();
+      else window.location.href = '/';
+    });
+  </script>
+</body>
+</html>

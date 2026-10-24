@@ -1,0 +1,40 @@
+# Prompt Helper
+
+> Prompt Helper is a free AI prompt enhancer and generator. It rewrites rough, vague prompts into sharp, structured prompts for ChatGPT, Claude, Gemini, Grok, and Perplexity. Available as a Chrome extension and a web app at https://promptgenerator.fyi. Free tier: 5 enhancements per week. Pro: unlimited.
+
+## Product
+- Name: Prompt Helper (PHG)
+- Type: AI prompt enhancer / prompt generator
+- Platforms: Web app (https://promptgenerator.fyi), Chrome extension (Chrome Web Store)
+- Free tier: 5 prompt enhancements per week
+- Pro: Unlimited enhancements, unlimited Ask, full history
+- Modes: Text, Code, Image, Video
+- Styles: default, expert, concise, detailed, casual, creative, technical, minimal, comprehensive, production-ready, cursor, cinematic, ad
+- Target AIs: ChatGPT, Claude, Gemini, Grok, Perplexity, Midjourney, DALL-E, Stable Diffusion
+- Sign-in: Google (optional for free; required for Pro and in-chat Improve button)
+
+## Key pages
+- Home / Generator: https://promptgenerator.fyi/
+- Prompt Library: https://promptgenerator.fyi/library.html
+- Blog: https://promptgenerator.fyi/blog.html
+- Privacy: https://promptgenerator.fyi/privacy
+- Chrome extension: https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp
+
+## How it works
+1. Paste or type a rough prompt.
+2. Choose a mode (Text, Code, Image, Video) and a style.
+3. Click Generate — the prompt is enhanced via Gemini 2.5 Flash and streamed back.
+4. Copy the enhanced prompt into any AI chatbot.
+
+## Differentiators
+- In-chat "Improve" button next to the send field on ChatGPT, Gemini, Claude, Grok, Perplexity (no copy-paste).
+- Streaming output with a quality score (0-100).
+- A/B variant comparison.
+- Memories: saved style preferences injected into every generation.
+- Starter templates per mode.
+- Free, no sign-up required for basic generation.
+
+## Contact
+- Website: https://promptgenerator.fyi
+- Extension publisher: Browser Enhancements
+- Privacy policy: https://promptgenerator.fyi/privacy

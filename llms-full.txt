@@ -1,0 +1,79 @@
+# Prompt Helper — Full Reference
+
+Prompt Helper (PHG) is a free AI prompt enhancer and generator that rewrites rough, vague prompts into sharp, structured prompts optimized for ChatGPT, Claude, Gemini, Grok, and Perplexity. Available as a Chrome extension (Chrome Web Store) and a web app at https://promptgenerator.fyi.
+
+## What it does
+- Enhances prompts in Text, Code, Image, and Video modes.
+- Offers 12+ styles per mode (default, expert, concise, detailed, casual, creative, technical, minimal, comprehensive, production-ready, cursor, cinematic, ad).
+- Targets specific AI platforms (ChatGPT, Claude, Gemini, Grok, Perplexity, Midjourney, DALL-E, Stable Diffusion) to tailor formatting.
+- Streams the enhanced prompt token-by-token with a quality score (0-100).
+- Supports A/B variant comparison.
+- Memories: user-saved style preferences injected into every generation.
+- Starter templates per mode (click to load).
+- Searchable history (last 1 free, 50 for Pro).
+- Shareable links (URL with prompt encoded).
+- One-click refine/follow-on.
+
+## Free vs Pro
+- Free: 5 prompt enhancements per week, 5 Ask questions per week, limited history (1 item).
+- Pro: Unlimited enhancements, unlimited Ask, full history (50 items), saved prompt library. Price: set in Stripe (monthly/annual).
+
+## How it works (web)
+1. Visit https://promptgenerator.fyi/
+2. Type or paste a rough prompt.
+3. Choose mode (Text/Code/Image/Video), style, and target AI.
+4. Click Generate. The prompt is enhanced via Gemini 2.5 Flash and streamed back.
+5. Copy the enhanced prompt into any AI chatbot.
+
+## How it works (extension)
+- Install from Chrome Web Store.
+- Sign in with Google.
+- Use the Build tab to improve prompts, or open ChatGPT/Gemini/Claude/Grok/Perplexity and click the "Improve" button next to the send field.
+- Keyboard shortcut: Ctrl+Shift+E (Cmd+Shift+E on Mac).
+
+## In-chat Improve button
+- Appears next to the send button on supported platforms when signed in.
+- Improves the message before sending — no copy-paste.
+- Supported: ChatGPT (chat.openai.com, chatgpt.com), Gemini (gemini.google.com), Claude (claude.ai), Grok (x.com), Perplexity (perplexity.ai).
+
+## Ask tab
+- Ask questions directly in the extension.
+- Optional "Apply auto-improve before sending" for better answers.
+
+## History
+- View and reuse recent enhanced prompts.
+- Copy again or refine further.
+
+## Privacy
+- Sign in with Google; subscription tied to account.
+- Enhancement processed via secure backend (Cloud Run).
+- Settings stored locally in browser.
+- Data not sold to third parties.
+
+## Competitor comparison
+- vs AIPRM: AIPRM is a prompt template library (5,000+ curated prompts) for ChatGPT/Claude. PHG is a prompt enhancer/rewriter, not a template library.
+- vs Prompt Cowboy: Prompt Cowboy focuses on "Memories" (personalized prompt profiles). PHG offers modes, styles, streaming, quality scoring, A/B testing.
+- vs SurePrompts: SurePrompts is web-only with templates and quality scoring. PHG adds an in-chat Chrome extension and broader modes.
+- vs Pretty Prompt: "Grammarly for prompts" with 5/week free. PHG matches the free tier and adds code/image/video modes.
+- vs GPTPromptMaker: Framework-based (CO-STAR/RISEN/CRAFT) web + extension. PHG offers streaming and quality scoring.
+
+## Frequently asked questions
+Q: Is it free?
+A: Yes. Free tier includes 5 prompt enhancements and 5 Ask questions per week, plus limited history. No credit card required.
+
+Q: Do I need to sign up?
+A: No. You can generate prompts as a guest. Sign in with Google to unlock the in-chat Improve button and Pro features.
+
+Q: What AI models does it support?
+A: It enhances prompts for ChatGPT, Claude, Gemini, Grok, Perplexity, Midjourney, DALL-E, and Stable Diffusion.
+
+Q: How does the quality score work?
+A: After generation, a 0-100 score is shown based on prompt length, structure, role definition, output format specification, constraints, and tone.
+
+Q: Is my data private?
+A: Enhancement is processed via a secure backend. Settings stored locally. Data not sold to third parties.
+
+## Contact
+- Website: https://promptgenerator.fyi
+- Chrome extension: https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp
+- Privacy policy: https://promptgenerator.fyi/privacy

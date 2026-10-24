@@ -1,25 +1,28 @@
 User-agent: *
 Allow: /
 
+# AI crawlers — explicitly allowed for GEO
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
 # Sitemap
 Sitemap: https://promptgenerator.fyi/sitemap.xml
 
-# Block non-prompt-generator pages from indexing
-Disallow: /admin.html
-Disallow: /apps.html
-Disallow: /combat-companion.html
-Disallow: /dumbbelltrainer/
-Disallow: /financial-quest.html
-Disallow: /fitclick.html
-Disallow: /fitxtreme.html
-Disallow: /library.html
-Disallow: /life-quest.html
-Disallow: /marketmaster.html
-Disallow: /mycombat/
-Disallow: /real-estate-mastery.html
-Disallow: /taskmaster.html
-
-# Block development files
-Disallow: /*/.env
-Disallow: /*/.env.local
-Disallow: /*/.env.*
+# LLM reference files
+# https://promptgenerator.fyi/llms.txt
+# https://promptgenerator.fyi/llms-full.txt
