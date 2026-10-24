@@ -478,6 +478,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (isGeneratorPage) {
     const params = new URLSearchParams(location.search);
     if (params.get('p')) $('prompt-input').value = decodeURIComponent(params.get('p'));
+    // Library handoff: full prompt bodies can be thousands of characters, which
+    // is too long for a URL query string. The library page stores the body in
+    // localStorage and passes only a key.
+    try {
+      const key = params.get('lib');
+      if (key) {
+        const raw = localStorage.getItem('phg_lib_' + key);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          $('prompt-input').value = parsed.p || '';
+          if (parsed.m) state.mode = parsed.m;
+          if (parsed.s) state.style = parsed.s;
+          localStorage.removeItem('phg_lib_' + key);
+        }
+      }
+    } catch (e) {}
   }
 
   if (isGeneratorPage) {
