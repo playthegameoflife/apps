@@ -32,7 +32,7 @@ html[data-theme="dark"] {
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  z-index: 900;
+  z-index: var(--z-drawer-side);
   transition: width var(--transition-base), transform var(--transition-base);
   overflow: hidden;
 }
@@ -150,7 +150,7 @@ body.sidebar-collapsed .app-main { margin-left: var(--sidebar-w-collapsed); }
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 800;
+  z-index: var(--z-nav);
   height: var(--topbar-h);
   display: flex;
   align-items: center;
@@ -683,7 +683,7 @@ main a:not(.btn) { text-decoration: none; }
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--transition-base);
-    z-index: 89;
+    z-index: var(--z-scrim-side);
   }
   body.sidebar-open .sb-scrim { opacity: 1; pointer-events: auto; }
 }
