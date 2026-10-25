@@ -1,7 +1,6 @@
 // Prompt Generator web app logic (enhanced)
 const BACKEND_URL = 'https://api-clyep56cdq-uc.a.run.app';
 const STRIPE_MONTHLY_PRICE_ID = 'price_1SuFV7GdisCqoeFIRmlo7yb2';
-const STRIPE_ANNUAL_PRICE_ID = 'price_REPLACE_WITH_ANNUAL_PRICE_ID'; // Create in Stripe Dashboard → Products → Add price → $199/yr
 const STRIPE_PRICE_ID = STRIPE_MONTHLY_PRICE_ID;
 // NOTE: the Google OAuth client id used to live here. It was the Chrome
 // extension's client, which Google rejects for web origins (origin_mismatch).
@@ -81,9 +80,47 @@ function loadState() {
     lsSet('phg_userId', state.userId);
   }
 }
+
+// A durable, per-browser identifier for the guest allowance.
+//
+// The server keys anonymous usage by this id rather than by IP, so that
+// people behind a shared connection (an office, a school, a mobile
+// carrier) each get their own guest allowance, and so that the guest
+// usage can be carried into the account when the visitor signs in.
+//
+// It is a random local id, not a credential: it grants nothing on its
+// own, and the server still enforces every limit.
+function getAnonId() {
+  let id = null;
+  try { id = localStorage.getItem('phg_anon_id'); } catch {}
+  if (!id || !/^[A-Za-z0-9_-]{8,64}$/.test(id)) {
+    const rand = (typeof crypto !== 'undefined' && crypto.randomUUID)
+      ? crypto.randomUUID()
+      : Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 12);
+    id = String(rand).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 64);
+    try { localStorage.setItem('phg_anon_id', id); } catch {}
+  }
+  return id;
+}
 function saveUsage() { lsSet('phg_weeklyUsage', state.weeklyUsage); }
 function saveHistory() { lsSet('phg_history', state.history.slice(0, 100)); }
 function saveMemory() { lsSet('phg_memory', state.memory); }
+
+// Build the headers for a backend call.
+//
+// The access token identifies a signed-in account; the anon id identifies
+// this browser so the guest allowance is per-browser and can be carried
+// into the account on sign-in. Both are always sent — the server decides
+// which one applies.
+function backendHeaders(extra) {
+  const headers = Object.assign({}, extra || {});
+  const token = window.PHGAuth && window.PHGAuth.getAccessToken
+    ? window.PHGAuth.getAccessToken()
+    : null;
+  if (token) headers['x-phg-access-token'] = token;
+  headers['x-phg-anon-id'] = getAnonId();
+  return headers;
+}
 
 // ---- ui helpers ----
 const $ = (id) => document.getElementById(id);
@@ -119,7 +156,7 @@ function renderUsageNudge(used, limit) {
     nudge.className = 'usage-nudge warn';
     setText('usage-nudge-text',
       state.tier === 'guest'
-        ? `You've used all ${limit} free enhancements this week. Sign in free to get ${TIERS.free.limit} a week — or go Pro for unlimited.`
+        ? `You've used all ${limit} free enhancements this week. Sign in free to get ${TIERS.free.limit} a week, plus Memory and A/B variants — or go Pro for unlimited.`
         : `You've used all ${limit} free enhancements this week. Upgrade to Pro for unlimited.`);
     setText('usage-nudge-cta', state.tier === 'guest' ? 'Sign in for free' : 'Upgrade to Pro');
     return;
@@ -131,7 +168,7 @@ function renderUsageNudge(used, limit) {
     nudge.className = 'usage-nudge warn';
     setText('usage-nudge-text',
       state.tier === 'guest'
-        ? `${remaining} free enhancement${remaining === 1 ? '' : 's'} left this week. Sign in free to get ${TIERS.free.limit} a week.`
+        ? `${remaining} free enhancement${remaining === 1 ? '' : 's'} left this week. Sign in free to get ${TIERS.free.limit} a week, plus Memory and A/B variants.`
         : `${remaining} enhancement${remaining === 1 ? '' : 's'} left this week. Upgrade to Pro for unlimited.`);
     setText('usage-nudge-cta', state.tier === 'guest' ? 'Sign in for free' : 'Upgrade to Pro');
     return;
@@ -161,11 +198,7 @@ function currentTier() {
  */
 async function refreshUsage() {
   try {
-    const token = window.PHGAuth && window.PHGAuth.getAccessToken
-      ? window.PHGAuth.getAccessToken()
-      : null;
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['x-phg-access-token'] = token;
+    const headers = backendHeaders({ 'Content-Type': 'application/json' });
 
     const r = await fetch(BACKEND_URL + '/usage-status', { headers });
     if (!r.ok) return;
@@ -422,10 +455,7 @@ function onAuthChanged(user) {
 // ---- subscription ----
 async function checkSubscription() {
   try {
-    const headers = {};
-    const token = window.PHGAuth && window.PHGAuth.getAccessToken
-      ? window.PHGAuth.getAccessToken() : null;
-    if (token) headers['x-phg-access-token'] = token;
+    const headers = backendHeaders();
     const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId), { headers });
     if (!r.ok) { state.isPro = false; return; }
     const d = await r.json(); state.isPro = !!d.active;
@@ -469,11 +499,7 @@ async function streamEnhance(prompt, systemInstruction, onChunk, onDone, onError
     // Send the Google access token so the backend can identify the caller
     // and enforce the quota against the right account. Without it the
     // request is treated as an anonymous guest.
-    const headers = { 'Content-Type': 'application/json' };
-    const token = window.PHGAuth && window.PHGAuth.getAccessToken
-      ? window.PHGAuth.getAccessToken()
-      : null;
-    if (token) headers['x-phg-access-token'] = token;
+    const headers = backendHeaders({ 'Content-Type': 'application/json' });
 
     const r = await fetch(BACKEND_URL + '/enhance-stream', {
       method: 'POST',
@@ -708,20 +734,11 @@ async function upgrade() {
     signIn();
     return;
   }
-  // Determine price ID based on annual toggle (pricing page) or default to monthly
-  const annualToggle = document.getElementById('annual-toggle');
-  const useAnnual = annualToggle && annualToggle.checked;
-  const priceId = useAnnual ? STRIPE_ANNUAL_PRICE_ID : STRIPE_MONTHLY_PRICE_ID;
-  if (priceId.includes('REPLACE')) {
-    msg.textContent = 'Annual pricing is being set up. Please use monthly for now.';
-    if (useAnnual) return;
-  }
+  // Pro is monthly-only for now; there is no annual price in Stripe.
+  const priceId = STRIPE_MONTHLY_PRICE_ID;
   msg.textContent = 'Opening checkout...';
   try {
-    const headers = { 'Content-Type': 'application/json' };
-    const token = window.PHGAuth && window.PHGAuth.getAccessToken
-      ? window.PHGAuth.getAccessToken() : null;
-    if (token) headers['x-phg-access-token'] = token;
+    const headers = backendHeaders({ 'Content-Type': 'application/json' });
     const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, successUrl: location.origin + '/success.html', cancelUrl: location.origin + '/cancel.html' }) });
     if (!r.ok) { const d = await r.json().catch(()=>({})); throw new Error(d.error || ('HTTP ' + r.status)); }
     const d = await r.json();
@@ -731,9 +748,9 @@ async function upgrade() {
 async function portal() {
   const msg = $('upgrade-msg'); msg.textContent = 'Opening billing portal...';
   try {
-    const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId));
+    const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId), { headers: backendHeaders() });
     const d = await r.json();
-    const r2 = await fetch(BACKEND_URL + '/create-portal-session', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ userId: state.userId, customerId: d.customerId, returnUrl: location.origin + '/' }) });
+    const r2 = await fetch(BACKEND_URL + '/create-portal-session', { method:'POST', headers: backendHeaders({ 'Content-Type': 'application/json' }), body: JSON.stringify({ userId: state.userId, customerId: d.customerId, returnUrl: location.origin + '/' }) });
     if (!r2.ok) { const dd = await r2.json().catch(()=>({})); throw new Error(dd.error || ('HTTP ' + r2.status)); }
     const dd = await r2.json();
     if (dd.url) window.location.href = dd.url; else throw new Error('No portal URL');

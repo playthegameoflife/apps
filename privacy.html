@@ -39,9 +39,9 @@
       <h2>Information we collect</h2>
       <p><strong>Account information (optional):</strong> If you sign in with Google, we receive your Google user ID, email address, and display name from Google's userinfo endpoint. This is used to identify your account and sync your subscription.</p>
       <p><strong>Prompt data:</strong> When you use the generator, your prompt text and the selected mode/style are sent to our backend (Cloud Run) for enhancement. We do not store your prompts on our servers — they are processed in real time and returned to you.</p>
-      <p><strong>Usage data:</strong> We track how many enhancements you've used this week (stored locally in your browser). We do not send usage analytics to our servers.</p>
+      <p><strong>Usage data:</strong> We track how many enhancements and Ask questions you have used this week so we can enforce the free-tier limits. If you are not signed in, this count is stored on our servers against an anonymous identifier assigned to your browser. If you sign in with Google, the count is stored against your Google account, and any guest usage in the same browser is carried over to your account at that point. We do not use your usage data for advertising, and we do not sell or share it.</p>
       <p><strong>Payment information:</strong> If you upgrade to Pro, payment is processed by Stripe. We do not store your credit card details. We store your Stripe customer ID and subscription status in our database (Firestore).</p>
-      <p><strong>Local storage:</strong> We store your user ID, usage counter, history, and preferences in your browser's local storage. This data stays on your device.</p>
+      <p><strong>Local storage:</strong> We store your user ID, an anonymous browser identifier, your prompt history, and your preferences in your browser's local storage. This data stays on your device. The authoritative weekly usage count lives on our servers, not in the browser, so that it cannot be reset by clearing browser data.</p>
     </div>
 
     <div class="card">
@@ -68,7 +68,7 @@
 
     <div class="card">
       <h2>Data retention</h2>
-      <p>Account and subscription data is retained as long as your account is active. You can request deletion of your data by contacting us. Local storage data can be cleared by clearing your browser data.</p>
+      <p>Account and subscription data is retained as long as your account is active. Weekly usage counts are retained for the current week and then replaced by the new week's count; anonymous counts are removed once they have been carried into an account or when the week ends. You can request deletion of your data by contacting us. Local storage data can be cleared by clearing your browser data, but note that clearing it gives you a new anonymous identifier and therefore a new guest allowance — signing in with Google is what ties your usage to your account.</p>
     </div>
 
     <div class="card">

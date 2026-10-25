@@ -364,10 +364,9 @@ textarea.form-input { min-height: 120px; resize: vertical; }
 }
 .usage-nudge .btn { flex-shrink: 0; white-space: nowrap; }
 
-/* Pricing plans: three tiers (Guest / Free / Pro). Collapses to a single
-   column on narrow screens — mobile is the majority of traffic. */
-.plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-@media (max-width: 1000px) { .plans-grid { grid-template-columns: 1fr 1fr; } }
+/* Pricing plans: two tiers (Free / Pro). Collapses to a single column on
+   narrow screens — mobile is the majority of traffic. */
+.plans-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
 @media (max-width: 700px)  { .plans-grid { grid-template-columns: 1fr; } }
 
 /* ===== MODE TABS ===== */
