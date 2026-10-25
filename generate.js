@@ -154,9 +154,12 @@ function renderUsageNudge(used, limit) {
   if (remaining === 0) {
     show(nudge);
     nudge.className = 'usage-nudge warn';
+    // Kept short on purpose. The nudge sits in a narrow sidebar card,
+    // and the old copy ran to three sentences, which left the button
+    // with no room and pushed it out of the card.
     setText('usage-nudge-text',
       state.tier === 'guest'
-        ? `You've used all ${limit} free enhancements this week. Sign in free to get ${TIERS.free.limit} a week, plus Memory and A/B variants — or go Pro for unlimited.`
+        ? `You've used all ${limit} free enhancements this week. Sign in for ${TIERS.free.limit} a week, or go Pro for unlimited.`
         : `You've used all ${limit} free enhancements this week. Upgrade to Pro for unlimited.`);
     setText('usage-nudge-cta', state.tier === 'guest' ? 'Sign in for free' : 'Upgrade to Pro');
     return;
@@ -168,7 +171,7 @@ function renderUsageNudge(used, limit) {
     nudge.className = 'usage-nudge warn';
     setText('usage-nudge-text',
       state.tier === 'guest'
-        ? `${remaining} free enhancement${remaining === 1 ? '' : 's'} left this week. Sign in free to get ${TIERS.free.limit} a week, plus Memory and A/B variants.`
+        ? `${remaining} free enhancement${remaining === 1 ? '' : 's'} left this week. Sign in for ${TIERS.free.limit} a week.`
         : `${remaining} enhancement${remaining === 1 ? '' : 's'} left this week. Upgrade to Pro for unlimited.`);
     setText('usage-nudge-cta', state.tier === 'guest' ? 'Sign in for free' : 'Upgrade to Pro');
     return;
@@ -276,14 +279,36 @@ function showQuotaLimit(q) {
   const tier = q && q.tier ? q.tier : currentTier();
   const limit = q && q.limit !== undefined ? q.limit : TIERS[tier].limit;
 
+  // This used to be one long paragraph with the actions as inline
+  // links. On narrow screens the links wrapped away from the sentence
+  // and the "Sign in" action ended up pushed onto its own line,
+  // separated from the message it belonged to, which read as a
+  // broken layout.
+  //
+  // It is now a proper panel: a headline, a short explanation, and the
+  // two actions as real buttons in a row that wraps cleanly.
+  const canUpgrade = tier !== 'pro';
+  const actions = [];
   if (tier === 'guest') {
-    el.innerHTML = `You've used all <strong>${limit}</strong> free enhancements this week. ` +
-      `<a href="#" id="quota-signin">Sign in free</a> to get ${TIERS.free.limit} a week, ` +
-      `or <a href="#" id="quota-upgrade">go Pro</a> for unlimited.`;
-  } else {
-    el.innerHTML = `You've used all <strong>${limit}</strong> free enhancements this week. ` +
-      `<a href="#" id="quota-upgrade">Upgrade to Pro</a> for unlimited enhancements.`;
+    actions.push(`<button type="button" id="quota-signin" class="btn btn-sm btn-primary">Sign in free</button>`);
   }
+  if (canUpgrade) {
+    actions.push(`<button type="button" id="quota-upgrade" class="btn btn-sm btn-warn">Go Pro</button>`);
+  }
+
+  const body = tier === 'guest'
+    ? `Sign in free to get ${TIERS.free.limit} a week, plus Memory and A/B variants.`
+    : `Upgrade to Pro for unlimited enhancements, A/B variants, and full history.`;
+
+  el.innerHTML = `
+    <div class="quota-panel" role="alert">
+      <div class="quota-panel-head">
+        <span class="quota-panel-icon" aria-hidden="true">&#9679;</span>
+        <span class="quota-panel-title">You've used all ${limit} free enhancements this week</span>
+      </div>
+      <p class="quota-panel-body">${body}</p>
+      <div class="quota-panel-actions">${actions.join('')}</div>
+    </div>`;
   el.classList.remove('hidden');
 
   const s = document.getElementById('quota-signin');
@@ -308,7 +333,12 @@ function renderPlan() {
     setText('user-label', `${state.user.displayName || state.user.email || 'Signed in'} (${state.user.email || ''})`);
     show($('signout-btn')); hide($('signin-btn'));
   } else {
-    setText('user-label', 'Not signed in — using guest mode');
+    // The old copy said "Not signed in - using guest mode", which
+    // described the visitor's account state inside the Free plan card
+    // and made the pricing table read like a debug panel rather than
+    // a price list. The plan card now says what the plan includes;
+    // the sign-in control below carries the account state on its own.
+    setText('user-label', 'Sign in to sync your plan across devices');
     show($('signin-btn')); hide($('signout-btn'));
   }
 }
@@ -396,6 +426,71 @@ function populateModes() {
     });
   });
 }
+/**
+ * Apply a mode/style/target deep link to the generator.
+ *
+ * Used in two places:
+ *   1. On load, for /?mode=IMAGE&style=expert&target=Claude
+ *   2. When the visitor clicks a "Start with a mode" card
+ *
+ * Every parameter is optional and every one is validated against the
+ * real <option> / .mode-tab list before it is applied, so a stale link
+ * can never leave the generator in an impossible state. Anything that
+ * does not match is simply ignored.
+ */
+function applyDeepLink(params, opts) {
+  if (!params) return;
+  const resetTarget = !!(opts && opts.resetTarget);
+
+  // --- mode ---
+  const modeParam = params.get('mode');
+  if (modeParam) {
+    const map = {
+      TEXT: 'TEXT_ENHANCEMENT',
+      CODE: 'CODE_ENHANCEMENT',
+      IMAGE: 'IMAGE_ENHANCEMENT',
+      VIDEO: 'VIDEO_ENHANCEMENT',
+    };
+    const key = map[modeParam.toUpperCase()] || modeParam;
+    const tab = document.querySelector('.mode-tab[data-mode="' + key + '"]');
+    // Clicking the tab is what rebuilds the style list for that mode,
+    // so it has to happen before the style parameter is applied.
+    if (tab) tab.click();
+  }
+
+  // --- style ---
+  const styleParam = params.get('style');
+  if (styleParam) {
+    const sel = $('style-select');
+    if (sel && Array.from(sel.options).some(o => o.value === styleParam)) {
+      sel.value = styleParam;
+      sel.dispatchEvent(new Event('change'));
+      state.style = styleParam;
+    }
+  }
+
+  // --- target platform ---
+  // The "Start with a mode" cards are named after a platform, so landing
+  // on one should actually set the platform dropdown. Previously the card
+  // set a mode and style but left the target on "General", which did not
+  // match what the card promised.
+  const targetParam = params.get('target');
+  const tsel = $('target-select');
+  if (targetParam) {
+    if (tsel && Array.from(tsel.options).some(o => o.value === targetParam)) {
+      tsel.value = targetParam;
+      tsel.dispatchEvent(new Event('change'));
+    }
+  } else if (resetTarget && tsel) {
+    // The card did not name a platform, so clear any platform left
+    // over from a previous card. Otherwise clicking "Video Prompt
+    // Generator" could land on "Video + Midjourney" because the last
+    // card the visitor clicked was the image one.
+    tsel.value = '';
+    tsel.dispatchEvent(new Event('change'));
+  }
+}
+
 function populateStyles(mode) {
   const sel = $('style-select');
   const styles = getStylesForMode(mode);
@@ -792,34 +887,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderTemplates();
     renderMemory();
 
-    // Deep links: /?mode=IMAGE&style=cinematic (used by the "More AI tools"
-    // cards). This must run AFTER populateModes()/populateStyles(), because
-    // those are what build the .mode-tab buttons and the style <option>s that
-    // the deep link needs to target.
-    {
-      const dp = new URLSearchParams(location.search);
-      const modeParam = dp.get('mode');
-      if (modeParam) {
-        const map = {
-          TEXT: 'TEXT_ENHANCEMENT',
-          CODE: 'CODE_ENHANCEMENT',
-          IMAGE: 'IMAGE_ENHANCEMENT',
-          VIDEO: 'VIDEO_ENHANCEMENT',
-        };
-        const key = map[modeParam.toUpperCase()] || modeParam;
-        const tab = document.querySelector('.mode-tab[data-mode="' + key + '"]');
-        if (tab) tab.click();
-      }
-      const styleParam = dp.get('style');
-      if (styleParam) {
-        const sel = $('style-select');
-        if (sel && Array.from(sel.options).some(o => o.value === styleParam)) {
-          sel.value = styleParam;
-          sel.dispatchEvent(new Event('change'));
-          state.style = styleParam;
+    // Deep links: /?mode=IMAGE&style=cinematic (used by the "Start with a
+    // mode" cards). This must run AFTER populateModes()/populateStyles(),
+    // because those are what build the .mode-tab buttons and the style
+    // <option>s that the deep link needs to target.
+    applyDeepLink(new URLSearchParams(location.search));
+
+    // The "Start with a mode" cards point at the same page with the same
+    // query string. Intercept the click so the generator switches in
+    // place and scrolls into view, instead of reloading the page and
+    // dumping the visitor back at the top. The href is left intact so
+    // the link can still be copied and shared.
+    document.querySelectorAll('.tool-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Let the user open it in a new tab if they asked for that.
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        const qs = card.getAttribute('href').split('?')[1];
+        if (!qs) return;
+        e.preventDefault();
+        applyDeepLink(new URLSearchParams(qs), { resetTarget: true });
+        const gen = $('generator');
+        if (gen) {
+          gen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const input = $('prompt-input');
+          if (input) setTimeout(() => input.focus({ preventScroll: true }), 350);
         }
-      }
-    }
+        // Keep the address bar in sync so a refresh preserves the choice.
+        try { history.replaceState(null, '', card.getAttribute('href')); } catch (err) {}
+      });
+    });
 
     const gb=$('generate-btn'); if(gb) gb.addEventListener('click', () => generate());
     const rb=$('refine-btn'); if(rb) rb.addEventListener('click', refine);

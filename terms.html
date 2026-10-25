@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    /* Apply the stored theme before first paint so a dark-mode visitor
+       never sees a white flash. Kept in sync with theme.js. */
+    (function () {
+      try {
+        var t = localStorage.getItem('phg_theme');
+        if (t === 'dark' || t === 'light') {
+          document.documentElement.setAttribute('data-theme', t);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +23,8 @@
   <meta name="description" content="Terms of Service for Prompt Helper. Usage terms, subscription terms, and legal information.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/site.css?v=2">
+  <link rel="stylesheet" href="/site.css?v=5">
+  <script src="/theme.js?v=1"></script>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#08080d">
 </head>
@@ -22,6 +38,7 @@
       <a href="/blog.html">Blog</a>
       <a href="/pricing.html">Pricing</a>
       <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get Extension</a>
+      <span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span>
     </nav>
   </div>
   <main id="main" class="container" style="max-width:760px">
@@ -49,8 +66,8 @@
       <h2>Subscriptions and payments</h2>
       <p>Prompt Helper offers a free tier and a paid Pro subscription. Pro subscriptions are billed monthly via Stripe. By subscribing, you authorize us to charge your payment method on a recurring basis until you cancel.</p>
       <ul style="padding-left:var(--space-5);line-height:1.8;margin-top:var(--space-2)">
-        <li><strong>Free:</strong> 10 prompt enhancements and 10 Ask questions per week, plus Memory and A/B variants, when signed in with Google. Without signing in you get 5 of each per week. No credit card required. Usage made before signing in is carried over to your account, so the weekly total remains 10.</li>
-        <li><strong>Pro:</strong> Unlimited enhancements, unlimited Ask, full history, saved prompt library, priority support.</li>
+        <li><strong>Free:</strong> 10 prompt enhancements per week, plus Memory and A/B variants, when signed in with Google. Without signing in you get 5 per week. No credit card required. Usage made before signing in is carried over to your account, so the weekly total remains 10.</li>
+        <li><strong>Pro:</strong> Unlimited enhancements, full history, priority support.</li>
         <li><strong>Cancellation:</strong> You may cancel at any time. You retain Pro access until the end of your billing period. No refunds for partial periods.</li>
         <li><strong>Price changes:</strong> We may change subscription prices with 30 days' notice. Existing subscribers keep their price until renewal.</li>
         <li><strong>Usage limits:</strong> Weekly limits reset at the start of each calendar week. Limits are enforced on our servers and cannot be reset by clearing browser data. We may change these limits; where we do, we will update this page and the pricing page.</li>
@@ -101,5 +118,12 @@
     </div>
   </main>
   <footer>© 2026 Prompt Helper. All rights reserved. · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/pricing.html">Pricing</a></footer>
+  <script>
+    // Sitewide theme toggle. theme.js applies the stored theme before
+    // paint; this mounts the visible control.
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.PHGTheme) window.PHGTheme.mount('#nav-actions', 'inline');
+    });
+  </script>
 </body>
 </html>

@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    /* Apply the stored theme before first paint so a dark-mode visitor
+       never sees a white flash. Kept in sync with theme.js. */
+    (function () {
+      try {
+        var t = localStorage.getItem('phg_theme');
+        if (t === 'dark' || t === 'light') {
+          document.documentElement.setAttribute('data-theme', t);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +23,8 @@
   <meta name="description" content="Privacy policy for Prompt Helper. How we collect, use, and protect your data.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/site.css?v=2">
+  <link rel="stylesheet" href="/site.css?v=5">
+  <script src="/theme.js?v=1"></script>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#08080d">
 </head>
@@ -22,6 +38,7 @@
       <a href="/blog.html">Blog</a>
       <a href="/pricing.html">Pricing</a>
       <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get Extension</a>
+      <span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span>
     </nav>
   </div>
   <main id="main" class="container" style="max-width:760px">
@@ -39,7 +56,7 @@
       <h2>Information we collect</h2>
       <p><strong>Account information (optional):</strong> If you sign in with Google, we receive your Google user ID, email address, and display name from Google's userinfo endpoint. This is used to identify your account and sync your subscription.</p>
       <p><strong>Prompt data:</strong> When you use the generator, your prompt text and the selected mode/style are sent to our backend (Cloud Run) for enhancement. We do not store your prompts on our servers — they are processed in real time and returned to you.</p>
-      <p><strong>Usage data:</strong> We track how many enhancements and Ask questions you have used this week so we can enforce the free-tier limits. If you are not signed in, this count is stored on our servers against an anonymous identifier assigned to your browser. If you sign in with Google, the count is stored against your Google account, and any guest usage in the same browser is carried over to your account at that point. We do not use your usage data for advertising, and we do not sell or share it.</p>
+      <p><strong>Usage data:</strong> We track how many enhancements you have used this week so we can enforce the free-tier limits. If you are not signed in, this count is stored on our servers against an anonymous identifier assigned to your browser. If you sign in with Google, the count is stored against your Google account, and any guest usage in the same browser is carried over to your account at that point. We do not use your usage data for advertising, and we do not sell or share it.</p>
       <p><strong>Payment information:</strong> If you upgrade to Pro, payment is processed by Stripe. We do not store your credit card details. We store your Stripe customer ID and subscription status in our database (Firestore).</p>
       <p><strong>Local storage:</strong> We store your user ID, an anonymous browser identifier, your prompt history, and your preferences in your browser's local storage. This data stays on your device. The authoritative weekly usage count lives on our servers, not in the browser, so that it cannot be reset by clearing browser data.</p>
     </div>
@@ -104,5 +121,12 @@
     </div>
   </main>
   <footer>© 2026 Prompt Helper. All rights reserved. · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/pricing.html">Pricing</a></footer>
+  <script>
+    // Sitewide theme toggle. theme.js applies the stored theme before
+    // paint; this mounts the visible control.
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.PHGTheme) window.PHGTheme.mount('#nav-actions', 'inline');
+    });
+  </script>
 </body>
 </html>
