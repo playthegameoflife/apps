@@ -215,7 +215,7 @@ function renderUsageNudge(used, limit) {
   if (state.tier === 'free' && !tier.fullHistory) {
     show(nudge);
     nudge.className = 'usage-nudge soft';
-    setText('usage-nudge-text', 'Pro adds full history, unlimited enhancements and priority support.');
+    setText('usage-nudge-text', 'Pro adds full history, unlimited enhancements and ');
     setText('usage-nudge-cta', 'See Pro');
     return;
   }
@@ -376,7 +376,7 @@ function renderPlan() {
     // and made the pricing table read like a debug panel rather than
     // a price list. The plan card now says what the plan includes;
     // the sign-in control below carries the account state on its own.
-    setText('user-label', 'Sign in to sync your plan across devices');
+    setText('user-label', 'Sign in to get 10 enhancements a week');
     show($('signin-btn')); hide($('signout-btn'));
   }
 }
