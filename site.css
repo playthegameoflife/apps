@@ -17,17 +17,28 @@
   --text: #34322C;
   --text-secondary: #3E3B34;
   --muted: #6B6962;
-  --muted-light: #A8A59E;
+  /* 4.82:1 on the sidebar, 5.22:1 on a card. */
+  --muted-light: #6B6962;
   --accent: #34322C;
+  /* TEXT that sits on top of --accent. */
+  --accent-fg: #FFFFFF;
   --accent-light: #4A463E;
   --accent-dark: #1F1E19;
   --accent-glow: rgba(52, 50, 44, 0.1);
-  --accent-2: #EA580C;
-  --accent-2-dark: #C2410C;
-  --accent-2-glow: rgba(234, 88, 12, 0.12);
+  /* Orange, split by job. As a background it carries
+     --on-accent-2 text; as text it is --accent-2-text. */
+  --accent-2: #B23A0A;
+  --accent-2-dark: #922C06;
+  --accent-2-text: #B23A0A;
+  --on-accent-2: #FFFFFF;
+  --accent-2-glow: rgba(178, 58, 10, 0.12);
   --green: #15803d;
   --red: #b91c1c;
   --blue: #34322C;
+  /* Shell surfaces. */
+  --bg-sidebar: #F2F0EB;
+  --surface: #FAF9F7;
+  --surface-2: #F3F1ED;
   --wa: #f5f1ea;      /* warm amber-50-ish */
   --wa-fg: #92400e;
   --gf: #f0fdf4;      /* green-50 */
@@ -57,6 +68,125 @@
   --content-width: 780px;
   --transition-fast: 140ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Referenced by pricing.html but never defined, so those
+     declarations were silently dropped. */
+  --radius: 8px;
+  --shadow-glow: 0 0 0 3px rgba(178, 58, 10, 0.14);
+}
+
+/* ============================================================
+   DARK MODE
+   ------------------------------------------------------------
+   This block used to live only in shell.css, which meant the
+   pricing, legal and blog pages never had dark tokens: they
+   rendered with the light palette and were unreadable in dark
+   mode. site.css is now the single owner of the palette so
+   every page that loads it gets a correct dark theme.
+
+   Values are contrast-checked against the surfaces they are
+   used on (see the token notes below).
+   ============================================================ */
+html[data-theme="dark"] {
+  --bg: #131312;
+  --bg-elevated: #191918;
+  --bg-card: #1D1D1B;
+  --bg-input: #242422;
+  --bg-soft: #2A2A27;
+  --bg-sidebar: #0D0D0C;
+  --border: #2F2F2C;
+  --border-strong: #454541;
+  --border-accent: #EDEBE6;
+  --text: #EDEBE6;
+  --text-secondary: #D6D3CC;
+  --muted: #9C9A93;
+  /* 7.79:1 on the sidebar, 6.76:1 on a card. */
+  --muted-light: #A6A49C;
+  --accent: #EDEBE6;
+  --accent-light: #FFFFFF;
+  --accent-dark: #FFFFFF;
+  --accent-glow: rgba(237, 235, 230, 0.12);
+  /* TEXT that sits on --accent. Near-white needs near-black. */
+  --accent-fg: #131312;
+  /* The orange becomes a LIGHT orange in dark mode so it stays
+     legible as text, and it takes dark text on top of it. */
+  --accent-2: #FB923C;
+  --accent-2-dark: #FDBA74;
+  --accent-2-text: #FB923C;
+  --on-accent-2: #131312;
+  --accent-2-glow: rgba(251, 146, 60, 0.14);
+  --green: #4ADE80;
+  --red: #F87171;
+  --blue: #EDEBE6;
+  --wa: #2A2317;
+  --wa-fg: #FBBF24;
+  --gf: #12251A;
+  --gf-fg: #4ADE80;
+  --ff: #2A1618;
+  --ff-fg: #F87171;
+  --surface: #1D1D1B;
+  --surface-2: #242422;
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 0 0 3px rgba(251, 146, 60, 0.18);
+  color-scheme: dark;
+}
+
+/* ============================================================
+   THEME TOGGLE
+   ------------------------------------------------------------
+   A single floating control used on every page that has no
+   topbar of its own. It is fixed to the bottom-right so it
+   never collides with a nav bar, and it stays above content.
+   ============================================================ */
+.theme-toggle {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 950;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast), background var(--transition-fast),
+              color var(--transition-fast), border-color var(--transition-fast);
+}
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent-2-text);
+  outline-offset: 2px;
+}
+
+/* Pages that DO have a topbar can use the inline variant so the
+   control sits in the bar instead of floating over the content. */
+.theme-toggle.inline {
+  position: static;
+  width: 36px;
+  height: 36px;
+  font-size: 0.95rem;
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+  background: transparent;
+}
+
+@media (max-width: 700px) {
+  .theme-toggle {
+    right: 12px;
+    bottom: 12px;
+  }
 }
 
 /* ===== RESET & BASE ===== */
@@ -73,7 +203,7 @@ body {
   overflow-x: hidden;
 }
 a { color: var(--text); text-decoration: none; transition: color var(--transition-fast); }
-a:hover { color: var(--accent-2); }
+a:hover { color: var(--accent-2-text); }
 img { max-width: 100%; height: auto; }
 ::selection { background: var(--accent-2-glow); color: var(--text); }
 
@@ -90,7 +220,10 @@ p { color: var(--muted); line-height: 1.65; }
   height: 60px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 var(--space-6);
-  background: rgba(247, 245, 242, 0.85);
+  /* The nav used a hardcoded translucent LIGHT background, so in dark
+     mode the nav links were light-on-light (1.11:1). It now follows
+     the theme token. */
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--border);
@@ -111,7 +244,7 @@ p { color: var(--muted); line-height: 1.65; }
 .nav nav a:hover { color: var(--text); background: var(--bg-soft); }
 .nav nav a.cta {
   background: var(--accent);
-  color: #fff;
+  color: var(--accent-fg);
   margin-left: var(--space-2);
   font-weight: 600;
   border-radius: var(--radius-sm);
@@ -135,7 +268,7 @@ p { color: var(--muted); line-height: 1.65; }
 }
 .hero-eyebrow {
   font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.14em; color: var(--accent-2); margin-bottom: var(--space-3);
+  letter-spacing: 0.14em; color: var(--accent-2-text); margin-bottom: var(--space-3);
 }
 .hero-title { margin: 0 auto var(--space-3); max-width: 640px; }
 .hero-desc { font-size: 1.0625rem; margin: 0 auto var(--space-4); max-width: 480px; }
@@ -178,7 +311,7 @@ p { color: var(--muted); line-height: 1.65; }
   padding: 2px 10px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--accent-fg);
   font-weight: 600;
   text-transform: none;
   letter-spacing: 0;
@@ -213,7 +346,7 @@ p { color: var(--muted); line-height: 1.65; }
 .step-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
 .step-number {
   font-family: 'Libre Baskerville', serif;
-  font-size: 2rem; font-weight: 700; color: var(--accent-2); line-height: 1;
+  font-size: 2rem; font-weight: 700; color: var(--accent-2-text); line-height: 1;
   margin-bottom: var(--space-3);
 }
 .step-card h3 { margin: 0 0 var(--space-2); }
@@ -237,7 +370,7 @@ p { color: var(--muted); line-height: 1.65; }
 }
 .bento-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
 .bento-card.wide { grid-column: span 2; }
-.bento-card.accent { background: var(--accent); color: #fff; border-color: var(--accent); }
+.bento-card.accent { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
 .bento-card.accent h3, .bento-card.accent p { color: #fff; }
 .bento-icon {
   width: 36px; height: 36px;
@@ -252,7 +385,7 @@ p { color: var(--muted); line-height: 1.65; }
 .bento-card p { font-size: 0.875rem; }
 .bento-number {
   font-family: 'Libre Baskerville', serif;
-  font-size: 2.25rem; font-weight: 700; color: var(--accent-2); line-height: 1;
+  font-size: 2.25rem; font-weight: 700; color: var(--accent-2-text); line-height: 1;
   margin-bottom: var(--space-2);
 }
 .bento-card.accent .bento-number { color: #fff; }
@@ -270,7 +403,7 @@ p { color: var(--muted); line-height: 1.65; }
 .testimonial { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-5); }
 .testimonial-quote { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-3); }
 .testimonial-author { display: flex; align-items: center; gap: var(--space-3); border-top: 1px solid var(--border); padding-top: var(--space-3); }
-.testimonial-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--wa); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8rem; color: var(--accent-2); }
+.testimonial-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--wa); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8rem; color: var(--accent-2-text); }
 .testimonial-name { font-weight: 600; font-size: 0.875rem; }
 .testimonial-role { font-size: 0.8rem; color: var(--muted); }
 @media (max-width: 900px) { .testimonials { grid-template-columns: 1fr; } }
@@ -311,12 +444,12 @@ textarea.form-input { min-height: 120px; resize: vertical; }
 .btn:hover { background: var(--bg-elevated); border-color: var(--border-strong); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 .btn:active { transform: translateY(0); }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
-.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
 .btn-primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); color: #fff; }
-.btn-warn { background: var(--accent-2); border-color: var(--accent-2); color: #fff; font-weight: 700; }
+.btn-warn { background: var(--accent-2); border-color: var(--accent-2); color: var(--on-accent-2); font-weight: 700; }
 .btn-warn:hover { background: var(--accent-2-dark); border-color: var(--accent-2-dark); color: #fff; }
 .btn-ghost { background: transparent; border-color: var(--border); box-shadow: none; }
-.btn-blue { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-blue { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
 .btn-lg { padding: var(--space-4) var(--space-8); font-size: 1rem; }
 .btn-sm { padding: var(--space-2) var(--space-4); font-size: 0.8rem; }
 
@@ -339,19 +472,26 @@ textarea.form-input { min-height: 120px; resize: vertical; }
 .usage-bar > div { height: 100%; background: var(--accent-2); border-radius: 3px; transition: width 0.35s ease; }
 
 /* Usage nudge — the upgrade moment. Shown near the limit, or to signed-in
-   free users as a gentle Pro reminder. */
+   free users as a gentle Pro reminder.
+
+   LAYOUT NOTE: this was a horizontal flex row holding a sentence and a
+   button side by side. The sentence is long ("You've used all 5 free
+   enhancements this week. Sign in free to get 10 a week, plus Memory and
+   A/B variants - or go Pro for unlimited."), so the button was left with
+   almost no room and got squeezed to the card edge or pushed out of
+   view. The text now takes its own line and the button sits below it. */
 .usage-nudge {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-2);
   margin-top: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-3);
   border-radius: 8px;
-  font-size: 0.78rem;
-  line-height: 1.4;
+  font-size: 0.8rem;
+  line-height: 1.45;
 }
-.usage-nudge span { flex: 1; }
+.usage-nudge span { flex: 1 1 auto; min-width: 0; }
 .usage-nudge.warn {
   background: rgba(255, 193, 7, 0.12);
   border: 1px solid rgba(255, 193, 7, 0.35);
@@ -362,12 +502,19 @@ textarea.form-input { min-height: 120px; resize: vertical; }
   border: 1px solid var(--border);
   color: var(--muted);
 }
-.usage-nudge .btn { flex-shrink: 0; white-space: nowrap; }
+.usage-nudge .btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+@media (max-width: 420px) {
+  .usage-nudge .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
 
-/* Pricing plans: two tiers (Free / Pro). Collapses to a single column on
-   narrow screens — mobile is the majority of traffic. */
-.plans-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
-@media (max-width: 700px)  { .plans-grid { grid-template-columns: 1fr; } }
 
 /* ===== MODE TABS ===== */
 .mode-tabs {
@@ -389,7 +536,7 @@ textarea.form-input { min-height: 120px; resize: vertical; }
   font-family: inherit;
 }
 .mode-tab:hover { color: var(--text); }
-.mode-tab.active { background: var(--accent); color: #fff; }
+.mode-tab.active { background: var(--accent); color: var(--accent-fg); }
 
 /* ===== CONTROLS ===== */
 .control-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); flex-wrap: wrap; }
@@ -475,6 +622,246 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
 .error { color: var(--red); font-size: 0.875rem; margin-top: var(--space-2); padding: var(--space-2) var(--space-3); background: var(--ff); border-radius: var(--radius-sm); border: 1px solid #fecaca; }
 .success { color: var(--green); font-size: 0.875rem; margin-top: var(--space-2); }
 
+/* ============================================================
+   PRICING PAGE
+   ------------------------------------------------------------
+   Two tiers, Free and Pro. The layout rules are here rather than
+   inline so that the desktop columns can be sized properly and
+   the phone breakpoint can collapse them without squeezing.
+
+   The old version used inline styles with a fixed max-width, which
+   made the two columns sit at a fixed 360px each with a large empty
+   gutter in the middle of a wide screen, and left the feature
+   rows to wrap unpredictably.
+   ============================================================ */
+/* The pricing page needs more room than the standard 780px content
+   column, otherwise the two plan cards are squeezed to ~358px each and
+   the feature rows start wrapping. Give this page its own width. */
+.pricing-container {
+  max-width: 1000px;
+}
+.pricing-container .plans-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+  align-items: start;
+  max-width: 920px;
+  margin: 0 auto var(--space-12);
+}
+
+.plan-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* The top padding leaves room for the badge, which is centred on
+     the card's top edge. Without it the badge overlapped the plan
+     name. */
+  padding: var(--space-10) var(--space-6) var(--space-6);
+  /* Equal visual weight for both cards so the Pro card does not look
+     like it is floating above the Free one. */
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.plan-card-pro {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-md);
+}
+
+.plan-badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  /* Centre the badge on the top edge of the card. It must sit on top
+     of the border line, not clipped by it. */
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background: var(--bg-soft);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.plan-badge-recommended {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-color: var(--accent);
+}
+
+.plan-name {
+  margin: 0 0 var(--space-2);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  margin: var(--space-2) 0 var(--space-2);
+}
+.plan-amount {
+  font-size: 2.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.plan-period {
+  font-size: 0.95rem;
+}
+.plan-tagline {
+  text-align: center;
+  margin: 0 0 var(--space-6);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font-size: 0.925rem;
+  line-height: 1.45;
+  flex: 1 1 auto;
+}
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+.plan-features .feat-yes {
+  color: var(--green);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 1em;
+  text-align: center;
+}
+.plan-features .feat-no {
+  color: var(--muted);
+}
+
+.plan-cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: stretch;
+}
+.btn-block {
+  width: 100%;
+  justify-content: center;
+}
+
+.plan-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+}
+.plan-meta #user-label {
+  flex: 1 1 180px;
+  min-width: 0;
+  line-height: 1.4;
+}
+
+/* Below this width two columns get too narrow to read, so they
+   stack. The card keeps its padding but the feature rows stay
+   comfortable. */
+@media (max-width: 760px) {
+  .pricing-container .plans-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+    max-width: 520px;
+  }
+  .plan-card {
+    padding: var(--space-8) var(--space-5) var(--space-5);
+  }
+  .plan-amount {
+    font-size: 2.4rem;
+  }
+}
+@media (max-width: 400px) {
+  .plan-card {
+    padding: var(--space-7, 28px) var(--space-4) var(--space-4);
+  }
+  .plan-features {
+    font-size: 0.9rem;
+  }
+}
+
+/* ============================================================
+   QUOTA PANEL
+   ------------------------------------------------------------
+   Shown when the weekly limit is reached. It carries the two
+   next actions (Sign in / Go Pro) as real buttons so they sit
+   together in a row that wraps cleanly on a phone, instead of
+   being inline links that drifted away from the sentence.
+   ============================================================ */
+.quota-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+.quota-panel-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+  line-height: 1.4;
+}
+.quota-panel-icon {
+  color: var(--accent-2-text);
+  font-size: 0.7em;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.quota-panel-body {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+.quota-panel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+/* Inside the panel the buttons must sit on the error tint, so they
+   keep their own border rather than inheriting the panel's. */
+.quota-panel-actions .btn {
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text);
+  font-weight: 600;
+}
+.quota-panel-actions .btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-fg);
+}
+.quota-panel-actions .btn-warn {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  color: var(--on-accent-2);
+}
+@media (max-width: 520px) {
+  .quota-panel-actions { width: 100%; }
+  .quota-panel-actions .btn { flex: 1 1 auto; justify-content: center; }
+}
+
 /* ===== SCORE BADGE ===== */
 .score-badge {
   display: inline-flex; align-items: center; gap: var(--space-2);
@@ -504,7 +891,7 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
   transition: all var(--transition-fast);
 }
 .history-item:hover { border-color: var(--accent-2); background: var(--wa); }
-.history-item .h-mode { color: var(--accent-2); font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.history-item .h-mode { color: var(--accent-2-text); font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; }
 .history-item .h-text { color: var(--text-secondary); margin-top: var(--space-1); white-space: pre-wrap; word-break: break-word; max-height: 80px; overflow: hidden; line-height: 1.5; }
 
 /* ===== TEMPLATES ===== */
@@ -521,7 +908,7 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
   margin: var(--space-1);
   transition: all var(--transition-fast);
 }
-.template-chip:hover { background: var(--accent-2); border-color: var(--accent-2); color: #fff; }
+.template-chip:hover { background: var(--accent-2); border-color: var(--accent-2); color: var(--on-accent-2); }
 
 /* ===== MEMORY ===== */
 .memory-box {
@@ -544,7 +931,7 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
 .variants { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: var(--space-4); }
 @media (max-width: 700px) { .variants { grid-template-columns: 1fr; } }
 .variant { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--space-3); }
-.variant h4 { margin: 0 0 var(--space-2); font-size: 0.75rem; color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+.variant h4 { margin: 0 0 var(--space-2); font-size: 0.75rem; color: var(--accent-2-text); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
 
 /* ===== MISC ===== */
 .hidden { display: none !important; }
@@ -568,15 +955,15 @@ footer {
   font-size: 0.85rem;
 }
 footer a { text-decoration: underline; text-underline-offset: 3px; color: var(--muted); }
-footer a:hover { color: var(--accent-2); }
-main a { text-decoration: underline; text-underline-offset: 3px; color: var(--accent-2); }
+footer a:hover { color: var(--accent-2-text); }
+main a { text-decoration: underline; text-underline-offset: 3px; color: var(--accent-2-text); }
 main a.btn, main .nav a { text-decoration: none; }
 
 /* ===== ACCESSIBILITY ===== */
-:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; border-radius: 2px; }
+:focus-visible { outline: 2px solid var(--accent-2-text); outline-offset: 2px; border-radius: 2px; }
 .skip-link {
   position: absolute; top: -40px; left: 0;
-  background: var(--accent-2); color: #fff;
+  background: var(--accent-2); color: var(--on-accent-2);
   padding: var(--space-2) var(--space-4);
   z-index: 2000; border-radius: 0 0 var(--radius-sm) 0;
   transition: top var(--transition-fast);
@@ -623,7 +1010,7 @@ main a.btn, main .nav a { text-decoration: none; }
   .steps-row { grid-template-columns: 1fr; padding: 0 var(--space-4); }
   .gen-actions {
     position: sticky; bottom: 0;
-    background: rgba(247, 245, 242, 0.92);
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
     backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     margin-left: calc(-1 * var(--space-4));
     margin-right: calc(-1 * var(--space-4));

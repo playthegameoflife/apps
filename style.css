@@ -1480,3 +1480,348 @@ footer p {
     margin-bottom: 16px;
   }
 }
+
+/* ============================================================
+   DARK THEME
+   ------------------------------------------------------------
+   The blog and every standalone blog post load style.css only.
+   Before this block, style.css had NO dark-mode rules at all, so
+   the theme toggle (shell.js) flipped html[data-theme="dark"] and
+   nothing happened: the page stayed white with dark text.
+
+   These tokens mirror the site's dark palette from shell.css so
+   blog pages match the app shell.
+   ============================================================ */
+html[data-theme="dark"] {
+  --color-primary: #EDEBE6;
+  --color-primary-light: #FFFFFF;
+  --color-text: #EDEBE6;
+  --color-text-secondary: #D6D3CC;
+  --color-text-muted: #9C9A93;
+  --color-bg: #131312;
+  --color-bg-alt: #1D1D1B;
+  --color-bg-section: #191918;
+  --color-border: #2F2F2C;
+  --color-hover: #242422;
+}
+
+html[data-theme="dark"] body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Cards and sections that hardcode a light surface. */
+html[data-theme="dark"] .app-card,
+html[data-theme="dark"] .testimonial,
+html[data-theme="dark"] .case-study,
+html[data-theme="dark"] .faq-item,
+html[data-theme="dark"] .feature-item,
+html[data-theme="dark"] .step,
+html[data-theme="dark"] .app-overview,
+html[data-theme="dark"] .features-section,
+html[data-theme="dark"] .benefits-section,
+html[data-theme="dark"] .faq-section,
+html[data-theme="dark"] .testimonials-section,
+html[data-theme="dark"] .how-it-works,
+html[data-theme="dark"] .pro-section,
+html[data-theme="dark"] .download-cta {
+  background-color: var(--color-bg-alt);
+  color: var(--color-text);
+}
+
+/* Gradient header that was hardcoded to a near-white wash. */
+html[data-theme="dark"] .hero-section {
+  background: linear-gradient(135deg, #191918 0%, #1D1D1B 100%);
+}
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6 {
+  color: var(--color-text);
+}
+
+html[data-theme="dark"] p,
+html[data-theme="dark"] li,
+html[data-theme="dark"] span,
+html[data-theme="dark"] strong,
+html[data-theme="dark"] em {
+  color: var(--color-text-secondary);
+}
+
+html[data-theme="dark"] a {
+  color: #EDEBE6;
+}
+
+html[data-theme="dark"] .post-card:hover .post-title {
+  color: #FDBA74;
+}
+
+html[data-theme="dark"] .highlight-text {
+  color: #FDBA74;
+}
+
+/* Form controls */
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
+  background-color: var(--color-bg-alt);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+/* The theme toggle button itself. Blog pages have no shell, so they
+   need their own control — added by blog.js. */
+html[data-theme="dark"] .blog-theme-toggle {
+  background: var(--color-bg-alt);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+/* ============================================================
+   BLOG INDEX — redesigned
+   ------------------------------------------------------------
+   The old index was a flat list of 207 bordered rows under a
+   centred <h1>Blog</h1>. It read as a plain link dump.
+   This is a card grid with a stat band, a real search field,
+   and a category-filter row.
+   ============================================================ */
+
+/* --- Header --- */
+.blog-header {
+  position: relative;
+  text-align: center;
+  padding: 72px 24px 56px;
+  background: linear-gradient(180deg, #FAFAF8 0%, #FFFFFF 100%);
+  border-bottom: 1px solid var(--color-border);
+}
+html[data-theme="dark"] .blog-header {
+  background: linear-gradient(180deg, #191918 0%, #131312 100%);
+}
+
+.blog-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: rgba(52, 50, 44, 0.06);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 5px 14px;
+  margin-bottom: 20px;
+}
+html[data-theme="dark"] .blog-eyebrow {
+  background: rgba(237, 235, 230, 0.08);
+  color: #EDEBE6;
+}
+
+.blog-header h1 {
+  font-size: 46px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+html[data-theme="dark"] .blog-header h1 { color: var(--color-text); }
+
+.blog-header > p {
+  color: var(--color-text-muted);
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* --- Stat band --- */
+.blog-header-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+.blog-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.blog-stat-num {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+html[data-theme="dark"] .blog-stat-num { color: var(--color-text); }
+.blog-stat-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* --- Search --- */
+.blog-search-wrap {
+  max-width: 560px;
+  margin: 32px auto 0;
+}
+.blog-search {
+  width: 100%;
+  padding: 13px 18px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.blog-search:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(52, 50, 44, 0.1);
+}
+html[data-theme="dark"] .blog-search:focus {
+  box-shadow: 0 0 0 3px rgba(237, 235, 230, 0.12);
+}
+.blog-search::placeholder { color: var(--color-text-muted); }
+
+.blog-search-status {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.blog-no-results {
+  text-align: center;
+  padding: 48px 24px;
+  font-size: 16px;
+  color: var(--color-text-muted);
+}
+
+/* --- Theme toggle --- */
+.blog-theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 38px;
+  height: 38px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  background: var(--color-bg);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.blog-theme-toggle:hover {
+  background: var(--color-hover);
+  color: var(--color-text);
+}
+
+/* --- Category grid --- */
+.blog-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 48px 24px 72px;
+}
+
+.blog-category { margin-bottom: 56px; }
+.blog-category h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+html[data-theme="dark"] .blog-category h2 { color: var(--color-text); }
+.blog-category .count {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Cards in a grid rather than a stack of rules. */
+.blog-category {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.blog-category h2 { grid-column: 1 / -1; margin-bottom: 4px; }
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.post-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+}
+html[data-theme="dark"] .post-card {
+  background: var(--color-bg-alt);
+  border-color: var(--color-border);
+}
+html[data-theme="dark"] .post-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+.post-card:hover { padding-left: 20px; }
+.post-card:last-child { border-bottom: 1px solid var(--color-border); }
+
+.post-title {
+  font-size: 16px;
+  font-weight: 650;
+  color: var(--color-text);
+  margin: 0 0 6px;
+  line-height: 1.4;
+}
+.post-desc {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.55;
+}
+.post-meta { font-size: 13px; color: var(--color-text-muted); }
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 40px;
+  padding: 10px 18px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.back-link:hover {
+  background: var(--color-hover);
+  color: var(--color-text);
+}
+
+@media (max-width: 640px) {
+  .blog-header { padding: 52px 20px 40px; }
+  .blog-header h1 { font-size: 32px; }
+  .blog-header > p { font-size: 16px; }
+  .blog-header-stats { gap: 26px; }
+  .blog-category { grid-template-columns: 1fr; }
+}
