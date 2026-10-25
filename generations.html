@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AI Prompt Generator — Free Prompt Enhancer | Prompt Helper</title>
+  <meta name="description" content="Free AI prompt generator that turns rough ideas into structured prompts for ChatGPT, Claude, Gemini, Grok, and Perplexity. Text, Code, Image, and Video modes with streaming output, quality score, and A/B variants. No sign-up required.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://api-clyep56cdq-uc.a.run.app">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <link rel="stylesheet" href="/site.css?v=5">
+  <link rel="stylesheet" href="/shell.css?v=2">
+  <link rel="stylesheet" href="/generations.css?v=1">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <meta name="theme-color" content="#F7F5F2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="alternate" hreflang="en" href="https://promptgenerator.fyi/">
+  <link rel="alternate" hreflang="x-default" href="https://promptgenerator.fyi/">
+  <link rel="llms" href="/llms.txt">
+  <script>
+    // Apply saved theme before paint to avoid flash
+    (function () {
+      try {
+        var t = localStorage.getItem('phg_theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.setAttribute('data-theme', 'dark');
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9842825734923539"
+    crossorigin="anonymous"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FDZR5XWWBM"></script>
+
+
+<body>
+  <div class="app-shell">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sb-brand">
+        <a class="sb-logo" href="/" aria-label="Prompt Helper home">PH</a>
+        <span class="sb-brand-name">Prompt Helper</span>
+        <button class="sb-collapse" id="sb-collapse" aria-label="Collapse sidebar" title="Collapse sidebar">‹</button>
+      </div>
+
+      <nav class="sb-nav" aria-label="Main navigation">
+        <div class="sb-section">Create</div>
+        <a class="sb-link" href="/"><span class="sb-icon">✦</span><span class="sb-label">Prompt Generator</span></a>
+        <a class="sb-link" href="/library.html"><span class="sb-icon">▤</span><span class="sb-label">Prompt Library</span></a>
+        <a class="sb-link active" href="/generations.html"><span class="sb-icon">◑</span><span class="sb-label">My Generations</span></a>
+
+        <div class="sb-section">Tools</div>
+        <a class="sb-link" href="/#tools"><span class="sb-icon">◎</span><span class="sb-label">AI Tools</span></a>
+        <a class="sb-link" href="/#how"><span class="sb-icon">?</span><span class="sb-label">How it works</span></a>
+        <a class="sb-link" href="/blog.html"><span class="sb-icon">✎</span><span class="sb-label">Prompt Guides</span></a>
+
+        <div class="sb-section">Account</div>
+        <a class="sb-link" href="/pricing.html"><span class="sb-icon">◇</span><span class="sb-label">Pricing</span><span class="sb-badge">Pro</span></a>
+        <a class="sb-link" href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener"><span class="sb-icon">⬇</span><span class="sb-label">Get Extension</span></a>
+      </nav>
+
+      <div class="sb-foot">
+        <button class="btn btn-sm" id="sb-signin">Sign in with Google</button>
+        <button class="btn btn-sm hidden" id="sb-signout">Sign out</button>
+        <div class="sb-foot-note" id="sb-plan-note">Free plan · 5 enhancements/week</div>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <div class="app-main">
+      <header class="topbar">
+        <button class="tb-menu" id="tb-menu" aria-label="Open menu">☰</button>
+        <div class="tb-search">
+          <input type="search" id="tb-search-input" placeholder="Search prompts, tools, guides…" aria-label="Search">
+        </div>
+        <div class="tb-spacer"></div>
+        <a class="tb-link" href="/pricing.html">Pricing</a>
+        <a class="tb-link" href="/blog.html">Guides</a>
+        <button class="tb-icon-btn" id="tb-theme" aria-label="Toggle theme" title="Toggle light/dark">◐</button>
+        <button class="tb-icon-btn" id="sb-signin-top" aria-label="Sign in" title="Sign in">◍</button>
+        <a class="tb-cta" href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener">Get Extension</a>
+      </header>
+
+      <main class="shell-content" id="main">
+        <div class="page-head">
+          <h1>My Generations</h1>
+          <p>Every prompt you've created, grouped by day. Search anything you remember writing.</p>
+        </div>
+
+        <div class="gen-stats" id="gen-stats"></div>
+
+        <div class="gen-controls">
+          <div class="gen-search-wrap">
+            <input type="search" id="gen-search" class="search-input gen-search"
+                   placeholder="Search your generations…" aria-label="Search generations" autocomplete="off">
+            <button class="gen-search-clear hidden" id="gen-search-clear" aria-label="Clear search">✕</button>
+          </div>
+          <div class="gen-filters" id="gen-filters" role="group" aria-label="Filter by mode"></div>
+        </div>
+
+        <div id="gen-results" class="gen-results"></div>
+
+        <div class="gen-lock-note hidden" id="gen-lock-note" role="status" aria-live="polite">
+          <span id="gen-lock-text"></span>
+          <button id="gen-lock-cta" class="btn btn-sm" type="button">Sign in for free</button>
+        </div>
+
+        <div class="gen-empty hidden" id="gen-empty">
+          <div class="gen-empty-icon">◑</div>
+          <h2 id="gen-empty-title">No generations yet</h2>
+          <p id="gen-empty-body">Prompts you create in the generator show up here, grouped by day.</p>
+          <a href="/" class="btn btn-primary">Open the generator</a>
+        </div>
+      </main>
+
+      <footer class="shell-footer">
+        <div class="shell-footer-grid">
+          <div>
+            <h4>Prompt Helper</h4>
+            <p>Create, optimize, and explore prompts for ChatGPT, Claude, Gemini, Midjourney, Veo, and more.</p>
+          </div>
+          <div>
+            <h4>Product</h4>
+            <a href="/">AI Prompt Generator</a>
+            <a href="/library.html">Prompt Library</a>
+            <a href="/pricing.html">Pricing</a>
+            <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener">Chrome Extension</a>
+          </div>
+          <div>
+            <h4>Learn</h4>
+            <a href="/blog.html">Prompt Guides</a>
+            <a href="/blog-how-to-write-better-ai-prompts.html">How to Write Better Prompts</a>
+            <a href="/blog-what-is-prompt-engineering.html">What Is Prompt Engineering?</a>
+            <a href="/blog-ai-prompt-examples-2026.html">30 AI Prompt Examples</a>
+          </div>
+          <div>
+            <h4>Legal</h4>
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/terms.html">Terms of Service</a>
+          </div>
+        </div>
+        <div class="shell-footer-bottom">© 2026 Prompt Helper. All rights reserved.</div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="/auth-config.js?v=2"></script>
+  <script src="/auth.js?v=2"></script>
+  <script src="/generations.js?v=1"></script>
+  <script src="/site.js?v=3"></script>
+  <script src="/shell.js?v=2"></script>
+</body>
+</html>

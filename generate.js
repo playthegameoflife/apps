@@ -18,28 +18,6 @@ const TIERS = {
 // Kept for backwards compatibility with anything that referenced it.
 const FREE_LIMIT = TIERS.guest.limit;
 
-const TEMPLATES = [
-  // Text
-  { mode:'TEXT_ENHANCEMENT', label:'Cold outreach email', prompt:'write a cold outreach email to a potential client about our new product' },
-  { mode:'TEXT_ENHANCEMENT', label:'Blog post outline', prompt:'create an outline for a blog post about AI productivity tools' },
-  { mode:'TEXT_ENHANCEMENT', label:'Meeting summary', prompt:'summarize a meeting transcript into action items and decisions' },
-  { mode:'TEXT_ENHANCEMENT', label:'Product description', prompt:'write a compelling product description for a smart water bottle' },
-  // Code
-  { mode:'CODE_ENHANCEMENT', label:'Sort array', prompt:'a function that sorts an array of objects by a date field' },
-  { mode:'CODE_ENHANCEMENT', label:'REST API endpoint', prompt:'create a REST API endpoint for user registration with validation' },
-  { mode:'CODE_ENHANCEMENT', label:'React component', prompt:'a reusable React button component with variants and loading state' },
-  { mode:'CODE_ENHANCEMENT', label:'SQL query', prompt:'write a SQL query to find top 10 customers by revenue this month' },
-  // Image
-  { mode:'IMAGE_ENHANCEMENT', label:'Sci-fi city', prompt:'a futuristic city at sunset with flying cars and neon lights' },
-  { mode:'IMAGE_ENHANCEMENT', label:'Portrait', prompt:'professional headshot of a confident entrepreneur in a modern office' },
-  { mode:'IMAGE_ENHANCEMENT', label:'Product shot', prompt:'minimalist product photo of a wireless earbud on a marble surface' },
-  { mode:'IMAGE_ENHANCEMENT', label:'Fantasy landscape', prompt:'a magical forest with glowing mushrooms and a misty river' },
-  // Video
-  { mode:'VIDEO_ENHANCEMENT', label:'Drone shot', prompt:'cinematic drone shot of a futuristic city at golden hour' },
-  { mode:'VIDEO_ENHANCEMENT', label:'Product ad', prompt:'a 15-second ad for a new smartphone showing its camera features' },
-  { mode:'VIDEO_ENHANCEMENT', label:'Nature doc', prompt:'a sweeping nature documentary shot of a whale breaching' },
-  { mode:'VIDEO_ENHANCEMENT', label:'Anime action', prompt:'an anime-style action scene with a hero charging forward' },
-];
 
 let state = {
   userId: null,
@@ -283,7 +261,6 @@ function renderFeatureGates() {
     abToggle.disabled = !tier.abVariants;
     abToggle.title = tier.abVariants ? '' : 'Sign in free to use A/B variants';
   }
-  renderHistory();
 }
 /**
  * Adopt a quota response from the server so the UI always reflects the
@@ -406,48 +383,6 @@ function scoreLabel(s) {
   return { label: 'Poor', cls: 'score-poor' };
 }
 
-function renderHistory() {
-  const list = $('history-list');
-  if (!list) return;
-  const q = ($('history-search')?.value || '').toLowerCase();
-  let items = state.history;
-  if (q) items = items.filter(h => (h.prompt + ' ' + h.result).toLowerCase().includes(q));
-  if (!items.length) { list.innerHTML = '<span class="muted">No history yet.</span>'; return; }
-  const tier = TIERS[currentTier()];
-  const limit = tier.fullHistory ? 100 : (state.user ? 10 : 1);
-  const locked = items.length > limit && !tier.fullHistory;
-  items = items.slice(0, limit);
-  list.innerHTML = items.map((h, i) => `
-    <div class="history-item" data-idx="${i}">
-      <div class="h-mode">${h.mode.replace('_ENHANCEMENT','')} · ${h.style}${h.target ? ' · ' + h.target : ''}</div>
-      <div class="h-text">${escapeHtml(h.result)}</div>
-    </div>
-  `).join('');
-  list.querySelectorAll('.history-item').forEach(el => {
-    el.addEventListener('click', () => {
-      const idx = parseInt(el.dataset.idx);
-      const h = items[idx];
-      if (h) { $('prompt-input').value = h.prompt; state.mode = h.mode; state.style = h.style; populateModes(); populateStyles(state.mode); $('style-select').value = state.style; state.style = $('style-select').value; }
-    });
-  });
-
-  // Tell the user their older history exists but is behind the tier limit,
-  // and what it takes to see it.
-  const lockNote = $('history-lock-note');
-  if (lockNote) {
-    if (locked) {
-      show(lockNote);
-      setText('history-lock-text',
-        state.user
-          ? `You're seeing ${limit} of ${state.history.length} items. Pro unlocks your full history.`
-          : `You're seeing ${limit} of ${state.history.length} items. Sign in free to keep ${TIERS.free.limit ? 10 : 10}, or go Pro for all 100.`);
-      const cta = $('history-lock-cta');
-      if (cta) cta.textContent = state.user ? 'See Pro' : 'Sign in for free';
-    } else {
-      hide(lockNote);
-    }
-  }
-}
 
 // ---- modes/styles ----
 function populateModes() {
@@ -460,7 +395,6 @@ function populateModes() {
       populateStyles(state.mode);
       const m = MODES.find(x => x.key === state.mode);
       if (m) $('prompt-input').placeholder = m.placeholder;
-      renderTemplates();
     });
   });
 }
@@ -538,15 +472,6 @@ function populateStyles(mode) {
   sel.onchange = () => { state.style = sel.value; };
 }
 
-// ---- templates ----
-function renderTemplates() {
-  const wrap = $('templates-wrap');
-  const ts = TEMPLATES.filter(t => t.mode === state.mode);
-  wrap.innerHTML = ts.map(t => `<span class="template-chip" data-prompt="${escapeHtml(t.prompt)}">${escapeHtml(t.label)}</span>`).join('');
-  wrap.querySelectorAll('.template-chip').forEach(c => {
-    c.addEventListener('click', () => { $('prompt-input').value = c.dataset.prompt; $('prompt-input').focus(); });
-  });
-}
 
 // ---- auth ----
 // Sign-in lives in auth.js (shared, Authorization Code + PKCE). The old
@@ -785,7 +710,7 @@ async function generate(variantStyle) {
           if (actions) actions.innerHTML = '<button class="btn btn-sm" onclick="navigator.clipboard.writeText(document.getElementById(\'output\').textContent).then(()=>{const m=document.getElementById(\'copy-msg\');m.textContent=\'Copied!\';setTimeout(()=>m.textContent=\'\',1500)})">Copy result</button> <button class="btn btn-sm btn-ghost" onclick="document.getElementById(\'prompt-input\').value=document.getElementById(\'output\').textContent;document.getElementById(\'prompt-input\').focus()">Refine</button>';
           state.lastOutput = full; state.lastPrompt = prompt;
           trackUsage(); saveHistoryEntry(prompt, full, style);
-          renderUsage(); renderHistory();
+          renderUsage();
           // Ask the server for the authoritative counter now that one has
           // been consumed. This keeps the meter honest across devices.
           refreshUsage();
@@ -932,7 +857,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     populateStyles(state.mode);
     const m = MODES.find(x => x.key === state.mode);
     if (m) $('prompt-input').placeholder = m.placeholder;
-    renderTemplates();
     renderMemory();
 
     // Deep links: /?mode=IMAGE&style=cinematic (used by the "Start with a
@@ -972,8 +896,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const shb=$('share-btn'); if(shb) shb.addEventListener('click', shareLink);
     $('memory-toggle').addEventListener('change', (e) => { state.memory.use = e.target.checked; saveMemory(); });
     const smb=$('save-memory-btn'); if(smb) smb.addEventListener('click', () => { state.memory.notes = $('memory-input').value; saveMemory(); setText('memory-msg', 'Saved.'); setTimeout(() => setText('memory-msg',''), 1500); });
-    const hs=$('history-search'); if(hs) hs.addEventListener('input', renderHistory);
-  }
+    }
 
   // Sign-in controls. These live on the generator page AND the pricing
   // page, so they must be wired OUTSIDE the isGeneratorPage block — they
@@ -987,20 +910,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   const portalBtn = $('portal-btn');
   if (portalBtn) portalBtn.addEventListener('click', portal);
 
-  // The usage nudge and the history lock note both end in a call to action.
-  // Guests get sent to sign in (which buys them a bigger allowance);
-  // signed-in users get sent to the upgrade flow.
+  // The usage nudge ends in a call to action. Guests get sent to sign in
+  // (which buys them a bigger allowance); signed-in users get sent to the
+  // upgrade flow.
   const nudgeCta = $('usage-nudge-cta');
   if (nudgeCta) nudgeCta.addEventListener('click', () => {
     if (state.tier === 'guest') signIn();
     else upgrade();
   });
-  const lockCta = $('history-lock-cta');
-  if (lockCta) lockCta.addEventListener('click', () => {
-    if (state.tier === 'guest') signIn();
-    else upgrade();
-  });
-
   // Pricing page: the "Free account" card has its own sign-in button, so a
   // guest can upgrade their allowance without hunting for the small
   // sign-in control in the account bar.
@@ -1017,7 +934,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   await checkSubscription();
   renderPlan(); renderUsage();
-  if (isGeneratorPage) renderHistory();
+  if (isGeneratorPage) renderUsage();
 
   // Apply the tier gates to the UI (Memory, A/B variants) and pull the
   // authoritative usage meter from the server.

@@ -1013,20 +1013,6 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
 .history-item .h-text { color: var(--text-secondary); margin-top: var(--space-1); white-space: pre-wrap; word-break: break-word; max-height: 80px; overflow: hidden; line-height: 1.5; }
 
 /* ===== TEMPLATES ===== */
-.template-chip {
-  display: inline-flex; align-items: center;
-  padding: var(--space-2) var(--space-3);
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--bg-input);
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  margin: var(--space-1);
-  transition: all var(--transition-fast);
-}
-.template-chip:hover { background: var(--accent-2); border-color: var(--accent-2); color: var(--on-accent-2); }
 
 /* ===== MEMORY ===== */
 .memory-box {
@@ -1152,7 +1138,6 @@ main a.btn, main .nav a { text-decoration: none; }
   .variants { grid-template-columns: 1fr; }
   .output-box { font-size: 0.9rem; min-height: 100px; }
   .row { gap: var(--space-2); }
-  .template-chip { padding: var(--space-2) var(--space-3); font-size: 0.75rem; min-height: 36px; }
   .history-item { padding: var(--space-2) var(--space-3); }
   .steps-row { grid-template-columns: 1fr; padding: 0 var(--space-4); }
   .gen-actions {
@@ -1174,7 +1159,7 @@ main a.btn, main .nav a { text-decoration: none; }
   .nav nav a.cta { font-size: 0.8rem; padding: var(--space-2) var(--space-3); }
   .hero-cta { flex-direction: column; }
 }
-button, a, select, .template-chip, .toggle, .history-item {
+button, a, select, .toggle, .history-item {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }

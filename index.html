@@ -69,8 +69,7 @@
         <div class="sb-section">Create</div>
         <a class="sb-link active" href="/"><span class="sb-icon">✦</span><span class="sb-label">Prompt Generator</span></a>
         <a class="sb-link" href="/library.html"><span class="sb-icon">▤</span><span class="sb-label">Prompt Library</span></a>
-        <a class="sb-link" href="/#generator"><span class="sb-icon">◑</span><span class="sb-label">My Generations</span></a>
-        <a class="sb-link" href="/#templates"><span class="sb-icon">◇</span><span class="sb-label">Templates</span></a>
+        <a class="sb-link" href="/generations.html"><span class="sb-icon">◑</span><span class="sb-label">My Generations</span></a>
 
         <div class="sb-section">Tools</div>
         <a class="sb-link" href="/#tools"><span class="sb-icon">◎</span><span class="sb-label">AI Tools</span></a>
@@ -210,11 +209,6 @@
               </div>
             </div>
 
-            <div class="rail-card" id="templates">
-              <h3>Starter templates</h3>
-              <div id="templates-wrap"></div>
-            </div>
-
             <div class="rail-card">
               <h3>Memory</h3>
               <p class="rail-note" style="margin-bottom:var(--space-2)">Tell the generator how you like your prompts. Saved locally.</p>
@@ -226,13 +220,9 @@
             </div>
 
             <div class="rail-card">
-              <h3>History</h3>
-              <input id="history-search" class="search-input" placeholder="Search history…" aria-label="Search history" style="margin-bottom:var(--space-3)">
-              <div id="history-list" class="muted">No history yet.</div>
-              <div id="history-lock-note" class="usage-nudge soft hidden" role="status" aria-live="polite">
-                <span id="history-lock-text"></span>
-                <button id="history-lock-cta" class="btn btn-sm" type="button">Sign in for free</button>
-              </div>
+              <h3>My Generations</h3>
+              <p class="rail-note" style="margin-bottom:var(--space-3)">Every prompt you've created, grouped by day and searchable.</p>
+              <a href="/generations.html" class="btn btn-sm btn-block">Open My Generations</a>
               <div id="auth-msg" class="muted" style="margin-top:var(--space-2)"></div>
             </div>
           </aside>
