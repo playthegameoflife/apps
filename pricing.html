@@ -116,15 +116,126 @@
     </div>
 
     <!-- FAQ -->
-    <section class="card" aria-labelledby="faq-heading">
-      <h2 id="faq-heading">Frequently asked questions</h2>
-      <details><summary>Can I cancel anytime?</summary><p class="muted" style="margin:var(--space-2) 0 0">Yes. Click <strong>Manage Subscription</strong> on this page while signed in — it opens Stripe's customer portal where you can cancel, change your card, or see past invoices. You won't be charged again, and you keep Pro access until the end of your billing period.</p></details>
-      <details><summary>Is there a free trial?</summary><p class="muted" style="margin:var(--space-2) 0 0">There's no trial because the free tier is genuinely free forever — no card, no expiry. Signing in with Google raises your allowance from 5 to 10 enhancements a week and unlocks Memories and A/B variants.</p></details>
-      <details><summary>Do I need an account to use Prompt Helper?</summary><p class="muted" style="margin:var(--space-2) 0 0">No. Signed out you get 5 enhancements a week and can see your last result. Signing in with Google raises that to 10 enhancements a week, unlocks Memories (personalization) and A/B variants, and gives you 10 items of history instead of 1. It costs nothing.</p></details>
-      <details><summary>Does Pro work on both the website and the extension?</summary><p class="muted" style="margin:var(--space-2) 0 0">Yes. Sign in with the same Google account on both and your Pro subscription syncs automatically. One thing to know: your generated prompts stay in the browser you generated them in — they aren't uploaded to us, so history doesn't move between devices.</p></details>
-      <details><summary>What payment methods do you accept?</summary><p class="muted" style="margin:var(--space-2) 0 0">All major credit and debit cards via Stripe. Secure checkout.</p></details>
-      <details><summary>Do you offer team plans?</summary><p class="muted" style="margin:var(--space-2) 0 0">Not yet — Pro is a single-user plan right now. If you need seats for a team, email support@promptgenerator.fyi and we'll tell you where we are with that.</p></details>
-      <details><summary>Is there a lifetime deal?</summary><p class="muted" style="margin:var(--space-2) 0 0">Not currently. Pro is $19.99/month and you can cancel any time. If we ever add a one-time lifetime option we'll announce it here first.</p></details>
+    <section class="faq-section" aria-labelledby="faq-heading">
+      <div class="faq-head">
+        <span class="faq-eyebrow">Questions</span>
+        <h2 id="faq-heading">Frequently asked</h2>
+        <p class="faq-intro muted">Everything below reflects what the app actually enforces today &mdash; no roadmap promises.</p>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>
+            <span class="faq-q">Can I cancel anytime?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p>Yes. While signed in, open <strong>Manage Subscription</strong> on this page. It takes you to Stripe&rsquo;s customer portal, where you can cancel, change your card, or review past invoices. You&rsquo;re never charged again, and Pro stays active until the end of the period you already paid for.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Is there a free trial?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p>There&rsquo;s no trial, because the free tier is genuinely free forever &mdash; no card, no expiry, no countdown. Signing in with Google raises your allowance from <strong>5 to 10 enhancements a week</strong> and unlocks Memories and A/B variants.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Do I need an account to use Prompt Helper?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p>No. Signed out you get <strong>5 enhancements a week</strong> and can see your most recent result. Signing in with Google raises that to <strong>10 a week</strong>, unlocks Memories and A/B variants, and gives you <strong>10 items of history</strong> instead of 1. It costs nothing.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Does Pro work on the website and the extension?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p>Yes. Sign in with the same Google account on both and your Pro subscription follows you automatically.</p>
+            <p>One thing worth knowing: your generated prompts stay in the browser you created them in. We don&rsquo;t upload them, so history doesn&rsquo;t travel between devices &mdash; but your plan and allowance do.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">What payment methods do you accept?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p>All major credit and debit cards, processed by Stripe. Checkout is secure and card details never touch our servers.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Do you offer team plans?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p>Not yet &mdash; Pro is a single-user plan right now. If you need seats for a team, email <a href="mailto:support@promptgenerator.fyi">support@promptgenerator.fyi</a> and we&rsquo;ll tell you where we are with that.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Is there a lifetime deal?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p>Not currently. Pro is <strong>$19.99/month</strong> and you can cancel any time. If we ever add a one-time lifetime option, we&rsquo;ll announce it here first.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">What exactly counts as one enhancement?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p>One prompt you send through a generator. If you turn on <strong>A/B variants</strong>, that single run returns two versions of your prompt &mdash; it still counts as one enhancement, not two.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">What are Memories and A/B variants?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p><strong>Memories</strong> store personal preferences &mdash; your role, tone, industry &mdash; and apply them to every prompt you generate, so you stop repeating yourself.</p>
+            <p><strong>A/B variants</strong> return two versions of your prompt side by side: your chosen style plus an alternative, so you can compare and pick. Both are included on Free and Pro.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">Where do my prompts and history live?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p>In your browser, on the device you used. Your generated prompts and history are stored locally and are <strong>never uploaded to us</strong>. Clearing your browser data clears them. The only thing tied to your account is your plan, allowance, and Memories.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q">How do I request a refund?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p>Email <a href="mailto:support@promptgenerator.fyi">support@promptgenerator.fyi</a> with the email on the account and the date of charge. We process refund requests within a few business days.</p>
+          </div>
+        </details>
+      </div>
     </section>
 
     <!-- Trust -->

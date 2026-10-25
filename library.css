@@ -254,7 +254,10 @@ html[data-theme="dark"] {
 .lib-drawer-scrim.open { opacity: 1; pointer-events: auto; }
 .lib-drawer {
   position: fixed;
-  top: 0;
+  /* The drawer used top:0, which put its title row underneath the sticky
+     topbar (drawer z-index 91 < topbar 800 on production). The title and the
+     close button were unreachable. Start the drawer below the bar instead. */
+  top: var(--topbar-h, 56px);
   right: 0;
   bottom: 0;
   width: min(560px, 94vw);
