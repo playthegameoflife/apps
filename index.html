@@ -138,8 +138,20 @@
                     <option value="Stable Diffusion">Stable Diffusion</option>
                   </select>
                 </div>
-                <label class="toggle"><input type="checkbox" id="ab-toggle"> A/B variants</label>
-                <label class="toggle"><input type="checkbox" id="memory-toggle" checked> Memory</label>
+                <label class="toggle has-help">
+                  <input type="checkbox" id="ab-toggle">
+                  <span>A/B variants</span>
+                  <button type="button" class="help-dot" id="ab-help"
+                          aria-label="What are A/B variants?"
+                          data-help="Generates two different versions of the same prompt so you can compare which one the AI follows better.">?</button>
+                </label>
+                <label class="toggle has-help">
+                  <input type="checkbox" id="memory-toggle" checked>
+                  <span>Memory</span>
+                  <button type="button" class="help-dot" id="mem-help"
+                          aria-label="What is Memory?"
+                          data-help="Adds your own notes and context to every prompt, so the AI knows about your product, audience and tone. Stored only in this browser.">?</button>
+                </label>
               </div>
 
               <div class="gen-submit-row">

@@ -138,6 +138,40 @@ function renderUsage() {
   const pct = numericLimit === Infinity ? 100 : Math.min(100, (cur / numericLimit) * 100);
   const f = $('usage-fill'); if (f) f.style.width = pct + '%';
   renderUsageNudge(cur, numericLimit);
+  applyQuotaGate(cur, numericLimit);
+}
+
+/**
+ * Disable Generate once the weekly allowance is spent.
+ *
+ * The button used to stay enabled at 0 remaining. A user could click it,
+ * wait for a network round-trip, and only then get the 402 back. The
+ * server is still authoritative — this is purely a UI shortcut so the
+ * dead end is visible before the click, not after it.
+ */
+function applyQuotaGate(used, limit) {
+  const btn = $('generate-btn');
+  if (!btn) return;
+  const exhausted = limit !== Infinity && used >= limit;
+
+  // Never fight an in-flight request: generate() disables the button
+  // itself while it runs and re-enables it in a finally block.
+  if (btn.dataset.busy === '1') return;
+
+  btn.disabled = exhausted;
+  btn.classList.toggle('is-exhausted', exhausted);
+
+  if (exhausted) {
+    btn.dataset.exhaustedLabel = btn.dataset.exhaustedLabel || btn.innerHTML;
+    btn.innerHTML = 'Limit reached';
+    btn.setAttribute('aria-disabled', 'true');
+  } else {
+    if (btn.dataset.exhaustedLabel) {
+      btn.innerHTML = btn.dataset.exhaustedLabel;
+      delete btn.dataset.exhaustedLabel;
+    }
+    btn.removeAttribute('aria-disabled');
+  }
 }
 
 // The upgrade moment. A user who is close to the limit but not over it is
@@ -310,6 +344,10 @@ function showQuotaLimit(q) {
       <div class="quota-panel-actions">${actions.join('')}</div>
     </div>`;
   el.classList.remove('hidden');
+
+  // Keep the button state in sync: the user is out of credits whether we
+  // learned that from a 402 or from /usage-status.
+  applyQuotaGate(limit, limit);
 
   const s = document.getElementById('quota-signin');
   if (s) s.addEventListener('click', (e) => { e.preventDefault(); signIn(); });
@@ -698,7 +736,9 @@ async function generate(variantStyle) {
   if (generating) return;
   generating = true;
   const btn = $('generate-btn');
-  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+  btn.disabled = true;
+  btn.dataset.busy = '1';
+  btn.innerHTML = '<span class="spinner"></span>';
   setText('gen-status', 'Streaming…');
   const sys = buildSystemInstruction(state.mode, variantStyle || state.style, $('target-select').value, state.memory.notes);
   state.refineMode = false;
@@ -791,7 +831,15 @@ async function generate(variantStyle) {
   }
 
   generating = false;
-  btn.disabled = false; btn.innerHTML = '✨ Generate';
+  delete btn.dataset.busy;
+  // Re-apply the gate: if the request that just ran used the last credit,
+  // the button must stay disabled rather than springing back to life.
+  btn.disabled = false;
+  btn.innerHTML = '✨ Generate';
+  const lim = state.tier === 'pro' ? Infinity
+    : (state.usage ? state.usage.limit : TIERS[state.tier].limit);
+  const used = state.usage ? state.usage.used : state.weeklyUsage.enhancements;
+  applyQuotaGate(used, lim);
 }
 
 function saveHistoryEntry(prompt, result, style) {
