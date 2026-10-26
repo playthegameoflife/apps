@@ -1266,3 +1266,88 @@ button, a, select, .toggle, .history-item {
   cursor: not-allowed;
   opacity: 1;
 }
+
+/* ============================================================
+   PRO BADGE — marks a feature as Pro-only
+   Used on the A/B variants toggle so the upsell is visible
+   without hiding the control entirely.
+   ============================================================ */
+.pro-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  line-height: 1.5;
+  color: var(--accent-2-text);
+  background: var(--accent-2-glow);
+  border: 1px solid var(--accent-2);
+  border-radius: 999px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.pro-badge[hidden] { display: none; }
+
+/* ============================================================
+   LIBRARY TIER NOTE
+   Tells the visitor how much of the catalog their plan can
+   reach, and links to the upgrade page when it is capped.
+   ============================================================ */
+.page-head .lib-tier-note {
+  margin: 14px auto 0;
+  max-width: 640px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.lib-tier-note strong { color: var(--text); font-weight: 700; }
+.lib-tier-note a {
+  color: var(--accent-2-text);
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.lib-tier-note a:hover { text-decoration-thickness: 2px; }
+.lib-tier-note[hidden] { display: none; }
+
+/* ============================================================
+   PRO — EXTENSION CROSS-SELL NOTE
+   Under the Pro plan's feature list. Makes it explicit that one
+   Pro subscription also unlocks the Chrome extension.
+   ============================================================ */
+.plan-extension-note {
+  margin: var(--space-5) 0 0;
+}
+.plan-extension-link {
+  display: block;
+  padding: var(--space-4) var(--space-5);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-soft);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+.plan-extension-link:hover {
+  border-color: var(--accent-2);
+  background: var(--accent-2-glow);
+}
+.plan-extension-title {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: var(--space-1);
+}
+.plan-extension-text {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+.plan-extension-cta {
+  display: inline-block;
+  margin-top: var(--space-3);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-2-text);
+}

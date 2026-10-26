@@ -1,28 +1,19 @@
 /* ============================================================
-   blog.js — theme toggle + search for blog.html
+   blog.js — blog index page
    ------------------------------------------------------------
-   WHY THIS FILE EXISTS
-   --------------------
-   Three defects this fixes:
+   Scope: this file drives the BLOG INDEX ONLY. Individual post
+   pages are separate files and are not touched by this script.
 
-   1. The blog index had NO search. The app-shell global search
-      (shell.js:70) falls back to `blog.html?q=<query>` when the
-      query doesn't match a library card or a history item. But
-      blog.html had no <script> and never read the `q` parameter,
-      so the fallback navigated to a page showing all 207 posts
-      with no filtering. Search looked like it worked (it changed
-      the URL) but did nothing.
+   What it does:
+     1. Theme toggle (light/dark) with no flash on load.
+     2. Live search across every guide on the page.
+     3. Category filters (All / AI & Prompts / Marketing & Tools).
+     4. Keeps the header counts in sync with what is rendered.
 
-   2. The blog index had no theme toggle. blog.html loads
-      style.css only — no shell.js — so there was no way to reach
-      dark mode from the blog at all.
-
-   3. The index mixed in 27 MyCombat / martial-arts posts from a
-      sibling app that lives in this same repository. They're
-      reachable from apps.html and mycombat/, but they don't belong
-      in a prompt-engineering blog index — a visitor landing here
-      from a "prompt generator" query should not be shown
-      "Best HIIT Timer for Martial Arts Training Sessions".
+   The old implementation also stripped off-topic MyCombat posts
+   at runtime. Those posts are no longer present in the index at
+   all — they are filtered out of the source HTML instead — so
+   there is nothing to strip here anymore. See blog-index-build.
    ============================================================ */
 
 (function () {
@@ -39,7 +30,7 @@
     document.documentElement.setAttribute('data-theme', t);
     try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', t === 'dark' ? '#131312' : '#ffffff');
+    if (meta) meta.setAttribute('content', t === 'dark' ? '#0E0E0D' : '#FAFAF8');
     var btn = document.getElementById('blog-theme-toggle');
     if (btn) {
       btn.textContent = t === 'dark' ? '☀' : '☾';
@@ -57,7 +48,7 @@
       document.documentElement.setAttribute('data-theme', 'dark');
     }
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta && currentTheme() === 'dark') meta.setAttribute('content', '#131312');
+    if (meta && currentTheme() === 'dark') meta.setAttribute('content', '#0E0E0D');
   })();
 
   function buildThemeToggle() {
@@ -71,145 +62,93 @@
     btn.addEventListener('click', function () {
       setTheme(currentTheme() === 'dark' ? 'light' : 'dark');
     });
-    var host = document.querySelector('.blog-header');
+    var host = document.querySelector('.blog-hero');
     if (host) host.appendChild(btn);
   }
 
-  /* ---------- REMOVE OFF-TOPIC POSTS ---------- */
-  var OFF_TOPIC = /mycombat|boxing|martial|judo|shadow-boxing|shadow-boxing|kickboxing|muay-thai|mma|hiit|combat|fighter|karate|taekwondo|workout-partner/i;
+  /* ---------- SEARCH + FILTERS ---------- */
+  var grid = document.getElementById('blog-grid');
+  var featured = document.getElementById('featured-section');
+  var search = document.getElementById('blog-search');
+  var status = document.getElementById('blog-search-status');
+  var noResults = document.getElementById('blog-no-results');
+  var filters = document.getElementById('blog-filters');
 
-  function removeOffTopicPosts() {
-    var removed = 0;
+  // Only the cards in the "All guides" grid are filtered. The featured
+  // strip is a curated "latest" highlight and hides itself entirely
+  // when a search is active or a category is selected, so the page
+  // never shows the same guide twice.
+  var cards = grid ? Array.prototype.slice.call(grid.querySelectorAll('.post-card')) : [];
+  var featCards = featured ? Array.prototype.slice.call(featured.querySelectorAll('.feat-card')) : [];
+  var activeCat = 'all';
 
-    // 1. Drop the whole "Martial Arts & Boxing" category.
-    Array.prototype.slice.call(document.querySelectorAll('.blog-category')).forEach(function (cat) {
-      var h = cat.querySelector('h2');
-      if (h && OFF_TOPIC.test(h.textContent || '')) {
-        removed += cat.querySelectorAll('.post-card').length;
-        cat.remove();
-      }
-    });
-
-    // 2. Drop individual off-topic posts that were filed under a
-    //    prompt category (e.g. "Voice Guided Combat Training" was
-    //    sitting inside "AI & Prompts").
-    Array.prototype.slice.call(document.querySelectorAll('.post-card')).forEach(function (card) {
-      var href = card.getAttribute('href') || '';
-      var title = card.querySelector('.post-title');
-      var titleText = title ? title.textContent : '';
-      if (OFF_TOPIC.test(href) || OFF_TOPIC.test(titleText)) {
-        card.remove();
-        removed++;
-      }
-    });
-
-    // 3. Recount each category heading so "(143 articles)" matches
-    //    what's actually rendered.
-    Array.prototype.slice.call(document.querySelectorAll('.blog-category')).forEach(function (cat) {
-      var h = cat.querySelector('h2');
-      var countEl = cat.querySelector('.count');
-      if (!h || !countEl) return;
-      var n = cat.querySelectorAll('.post-card').length;
-      countEl.textContent = '(' + n + ' article' + (n === 1 ? '' : 's') + ')';
-    });
-
-    // 4. Drop a category that ended up empty.
-    Array.prototype.slice.call(document.querySelectorAll('.blog-category')).forEach(function (cat) {
-      if (!cat.querySelector('.post-card')) cat.remove();
-    });
-
-    return removed;
+  function matches(card, q) {
+    if (activeCat !== 'all' && card.getAttribute('data-cat') !== activeCat) return false;
+    if (!q) return true;
+    var hay = (card.textContent || '').toLowerCase();
+    return hay.indexOf(q) !== -1;
   }
 
-  function updateCounts() {
-    var total = document.querySelectorAll('.post-card').length;
-    var label = document.getElementById('blog-count');
-    if (label) label.textContent = String(total);
-    var cats = document.querySelectorAll('.blog-category').length;
-    var catEl = document.getElementById('blog-cat-count');
-    if (catEl) catEl.textContent = String(cats);
-    return total;
-  }
+  function apply() {
+    var q = search ? search.value.trim().toLowerCase() : '';
+    var shown = 0;
 
-  /* ---------- SEARCH ---------- */
-  // Filters the rendered post cards client-side. There is no
-  // search index on the server, so this works over the DOM
-  // already present on the page — which is every post in the
-  // index, not just the first screenful.
-  function buildSearch() {
-    var host = document.querySelector('.blog-header');
-    if (!host || document.getElementById('blog-search')) return;
+    cards.forEach(function (card) {
+      var hit = matches(card, q);
+      card.hidden = !hit;
+      if (hit) shown++;
+    });
 
-    var wrap = document.createElement('div');
-    wrap.className = 'blog-search-wrap';
+    // Hide the featured strip whenever a filter or search is narrowing
+    // things down — otherwise the same article can appear twice.
+    var filtering = !!q || activeCat !== 'all';
+    if (featured) featured.hidden = filtering;
 
-    var input = document.createElement('input');
-    input.type = 'search';
-    input.id = 'blog-search';
-    input.className = 'blog-search';
-    input.placeholder = 'Search ' + document.querySelectorAll('.post-card').length + ' guides…';
-    input.setAttribute('aria-label', 'Search blog guides');
-    input.autocomplete = 'off';
+    if (noResults) noResults.hidden = !(shown === 0);
 
-    var status = document.createElement('p');
-    status.id = 'blog-search-status';
-    status.className = 'blog-search-status';
-    status.setAttribute('aria-live', 'polite');
-
-    wrap.appendChild(input);
-    wrap.appendChild(status);
-    host.appendChild(wrap);
-
-    var cards = Array.prototype.slice.call(document.querySelectorAll('.post-card'));
-    var cats = Array.prototype.slice.call(document.querySelectorAll('.blog-category'));
-    var empty = document.createElement('p');
-    empty.className = 'blog-no-results';
-    empty.hidden = true;
-    empty.textContent = 'No guides match that search.';
-    var container = document.querySelector('.blog-container');
-    if (container) container.appendChild(empty);
-
-    function apply() {
-      var q = input.value.trim().toLowerCase();
-      var shown = 0;
-
-      cards.forEach(function (card) {
-        var hay = (card.textContent || '').toLowerCase();
-        var hit = !q || hay.indexOf(q) !== -1;
-        card.hidden = !hit;
-        if (hit) shown++;
-      });
-
-      // Hide a whole category heading when none of its posts match.
-      cats.forEach(function (cat) {
-        var any = Array.prototype.some.call(cat.querySelectorAll('.post-card'), function (c) {
-          return !c.hidden;
-        });
-        cat.hidden = !any;
-      });
-
-      empty.hidden = !(q && shown === 0);
-      status.textContent = q
-        ? shown + ' of ' + cards.length + ' guides match'
-        : cards.length + ' guides';
+    if (status) {
+      if (q && activeCat !== 'all') {
+        status.textContent = shown + ' of ' + cards.length + ' guides match “' + q + '” in ' + activeCat;
+      } else if (q) {
+        status.textContent = shown + ' of ' + cards.length + ' guides match';
+      } else if (activeCat !== 'all') {
+        status.textContent = shown + ' ' + activeCat + ' guides';
+      } else {
+        status.textContent = cards.length + ' guides';
+      }
     }
+  }
 
-    input.addEventListener('input', apply);
-    apply();
-
+  function bindSearch() {
+    if (!search) return;
+    var timer = null;
+    search.addEventListener('input', function () {
+      clearTimeout(timer);
+      timer = setTimeout(apply, 120);
+    });
     // Support the app shell's fallback: /blog.html?q=<query>
     var initial = new URLSearchParams(window.location.search).get('q');
-    if (initial) {
-      input.value = initial;
+    if (initial) search.value = initial;
+  }
+
+  function bindFilters() {
+    if (!filters) return;
+    filters.addEventListener('click', function (e) {
+      var btn = e.target.closest('.blog-filter');
+      if (!btn) return;
+      filters.querySelectorAll('.blog-filter').forEach(function (b) {
+        b.classList.toggle('active', b === btn);
+      });
+      activeCat = btn.getAttribute('data-cat') || 'all';
       apply();
-    }
+    });
   }
 
   function boot() {
     buildThemeToggle();
-    removeOffTopicPosts();
-    updateCounts();
-    buildSearch();
+    bindSearch();
+    bindFilters();
+    apply();
   }
 
   if (document.readyState === 'loading') {

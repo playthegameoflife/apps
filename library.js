@@ -1,8 +1,23 @@
 /* ============================================================
    PROMPT LIBRARY — behaviour
    Category rail, search, incremental grid, prompt drawer.
-   Data: LIB_CATS / LIB_ITEMS from library-data.js
-   Bodies: lazy-loaded per category from /lib-texts/<cat>.json
+
+   TIERED ACCESS
+   ------------
+   The catalog is served by the backend, which decides the tier from a
+   verified Google token (or falls back to a guest tier). The static
+   site ships NO prompt catalog at all — the full 2,140 prompts live
+   only in the Cloud Function.
+
+     GET /library        -> catalog metadata + items for this tier
+     GET /library/bodies -> per-category prompt bodies for this tier
+
+   Free and Guest tiers receive a 300-prompt subset with a fair spread
+   across every category. Pro receives all 2,140.
+
+   The frontend renders whatever the backend returns. It never filters a
+   full catalog down to a smaller one — there is nothing to filter,
+   because the restricted prompts were never sent.
    ============================================================ */
 
 (function () {
@@ -10,6 +25,7 @@
 
   const $ = (id) => document.getElementById(id);
   const PAGE = 120;
+  const BACKEND_URL = 'https://api-clyep56cdq-uc.a.run.app';
 
   const state = {
     cat: 'all',
@@ -18,16 +34,28 @@
     texts: {},        // cat -> array of prompt bodies
     loading: {},      // cat -> promise
     current: null,   // currently open item
+    items: [],       // items for this tier
+    cats: [],        // categories for this tier
+    tier: 'guest',
+    restricted: true,
+    fullTotal: 0,
+    ready: false,
   };
 
-  /* ---------- INDEX BUILD ---------- */
-  // LIB_ITEMS is contiguous per category, so each category owns a slice.
+  /* ---------- TIER / ITEMS ----------
+     These replace the old build-time LIB_ITEMS / LIB_CATS globals.
+     They are populated from the backend before the first render. */
   const byCat = {};
-  const localIdx = {};   // flat index -> index within its category file
-  LIB_ITEMS.forEach((it, i) => {
-    (byCat[it.c] = byCat[it.c] || []).push(i);
-    localIdx[i] = byCat[it.c].length - 1;
-  });
+  const localIdx = {};   // flat index -> index within its category body array
+
+  function indexItems(items) {
+    Object.keys(byCat).forEach(k => delete byCat[k]);
+    Object.keys(localIdx).forEach(k => delete localIdx[k]);
+    items.forEach((it, i) => {
+      (byCat[it.c] = byCat[it.c] || []).push(i);
+      localIdx[i] = byCat[it.c].length - 1;
+    });
+  }
 
   const MODE_LABEL = {
     TEXT_ENHANCEMENT: 'Text',
@@ -43,27 +71,56 @@
   };
 
   const catMeta = {};
-  LIB_CATS.forEach(c => { catMeta[c.id] = c; });
+  function indexCats(cats) {
+    Object.keys(catMeta).forEach(k => delete catMeta[k]);
+    cats.forEach(c => { catMeta[c.id] = c; });
+  }
+
+  /* ---------- AUTH HEADERS ---------- */
+  function getAnonId() {
+    try {
+      let id = localStorage.getItem('phg_anon_id');
+      if (!id) {
+        id = 'a_' + Math.random().toString(36).slice(2, 12) + Date.now().toString(36);
+        localStorage.setItem('phg_anon_id', id);
+      }
+      return id;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function backendHeaders(extra) {
+    const headers = Object.assign({}, extra || {});
+    const token = window.PHGAuth && window.PHGAuth.getAccessToken
+      ? window.PHGAuth.getAccessToken()
+      : null;
+    if (token) headers['x-phg-access-token'] = token;
+    const anon = getAnonId();
+    if (anon) headers['x-phg-anon-id'] = anon;
+    return headers;
+  }
 
   /* ---------- CATEGORY RAIL ---------- */
   const railList = $('lib-rail-list');
   function buildRail() {
     if (!railList) return;
+    railList.innerHTML = '';
     const frag = document.createDocumentFragment();
     const all = document.createElement('button');
     all.className = 'lib-rail-item active';
     all.dataset.cat = 'all';
     all.innerHTML = '<span class="lib-rail-icon">✦</span>' +
       '<span class="lib-rail-label">All prompts</span>' +
-      '<span class="lib-rail-count">' + LIB_ITEMS.length + '</span>';
+      '<span class="lib-rail-count">' + state.items.length.toLocaleString() + '</span>';
     frag.appendChild(all);
-    LIB_CATS.forEach(c => {
+    state.cats.forEach(c => {
       const b = document.createElement('button');
       b.className = 'lib-rail-item';
       b.dataset.cat = c.id;
       b.innerHTML = '<span class="lib-rail-icon">' + c.icon + '</span>' +
         '<span class="lib-rail-label">' + c.name + '</span>' +
-        '<span class="lib-rail-count">' + c.count + '</span>';
+        '<span class="lib-rail-count">' + (c.count || 0) + '</span>';
       frag.appendChild(b);
     });
     railList.appendChild(frag);
@@ -79,35 +136,35 @@
   }
 
   /* ---------- TEXT LOADING ---------- */
+  // The bodies endpoint returns every category this tier may see, in one
+  // response. So this is really "load the corpus once" — the per-category
+  // bookkeeping just lets the rest of the file stay category-shaped.
+  let bodiesPromise = null;
+
   function loadTexts(cat) {
     if (state.texts[cat]) return Promise.resolve(state.texts[cat]);
-    if (state.loading[cat]) return state.loading[cat];
-    state.loading[cat] = fetch('/lib-texts/' + cat + '.json')
-      .then(r => r.ok ? r.json() : [])
-      .then(arr => {
-        state.texts[cat] = arr;
-        delete state.loading[cat];
-        return arr;
+    if (!bodiesPromise) {
+      bodiesPromise = fetch(BACKEND_URL + '/library/bodies', {
+        headers: backendHeaders(),
       })
-      .catch(() => {
-        state.texts[cat] = [];
-        delete state.loading[cat];
-        return [];
-      });
-    return state.loading[cat];
+        .then(r => r.ok ? r.json() : {})
+        .then(d => {
+          const all = (d && d.bodies) || {};
+          Object.keys(all).forEach(k => { state.texts[k] = all[k]; });
+          return all;
+        })
+        .catch(() => ({}));
+    }
+    return bodiesPromise.then(all => state.texts[cat] || []);
   }
 
   // Warm the corpus in the background so full-text search works without
-  // blocking first paint. Category files are cached independently.
+  // blocking first paint.
   let warmed = false;
   function warmAll() {
     if (warmed) return;
     warmed = true;
-    const cats = LIB_CATS.map(c => c.id);
-    (function next(i) {
-      if (i >= cats.length) return;
-      loadTexts(cats[i]).then(() => setTimeout(() => next(i + 1), 40));
-    })(0);
+    loadTexts('__all__').then(() => setTimeout(() => { warmed = false; }, 0));
   }
   if ('requestIdleCallback' in window) requestIdleCallback(warmAll, { timeout: 2500 });
   else setTimeout(warmAll, 1500);
@@ -116,8 +173,8 @@
   function filtered() {
     const q = state.q;
     const out = [];
-    for (let i = 0; i < LIB_ITEMS.length; i++) {
-      const it = LIB_ITEMS[i];
+    for (let i = 0; i < state.items.length; i++) {
+      const it = state.items[i];
       if (state.cat !== 'all' && it.c !== state.cat) continue;
       if (!q) { out.push(i); continue; }
       if (it.n.toLowerCase().indexOf(q) !== -1) { out.push(i); continue; }
@@ -148,9 +205,9 @@
     if (countEl) {
       countEl.textContent = total === 0
         ? 'No prompts found'
-        : (total < LIB_ITEMS.length
-          ? total.toLocaleString() + ' of ' + LIB_ITEMS.length.toLocaleString() + ' prompts'
-          : LIB_ITEMS.length.toLocaleString() + ' prompts');
+        : (total < state.items.length
+          ? total.toLocaleString() + ' of ' + state.items.length.toLocaleString() + ' prompts'
+          : state.items.length.toLocaleString() + ' prompts');
     }
     if (clearBtn) clearBtn.classList.toggle('on', !!state.q);
 
@@ -165,7 +222,7 @@
 
     const frag = document.createDocumentFragment();
     slice.forEach(i => {
-      const it = LIB_ITEMS[i];
+      const it = state.items[i];
       const meta = catMeta[it.c] || { name: it.c, icon: '✦' };
       const b = document.createElement('button');
       b.className = 'lib-pcard';
@@ -215,14 +272,16 @@
   const dMsg = $('lib-drawer-msg');
 
   function bodyFor(idx) {
-    const it = LIB_ITEMS[idx];
+    const it = state.items[idx];
+    if (!it) return null;
     const bodies = state.texts[it.c];
     if (!bodies) return null;
     return bodies[localIdx[idx]];
   }
 
   function openDrawer(idx) {
-    const it = LIB_ITEMS[idx];
+    const it = state.items[idx];
+    if (!it) return;
     state.current = idx;
     const meta = catMeta[it.c] || { name: it.c, icon: '✦' };
     if (dTitle) dTitle.textContent = it.n;
@@ -283,7 +342,7 @@
   const dUse = $('lib-drawer-use');
   if (dUse) dUse.addEventListener('click', () => {
     if (state.current === null) return;
-    const it = LIB_ITEMS[state.current];
+    const it = state.items[state.current];
     const b = bodyFor(state.current) || it.n;
     // Prompt bodies run to thousands of characters, which blows past URL
     // length limits. Hand off through localStorage and pass only a key.
@@ -328,13 +387,6 @@
   /* ---------- DEEP LINK: ?cat=writing ---------- */
   const params = new URLSearchParams(location.search);
   const catParam = params.get('cat');
-  if (catParam && catMeta[catParam]) {
-    state.cat = catParam;
-    const btn = railList && railList.querySelector('.lib-rail-item[data-cat="' + catParam + '"]');
-    if (btn) {
-      railList.querySelectorAll('.lib-rail-item').forEach(b => b.classList.toggle('active', b === btn));
-    }
-  }
 
   /* ---------- TOPBAR SEARCH BRIDGE ---------- */
   // shell.js handles the global search; make Enter land here.
@@ -344,7 +396,7 @@
       if (e.key !== 'Enter') return;
       const q = tbSearch.value.trim();
       if (!q) return;
-      const inLib = LIB_ITEMS.some(it => it.n.toLowerCase().indexOf(q.toLowerCase()) !== -1);
+      const inLib = state.items.some(it => it.n.toLowerCase().indexOf(q.toLowerCase()) !== -1);
       if (inLib) {
         state.q = q.toLowerCase();
         state.shown = PAGE;
@@ -355,6 +407,92 @@
     });
   }
 
-  buildRail();
-  render();
+  /* ---------- BOOT ---------- */
+  function applyCatalog(d) {
+    state.items = d.items || [];
+    state.cats = d.cats || [];
+    state.tier = d.tier || 'guest';
+    state.restricted = d.restricted !== false;
+    state.fullTotal = d.fullTotal || state.items.length;
+    state.ready = true;
+
+    indexCats(state.cats);
+    indexItems(state.items);
+
+    if (catParam && catMeta[catParam]) {
+      state.cat = catParam;
+    }
+
+    buildRail();
+    if (catParam && catMeta[catParam] && railList) {
+      const btn = railList.querySelector('.lib-rail-item[data-cat="' + catParam + '"]');
+      if (btn) {
+        railList.querySelectorAll('.lib-rail-item').forEach(b =>
+          b.classList.toggle('active', b === btn));
+      }
+    }
+    render();
+    updateTierUi();
+  }
+
+  /* ---------- TIER UI ---------- */
+  function updateTierUi() {
+    // Search placeholder reflects what this tier can actually reach.
+    if (search) {
+      search.placeholder = state.restricted
+        ? 'Search ' + state.items.length.toLocaleString() + ' prompts…'
+        : 'Search ' + state.items.length.toLocaleString() + ' prompts…';
+    }
+    // Surface the Pro upsell when the tier is capped.
+    const note = $('lib-tier-note');
+    if (note) {
+      if (state.restricted && state.fullTotal > state.items.length) {
+        note.innerHTML =
+          'Free library — <strong>' + state.items.length.toLocaleString() + '</strong> of ' +
+          state.fullTotal.toLocaleString() + ' prompts. ' +
+          '<a href="/pricing.html">Upgrade to Pro</a> for the full catalog.';
+        note.classList.remove('hidden');
+      } else {
+        note.classList.add('hidden');
+      }
+    }
+    const unlock = $('lib-unlock-banner');
+    if (unlock) {
+      unlock.classList.toggle('hidden', !state.restricted);
+    }
+  }
+
+  function showError(msg) {
+    if (cards) {
+      cards.innerHTML =
+        '<div class="lib-empty">' +
+          '<h3>Could not load the prompt library</h3>' +
+          '<p>' + esc(msg) + '</p>' +
+        '</div>';
+    }
+  }
+
+  function boot() {
+    if (cards) {
+      cards.innerHTML =
+        '<div class="lib-empty"><h3>Loading prompts…</h3>' +
+        '<p>Fetching the library for your plan.</p></div>';
+    }
+    fetch(BACKEND_URL + '/library', { headers: backendHeaders() })
+      .then(r => {
+        if (r.status === 402) throw new Error('upgrade');
+        if (!r.ok) throw new Error('The library service returned ' + r.status + '.');
+        return r.json();
+      })
+      .then(applyCatalog)
+      .catch(e => {
+        if (e && e.message === 'upgrade') {
+          showError('The full library requires a Pro plan.');
+        } else {
+          showError(e && e.message ? e.message : 'Please try again in a moment.');
+        }
+      });
+  }
+
+  boot();
 })();

@@ -11,7 +11,7 @@ const STRIPE_PRICE_ID = STRIPE_MONTHLY_PRICE_ID;
 // the server still wins and the UI corrects itself on the next response.
 const TIERS = {
   guest: { label: 'Free', limit: 5,  memory: false, abVariants: false, fullHistory: false },
-  free:  { label: 'Free', limit: 10, memory: true,  abVariants: true,  fullHistory: false },
+  free:  { label: 'Free', limit: 10, memory: true,  abVariants: false, fullHistory: false },
   pro:   { label: 'Pro',  limit: Infinity, memory: true, abVariants: true, fullHistory: true },
 };
 
@@ -258,8 +258,18 @@ function renderFeatureGates() {
     memSave.textContent = tier.memory ? 'Save memory' : 'Sign in to save';
   }
   if (abToggle) {
+    // A/B variants are a Pro feature. Free and Guest tiers see the control
+    // but cannot switch it on — hiding it entirely would make the Pro
+    // upsell invisible.
     abToggle.disabled = !tier.abVariants;
-    abToggle.title = tier.abVariants ? '' : 'Sign in free to use A/B variants';
+    abToggle.title = tier.abVariants ? '' : 'Upgrade to Pro to compare A/B variants';
+    if (!tier.abVariants && abToggle.checked) {
+      abToggle.checked = false;
+    }
+    // Show a PRO badge next to the control while it is locked, so the
+    // upsell is visible without adding clutter to the Pro experience.
+    const abBadge = $('ab-pro-badge');
+    if (abBadge) abBadge.hidden = tier.abVariants;
   }
 }
 /**
@@ -308,7 +318,7 @@ function showQuotaLimit(q) {
   }
 
   const body = tier === 'guest'
-    ? `Sign in free to get ${TIERS.free.limit} a week, plus Memory and A/B variants.`
+    ? `Sign in free to get ${TIERS.free.limit} a week, plus Memory.`
     : `Upgrade to Pro for unlimited enhancements, A/B variants, and full history.`;
 
   el.innerHTML = `
