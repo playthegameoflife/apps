@@ -749,7 +749,7 @@ async function generate(variantStyle) {
           const meta = document.getElementById('output-meta');
           if (meta) meta.innerHTML = '<span id="score-badge" class="score-badge ' + sl.cls + '">' + sl.label + ' · ' + s + '/100</span>';
           const actions = document.getElementById('output-actions');
-          if (actions) actions.innerHTML = '<button class="btn btn-sm" onclick="navigator.clipboard.writeText(document.getElementById(\'output\').textContent).then(()=>{const m=document.getElementById(\'copy-msg\');m.textContent=\'Copied!\';setTimeout(()=>m.textContent=\'\',1500)})">Copy result</button> <button class="btn btn-sm btn-ghost" onclick="document.getElementById(\'prompt-input\').value=document.getElementById(\'output\').textContent;document.getElementById(\'prompt-input\').focus()">Refine</button>';
+          if (actions) actions.innerHTML = '<button class="btn btn-sm" data-act="copy-result">Copy result</button> <button class="btn btn-sm btn-ghost" data-act="refine">Refine</button>';
           state.lastOutput = full; state.lastPrompt = prompt;
           trackUsage(); saveHistoryEntry(prompt, full, style);
           renderUsage();
@@ -1089,5 +1089,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     // A restored session should repaint immediately.
     const restored = window.PHGAuth.getUser();
     if (restored) onAuthChanged(restored);
+  }
+});
+
+
+// CSP-safe delegated handlers (no inline onclick).
+document.addEventListener('click', function (e) {
+  var b = e.target && e.target.closest ? e.target.closest('[data-act]') : null;
+  if (!b) return;
+  var out = document.getElementById('output'), inp = document.getElementById('prompt-input');
+  if (b.dataset.act === 'copy-result' && out) {
+    navigator.clipboard.writeText(out.textContent).then(function () {
+      var m = document.getElementById('copy-msg');
+      if (m) { m.textContent = 'Copied!'; setTimeout(function () { m.textContent = ''; }, 1500); }
+    });
+  } else if (b.dataset.act === 'refine' && out && inp) {
+    inp.value = out.textContent; inp.focus();
   }
 });

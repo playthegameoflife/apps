@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-LNbhEXp93Wi+PvUUFqJNwc6i79TjoEdT/mpPmMBlxNs=' 'sha256-ODsdc0CntO0GCql4/MhIAJbe/n4J3fhrmGo1m0cyxcI=' 'sha256-eN/rMA8tFLFIcn4gbuCepAnvmMtf141PK9fJgrOEedE=' https://accounts.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
   <script>
     /* Apply the stored theme before first paint so a dark-mode visitor
        never sees a white flash. Kept in sync with theme.js. */
@@ -33,6 +34,7 @@
   <meta name="theme-color" content="#FFFFFF">
   <link rel="alternate" hreflang="en" href="https://promptgenerator.fyi/pricing.html">
   <link rel="alternate" hreflang="x-default" href="https://promptgenerator.fyi/pricing.html">
+<script src="/consent.js?v=1" defer></script>
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -329,7 +331,7 @@
       <p class="muted">Secure checkout powered by Stripe. Cancel anytime. No hidden fees.</p>
     </div>
   </main>
-  <footer>© 2026 Prompt Helper. All rights reserved. · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/pricing.html">Pricing</a>
+  <footer>© 2026 Prompt Helper. All rights reserved. · <a href="/privacy.html">Privacy</a> · <a href="#" data-privacy-choices>Privacy choices</a> · <a href="/terms.html">Terms</a> · <a href="/pricing.html">Pricing</a>
             <a href="/generations.html">My Generations</a></footer>
   <script src="/auth-config.js?v=2"></script>
   <script src="/auth.js?v=2"></script>

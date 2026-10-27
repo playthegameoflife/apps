@@ -477,7 +477,7 @@
         '<div class="lib-empty">' +
           '<h3>' + (proGate ? 'This is a Pro library' : 'The library did not load') + '</h3>' +
           '<p>' + esc(msg) + '</p>' +
-          (proGate ? '<p><a class="btn btn-sm btn-warn" href="/pricing.html">See Pro</a></p>' : '<p><button type="button" class="btn btn-sm" onclick="location.reload()">Try again</button></p>') +
+          (proGate ? '<p><a class="btn btn-sm btn-warn" href="/pricing.html">See Pro</a></p>' : '<p><button type="button" class="btn btn-sm" data-act="reload">Try again</button></p>') +
         '</div>';
     }
   }
@@ -506,3 +506,6 @@
 
   boot();
 })();
+
+
+document.addEventListener('click', function (e) { if (e.target && e.target.closest && e.target.closest('[data-act="reload"]')) location.reload(); });

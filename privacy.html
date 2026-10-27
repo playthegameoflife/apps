@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-ODsdc0CntO0GCql4/MhIAJbe/n4J3fhrmGo1m0cyxcI=' 'sha256-eN/rMA8tFLFIcn4gbuCepAnvmMtf141PK9fJgrOEedE=' https://accounts.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
   <script>
     /* Apply the stored theme before first paint so a dark-mode visitor
        never sees a white flash. Kept in sync with theme.js. */
@@ -25,6 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/site.css?v=6">
   <script src="/theme.js?v=1"></script>
+  <script src="/consent.js?v=1" defer></script>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#08080d">
 </head>
@@ -45,7 +47,7 @@
   <main id="main" class="container" style="max-width:760px">
     <header class="page-header">
       <h1 class="page-title">Privacy Policy</h1>
-      <p class="muted">Last updated: October 24, 2026</p>
+      <p class="muted">Last updated: October 26, 2026</p>
     </header>
 
     <div class="card">
@@ -80,6 +82,7 @@
         <li><strong>Google Sign-In:</strong> For authentication. Subject to <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</li>
         <li><strong>Stripe:</strong> For payment processing. Subject to <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe's Privacy Policy</a>.</li>
         <li><strong>Google Gemini API:</strong> For prompt enhancement. Prompts are sent to Google's Gemini API for processing.</li>
+        <li><strong>Google Analytics (GA4) and Google AdSense:</strong> Measurement and advertising. Loaded only if you click “Accept all” in the privacy banner. See Cookies below and <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">how Google uses data from sites that use its services</a>.</li>
         <li><strong>GitHub Pages:</strong> For hosting. Subject to <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener">GitHub's Privacy Statement</a>.</li>
       </ul>
     </div>
@@ -98,12 +101,17 @@
         <li>Opt out of data sale (we don't sell data).</li>
         <li>Withdraw consent for data processing.</li>
       </ul>
-      <p style="margin-top:var(--space-3)">To exercise these rights, contact us at the email below.</p>
+      <p style="margin-top:var(--space-3)">To exercise these rights, email the address below from the address on your account. We will confirm your identity and respond within 30 days.</p>
+      <h3 style="margin-top:var(--space-4)">Delete your data</h3>
+      <p><strong>On this device:</strong> <button type="button" id="phg-clear-local" class="btn" style="min-height:44px">Delete local data</button> removes your prompt history, preferences, sign-in token and consent choice from this browser.</p>
+      <p><strong>Account and server records:</strong> email <a href="mailto:support@promptgenerator.fyi?subject=Delete%20my%20account%20and%20data">support@promptgenerator.fyi</a> with the subject “Delete my account and data”. We delete your account record, usage counts and subscription link. Stripe retains payment records as required by tax law, and you should cancel any active subscription first from Pricing → Manage billing.</p>
     </div>
 
-    <div class="card">
-      <h2>Cookies</h2>
-      <p>We do not use tracking cookies. The only cookies are those set by third-party services (Stripe, Google) during authentication and payment flows.</p>
+    <div class="card" id="cookies">
+      <h2>Cookies, analytics and advertising</h2>
+      <p>We do not set our own tracking cookies. With your permission, Google Analytics (measurement) and Google AdSense (advertising) are loaded and may set cookies or use similar identifiers, such as <code>_ga</code> and <code>_ga_*</code> for analytics and ad-related cookies for AdSense, and may collect your IP address, device and page-view information. Ads may be personalised unless you disable that in <a href="https://adssettings.google.com" target="_blank" rel="noopener">Google Ad Settings</a>.</p>
+      <p>When you first visit, nothing from these services loads until you choose <em>Accept all</em>. <em>Reject all</em> keeps them off. Your choice is stored in your browser (<code>phg_consent</code>) and you can change it at any time: <a href="#" data-privacy-choices>Privacy choices</a>. Stripe and Google may also set cookies during sign-in and checkout, which are strictly necessary for those flows.</p>
+      <p>If you are in California, we do not sell personal information, and ad-related sharing only happens if you accept. Where a browser sends a Global Privacy Control signal, treat it as a rejection by clicking <em>Reject all</em>.</p>
     </div>
 
     <div class="card">
@@ -121,7 +129,8 @@
       <p>For privacy-related questions or data requests, contact us at: <a href="mailto:support@promptgenerator.fyi">support@promptgenerator.fyi</a></p>
     </div>
   </main>
-  <footer>© 2026 Prompt Helper. All rights reserved. · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/pricing.html">Pricing</a></footer>
+  <footer>© 2026 Prompt Helper. All rights reserved. · <a href="/privacy.html">Privacy</a> · <a href="#" data-privacy-choices>Privacy choices</a> · <a href="/terms.html">Terms</a> · <a href="/pricing.html">Pricing</a></footer>
+  <script src="/privacy-page.js" defer></script>
   <script>
     // Sitewide theme toggle. theme.js applies the stored theme before
     // paint; this mounts the visible control.
