@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>2140+ Free AI Prompts — Prompt Library | Prompt Helper</title>
-  <meta name="description" content="2140 free AI prompt templates across 16 categories. Search, browse by category, and copy into ChatGPT, Gemini, Claude, or any AI chatbot.">
+  <title>Prompt Library — 300 Free Templates | Prompt Helper</title>
+  <meta name="description" content="300 free AI prompt templates across 16 categories. Search, browse by category, and copy into ChatGPT, Gemini, Claude, or any AI chatbot. Pro unlocks all 2,140.">
   <link rel="canonical" href="https://promptgenerator.fyi/library.html">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
@@ -20,7 +20,7 @@
   <meta name="twitter:description" content="2140 free AI prompt templates across 16 categories.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/site.css?v=4">
+  <link rel="stylesheet" href="/site.css?v=6">
   <link rel="stylesheet" href="/shell.css?v=1">
   <link rel="stylesheet" href="/library.css?v=1">
   <link rel="manifest" href="/manifest.json">
@@ -42,7 +42,7 @@
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://promptgenerator.fyi/" },
         { "@type": "ListItem", "position": 2, "name": "Prompt Library", "item": "https://promptgenerator.fyi/library.html" }
       ]},
-      { "@type": "CollectionPage", "name": "AI Prompt Library", "url": "https://promptgenerator.fyi/library.html", "description": "2140 free AI prompt templates across 16 categories.", "isPartOf": { "@type": "WebSite", "name": "Prompt Helper", "url": "https://promptgenerator.fyi" } }
+      { "@type": "CollectionPage", "name": "AI Prompt Library", "url": "https://promptgenerator.fyi/library.html", "description": "300 free AI prompt templates across 16 categories, with the full 2,140-template library available on Pro.", "isPartOf": { "@type": "WebSite", "name": "Prompt Helper", "url": "https://promptgenerator.fyi" } }
     ]
   }
   </script>
@@ -64,8 +64,7 @@
         <div class="sb-section">Create</div>
         <a class="sb-link" href="/"><span class="sb-icon">✦</span><span class="sb-label">Prompt Generator</span></a>
         <a class="sb-link active" href="/library.html"><span class="sb-icon">▤</span><span class="sb-label">Prompt Library</span></a>
-        <a class="sb-link" href="/#generator"><span class="sb-icon">◑</span><span class="sb-label">My Generations</span></a>
-        <a class="sb-link" href="/#templates"><span class="sb-icon">◇</span><span class="sb-label">Templates</span></a>
+        <a class="sb-link" href="/generations.html"><span class="sb-icon">◑</span><span class="sb-label">My Generations</span></a>
 
         <div class="sb-section">Tools</div>
         <a class="sb-link" href="/#tools"><span class="sb-icon">◎</span><span class="sb-label">AI Tools</span></a>
@@ -103,7 +102,8 @@
         <!-- ===== PAGE HEAD ===== -->
         <div class="page-head">
           <h1>Prompt Library</h1>
-          <p>2,140 battle-tested prompt templates across 16 categories. Open one, copy it, and paste it into any AI chat.</p>
+          <p>Battle-tested prompt templates across 16 categories. Open one, copy it, and paste it into any AI chat.</p>
+          <p class="lib-tier-note hidden" id="lib-tier-note"></p>
         </div>
 
         <!-- ===== LIBRARY ===== -->
@@ -121,7 +121,7 @@
               <div class="lib-toolbar">
                 <label class="lib-search">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-                  <input type="search" id="lib-search" placeholder="Search 2,140 prompts…" aria-label="Search prompts" autocomplete="off">
+                  <input type="search" id="lib-search" placeholder="Search prompts…" aria-label="Search prompts" autocomplete="off">
                 </label>
                 <span class="lib-count" id="lib-count" aria-live="polite"></span>
                 <button class="lib-clear" id="lib-clear" type="button">Clear</button>
@@ -179,10 +179,9 @@
     </div>
   </aside>
 
-  <script src="/library-data.js?v=1"></script>
   <script src="/shell.js?v=1"></script>
   <script src="/auth-config.js?v=2"></script>
   <script src="/auth.js?v=2"></script>
-  <script src="/library.js?v=1"></script>
+  <script src="/library.js?v=2"></script>
 </body>
 </html>

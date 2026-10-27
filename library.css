@@ -249,12 +249,15 @@ html[data-theme="dark"] {
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--transition-base);
-  z-index: 90;
+  z-index: var(--z-scrim, 1100);
 }
 .lib-drawer-scrim.open { opacity: 1; pointer-events: auto; }
 .lib-drawer {
   position: fixed;
-  top: 0;
+  /* The drawer used top:0, which put its title row underneath the sticky
+     topbar (drawer z-index 91 < topbar 800 on production). The title and the
+     close button were unreachable. Start the drawer below the bar instead. */
+  top: var(--topbar-h, 56px);
   right: 0;
   bottom: 0;
   width: min(560px, 94vw);
@@ -263,7 +266,7 @@ html[data-theme="dark"] {
   box-shadow: var(--shadow-lg);
   transform: translateX(102%);
   transition: transform var(--transition-base);
-  z-index: 91;
+  z-index: var(--z-overlay, 1110);
   display: flex;
   flex-direction: column;
 }

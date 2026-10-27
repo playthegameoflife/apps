@@ -62,10 +62,13 @@
       // 1) local library match
       const lib = document.querySelector('.lib-card[data-text*="' + q.toLowerCase() + '"]');
       if (lib) { lib.scrollIntoView({ behavior: 'smooth', block: 'center' }); lib.click(); return; }
-      // 2) history match
-      const hi = Array.from(document.querySelectorAll('#history-list .history-item'))
-        .find(el => el.textContent.toLowerCase().includes(q.toLowerCase()));
-      if (hi) { hi.scrollIntoView({ behavior: 'smooth', block: 'center' }); hi.click(); return; }
+      // 2) history match — the history list moved to its own page, so send
+      //    the user there with the search term already applied.
+      const hasHistory = Array.from(document.querySelectorAll('#history-list .history-item')).length > 0;
+      if (hasHistory || /generat/i.test(q)) {
+        location.href = '/generations.html?q=' + encodeURIComponent(q);
+        return;
+      }
       // 3) fall back to blog search
       window.location.href = '/blog.html?q=' + encodeURIComponent(q);
     });

@@ -1,0 +1,309 @@
+/* generations.css — "My Generations" page
+   Uses the shared site tokens so light/dark both work without extra rules. */
+
+/* ---------- stats ---------- */
+.gen-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+.gen-stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.gen-stat-num {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.gen-stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* ---------- controls ---------- */
+.gen-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+.gen-search-wrap {
+  position: relative;
+  flex: 1 1 280px;
+  min-width: 0;
+}
+.gen-search {
+  width: 100%;
+  padding-right: 38px;
+}
+.gen-search-clear {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+}
+.gen-search-clear:hover {
+  background: var(--bg-soft);
+  color: var(--text);
+}
+
+.gen-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.gen-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-base), color var(--transition-base),
+              border-color var(--transition-base);
+}
+.gen-filter:hover {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--text) 20%, var(--border));
+}
+.gen-filter.active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+.gen-filter-n {
+  opacity: 0.65;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- day groups ---------- */
+.gen-results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+.gen-day-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border);
+}
+.gen-day-head h2 {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.gen-day-count {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+.gen-day-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* ---------- cards ---------- */
+.gen-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+.gen-card:hover {
+  border-color: color-mix(in srgb, var(--text) 18%, var(--border));
+  box-shadow: var(--shadow-sm);
+}
+.gen-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.gen-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+.gen-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text-secondary);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.gen-badge-mode {
+  background: color-mix(in srgb, var(--text) 10%, transparent);
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--text) 16%, transparent);
+}
+.gen-badge-target {
+  border-color: color-mix(in srgb, var(--text) 22%, transparent);
+}
+.gen-time {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.gen-card-body {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.gen-card-more {
+  margin-top: var(--space-3);
+}
+.gen-card-more > summary {
+  cursor: pointer;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.gen-card-more > summary::-webkit-details-marker { display: none; }
+.gen-card-more > summary::before {
+  content: "▸";
+  display: inline-block;
+  transition: transform var(--transition-base);
+}
+.gen-card-more[open] > summary::before { transform: rotate(90deg); }
+.gen-card-more > summary:hover { color: var(--text); }
+.gen-card-orig {
+  margin: var(--space-2) 0 0;
+  padding: var(--space-3);
+  background: var(--bg-soft);
+  border-radius: var(--radius-md, 10px);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 260px;
+  overflow: auto;
+}
+.gen-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+.btn-ghost-danger {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text-secondary);
+}
+.btn-ghost-danger:hover {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--text) 25%, var(--border));
+}
+
+/* ---------- lock note ---------- */
+.gen-lock-note {
+  margin-top: var(--space-5);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-soft);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+.gen-lock-note .btn { margin-left: auto; }
+
+/* ---------- empty state ---------- */
+.gen-empty {
+  text-align: center;
+  padding: var(--space-10) var(--space-4);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+}
+.gen-empty-icon {
+  font-size: 2rem;
+  color: var(--text-secondary);
+  opacity: 0.5;
+  margin-bottom: var(--space-3);
+}
+.gen-empty h2 {
+  margin: 0 0 var(--space-2);
+  font-size: 1.125rem;
+}
+.gen-empty p {
+  margin: 0 0 var(--space-4);
+  color: var(--text-secondary);
+}
+
+@media (max-width: 560px) {
+  .gen-controls { flex-direction: column; align-items: stretch; }
+  /* flex children default to min-width:auto, which refuses to shrink below
+     their content and pushes the page wider than the viewport. */
+  .gen-search-wrap,
+  .gen-filters { min-width: 0; width: 100%; }
+  .gen-filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .gen-filter { flex: 0 0 auto; }
+  .gen-card-actions .btn { flex: 1 1 auto; }
+  .gen-lock-note .btn { margin-left: 0; width: 100%; }
+  .gen-card-top { flex-wrap: wrap; }
+}

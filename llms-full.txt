@@ -15,8 +15,8 @@ Prompt Helper (PHG) is a free AI prompt enhancer and generator that rewrites rou
 - One-click refine/follow-on.
 
 ## Free vs Pro
-- Free: 5 prompt enhancements per week, 5 Ask questions per week, limited history (1 item).
-- Pro: Unlimited enhancements, unlimited Ask, full history (50 items), saved prompt library. Price: set in Stripe (monthly/annual).
+- Free (signed in with Google): 10 prompt enhancements per week, 10 Ask questions per week, history (10 items), Memories, A/B variants. Without signing in you get 5 of each per week and limited history (1 item); usage made before signing in carries over to the account, so the weekly total is 10 either way.
+- Pro: Unlimited enhancements, unlimited Ask, full history (100 items), saved prompt library. Price: $19.99/month, billed via Stripe.
 
 ## How it works (web)
 1. Visit https://promptgenerator.fyi/
@@ -59,7 +59,7 @@ Prompt Helper (PHG) is a free AI prompt enhancer and generator that rewrites rou
 
 ## Frequently asked questions
 Q: Is it free?
-A: Yes. Free tier includes 5 prompt enhancements and 5 Ask questions per week, plus limited history. No credit card required.
+A: Yes. The free plan gives you 10 prompt enhancements and 10 Ask questions per week, plus Memories and A/B variants, when you sign in with Google. Without signing in you get 5 of each per week. Pro unlocks unlimited enhancements, unlimited Ask, full history, and a saved prompt library.
 
 Q: Do I need to sign up?
 A: No. You can generate prompts as a guest. Sign in with Google to unlock the in-chat Improve button and Pro features.

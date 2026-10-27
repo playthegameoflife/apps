@@ -1,0 +1,141 @@
+/* ============================================================
+   post-theme.css — dark mode for standalone blog posts
+   ------------------------------------------------------------
+   The 135 standalone blog posts each carry their own inline
+   <style> block with hardcoded light colors (#1a1a1a text on a
+   white body, #f7f7f9 table headers, and so on). They never
+   loaded style.css, so they had NO dark mode at all: flipping
+   html[data-theme="dark"] changed nothing and the page stayed
+   white with near-black text.
+
+   This file is linked AFTER each post's inline <style> so its
+   rules win on equal specificity. It overrides by element and
+   by the class names the post template uses.
+
+   Loaded on: every blog-*.html post page.
+   ============================================================ */
+
+html[data-theme="dark"] {
+  --color-primary: #EDEBE6;
+  --color-text: #EDEBE6;
+  --color-text-secondary: #D6D3CC;
+  --color-text-muted: #9C9A93;
+  --color-bg: #131312;
+  --color-bg-alt: #1D1D1B;
+  --color-border: #2F2F2C;
+}
+
+html[data-theme="dark"] body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6 {
+  color: var(--color-text);
+}
+
+html[data-theme="dark"] p,
+html[data-theme="dark"] li,
+html[data-theme="dark"] dd,
+html[data-theme="dark"] dt {
+  color: var(--color-text-secondary);
+}
+
+html[data-theme="dark"] .meta,
+html[data-theme="dark"] footer {
+  color: var(--color-text-muted);
+}
+
+html[data-theme="dark"] h2 {
+  border-bottom-color: var(--color-border);
+}
+
+html[data-theme="dark"] .toc {
+  background: var(--color-bg-alt);
+  border-color: var(--color-border);
+}
+
+html[data-theme="dark"] .callout {
+  background: #16202E;
+  border-left-color: #60A5FA;
+}
+
+html[data-theme="dark"] th,
+html[data-theme="dark"] td {
+  border-color: var(--color-border);
+}
+
+html[data-theme="dark"] th {
+  background: var(--color-bg-alt);
+  color: var(--color-text);
+}
+
+html[data-theme="dark"] code {
+  background: #22221F;
+  color: #FDBA74;
+}
+
+html[data-theme="dark"] pre {
+  background: #0A0A0A;
+  color: #E2E8F0;
+}
+
+html[data-theme="dark"] blockquote {
+  border-left-color: #52525B;
+  color: var(--color-text-secondary);
+}
+
+html[data-theme="dark"] a {
+  color: #93C5FD;
+}
+
+html[data-theme="dark"] .faq-item h3 {
+  color: var(--color-text);
+}
+
+html[data-theme="dark"] .cta {
+  color: #FFFFFF;
+}
+
+html[data-theme="dark"] .cta a {
+  color: #FFFFFF;
+}
+
+html[data-theme="dark"] footer {
+  border-top-color: var(--color-border);
+}
+
+/* Theme toggle button — injected by post-theme.js */
+.post-theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 999;
+  width: 38px;
+  height: 38px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  background: #FFFFFF;
+  color: #1A1A1A;
+  border: 1px solid #E5E7EB;
+  border-radius: 9px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.post-theme-toggle:hover {
+  background: #F3F4F6;
+}
+html[data-theme="dark"] .post-theme-toggle {
+  background: #1D1D1B;
+  color: #EDEBE6;
+  border-color: #2F2F2C;
+}
+html[data-theme="dark"] .post-theme-toggle:hover {
+  background: #242422;
+}

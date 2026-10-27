@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://api-clyep56cdq-uc.a.run.app">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <link rel="stylesheet" href="/site.css?v=4">
+  <link rel="stylesheet" href="/site.css?v=6">
   <link rel="stylesheet" href="/shell.css?v=1">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -39,7 +39,7 @@
       { "@type": "SoftwareApplication", "name": "Prompt Helper", "applicationCategory": "ProductivityApplication", "operatingSystem": "Web, Chrome, Edge, Brave, Arc", "description": "Free AI prompt enhancer and generator that rewrites rough prompts for ChatGPT, Claude, Gemini, Grok, and Perplexity.", "url": "https://promptgenerator.fyi", "downloadUrl": "https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "featureList": ["One-click prompt enhancement", "Text, Code, Image, Video modes", "12+ styles per mode", "Streaming output with quality score", "A/B variant comparison", "Memories (personalized style)", "Starter templates"] },
       { "@type": "FAQPage", "mainEntity": [
         { "@type": "Question", "name": "What is an AI prompt generator?", "acceptedAnswer": { "@type": "Answer", "text": "An AI prompt generator helps you turn a rough idea into a complete, ready-to-use prompt. It adds role, task, context, output format, tone, constraints, and success criteria automatically, so you get better answers from AI tools without rewriting prompts from scratch." } },
-        { "@type": "Question", "name": "Is Prompt Helper free to use?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The free tier includes 5 prompt enhancements per week with no credit card or sign-up required. Pro unlocks unlimited enhancements, full history, saved prompt library, and A/B variants." } },
+        { "@type": "Question", "name": "Is Prompt Helper free to use?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The free plan gives you 10 prompt enhancements per week when you sign in with Google, plus Memory and a 300-template prompt library. Without signing in you get 5 a week. Pro unlocks unlimited enhancements, full history, the full 2,140-template library, and A/B variants." } },
         { "@type": "Question", "name": "Which AI tools does it support?", "acceptedAnswer": { "@type": "Answer", "text": "It generates prompts optimized for ChatGPT, Claude, Gemini, Grok, Perplexity, Midjourney, DALL-E, and Stable Diffusion. The Chrome extension adds an in-chat Improve button on ChatGPT, Gemini, Claude, Grok, and Perplexity." } },
         { "@type": "Question", "name": "How does the quality score work?", "acceptedAnswer": { "@type": "Answer", "text": "After generation, a 0-100 score is shown based on prompt length, structure, role definition, output format specification, constraints, and tone. It helps you see prompt quality at a glance." } },
         { "@type": "Question", "name": "How do I write better AI prompts?", "acceptedAnswer": { "@type": "Answer", "text": "Define the task clearly, add context the AI needs, set constraints, specify the output format, and state success criteria. Prompt Helper automates all of these — paste a rough idea and get a structured prompt instantly." } }
@@ -69,8 +69,7 @@
         <div class="sb-section">Create</div>
         <a class="sb-link active" href="/"><span class="sb-icon">✦</span><span class="sb-label">Prompt Generator</span></a>
         <a class="sb-link" href="/library.html"><span class="sb-icon">▤</span><span class="sb-label">Prompt Library</span></a>
-        <a class="sb-link" href="/#generator"><span class="sb-icon">◑</span><span class="sb-label">My Generations</span></a>
-        <a class="sb-link" href="/#templates"><span class="sb-icon">◇</span><span class="sb-label">Templates</span></a>
+        <a class="sb-link" href="/generations.html"><span class="sb-icon">◑</span><span class="sb-label">My Generations</span></a>
 
         <div class="sb-section">Tools</div>
         <a class="sb-link" href="/#tools"><span class="sb-icon">◎</span><span class="sb-label">AI Tools</span></a>
@@ -138,8 +137,21 @@
                     <option value="Stable Diffusion">Stable Diffusion</option>
                   </select>
                 </div>
-                <label class="toggle"><input type="checkbox" id="ab-toggle"> A/B variants</label>
-                <label class="toggle"><input type="checkbox" id="memory-toggle" checked> Memory</label>
+                <label class="toggle has-help">
+                  <input type="checkbox" id="ab-toggle">
+                  <span>A/B variants</span>
+                  <span class="pro-badge" id="ab-pro-badge">PRO</span>
+                  <button type="button" class="help-dot" id="ab-help"
+                          aria-label="What are A/B variants?"
+                          data-help="Generates two different versions of the same prompt so you can compare which one the AI follows better.">?</button>
+                </label>
+                <label class="toggle has-help">
+                  <input type="checkbox" id="memory-toggle" checked>
+                  <span>Memory</span>
+                  <button type="button" class="help-dot" id="mem-help"
+                          aria-label="What is Memory?"
+                          data-help="Adds your own notes and context to every prompt, so the AI knows about your product, audience and tone. Stored only in this browser.">?</button>
+                </label>
               </div>
 
               <div class="gen-submit-row">
@@ -187,6 +199,10 @@
               </div>
               <div class="muted" id="usage-label" style="font-size:0.78rem">Enhancements this week: 0 / 5</div>
               <div class="usage-bar" style="max-width:none"><div id="usage-fill" style="width:0%"></div></div>
+              <div id="usage-nudge" class="usage-nudge hidden" role="status" aria-live="polite">
+                <span id="usage-nudge-text"></span>
+                <button id="usage-nudge-cta" class="btn btn-sm btn-warn" type="button">Sign in for free</button>
+              </div>
               <div style="margin-top:var(--space-3)">
                 <button id="upgrade-btn" class="btn btn-warn btn-sm">Upgrade to Pro — $19.99/mo</button>
                 <button id="portal-btn" class="btn hidden btn-sm">Manage Subscription</button>
@@ -194,14 +210,9 @@
               </div>
             </div>
 
-            <div class="rail-card" id="templates">
-              <h3>Starter templates</h3>
-              <div id="templates-wrap"></div>
-            </div>
-
             <div class="rail-card">
               <h3>Memory</h3>
-              <p class="rail-note" style="margin-bottom:var(--space-2)">Tell the generator how you like your prompts. Saved locally.</p>
+              <p class="rail-note" style="margin-bottom:var(--space-2)">Tell the generator how you like your prompts.</p>
               <textarea id="memory-input" class="memory-box" style="min-height:78px" placeholder="e.g. Concise, technical, always include an output format." aria-label="Memory notes"></textarea>
               <div class="row" style="margin-top:var(--space-2)">
                 <button id="save-memory-btn" class="btn btn-sm">Save memory</button>
@@ -210,9 +221,9 @@
             </div>
 
             <div class="rail-card">
-              <h3>History</h3>
-              <input id="history-search" class="search-input" placeholder="Search history…" aria-label="Search history" style="margin-bottom:var(--space-3)">
-              <div id="history-list" class="muted">No history yet.</div>
+              <h3>My Generations</h3>
+              <p class="rail-note" style="margin-bottom:var(--space-3)">Every prompt you've created, grouped by day and searchable.</p>
+              <a href="/generations.html" class="btn btn-sm btn-block">Open My Generations</a>
               <div id="auth-msg" class="muted" style="margin-top:var(--space-2)"></div>
             </div>
           </aside>
@@ -228,14 +239,13 @@
             <a href="/library.html">Browse all templates</a>
           </div>
           <div class="tool-grid">
-            <a class="tool-card" href="/?mode=IMAGE"><h3>AI Image Prompt Generator</h3><p>Turn a creative idea into a detailed prompt for Midjourney, DALL-E, and Stable Diffusion.</p><span class="tool-go">Open →</span></a>
+            <a class="tool-card" href="/?mode=IMAGE&target=Midjourney"><h3>AI Image Prompt Generator</h3><p>Turn a creative idea into a detailed prompt for Midjourney, DALL-E, and Stable Diffusion.</p><span class="tool-go">Open →</span></a>
             <a class="tool-card" href="/?mode=VIDEO"><h3>Video Prompt Generator</h3><p>Simple video ideas into cinematic prompts with camera moves, lighting, and pacing.</p><span class="tool-go">Open →</span></a>
             <a class="tool-card" href="/?mode=CODE"><h3>Code Prompt Generator</h3><p>Precise, structured requests for code models, with inputs, outputs, and edge cases.</p><span class="tool-go">Open →</span></a>
-            <a class="tool-card" href="/?mode=TEXT"><h3>ChatGPT Prompt Generator</h3><p>Structured prompts that get ChatGPT to give you useful, reliable responses.</p><span class="tool-go">Open →</span></a>
-            <a class="tool-card" href="/?mode=TEXT&style=expert"><h3>Claude Prompt Generator</h3><p>Prompts with clean context separation for Claude's longer context window.</p><span class="tool-go">Open →</span></a>
-            <a class="tool-card" href="/?mode=TEXT&style=technical"><h3>Gemini Prompt Generator</h3><p>Prompts tuned for Gemini's multimodal and grounding capabilities.</p><span class="tool-go">Open →</span></a>
+            <a class="tool-card" href="/?mode=TEXT&target=ChatGPT"><h3>ChatGPT Prompt Generator</h3><p>Structured prompts that get ChatGPT to give you useful, reliable responses.</p><span class="tool-go">Open →</span></a>
+            <a class="tool-card" href="/?mode=TEXT&style=expert&target=Claude"><h3>Claude Prompt Generator</h3><p>Prompts with clean context separation for Claude's longer context window.</p><span class="tool-go">Open →</span></a>
+            <a class="tool-card" href="/?mode=TEXT&style=technical&target=Gemini"><h3>Gemini Prompt Generator</h3><p>Prompts tuned for Gemini's multimodal and grounding capabilities.</p><span class="tool-go">Open →</span></a>
             <a class="tool-card" href="/?mode=TEXT&style=detailed"><h3>AI Prompt Optimizer</h3><p>Improve prompts and system instructions you already wrote.</p><span class="tool-go">Open →</span></a>
-            <a class="tool-card" href="/?mode=TEXT&style=comprehensive"><h3>AI Prompt Checker</h3><p>Find exactly why a prompt is underperforming before you paste it again.</p><span class="tool-go">Open →</span></a>
           </div>
         </section>
 
@@ -310,11 +320,13 @@
           </div>
           <div class="faq-list">
             <details><summary>What is an AI prompt generator?</summary><p>An AI prompt generator helps you turn a rough idea into a complete, ready-to-use prompt. It adds role, task, context, output format, tone, constraints, and success criteria automatically.</p></details>
-            <details><summary>Is Prompt Helper free to use?</summary><p>Yes. The free tier includes 5 prompt enhancements per week with no credit card or sign-up required. Pro unlocks unlimited enhancements and advanced features.</p></details>
+            <details><summary>Is Prompt Helper free to use?</summary><p>Yes. The free plan gives you 10 prompt enhancements per week when you sign in with Google, plus Memory and a 300-template prompt library. Without signing in you get 5 a week. Pro unlocks unlimited enhancements, full history, the full 2,140-template library, and A/B variants.</p></details>
             <details><summary>Which AI tools does it support?</summary><p>It generates prompts optimized for ChatGPT, Claude, Gemini, Grok, Perplexity, Midjourney, DALL-E, and Stable Diffusion.</p></details>
             <details><summary>How does the quality score work?</summary><p>After generation, a 0-100 score is shown based on prompt length, structure, role definition, output format specification, constraints, and tone.</p></details>
             <details><summary>How do I write better AI prompts?</summary><p>Define the task clearly, add context the AI needs, set constraints, specify the output format, and state success criteria. Prompt Helper automates all of these.</p></details>
             <details><summary>Is my data private?</summary><p>Enhancement is processed via a secure backend. Settings are stored locally. Data is not sold to third parties.</p></details>
+            <details><summary>Does Pro work in the Chrome extension too?</summary><p>Yes &mdash; one Pro subscription covers both. There is no separate extension plan and no extra purchase. Sign in to the extension with the same Google account you use on the site and it picks up your Pro status automatically, giving you unlimited enhancements, full history, and custom styles inside the extension.</p></details>
+            
           </div>
         </section>
 

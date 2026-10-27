@@ -1,40 +1,30 @@
 // Prompt Generator web app logic (enhanced)
 const BACKEND_URL = 'https://api-clyep56cdq-uc.a.run.app';
 const STRIPE_MONTHLY_PRICE_ID = 'price_1SuFV7GdisCqoeFIRmlo7yb2';
-const STRIPE_ANNUAL_PRICE_ID = 'price_REPLACE_WITH_ANNUAL_PRICE_ID'; // Create in Stripe Dashboard → Products → Add price → $199/yr
 const STRIPE_PRICE_ID = STRIPE_MONTHLY_PRICE_ID;
 // NOTE: the Google OAuth client id used to live here. It was the Chrome
 // extension's client, which Google rejects for web origins (origin_mismatch).
 // OAuth client ids now live in auth-config.js and are managed by auth.js.
-const FREE_LIMIT = 5;
 
-const TEMPLATES = [
-  // Text
-  { mode:'TEXT_ENHANCEMENT', label:'Cold outreach email', prompt:'write a cold outreach email to a potential client about our new product' },
-  { mode:'TEXT_ENHANCEMENT', label:'Blog post outline', prompt:'create an outline for a blog post about AI productivity tools' },
-  { mode:'TEXT_ENHANCEMENT', label:'Meeting summary', prompt:'summarize a meeting transcript into action items and decisions' },
-  { mode:'TEXT_ENHANCEMENT', label:'Product description', prompt:'write a compelling product description for a smart water bottle' },
-  // Code
-  { mode:'CODE_ENHANCEMENT', label:'Sort array', prompt:'a function that sorts an array of objects by a date field' },
-  { mode:'CODE_ENHANCEMENT', label:'REST API endpoint', prompt:'create a REST API endpoint for user registration with validation' },
-  { mode:'CODE_ENHANCEMENT', label:'React component', prompt:'a reusable React button component with variants and loading state' },
-  { mode:'CODE_ENHANCEMENT', label:'SQL query', prompt:'write a SQL query to find top 10 customers by revenue this month' },
-  // Image
-  { mode:'IMAGE_ENHANCEMENT', label:'Sci-fi city', prompt:'a futuristic city at sunset with flying cars and neon lights' },
-  { mode:'IMAGE_ENHANCEMENT', label:'Portrait', prompt:'professional headshot of a confident entrepreneur in a modern office' },
-  { mode:'IMAGE_ENHANCEMENT', label:'Product shot', prompt:'minimalist product photo of a wireless earbud on a marble surface' },
-  { mode:'IMAGE_ENHANCEMENT', label:'Fantasy landscape', prompt:'a magical forest with glowing mushrooms and a misty river' },
-  // Video
-  { mode:'VIDEO_ENHANCEMENT', label:'Drone shot', prompt:'cinematic drone shot of a futuristic city at golden hour' },
-  { mode:'VIDEO_ENHANCEMENT', label:'Product ad', prompt:'a 15-second ad for a new smartphone showing its camera features' },
-  { mode:'VIDEO_ENHANCEMENT', label:'Nature doc', prompt:'a sweeping nature documentary shot of a whale breaching' },
-  { mode:'VIDEO_ENHANCEMENT', label:'Anime action', prompt:'an anime-style action scene with a hero charging forward' },
-];
+// Tier limits. These MIRROR the server's limits in functions/quota.js — the
+// server is authoritative (it enforces), these drive the UI. If they drift,
+// the server still wins and the UI corrects itself on the next response.
+const TIERS = {
+  guest: { label: 'Free', limit: 5,  memory: false, abVariants: false, fullHistory: false },
+  free:  { label: 'Free', limit: 10, memory: true,  abVariants: false, fullHistory: false },
+  pro:   { label: 'Pro',  limit: Infinity, memory: true, abVariants: true, fullHistory: true },
+};
+
+// Kept for backwards compatibility with anything that referenced it.
+const FREE_LIMIT = TIERS.guest.limit;
+
 
 let state = {
   userId: null,
   user: null,
   isPro: false,
+  tier: 'guest',          // 'guest' | 'free' | 'pro' — authoritative tier
+  usage: null,            // server-reported usage { used, limit, remaining }
   pendingUpgrade: false,
   mode: 'TEXT_ENHANCEMENT',
   style: 'default',
@@ -68,9 +58,47 @@ function loadState() {
     lsSet('phg_userId', state.userId);
   }
 }
+
+// A durable, per-browser identifier for the guest allowance.
+//
+// The server keys anonymous usage by this id rather than by IP, so that
+// people behind a shared connection (an office, a school, a mobile
+// carrier) each get their own guest allowance, and so that the guest
+// usage can be carried into the account when the visitor signs in.
+//
+// It is a random local id, not a credential: it grants nothing on its
+// own, and the server still enforces every limit.
+function getAnonId() {
+  let id = null;
+  try { id = localStorage.getItem('phg_anon_id'); } catch {}
+  if (!id || !/^[A-Za-z0-9_-]{8,64}$/.test(id)) {
+    const rand = (typeof crypto !== 'undefined' && crypto.randomUUID)
+      ? crypto.randomUUID()
+      : Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 12);
+    id = String(rand).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 64);
+    try { localStorage.setItem('phg_anon_id', id); } catch {}
+  }
+  return id;
+}
 function saveUsage() { lsSet('phg_weeklyUsage', state.weeklyUsage); }
 function saveHistory() { lsSet('phg_history', state.history.slice(0, 100)); }
 function saveMemory() { lsSet('phg_memory', state.memory); }
+
+// Build the headers for a backend call.
+//
+// The access token identifies a signed-in account; the anon id identifies
+// this browser so the guest allowance is per-browser and can be carried
+// into the account on sign-in. Both are always sent — the server decides
+// which one applies.
+function backendHeaders(extra) {
+  const headers = Object.assign({}, extra || {});
+  const token = window.PHGAuth && window.PHGAuth.getAccessToken
+    ? window.PHGAuth.getAccessToken()
+    : null;
+  if (token) headers['x-phg-access-token'] = token;
+  headers['x-phg-anon-id'] = getAnonId();
+  return headers;
+}
 
 // ---- ui helpers ----
 const $ = (id) => document.getElementById(id);
@@ -80,12 +108,240 @@ function setText(id, t) { const e = $(id); if (e) e.textContent = t; }
 function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function renderUsage() {
-  const cur = state.weeklyUsage.enhancements;
-  const limit = state.isPro ? '∞' : FREE_LIMIT;
+  // Prefer the server's number — the local counter is only a hint.
+  const limit = state.tier === 'pro' ? '∞' : (state.usage ? state.usage.limit : TIERS[state.tier].limit);
+  const cur = state.usage ? state.usage.used : state.weeklyUsage.enhancements;
   setText('usage-label', `Enhancements this week: ${cur} / ${limit}`);
-  const pct = state.isPro ? 100 : Math.min(100, (cur / FREE_LIMIT) * 100);
+  const numericLimit = (limit === '∞') ? Infinity : limit;
+  const pct = numericLimit === Infinity ? 100 : Math.min(100, (cur / numericLimit) * 100);
   const f = $('usage-fill'); if (f) f.style.width = pct + '%';
+  renderUsageNudge(cur, numericLimit);
+  applyQuotaGate(cur, numericLimit);
 }
+
+/**
+ * Disable Generate once the weekly allowance is spent.
+ *
+ * The button used to stay enabled at 0 remaining. A user could click it,
+ * wait for a network round-trip, and only then get the 402 back. The
+ * server is still authoritative — this is purely a UI shortcut so the
+ * dead end is visible before the click, not after it.
+ */
+function applyQuotaGate(used, limit) {
+  const btn = $('generate-btn');
+  if (!btn) return;
+  const exhausted = limit !== Infinity && used >= limit;
+
+  // Never fight an in-flight request: generate() disables the button
+  // itself while it runs and re-enables it in a finally block.
+  if (btn.dataset.busy === '1') return;
+
+  btn.disabled = exhausted;
+  btn.classList.toggle('is-exhausted', exhausted);
+
+  if (exhausted) {
+    btn.dataset.exhaustedLabel = btn.dataset.exhaustedLabel || btn.innerHTML;
+    btn.innerHTML = 'Limit reached';
+    btn.setAttribute('aria-disabled', 'true');
+  } else {
+    if (btn.dataset.exhaustedLabel) {
+      btn.innerHTML = btn.dataset.exhaustedLabel;
+      delete btn.dataset.exhaustedLabel;
+    }
+    btn.removeAttribute('aria-disabled');
+  }
+}
+
+// The upgrade moment. A user who is close to the limit but not over it is
+// the highest-converting moment to offer the upgrade, and the first time a
+// guest sees the reason to sign in.
+function renderUsageNudge(used, limit) {
+  const nudge = $('usage-nudge');
+  if (!nudge) return;
+  if (state.tier === 'pro' || limit === Infinity) { hide(nudge); return; }
+
+  const remaining = Math.max(0, limit - used);
+  const tier = TIERS[state.tier];
+
+  if (remaining === 0) {
+    show(nudge);
+    nudge.className = 'usage-nudge warn';
+    // Kept short on purpose. The nudge sits in a narrow sidebar card,
+    // and the old copy ran to three sentences, which left the button
+    // with no room and pushed it out of the card.
+    setText('usage-nudge-text',
+      state.tier === 'guest'
+        ? `You've used all ${limit} free enhancements this week. Sign in for ${TIERS.free.limit} a week, or go Pro for unlimited.`
+        : `You've used all ${limit} free enhancements this week. Upgrade to Pro for unlimited.`);
+    setText('usage-nudge-cta', state.tier === 'guest' ? 'Sign in for free' : 'Upgrade to Pro');
+    return;
+  }
+
+  // Warn at 80% — the last chance to act before hitting the wall.
+  if (remaining <= Math.max(1, Math.ceil(limit * 0.2))) {
+    show(nudge);
+    nudge.className = 'usage-nudge warn';
+    setText('usage-nudge-text',
+      state.tier === 'guest'
+        ? `${remaining} free enhancement${remaining === 1 ? '' : 's'} left this week. Sign in for ${TIERS.free.limit} a week.`
+        : `${remaining} enhancement${remaining === 1 ? '' : 's'} left this week. Upgrade to Pro for unlimited.`);
+    setText('usage-nudge-cta', state.tier === 'guest' ? 'Sign in for free' : 'Upgrade to Pro');
+    return;
+  }
+
+  // Signed-in free users get a gentle reminder of what Pro adds.
+  if (state.tier === 'free' && !tier.fullHistory) {
+    show(nudge);
+    nudge.className = 'usage-nudge soft';
+    setText('usage-nudge-text', 'Pro adds full history, unlimited enhancements and ');
+    setText('usage-nudge-cta', 'See Pro');
+    return;
+  }
+
+  hide(nudge);
+}
+
+/** Which tier the UI should render for. Derived from auth + Pro status. */
+function currentTier() {
+  if (state.isPro) return 'pro';
+  return state.user ? 'free' : 'guest';
+}
+
+/**
+ * Ask the backend what tier we are on and how much is left.
+ * The server is authoritative; this keeps the UI honest.
+ */
+async function refreshUsage() {
+  try {
+    const headers = backendHeaders({ 'Content-Type': 'application/json' });
+
+    const r = await fetch(BACKEND_URL + '/usage-status', { headers });
+    if (!r.ok) return;
+    const d = await r.json();
+    if (d.tier) {
+      state.tier = d.tier;
+      state.isPro = d.tier === 'pro';
+    }
+    if (d.features) state.features = d.features;
+    if (d.enhancements) state.usage = d.enhancements;
+    renderPlan();
+    renderUsage();
+    renderFeatureGates();
+  } catch (e) {
+    // Offline or backend down — keep whatever we already had.
+  }
+}
+
+/**
+ * Apply the tier gates to the UI: which features are available and what
+ * happens when a locked feature is clicked.
+ */
+function renderFeatureGates() {
+  const tier = TIERS[currentTier()];
+  const memToggle = $('memory-toggle');
+  const memInput = $('memory-input');
+  const abToggle = $('ab-toggle');
+
+  if (memToggle) {
+    memToggle.disabled = !tier.memory;
+    memToggle.title = tier.memory ? '' : 'Sign in free to use Memory';
+  }
+  if (memInput) {
+    memInput.disabled = !tier.memory;
+    memInput.placeholder = tier.memory
+      ? 'e.g. Concise, technical, always include an output format.'
+      : 'Sign in free to unlock Memory';
+  }
+  const memSave = $('save-memory-btn');
+  if (memSave) {
+    memSave.disabled = !tier.memory;
+    memSave.textContent = tier.memory ? 'Save memory' : 'Sign in to save';
+  }
+  if (abToggle) {
+    // A/B variants are a Pro feature. Free and Guest tiers see the control
+    // but cannot switch it on — hiding it entirely would make the Pro
+    // upsell invisible.
+    abToggle.disabled = !tier.abVariants;
+    abToggle.title = tier.abVariants ? '' : 'Upgrade to Pro to compare A/B variants';
+    if (!tier.abVariants && abToggle.checked) {
+      abToggle.checked = false;
+    }
+    // Show a PRO badge next to the control while it is locked, so the
+    // upsell is visible without adding clutter to the Pro experience.
+    const abBadge = $('ab-pro-badge');
+    if (abBadge) abBadge.hidden = tier.abVariants;
+  }
+}
+/**
+ * Adopt a quota response from the server so the UI always reflects the
+ * authoritative counter, even if our local guess was stale.
+ */
+function applyQuotaFromServer(q) {
+  if (!q) return;
+  if (q.limit !== undefined && q.limit !== null) {
+    state.usage = { used: q.used || 0, limit: q.limit, remaining: q.remaining };
+  }
+  if (q.tier) {
+    state.tier = q.tier;
+    state.isPro = q.tier === 'pro';
+  }
+  renderUsage();
+  renderPlan();
+  renderFeatureGates();
+}
+
+/**
+ * Show the "you hit the limit" state with a real next action, instead of
+ * the old dead-end message that offered no way to act.
+ */
+function showQuotaLimit(q) {
+  const el = $('gen-error');
+  if (!el) return;
+  const tier = q && q.tier ? q.tier : currentTier();
+  const limit = q && q.limit !== undefined ? q.limit : TIERS[tier].limit;
+
+  // This used to be one long paragraph with the actions as inline
+  // links. On narrow screens the links wrapped away from the sentence
+  // and the "Sign in" action ended up pushed onto its own line,
+  // separated from the message it belonged to, which read as a
+  // broken layout.
+  //
+  // It is now a proper panel: a headline, a short explanation, and the
+  // two actions as real buttons in a row that wraps cleanly.
+  const canUpgrade = tier !== 'pro';
+  const actions = [];
+  if (tier === 'guest') {
+    actions.push(`<button type="button" id="quota-signin" class="btn btn-sm btn-primary">Sign in free</button>`);
+  }
+  if (canUpgrade) {
+    actions.push(`<button type="button" id="quota-upgrade" class="btn btn-sm btn-warn">Go Pro</button>`);
+  }
+
+  const body = tier === 'guest'
+    ? `Sign in free to get ${TIERS.free.limit} a week, plus Memory.`
+    : `Upgrade to Pro for unlimited enhancements, A/B variants, and full history.`;
+
+  el.innerHTML = `
+    <div class="quota-panel" role="alert">
+      <div class="quota-panel-head">
+        <span class="quota-panel-icon" aria-hidden="true">&#9679;</span>
+        <span class="quota-panel-title">You've used all ${limit} free enhancements this week</span>
+      </div>
+      <p class="quota-panel-body">${body}</p>
+      <div class="quota-panel-actions">${actions.join('')}</div>
+    </div>`;
+  el.classList.remove('hidden');
+
+  // Keep the button state in sync: the user is out of credits whether we
+  // learned that from a 402 or from /usage-status.
+  applyQuotaGate(limit, limit);
+
+  const s = document.getElementById('quota-signin');
+  if (s) s.addEventListener('click', (e) => { e.preventDefault(); signIn(); });
+  const u = document.getElementById('quota-upgrade');
+  if (u) u.addEventListener('click', (e) => { e.preventDefault(); upgrade(); });
+}
+
 function renderPlan() {
   const pill = $('plan-pill');
   const badge = $('plan-badge');
@@ -102,7 +358,12 @@ function renderPlan() {
     setText('user-label', `${state.user.displayName || state.user.email || 'Signed in'} (${state.user.email || ''})`);
     show($('signout-btn')); hide($('signin-btn'));
   } else {
-    setText('user-label', 'Not signed in — using guest mode');
+    // The old copy said "Not signed in - using guest mode", which
+    // described the visitor's account state inside the Free plan card
+    // and made the pricing table read like a debug panel rather than
+    // a price list. The plan card now says what the plan includes;
+    // the sign-in control below carries the account state on its own.
+    setText('user-label', 'Sign in to get 10 enhancements a week');
     show($('signin-btn')); hide($('signout-btn'));
   }
 }
@@ -132,28 +393,6 @@ function scoreLabel(s) {
   return { label: 'Poor', cls: 'score-poor' };
 }
 
-function renderHistory() {
-  const list = $('history-list');
-  const q = ($('history-search')?.value || '').toLowerCase();
-  let items = state.history;
-  if (q) items = items.filter(h => (h.prompt + ' ' + h.result).toLowerCase().includes(q));
-  if (!items.length) { list.innerHTML = '<span class="muted">No history yet.</span>'; return; }
-  const limit = state.isPro ? 100 : 1;
-  items = items.slice(0, limit);
-  list.innerHTML = items.map((h, i) => `
-    <div class="history-item" data-idx="${i}">
-      <div class="h-mode">${h.mode.replace('_ENHANCEMENT','')} · ${h.style}${h.target ? ' · ' + h.target : ''}</div>
-      <div class="h-text">${escapeHtml(h.result)}</div>
-    </div>
-  `).join('');
-  list.querySelectorAll('.history-item').forEach(el => {
-    el.addEventListener('click', () => {
-      const idx = parseInt(el.dataset.idx);
-      const h = items[idx];
-      if (h) { $('prompt-input').value = h.prompt; state.mode = h.mode; state.style = h.style; populateModes(); populateStyles(state.mode); $('style-select').value = state.style; state.style = $('style-select').value; }
-    });
-  });
-}
 
 // ---- modes/styles ----
 function populateModes() {
@@ -166,10 +405,74 @@ function populateModes() {
       populateStyles(state.mode);
       const m = MODES.find(x => x.key === state.mode);
       if (m) $('prompt-input').placeholder = m.placeholder;
-      renderTemplates();
     });
   });
 }
+/**
+ * Apply a mode/style/target deep link to the generator.
+ *
+ * Used in two places:
+ *   1. On load, for /?mode=IMAGE&style=expert&target=Claude
+ *   2. When the visitor clicks a "Start with a mode" card
+ *
+ * Every parameter is optional and every one is validated against the
+ * real <option> / .mode-tab list before it is applied, so a stale link
+ * can never leave the generator in an impossible state. Anything that
+ * does not match is simply ignored.
+ */
+function applyDeepLink(params, opts) {
+  if (!params) return;
+  const resetTarget = !!(opts && opts.resetTarget);
+
+  // --- mode ---
+  const modeParam = params.get('mode');
+  if (modeParam) {
+    const map = {
+      TEXT: 'TEXT_ENHANCEMENT',
+      CODE: 'CODE_ENHANCEMENT',
+      IMAGE: 'IMAGE_ENHANCEMENT',
+      VIDEO: 'VIDEO_ENHANCEMENT',
+    };
+    const key = map[modeParam.toUpperCase()] || modeParam;
+    const tab = document.querySelector('.mode-tab[data-mode="' + key + '"]');
+    // Clicking the tab is what rebuilds the style list for that mode,
+    // so it has to happen before the style parameter is applied.
+    if (tab) tab.click();
+  }
+
+  // --- style ---
+  const styleParam = params.get('style');
+  if (styleParam) {
+    const sel = $('style-select');
+    if (sel && Array.from(sel.options).some(o => o.value === styleParam)) {
+      sel.value = styleParam;
+      sel.dispatchEvent(new Event('change'));
+      state.style = styleParam;
+    }
+  }
+
+  // --- target platform ---
+  // The "Start with a mode" cards are named after a platform, so landing
+  // on one should actually set the platform dropdown. Previously the card
+  // set a mode and style but left the target on "General", which did not
+  // match what the card promised.
+  const targetParam = params.get('target');
+  const tsel = $('target-select');
+  if (targetParam) {
+    if (tsel && Array.from(tsel.options).some(o => o.value === targetParam)) {
+      tsel.value = targetParam;
+      tsel.dispatchEvent(new Event('change'));
+    }
+  } else if (resetTarget && tsel) {
+    // The card did not name a platform, so clear any platform left
+    // over from a previous card. Otherwise clicking "Video Prompt
+    // Generator" could land on "Video + Midjourney" because the last
+    // card the visitor clicked was the image one.
+    tsel.value = '';
+    tsel.dispatchEvent(new Event('change'));
+  }
+}
+
 function populateStyles(mode) {
   const sel = $('style-select');
   const styles = getStylesForMode(mode);
@@ -179,15 +482,6 @@ function populateStyles(mode) {
   sel.onchange = () => { state.style = sel.value; };
 }
 
-// ---- templates ----
-function renderTemplates() {
-  const wrap = $('templates-wrap');
-  const ts = TEMPLATES.filter(t => t.mode === state.mode);
-  wrap.innerHTML = ts.map(t => `<span class="template-chip" data-prompt="${escapeHtml(t.prompt)}">${escapeHtml(t.label)}</span>`).join('');
-  wrap.querySelectorAll('.template-chip').forEach(c => {
-    c.addEventListener('click', () => { $('prompt-input').value = c.dataset.prompt; $('prompt-input').focus(); });
-  });
-}
 
 // ---- auth ----
 // Sign-in lives in auth.js (shared, Authorization Code + PKCE). The old
@@ -207,32 +501,46 @@ function signOut() {
   state.user = null; lsSet('phg_user', null);
   state.userId = 'anon_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
   lsSet('phg_userId', state.userId); state.isPro = false;
+  // Drop back to the guest tier and clear the cached server meter so the
+  // UI stops showing the signed-in allowance.
+  state.tier = 'guest';
+  state.usage = null;
   if (window.PHGAuth) window.PHGAuth.signOut();
-  renderPlan(); renderUsage(); setText('auth-msg', 'Signed out.');
+  renderPlan(); renderUsage(); renderFeatureGates();
+  setText('auth-msg', 'Signed out.');
 }
 // Called when the shared auth module reports a session change.
 function onAuthChanged(user) {
   state.user = user;
   if (user && user.uid) state.userId = user.uid;
   renderPlan();
-  checkSubscription().then(() => { renderPlan(); renderUsage(); });
+  // The server now owns quota + tier, so ask it rather than computing
+  // locally. This also picks up a Pro upgrade made on another device.
+  refreshUsage();
   if (user && state.pendingUpgrade) { state.pendingUpgrade = false; upgrade(); }
 }
 
 // ---- subscription ----
 async function checkSubscription() {
   try {
-    const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId));
+    const headers = backendHeaders();
+    const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId), { headers });
     if (!r.ok) { state.isPro = false; return; }
     const d = await r.json(); state.isPro = !!d.active;
   } catch { state.isPro = false; }
 }
 
 // ---- usage ----
+// The local counter is kept only as an offline fallback / optimistic hint.
+// The server counter in Firestore is authoritative.
 function canUse() {
   if (state.isPro) return { allowed: true };
+  if (state.usage && state.usage.remaining !== undefined) {
+    return { allowed: state.usage.remaining > 0, remaining: state.usage.remaining };
+  }
   const cur = state.weeklyUsage.enhancements;
-  return { allowed: cur < FREE_LIMIT, remaining: Math.max(0, FREE_LIMIT - cur) };
+  const limit = TIERS[currentTier()].limit;
+  return { allowed: cur < limit, remaining: Math.max(0, limit - cur) };
 }
 function trackUsage() {
   state.weeklyUsage.weekStart = getWeekStart();
@@ -256,14 +564,36 @@ function buildSystemInstruction(mode, style, target, memoryNotes) {
 // ---- streaming generate ----
 async function streamEnhance(prompt, systemInstruction, onChunk, onDone, onError) {
   try {
+    // Send the Google access token so the backend can identify the caller
+    // and enforce the quota against the right account. Without it the
+    // request is treated as an anonymous guest.
+    const headers = backendHeaders({ 'Content-Type': 'application/json' });
+
     const r = await fetch(BACKEND_URL + '/enhance-stream', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, systemInstruction }),
+      headers,
+      body: JSON.stringify({
+        prompt,
+        systemInstruction,
+        // One logical action = one credit. A/B variants send the SAME
+        // logicalId so they cost 1, not 2.
+        logicalId: state.currentLogicalId || null,
+        // Ask the server to enforce the tier gates, not just the client.
+        features: state.currentFeatures || null,
+      }),
     });
     if (!r.ok) {
       const d = await r.json().catch(() => ({}));
-      throw new Error(d.error || ('HTTP ' + r.status));
+      const err = new Error(d.error || ('HTTP ' + r.status));
+      err.status = r.status;
+      err.payload = d;
+      // The server rejected us for quota or tier reasons — surface the
+      // server's own numbers rather than a generic message.
+      if (d.quota) {
+        err.quota = d.quota;
+        applyQuotaFromServer(d.quota);
+      }
+      throw err;
     }
     const reader = r.body.getReader();
     const decoder = new TextDecoder();
@@ -331,18 +661,34 @@ async function generate(variantStyle) {
   const prompt = $('prompt-input').value.trim();
   if (!prompt) { $('gen-error').textContent = 'Please enter a prompt.'; show($('gen-error')); return; }
   hide($('gen-error'));
-  const c = canUse();
-  if (!c.allowed && !state.isPro) {
-    $('gen-error').textContent = 'Free limit reached (5/week). Upgrade to Pro for unlimited.';
-    show($('gen-error')); return;
+  // The server is authoritative on quota. We do a cheap optimistic check
+  // against the last known usage so we don't waste a round trip, but the
+  // real decision happens on the server.
+  if (!state.isPro && state.usage && state.usage.remaining !== undefined && state.usage.remaining <= 0) {
+    showQuotaLimit(state.usage);
+    return;
   }
   if (generating) return;
   generating = true;
   const btn = $('generate-btn');
-  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+  btn.disabled = true;
+  btn.dataset.busy = '1';
+  btn.innerHTML = '<span class="spinner"></span>';
   setText('gen-status', 'Streaming…');
   const sys = buildSystemInstruction(state.mode, variantStyle || state.style, $('target-select').value, state.memory.notes);
   state.refineMode = false;
+
+  // One logical action = one credit. Both A/B variants share this id, so
+  // the pair costs a single enhancement.
+  state.currentLogicalId = 'web_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+
+  // Tell the server which gated features this request is actually using,
+  // so it can enforce the tier server-side.
+  const tier = TIERS[currentTier()];
+  const feats = [];
+  if ($('memory-toggle') && $('memory-toggle').checked && state.memory.use && state.memory.notes) feats.push('memory');
+  if ($('ab-toggle') && $('ab-toggle').checked) feats.push('abVariants');
+  state.currentFeatures = feats;
 
   // Chat UX: show user message + AI bubble
   addUserMessage(prompt);
@@ -374,14 +720,29 @@ async function generate(variantStyle) {
           if (actions) actions.innerHTML = '<button class="btn btn-sm" onclick="navigator.clipboard.writeText(document.getElementById(\'output\').textContent).then(()=>{const m=document.getElementById(\'copy-msg\');m.textContent=\'Copied!\';setTimeout(()=>m.textContent=\'\',1500)})">Copy result</button> <button class="btn btn-sm btn-ghost" onclick="document.getElementById(\'prompt-input\').value=document.getElementById(\'output\').textContent;document.getElementById(\'prompt-input\').focus()">Refine</button>';
           state.lastOutput = full; state.lastPrompt = prompt;
           trackUsage(); saveHistoryEntry(prompt, full, style);
-          renderUsage(); renderHistory();
+          renderUsage();
+          // Ask the server for the authoritative counter now that one has
+          // been consumed. This keeps the meter honest across devices.
+          refreshUsage();
           setText('gen-status', 'Done');
         }
         resolve(full);
       },
       (e) => {
-        $('gen-error').textContent = 'Error: ' + e.message; show($('gen-error'));
-        setText('gen-status', 'Failed');
+        // A quota rejection from the server is a normal state, not a crash:
+        // show the limit with a real next action instead of a raw error.
+        if (e && (e.status === 429 || e.status === 402 || e.quota)) {
+          if (e.payload && e.payload.code === 'feature_requires_plan') {
+            $('gen-error').textContent = e.message; show($('gen-error'));
+            setText('gen-status', 'Upgrade required');
+          } else {
+            showQuotaLimit(e.quota || null);
+            setText('gen-status', 'Limit reached');
+          }
+        } else {
+          $('gen-error').textContent = 'Error: ' + e.message; show($('gen-error'));
+          setText('gen-status', 'Failed');
+        }
         resolve('');
       }
     );
@@ -405,7 +766,15 @@ async function generate(variantStyle) {
   }
 
   generating = false;
-  btn.disabled = false; btn.innerHTML = '✨ Generate';
+  delete btn.dataset.busy;
+  // Re-apply the gate: if the request that just ran used the last credit,
+  // the button must stay disabled rather than springing back to life.
+  btn.disabled = false;
+  btn.innerHTML = '✨ Generate';
+  const lim = state.tier === 'pro' ? Infinity
+    : (state.usage ? state.usage.limit : TIERS[state.tier].limit);
+  const used = state.usage ? state.usage.used : state.weeklyUsage.enhancements;
+  applyQuotaGate(used, lim);
 }
 
 function saveHistoryEntry(prompt, result, style) {
@@ -443,17 +812,12 @@ async function upgrade() {
     signIn();
     return;
   }
-  // Determine price ID based on annual toggle (pricing page) or default to monthly
-  const annualToggle = document.getElementById('annual-toggle');
-  const useAnnual = annualToggle && annualToggle.checked;
-  const priceId = useAnnual ? STRIPE_ANNUAL_PRICE_ID : STRIPE_MONTHLY_PRICE_ID;
-  if (priceId.includes('REPLACE')) {
-    msg.textContent = 'Annual pricing is being set up. Please use monthly for now.';
-    if (useAnnual) return;
-  }
+  // Pro is monthly-only for now; there is no annual price in Stripe.
+  const priceId = STRIPE_MONTHLY_PRICE_ID;
   msg.textContent = 'Opening checkout...';
   try {
-    const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, successUrl: location.origin + '/success.html', cancelUrl: location.origin + '/cancel.html' }) });
+    const headers = backendHeaders({ 'Content-Type': 'application/json' });
+    const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, successUrl: location.origin + '/success.html', cancelUrl: location.origin + '/cancel.html' }) });
     if (!r.ok) { const d = await r.json().catch(()=>({})); throw new Error(d.error || ('HTTP ' + r.status)); }
     const d = await r.json();
     if (d.url) window.location.href = d.url; else throw new Error('No checkout URL');
@@ -462,9 +826,9 @@ async function upgrade() {
 async function portal() {
   const msg = $('upgrade-msg'); msg.textContent = 'Opening billing portal...';
   try {
-    const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId));
+    const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId), { headers: backendHeaders() });
     const d = await r.json();
-    const r2 = await fetch(BACKEND_URL + '/create-portal-session', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ userId: state.userId, customerId: d.customerId, returnUrl: location.origin + '/' }) });
+    const r2 = await fetch(BACKEND_URL + '/create-portal-session', { method:'POST', headers: backendHeaders({ 'Content-Type': 'application/json' }), body: JSON.stringify({ userId: state.userId, customerId: d.customerId, returnUrl: location.origin + '/' }) });
     if (!r2.ok) { const dd = await r2.json().catch(()=>({})); throw new Error(dd.error || ('HTTP ' + r2.status)); }
     const dd = await r2.json();
     if (dd.url) window.location.href = dd.url; else throw new Error('No portal URL');
@@ -503,37 +867,37 @@ document.addEventListener('DOMContentLoaded', async () => {
     populateStyles(state.mode);
     const m = MODES.find(x => x.key === state.mode);
     if (m) $('prompt-input').placeholder = m.placeholder;
-    renderTemplates();
     renderMemory();
 
-    // Deep links: /?mode=IMAGE&style=cinematic (used by the "More AI tools"
-    // cards). This must run AFTER populateModes()/populateStyles(), because
-    // those are what build the .mode-tab buttons and the style <option>s that
-    // the deep link needs to target.
-    {
-      const dp = new URLSearchParams(location.search);
-      const modeParam = dp.get('mode');
-      if (modeParam) {
-        const map = {
-          TEXT: 'TEXT_ENHANCEMENT',
-          CODE: 'CODE_ENHANCEMENT',
-          IMAGE: 'IMAGE_ENHANCEMENT',
-          VIDEO: 'VIDEO_ENHANCEMENT',
-        };
-        const key = map[modeParam.toUpperCase()] || modeParam;
-        const tab = document.querySelector('.mode-tab[data-mode="' + key + '"]');
-        if (tab) tab.click();
-      }
-      const styleParam = dp.get('style');
-      if (styleParam) {
-        const sel = $('style-select');
-        if (sel && Array.from(sel.options).some(o => o.value === styleParam)) {
-          sel.value = styleParam;
-          sel.dispatchEvent(new Event('change'));
-          state.style = styleParam;
+    // Deep links: /?mode=IMAGE&style=cinematic (used by the "Start with a
+    // mode" cards). This must run AFTER populateModes()/populateStyles(),
+    // because those are what build the .mode-tab buttons and the style
+    // <option>s that the deep link needs to target.
+    applyDeepLink(new URLSearchParams(location.search));
+
+    // The "Start with a mode" cards point at the same page with the same
+    // query string. Intercept the click so the generator switches in
+    // place and scrolls into view, instead of reloading the page and
+    // dumping the visitor back at the top. The href is left intact so
+    // the link can still be copied and shared.
+    document.querySelectorAll('.tool-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Let the user open it in a new tab if they asked for that.
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        const qs = card.getAttribute('href').split('?')[1];
+        if (!qs) return;
+        e.preventDefault();
+        applyDeepLink(new URLSearchParams(qs), { resetTarget: true });
+        const gen = $('generator');
+        if (gen) {
+          gen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const input = $('prompt-input');
+          if (input) setTimeout(() => input.focus({ preventScroll: true }), 350);
         }
-      }
-    }
+        // Keep the address bar in sync so a refresh preserves the choice.
+        try { history.replaceState(null, '', card.getAttribute('href')); } catch (err) {}
+      });
+    });
 
     const gb=$('generate-btn'); if(gb) gb.addEventListener('click', () => generate());
     const rb=$('refine-btn'); if(rb) rb.addEventListener('click', refine);
@@ -542,8 +906,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const shb=$('share-btn'); if(shb) shb.addEventListener('click', shareLink);
     $('memory-toggle').addEventListener('change', (e) => { state.memory.use = e.target.checked; saveMemory(); });
     const smb=$('save-memory-btn'); if(smb) smb.addEventListener('click', () => { state.memory.notes = $('memory-input').value; saveMemory(); setText('memory-msg', 'Saved.'); setTimeout(() => setText('memory-msg',''), 1500); });
-    const hs=$('history-search'); if(hs) hs.addEventListener('input', renderHistory);
-  }
+    }
 
   // Sign-in controls. These live on the generator page AND the pricing
   // page, so they must be wired OUTSIDE the isGeneratorPage block — they
@@ -557,9 +920,36 @@ document.addEventListener('DOMContentLoaded', async () => {
   const portalBtn = $('portal-btn');
   if (portalBtn) portalBtn.addEventListener('click', portal);
 
+  // The usage nudge ends in a call to action. Guests get sent to sign in
+  // (which buys them a bigger allowance); signed-in users get sent to the
+  // upgrade flow.
+  const nudgeCta = $('usage-nudge-cta');
+  if (nudgeCta) nudgeCta.addEventListener('click', () => {
+    if (state.tier === 'guest') signIn();
+    else upgrade();
+  });
+  // Pricing page: the "Free account" card has its own sign-in button, so a
+  // guest can upgrade their allowance without hunting for the small
+  // sign-in control in the account bar.
+  const signinCta = $('signin-cta-btn');
+  if (signinCta) signinCta.addEventListener('click', async () => {
+    const msg = $('signin-cta-msg');
+    if (state.user) {
+      if (msg) msg.textContent = 'You are signed in and on the free tier.';
+      return;
+    }
+    if (msg) msg.textContent = 'Opening Google sign-in…';
+    await signIn();
+  });
+
   await checkSubscription();
   renderPlan(); renderUsage();
-  if (isGeneratorPage) renderHistory();
+  if (isGeneratorPage) renderUsage();
+
+  // Apply the tier gates to the UI (Memory, A/B variants) and pull the
+  // authoritative usage meter from the server.
+  renderFeatureGates();
+  refreshUsage();
 
   // Shared auth module (auth.js) owns the OAuth popup flow.
   if (window.PHGAuth) {
