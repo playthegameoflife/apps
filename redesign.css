@@ -520,3 +520,79 @@ html[data-theme="dark"] { --surface: #1D1D1B; --surface-2: #242422; --line: #2F2
 html[data-theme="dark"] .plan-card-pro .btn-primary,
 html[data-theme="dark"] .gen-submit,
 html[data-theme="dark"] .final-cta .btn { color: #1A0E05; }
+
+/* ============================================================
+   MOBILE-FIRST FIXES (audit): first screen, tap targets, inputs
+   ============================================================ */
+.tb-pricing-m { display: none; }
+.tb-icon-btn .tb-label { display: none; }
+.tb-icon-btn svg { flex-shrink: 0; }
+
+@media (max-width: 860px) {
+  /* topbar: real labels instead of glyphs */
+  #sb-signin-top { width: auto; padding: 0 12px; gap: 6px; border-color: var(--border); border-radius: 999px;
+    font-size: 0.875rem; font-weight: 600; color: var(--text); font-family: inherit; }
+  #sb-signin-top .tb-label { display: inline; }
+  #tb-theme { border-radius: 999px; }
+  .tb-pricing-m { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px;
+    font-size: 0.875rem; font-weight: 600; color: var(--text); text-decoration: none; white-space: nowrap; }
+  /* the extension is desktop-Chrome only, so phones get Pricing in the bar instead */
+  .tb-cta { display: none; }
+  /* search: icon button that opens to full width when focused */
+  .tb-search { flex: 0 0 auto; }
+  .tb-search input { width: 44px; padding: 0; cursor: pointer; transition: width var(--transition-base); }
+  .tb-search input:focus { width: min(62vw, 260px); padding: 0 var(--space-3) 0 var(--space-8); cursor: text;
+    position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 5; }
+  .tb-search input::placeholder { color: transparent; }
+  .tb-search input:focus::placeholder { color: var(--muted-light); }
+  .tb-search::before { left: 14px; }
+  .tb-search input { height: 44px; border-radius: 999px; }
+}
+
+@media (max-width: 700px) {
+  /* 1. get the tool above the fold */
+  .page-head { margin-bottom: 14px; }
+  .hero-pill { display: none; }
+  .hero-eyebrow { display: none; }
+  .page-head h1 { font-size: clamp(1.9rem, 9vw, 2.35rem); line-height: 1.08; margin-bottom: 8px; }
+  .page-head > p { font-size: 0.95rem; line-height: 1.45; }
+  .shell-content { padding-top: 18px; }
+  .app-main::before { height: 280px; }
+  .gen-panel { border-radius: 22px; padding: 16px; }
+  .gen-input { min-height: 96px; }
+  /* keep Generate reachable: pinned to the bottom of the screen while the composer is in view */
+  .gen-submit-row { position: sticky; bottom: 0; z-index: 20; margin: 12px -16px -16px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(to top, var(--bg-card) 78%, transparent); border-radius: 0 0 22px 22px; }
+  .gen-submit { flex: 1; justify-content: center; }
+}
+
+/* 3. no iOS zoom-on-focus: inputs must be 16px on phones */
+@media (max-width: 860px) {
+  input, select, textarea, .gen-input, .memory-box, .tb-search input, .blog-search, .search-input,
+  .style-select, .target-select, #memory-input { font-size: 16px !important; }
+}
+
+/* 7. 44px minimum tap targets on touch screens */
+@media (max-width: 860px) {
+  .mode-tab, .lib-tab, .gen-toolbar select, .gen-toolbar .toggle, .btn, .btn-sm, #copy-btn, #share-btn,
+  .blog-filter, .rail-card .btn, .faq-item > summary, .faq-list summary { min-height: 44px; }
+  .btn-sm { padding-top: 10px; padding-bottom: 10px; }
+  .gen-toolbar .toggle input[type="checkbox"] { width: 22px; height: 22px; }
+  .gen-toolbar .toggle { gap: 10px; }
+  #ab-help, #mem-help { position: relative; }
+  #ab-help::after, #mem-help::after { content: ""; position: absolute; inset: -14px; }
+  .shell-footer a, footer a { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: 0; }
+  .shell-section-head a, .works-strip a { display: inline-flex; align-items: center; min-height: 44px; }
+  .tool-card .tool-go { min-height: 44px; display: inline-flex; align-items: center; }
+}
+
+/* post-result and A/B upsell cards */
+.after-result {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  margin-top: var(--space-3); padding: 12px 16px; border-radius: 16px;
+  background: var(--pill-bg); border: 1px solid var(--border);
+}
+.after-result p { margin: 0; font-size: 0.875rem; color: var(--text-secondary); flex: 1 1 220px; }
+.after-result .btn { border-radius: 999px; }
+.after-result.hidden { display: none; }
+#gen-error { position: relative; z-index: 21; margin-top: 12px; }

@@ -18,6 +18,26 @@ const TIERS = {
 // Kept for backwards compatibility with anything that referenced it.
 const FREE_LIMIT = TIERS.guest.limit;
 
+// Turns raw network/server errors into something a person can act on.
+function friendlyError(e, what) {
+  const raw = String((e && e.message) || e || '');
+  const status = e && e.status;
+  const action = what || 'that';
+  if (/failed to fetch|networkerror|load failed|network request failed/i.test(raw) || (e && e.name === 'TypeError')) {
+    return "Couldn't reach the server. Check your connection and try again.";
+  }
+  if (status === 401 || status === 403 || /unauthor|forbidden/i.test(raw)) {
+    return 'Your session may have expired. Please sign in again and retry.';
+  }
+  if (status === 429) return 'Too many requests right now. Please wait a moment and try again.';
+  if (status >= 500 || /^HTTP 5\d\d$/.test(raw)) {
+    return 'Something went wrong on our side while ' + action + '. Please try again in a moment.';
+  }
+  if (raw === 'empty_result') return "We didn't get a result back. Please try again.";
+  if (/^HTTP \d+$/.test(raw) || !raw) return 'Something went wrong. Please try again.';
+  return raw;
+}
+
 
 let state = {
   userId: null,
@@ -493,7 +513,15 @@ async function signIn() {
     await window.PHGAuth.signIn();
   } catch (e) {
     if (!e || e.code !== 'no_authorized_client') {
-      setText('auth-msg', 'Sign-in error: ' + (e && e.message ? e.message : e));
+      const code = e && (e.code || e.message);
+      const nice = {
+        popup_blocked: 'Your browser blocked the sign-in window. Allow pop-ups for this site and tap Sign in again.',
+        timeout: 'Sign-in took too long. Please try again.',
+        state_mismatch: 'Sign-in could not be verified. Please try again.',
+        no_token: 'Google did not complete the sign-in. Please try again.',
+        access_denied: 'Sign-in was cancelled. You can try again any time.'
+      }[code];
+      setText('auth-msg', nice || friendlyError(e, 'signing you in'));
     }
   }
 }
@@ -625,6 +653,7 @@ async function streamEnhance(prompt, systemInstruction, onChunk, onDone, onError
         } catch { /* skip non-json */ }
       }
     }
+    if (!full.trim()) { onError(new Error('empty_result')); return; }
     onDone(full);
   } catch (e) { onError(e); }
 }
@@ -661,6 +690,7 @@ async function generate(variantStyle) {
   const prompt = $('prompt-input').value.trim();
   if (!prompt) { $('gen-error').textContent = 'Please enter a prompt.'; show($('gen-error')); return; }
   hide($('gen-error'));
+  { const ar = $('after-result'); if (ar) ar.classList.add('hidden'); }
   // The server is authoritative on quota. We do a cheap optimistic check
   // against the last known usage so we don't waste a round trip, but the
   // real decision happens on the server.
@@ -725,6 +755,7 @@ async function generate(variantStyle) {
           // been consumed. This keeps the meter honest across devices.
           refreshUsage();
           setText('gen-status', 'Done');
+          renderAfterResult();
         }
         resolve(full);
       },
@@ -740,7 +771,7 @@ async function generate(variantStyle) {
             setText('gen-status', 'Limit reached');
           }
         } else {
-          $('gen-error').textContent = 'Error: ' + e.message; show($('gen-error'));
+          $('gen-error').textContent = friendlyError(e, 'generating your prompt'); show($('gen-error'));
           setText('gen-status', 'Failed');
         }
         resolve('');
@@ -770,7 +801,7 @@ async function generate(variantStyle) {
   // Re-apply the gate: if the request that just ran used the last credit,
   // the button must stay disabled rather than springing back to life.
   btn.disabled = false;
-  btn.innerHTML = '✨ Generate';
+  btn.innerHTML = '✦ Generate';
   const lim = state.tier === 'pro' ? Infinity
     : (state.usage ? state.usage.limit : TIERS[state.tier].limit);
   const used = state.usage ? state.usage.used : state.weeklyUsage.enhancements;
@@ -803,12 +834,45 @@ function shareLink() {
   navigator.clipboard.writeText(url).then(() => { setText('copy-msg', 'Link copied!'); setTimeout(() => setText('copy-msg',''), 1500); }).catch(() => setText('copy-msg','Copy failed'));
 }
 
+// After a successful result: one short, honest next step, based on the plan.
+function renderAfterResult() {
+  const box = $('after-result');
+  if (!box) return;
+  const tier = currentTier();
+  let html = '';
+  if (tier === 'guest') {
+    html = '<p><strong>Like it?</strong> Sign in free to get ' + TIERS.free.limit + ' a week, plus Memory and saved history.</p>' +
+           '<button type="button" class="btn btn-sm btn-primary" id="after-signin">Sign in free</button>';
+  } else if (tier === 'free') {
+    html = '<p><strong>Want more?</strong> Pro adds unlimited enhancements, A/B variants and your full history.</p>' +
+           '<a class="btn btn-sm btn-warn" href="/pricing.html">See Pro</a>';
+  } else {
+    box.classList.add('hidden'); box.innerHTML = ''; return;
+  }
+  box.innerHTML = html;
+  box.classList.remove('hidden');
+  const b = $('after-signin');
+  if (b) b.addEventListener('click', () => signIn());
+}
+
+function initAbUpsell() {
+  const t = $('ab-toggle'); const note = $('ab-upsell');
+  if (!t || !note) return;
+  const label = t.closest('label');
+  if (!label) return;
+  label.addEventListener('click', (ev) => {
+    if (ev.target && ev.target.closest && ev.target.closest('.help-dot')) return;
+    if (t.disabled) { note.classList.remove('hidden'); }
+  });
+  t.addEventListener('change', () => { if (!t.disabled) note.classList.add('hidden'); });
+}
+
 // ---- stripe ----
 async function upgrade() {
   const msg = $('upgrade-msg');
   if (!state.user) {
     state.pendingUpgrade = true;
-    msg.textContent = 'Please sign in with Google first to link your Pro subscription across devices…';
+    msg.textContent = 'Sign in with Google first so Pro follows you across devices…';
     signIn();
     return;
   }
@@ -816,14 +880,14 @@ async function upgrade() {
   // If user is signed in but not Pro, proceed to checkout
   // Pro is monthly-only for now; there is no annual price in Stripe.
   const priceId = STRIPE_MONTHLY_PRICE_ID;
-  msg.textContent = 'Opening checkout...';
+  msg.textContent = 'Opening secure checkout…';
   try {
     const headers = backendHeaders({ 'Content-Type': 'application/json' });
     const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, successUrl: location.origin + '/success.html', cancelUrl: location.origin + '/cancel.html' }) });
     if (!r.ok) { const d = await r.json().catch(()=>({})); throw new Error(d.error || ('HTTP ' + r.status)); }
     const d = await r.json();
     if (d.url) window.location.href = d.url; else throw new Error('No checkout URL');
-  } catch (e) { msg.textContent = 'Error: ' + e.message; }
+  } catch (e) { msg.textContent = friendlyError(e, 'opening checkout') + ' You have not been charged.'; }
 }
 async function portal() {
   const msg = $('upgrade-msg'); msg.textContent = 'Opening billing portal...';
@@ -834,12 +898,13 @@ async function portal() {
     if (!r2.ok) { const dd = await r2.json().catch(()=>({})); throw new Error(dd.error || ('HTTP ' + r2.status)); }
     const dd = await r2.json();
     if (dd.url) window.location.href = dd.url; else throw new Error('No portal URL');
-  } catch (e) { msg.textContent = 'Error: ' + e.message; }
+  } catch (e) { msg.textContent = friendlyError(e, 'opening the billing portal'); }
 }
 
 // ---- init ----
 document.addEventListener('DOMContentLoaded', async () => {
   loadState();
+  initAbUpsell();
   const isGeneratorPage = !!document.getElementById('mode-tabs');
 
   // load prompt from share link (only on generator page)

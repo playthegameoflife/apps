@@ -48,7 +48,7 @@
     document.documentElement.setAttribute('data-theme', t);
     try { localStorage.setItem('phg_theme', t); } catch (e) {}
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', t === 'dark' ? '#131312' : '#F7F5F2');
+    if (meta) meta.setAttribute('content', t === 'dark' ? '#131312' : '#FFFFFF');
   }
   if (tbTheme) tbTheme.addEventListener('click', () => setTheme(currentTheme() === 'dark' ? 'light' : 'dark'));
 

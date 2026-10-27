@@ -462,12 +462,22 @@
     }
   }
 
+  function friendlyLibError(msg) {
+    const raw = String(msg || '');
+    if (/failed to fetch|networkerror|load failed/i.test(raw)) return "We couldn't reach the library. Check your connection and try again.";
+    if (/returned 5\d\d/.test(raw)) return 'The library is having a moment. Please try again shortly.';
+    return raw || 'Something went wrong. Please try again.';
+  }
+
   function showError(msg) {
+    msg = friendlyLibError(msg);
+    const proGate = /requires a Pro plan/i.test(msg);
     if (cards) {
       cards.innerHTML =
         '<div class="lib-empty">' +
-          '<h3>Could not load the prompt library</h3>' +
+          '<h3>' + (proGate ? 'This is a Pro library' : 'The library did not load') + '</h3>' +
           '<p>' + esc(msg) + '</p>' +
+          (proGate ? '<p><a class="btn btn-sm btn-warn" href="/pricing.html">See Pro</a></p>' : '<p><button type="button" class="btn btn-sm" onclick="location.reload()">Try again</button></p>') +
         '</div>';
     }
   }
