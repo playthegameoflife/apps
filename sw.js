@@ -1,4 +1,4 @@
-const CACHE = 'phg-shell-v13';
+const CACHE = 'phg-shell-v14';
 const SHELL = ['/', '/index.html', '/generate.js', '/prompt-templates.js', '/style.css', '/site.css', '/shell.css', '/redesign.css?v=9', '/shell.js', '/site.js', '/manifest.json'];
 
 self.addEventListener('install', (e) => {
