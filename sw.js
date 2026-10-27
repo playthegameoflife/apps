@@ -1,4 +1,4 @@
-const CACHE = 'phg-shell-v17';
+const CACHE = 'phg-shell-v18';
 const SHELL = ['/', '/index.html', '/generate.js', '/prompt-templates.js', '/style.css', '/site.css', '/shell.css', '/redesign.css?v=14', '/shell.js', '/site.js', '/manifest.json'];
 
 self.addEventListener('install', (e) => {
@@ -18,12 +18,14 @@ self.addEventListener('fetch', (e) => {
     e.respondWith(fetch(e.request).catch(() => new Response(JSON.stringify({ error: 'offline' }), { headers: { 'Content-Type': 'application/json' } })));
     return;
   }
-  // Static shell: cache-first
-  e.respondWith(caches.match(e.request).then((cached) => cached || fetch(e.request).then((res) => {
-    if (res.ok && e.request.method === 'GET') {
+  // Same-origin pages, scripts and styles: network-first, so a deploy is
+  // picked up on the next load. The cache is only the offline fallback.
+  if (e.request.method !== 'GET' || url.origin !== location.origin) return;
+  e.respondWith(fetch(e.request).then((res) => {
+    if (res.ok) {
       const clone = res.clone();
       caches.open(CACHE).then((c) => c.put(e.request, clone));
     }
     return res;
-  }).catch(() => caches.match('/index.html'))));
+  }).catch(() => caches.match(e.request).then((cached) => cached || caches.match('/index.html'))));
 });
