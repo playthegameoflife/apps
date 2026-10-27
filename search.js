@@ -62,17 +62,13 @@
     var q = input.value.trim();
     rows = []; active = -1;
     if (!q) { close(); return; }
-    var words = q.toLowerCase().split(/\s+/).filter(Boolean), hits = [];
+    // Same rule as the Library page: the whole phrase must appear in the name.
+    var ql = q.toLowerCase(), words = [ql], hits = [];
     (items || []).forEach(function (it) {
-      var t = it.t.toLowerCase(), s = 0;
-      for (var i = 0; i < words.length; i++) {
-        var p = t.indexOf(words[i]);
-        if (p === -1) return;
-        s += p === 0 ? 3 : (t.charAt(p - 1) === ' ' ? 2 : 1);
-      }
-      hits.push({ it: it, s: s });
+      var p = it.t.toLowerCase().indexOf(ql);
+      if (p !== -1) hits.push({ it: it, s: p });
     });
-    hits.sort(function (a, b) { return b.s - a.s; });
+    hits.sort(function (a, b) { return a.s - b.s; });
     var html = '';
     if (hits.length) html += '<div class="tb-res-head">Prompt library</div>';
     hits.slice(0, 7).forEach(function (h) {
