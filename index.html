@@ -13,7 +13,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="stylesheet" href="/site.css?v=6">
   <link rel="stylesheet" href="/shell.css?v=1">
-  <link rel="stylesheet" href="/redesign.css?v=13">
+  <link rel="stylesheet" href="/redesign.css?v=14">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
@@ -241,23 +241,13 @@
           </ul>
         </section>
 
-        <!-- ===== MORE AI TOOLS ===== -->
-        <section class="shell-section" id="tools">
-          <div class="shell-section-head">
-            <div>
-              <h2>Start with a mode</h2>
-              <p>Jump straight in — the generator opens with the right mode and style already set.</p>
-            </div>
-            <a href="/library.html">Browse all templates</a>
-          </div>
-          <div class="tool-grid">
-            <a class="tool-card" href="/?mode=IMAGE&target=Midjourney"><h3>AI Image Prompt Generator</h3><p>Turn a creative idea into a detailed prompt for Midjourney, DALL-E, and Stable Diffusion.</p><span class="tool-go">Open →</span></a>
-            <a class="tool-card" href="/?mode=VIDEO"><h3>Video Prompt Generator</h3><p>Simple video ideas into cinematic prompts with camera moves, lighting, and pacing.</p><span class="tool-go">Open →</span></a>
-            <a class="tool-card" href="/?mode=CODE"><h3>Code Prompt Generator</h3><p>Precise, structured requests for code models, with inputs, outputs, and edge cases.</p><span class="tool-go">Open →</span></a>
-            <a class="tool-card" href="/?mode=TEXT&target=ChatGPT"><h3>ChatGPT Prompt Generator</h3><p>Structured prompts that get ChatGPT to give you useful, reliable responses.</p><span class="tool-go">Open →</span></a>
-            <a class="tool-card" href="/?mode=TEXT&style=expert&target=Claude"><h3>Claude Prompt Generator</h3><p>Prompts with clean context separation for Claude's longer context window.</p><span class="tool-go">Open →</span></a>
-            <a class="tool-card" href="/?mode=TEXT&style=technical&target=Gemini"><h3>Gemini Prompt Generator</h3><p>Prompts tuned for Gemini's multimodal and grounding capabilities.</p><span class="tool-go">Open →</span></a>
-            <a class="tool-card" href="/?mode=TEXT&style=detailed"><h3>AI Prompt Optimizer</h3><p>Improve prompts and system instructions you already wrote.</p><span class="tool-go">Open →</span></a>
+        <!-- ===== BEFORE / AFTER ===== -->
+        <section class="shell-section ba" id="example" aria-labelledby="ba-title">
+          <div class="shell-section-head"><div><h2 id="ba-title">From rough idea to a prompt that <em>works</em></h2><p>An example of what the generator does with a short request.</p></div></div>
+          <div class="ba-grid">
+            <div class="ba-card"><div class="ba-label">You type</div><p>write an email about my delayed order</p></div>
+            <div class="ba-arrow" aria-hidden="true">→</div>
+            <div class="ba-card ba-after"><div class="ba-label">You get</div><p>Write a polite, firm email to a customer-support team about an order that has not arrived by its promised date. Include the order number placeholder, the original delivery date, and a clear request: a delivery update or a refund within 3 business days. Keep it under 150 words, with a short subject line and a professional tone.</p></div>
           </div>
         </section>
 
@@ -277,6 +267,20 @@
             <button class="lib-tab" data-cat="Video" role="tab">Video Prompts</button>
           </div>
           <div class="lib-grid" id="lib-grid"></div>
+        </section>
+
+        <!-- ===== MODE LINKS ===== -->
+        <section class="shell-section mode-links" id="tools">
+          <p class="mode-links-label">Start with a mode</p>
+          <ul>
+            <li><a href="/?mode=IMAGE&target=Midjourney">AI Image Prompt Generator</a></li>
+            <li><a href="/?mode=VIDEO">Video Prompt Generator</a></li>
+            <li><a href="/?mode=CODE">Code Prompt Generator</a></li>
+            <li><a href="/?mode=TEXT&target=ChatGPT">ChatGPT Prompt Generator</a></li>
+            <li><a href="/?mode=TEXT&style=expert&target=Claude">Claude Prompt Generator</a></li>
+            <li><a href="/?mode=TEXT&style=technical&target=Gemini">Gemini Prompt Generator</a></li>
+            <li><a href="/?mode=TEXT&style=detailed">AI Prompt Optimizer</a></li>
+          </ul>
         </section>
 
         <!-- ===== HOW IT WORKS ===== -->
