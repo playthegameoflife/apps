@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <link rel="stylesheet" href="/site.css?v=6">
+  <link rel="stylesheet" href="/site.css?v=7">
   <script src="/theme.js?v=1"></script>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#08080d">
@@ -63,28 +63,56 @@
         <p class="plan-tagline muted">No credit card, no trial. Free forever.</p>
 
         <ul class="plan-features">
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> <strong>10</strong> prompt enhancements / week</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> Text, Code, Image and Video modes</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> All 13 styles across every mode</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> Quality score on every result</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> History — last 10 items</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> Memories (personalize every prompt)</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> <strong>300</strong> prompt library templates, across all 16 categories</li>
-          <li class="feat-no"><span aria-hidden="true">&mdash;</span> <span class="muted">Unlimited enhancements</span></li>
-          <li class="feat-no"><span aria-hidden="true">&mdash;</span> <span class="muted">Full 2,140-template library</span></li>
-          <li class="feat-no"><span aria-hidden="true">&mdash;</span> <span class="muted">A/B variants — compare two rewrites</span></li>
-          <li class="feat-no"><span aria-hidden="true">&mdash;</span> <span class="muted">Full history (100 items)</span></li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Prompt enhancements</span>
+            <span class="feat-value">10 / week</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Text, Code, Image &amp; Video modes</span>
+            <span class="feat-value">All</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Styles</span>
+            <span class="feat-value">13 styles</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Quality score on every result</span>
+            <span class="feat-value">&#10003;</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">History</span>
+            <span class="feat-value">10 items</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Memories</span>
+            <span class="feat-value">&#10003;</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Prompt library</span>
+            <span class="feat-value">300 templates</span>
+          </li>
+          <li class="plan-row is-off">
+            <span class="feat-no" aria-hidden="true">&mdash;</span>
+            <span class="feat-label">A/B variants</span>
+            <span class="feat-value muted">Pro</span>
+          </li>
+          <li class="plan-row is-off">
+            <span class="feat-no" aria-hidden="true">&mdash;</span>
+            <span class="feat-label">Pro in the Chrome extension</span>
+            <span class="feat-value muted">Pro</span>
+          </li>
         </ul>
 
         <div class="plan-cta">
           <button id="signin-btn" class="btn btn-primary btn-block">Sign in free</button>
           <div id="auth-msg" class="muted" style="font-size:13px" aria-live="polite"></div>
-        </div>
-        <div class="plan-meta">
-          <span class="muted" id="user-label">Sign in to get 10 enhancements a week</span>
-          <span id="plan-pill" class="status-pill free">Free</span>
-          <button id="signout-btn" class="btn btn-sm hidden">Sign out</button>
-          <button id="portal-btn" class="btn btn-sm hidden">Manage Subscription</button>
         </div>
       </div>
 
@@ -99,30 +127,73 @@
         <p class="plan-tagline muted">For power users who want unlimited. Cancel anytime.</p>
 
         <ul class="plan-features">
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> <strong>Unlimited</strong> prompt enhancements</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> Text, Code, Image and Video modes</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> All 13 styles across every mode</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> Quality score on every result</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> Full history (100 items)</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> Memories (personalization)</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> <strong>Full 2,140-template</strong> library, all 16 categories</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> <strong>A/B variants</strong> — two rewrites side by side</li>
-          <li><span class="feat-yes" aria-hidden="true">&#10003;</span> <strong>Pro in the Chrome extension</strong> — one subscription, both places</li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Prompt enhancements</span>
+            <span class="feat-value">Unlimited</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Text, Code, Image &amp; Video modes</span>
+            <span class="feat-value">All</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Styles</span>
+            <span class="feat-value">13 styles</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Quality score on every result</span>
+            <span class="feat-value">&#10003;</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">History</span>
+            <span class="feat-value">100 items</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Memories</span>
+            <span class="feat-value">&#10003;</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Prompt library</span>
+            <span class="feat-value">2,140 templates</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">A/B variants</span>
+            <span class="feat-value">&#10003;</span>
+          </li>
+          <li class="plan-row">
+            <span class="feat-yes" aria-hidden="true">&#10003;</span>
+            <span class="feat-label">Pro in the Chrome extension</span>
+            <span class="feat-value">&#10003;</span>
+          </li>
         </ul>
-
-        <p class="plan-extension-note">
-          <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="plan-extension-link" target="_blank" rel="noopener">
-            <span class="plan-extension-title">Prompt Helper for Chrome</span>
-            <span class="plan-extension-text">Your Pro plan unlocks unlimited enhancements, full history and custom styles inside the extension too. Sign in with the same Google account &mdash; nothing extra to buy.</span>
-            <span class="plan-extension-cta">Get the extension &rarr;</span>
-          </a>
-        </p>
 
         <div class="plan-cta">
           <button id="upgrade-btn" class="btn btn-primary btn-block">Upgrade to Pro</button>
           <span id="upgrade-msg" class="muted" style="display:block;font-size:13px" aria-live="polite"></span>
         </div>
       </div>
+    </div>
+
+    <p class="plan-note">
+      Every mode ships its own set of styles &mdash; 13 in total across
+      text, code, image and video.
+    </p>
+
+    <!-- Account state lives here, outside both plan cards, so the two
+         cards stay the same height and the card contents read as a
+         price list rather than a debug panel. -->
+    <div class="plan-meta">
+      <span class="muted" id="user-label">Sign in to get 10 enhancements a week</span>
+      <span id="plan-pill" class="status-pill free">Free</span>
+      <button id="signout-btn" class="btn btn-sm hidden">Sign out</button>
+      <button id="portal-btn" class="btn btn-sm hidden">Manage Subscription</button>
     </div>
 
     <!-- FAQ -->
@@ -136,7 +207,7 @@
       <div class="faq-list">
         <details class="faq-item" open>
           <summary>
-            <span class="faq-q">Can I cancel anytime?</span>
+            <span class="faq-q"><span class="faq-cat">Billing</span>Can I cancel anytime?</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">
@@ -146,7 +217,7 @@
 
         <details class="faq-item">
           <summary>
-            <span class="faq-q">Is there a free trial?</span>
+            <span class="faq-q"><span class="faq-cat">Free tier</span>Is there a free trial?</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">
@@ -156,7 +227,7 @@
 
         <details class="faq-item">
           <summary>
-            <span class="faq-q">Do I need an account to use Prompt Helper?</span>
+            <span class="faq-q"><span class="faq-cat">Free tier</span>Do I need an account to use Prompt Helper?</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">
@@ -166,7 +237,7 @@
 
         <details class="faq-item">
           <summary>
-            <span class="faq-q">Does Pro work on the website and the extension?</span>
+            <span class="faq-q"><span class="faq-cat">Chrome extension</span>Does Pro work on the website and the extension?</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">
@@ -179,7 +250,7 @@
 
         <details class="faq-item">
           <summary>
-            <span class="faq-q">What payment methods do you accept?</span>
+            <span class="faq-q"><span class="faq-cat">Billing</span>What payment methods do you accept?</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">
@@ -189,7 +260,7 @@
 
         <details class="faq-item">
           <summary>
-            <span class="faq-q">Do you offer team plans?</span>
+            <span class="faq-q"><span class="faq-cat">Plans</span>Do you offer team plans?</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">
@@ -199,7 +270,7 @@
 
         <details class="faq-item">
           <summary>
-            <span class="faq-q">Is there a lifetime deal?</span>
+            <span class="faq-q"><span class="faq-cat">Plans</span>Is there a lifetime deal?</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">
@@ -209,7 +280,7 @@
 
         <details class="faq-item">
           <summary>
-            <span class="faq-q">What exactly counts as one enhancement?</span>
+            <span class="faq-q"><span class="faq-cat">Usage</span>What exactly counts as one enhancement?</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">
@@ -219,7 +290,7 @@
 
         <details class="faq-item">
           <summary>
-            <span class="faq-q">What are Memories, and what do A/B variants do?</span>
+            <span class="faq-q"><span class="faq-cat">Features</span>What are Memories, and what do A/B variants do?</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">
@@ -230,7 +301,7 @@
 
         <details class="faq-item">
           <summary>
-            <span class="faq-q">Where do my prompts and history live?</span>
+            <span class="faq-q"><span class="faq-cat">Privacy</span>Where do my prompts and history live?</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">
@@ -240,7 +311,7 @@
 
         <details class="faq-item">
           <summary>
-            <span class="faq-q">How do I request a refund?</span>
+            <span class="faq-q"><span class="faq-cat">Billing</span>How do I request a refund?</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">

@@ -641,6 +641,8 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
 .faq-section {
   margin-top: var(--space-12);
   margin-bottom: var(--space-8);
+  padding-top: var(--space-10);
+  border-top: 1px solid var(--border);
 }
 .faq-head {
   text-align: center;
@@ -674,6 +676,30 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
   max-width: 820px;
   margin: 0 auto;
 }
+/* On a wide screen two columns of accordions read better than one tall
+   column of eleven stacked cards. The grid keeps each card's own
+   height, so rows align by the top edge rather than stretching. */
+@media (min-width: 1000px) {
+  .faq-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 1000px;
+    align-items: start;
+  }
+  /* The first answer is open by default. In a two-column grid that
+     would leave a hole in the second column, so span it full width. */
+  .faq-item:first-child {
+    grid-column: 1 / -1;
+  }
+}
+.faq-cat {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-2-text);
+  margin-bottom: 2px;
+}
 .faq-item {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -698,6 +724,7 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
   user-select: none;
   font-weight: 600;
   color: var(--text);
+  transition: background var(--transition-fast);
 }
 .faq-item > summary::-webkit-details-marker { display: none; }
 .faq-item > summary:hover { background: var(--bg-soft); }
@@ -706,7 +733,7 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
   outline-offset: -2px;
   border-radius: var(--radius-lg);
 }
-.faq-q { font-size: 1rem; line-height: 1.45; }
+.faq-q { font-size: 0.98rem; line-height: 1.45; letter-spacing: -0.01em; }
 .faq-icon {
   position: relative;
   flex: 0 0 auto;
@@ -742,7 +769,19 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
   padding: 0 var(--space-5) var(--space-5);
   color: var(--text-secondary);
   font-size: 0.95rem;
-  line-height: 1.7;
+  line-height: 1.75;
+}
+/* A short accent rule marks the answer body as belonging to the
+   question above it. */
+.faq-a::before {
+  content: "";
+  display: block;
+  width: 26px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent-2);
+  opacity: 0.55;
+  margin-bottom: var(--space-3);
 }
 .faq-a p { margin: 0 0 var(--space-3); }
 .faq-a p:last-child { margin-bottom: 0; }
@@ -771,6 +810,8 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
   position: relative;
   display: flex;
   flex-direction: column;
+  border-radius: var(--radius-xl);
+  overflow: visible;
   /* The top padding leaves room for the badge, which is centred on
      the card's top edge. Without it the badge overlapped the plan
      name. */
@@ -782,7 +823,13 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
 }
 .plan-card-pro {
   border-color: var(--border-accent);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
+  /* A hairline of accent glow lifts the recommended card without
+     shifting the layout of the two columns. */
+  background:
+    linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+    linear-gradient(160deg, color-mix(in srgb, var(--accent-2) 35%, transparent), transparent 55%) border-box;
+  border: 1px solid transparent;
 }
 
 .plan-badge {
@@ -838,6 +885,13 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
   margin: 0 0 var(--space-6);
   font-size: 0.9rem;
   line-height: 1.5;
+  /* Reserve two lines so a longer tagline on one card cannot make that
+     card taller than the other. The text is centred in the reserved
+     space so the extra line looks intentional rather than empty. */
+  min-height: 2.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .plan-features {
@@ -846,24 +900,48 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
   margin: 0 0 var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  font-size: 0.925rem;
-  line-height: 1.45;
   flex: 1 1 auto;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
-.plan-features li {
-  display: flex;
-  align-items: flex-start;
+/* Every row is the same three-part shape: tick, label, value. Because
+   both cards use this exact structure the rows line up across the two
+   columns and the cards stay the same height. */
+.plan-row {
+  display: grid;
+  grid-template-columns: 1.1rem minmax(0, 1fr) auto;
+  align-items: baseline;
   gap: var(--space-2);
+  padding: 9px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+}
+.plan-row:last-child {
+  border-bottom: none;
+}
+.plan-features .feat-yes,
+.plan-features .feat-no {
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 1.1rem;
+  text-align: center;
+  font-size: 0.85rem;
 }
 .plan-features .feat-yes {
   color: var(--green);
-  font-weight: 700;
-  flex-shrink: 0;
-  width: 1em;
-  text-align: center;
 }
 .plan-features .feat-no {
+  color: var(--muted);
+}
+.feat-label {
+  color: var(--text);
+}
+.feat-value {
+  color: var(--text);
+  font-weight: 600;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.plan-row.is-off .feat-label {
   color: var(--muted);
 }
 
@@ -878,15 +956,29 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
   justify-content: center;
 }
 
+.plan-note {
+  max-width: 920px;
+  margin: calc(var(--space-4) * -1) auto var(--space-8);
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .plan-meta {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  justify-content: center;
+  gap: var(--space-3);
   flex-wrap: wrap;
-  margin-top: var(--space-4);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--border);
-  font-size: 0.8rem;
+  max-width: 920px;
+  margin: calc(var(--space-6) * -1) auto var(--space-10);
+  padding: var(--space-4) var(--space-5);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: var(--shadow-xs);
+  font-size: 0.85rem;
 }
 .plan-meta #user-label {
   flex: 1 1 180px;
@@ -916,6 +1008,30 @@ textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3
   }
   .plan-features {
     font-size: 0.9rem;
+  }
+}
+@media (max-width: 760px) {
+  /* The account status bar stops being a pill on narrow screens and
+     becomes a plain full-width strip. */
+  .plan-meta {
+    margin: 0 auto var(--space-10);
+    border-radius: var(--radius-lg);
+    justify-content: flex-start;
+    gap: var(--space-2);
+  }
+  .plan-meta #user-label {
+    flex: 1 1 100%;
+  }
+  .plan-row {
+    /* Labels wrap; the value stays on its own line under the label
+       rather than squeezing the label into a narrow column. */
+    grid-template-columns: 1.1rem minmax(0, 1fr);
+    row-gap: 2px;
+    padding: 10px 0;
+  }
+  .plan-row .feat-value {
+    grid-column: 2;
+    text-align: left;
   }
 }
 
@@ -1315,39 +1431,3 @@ button, a, select, .toggle, .history-item {
    Under the Pro plan's feature list. Makes it explicit that one
    Pro subscription also unlocks the Chrome extension.
    ============================================================ */
-.plan-extension-note {
-  margin: var(--space-5) 0 0;
-}
-.plan-extension-link {
-  display: block;
-  padding: var(--space-4) var(--space-5);
-  text-decoration: none;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--bg-soft);
-  transition: border-color var(--transition-fast), background var(--transition-fast);
-}
-.plan-extension-link:hover {
-  border-color: var(--accent-2);
-  background: var(--accent-2-glow);
-}
-.plan-extension-title {
-  display: block;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: var(--space-1);
-}
-.plan-extension-text {
-  display: block;
-  font-size: 0.85rem;
-  line-height: 1.55;
-  color: var(--text-secondary);
-}
-.plan-extension-cta {
-  display: inline-block;
-  margin-top: var(--space-3);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--accent-2-text);
-}
