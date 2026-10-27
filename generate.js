@@ -214,7 +214,7 @@ function renderUsageNudge(used, limit) {
   if (state.tier === 'free' && !tier.fullHistory) {
     show(nudge);
     nudge.className = 'usage-nudge soft';
-    setText('usage-nudge-text', 'Pro adds full history, unlimited enhancements and ');
+    setText('usage-nudge-text', 'Pro adds full history, unlimited enhancements and A/B variants.');
     setText('usage-nudge-cta', 'See Pro');
     return;
   }
