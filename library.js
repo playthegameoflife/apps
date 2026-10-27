@@ -423,6 +423,8 @@
       state.cat = catParam;
     }
 
+    const qParam = params.get('q');
+    if (qParam) { state.q = qParam.toLowerCase(); if (search) search.value = qParam; }
     buildRail();
     if (catParam && catMeta[catParam] && railList) {
       const btn = railList.querySelector('.lib-rail-item[data-cat="' + catParam + '"]');
