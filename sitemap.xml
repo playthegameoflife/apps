@@ -1070,8 +1070,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/generations.html</loc>
+    <loc>https://promptgenerator.fyi/blog-postiz-rss-to-social-media-2026.html</loc>
+    <lastmod>2026-10-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
   </url>
 </urlset>
