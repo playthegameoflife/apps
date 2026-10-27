@@ -192,6 +192,9 @@
     const sbIn = $('sb-signin'), sbOut = $('sb-signout');
     if (sbIn) sbIn.classList.toggle('hidden', signedIn);
     if (sbOut) sbOut.classList.toggle('hidden', !signedIn);
+    // The top-bar Sign in button must also go away once you are signed in.
+    const sbTop = $('sb-signin-top');
+    if (sbTop) sbTop.classList.toggle('hidden', signedIn);
   }
   setInterval(mirrorAccount, 700);
 
