@@ -750,7 +750,7 @@ async function generate(variantStyle) {
           const meta = document.getElementById('output-meta');
           if (meta) meta.innerHTML = '<span id="score-badge" class="score-badge ' + sl.cls + '">' + sl.label + ' · ' + s + '/100</span>';
           const actions = document.getElementById('output-actions');
-          if (actions) actions.innerHTML = '<button class="btn btn-sm" data-act="copy-result">Copy result</button> <button class="btn btn-sm btn-ghost" data-act="refine">Refine</button>';
+          if (actions) actions.innerHTML = '<button class="btn btn-sm btn-ghost" data-act="refine">Refine</button>';
           state.lastOutput = full; state.lastPrompt = prompt;
           trackUsage(); saveHistoryEntry(prompt, full, style);
           renderUsage();
