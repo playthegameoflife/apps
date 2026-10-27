@@ -12,7 +12,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="stylesheet" href="/site.css?v=6">
   <link rel="stylesheet" href="/shell.css?v=1">
-  <link rel="stylesheet" href="/redesign.css?v=4">
+  <link rel="stylesheet" href="/redesign.css?v=8">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
@@ -61,7 +61,7 @@
     <!-- ===== SIDEBAR ===== -->
     <aside class="sidebar" id="sidebar">
       <div class="sb-brand">
-        <a class="sb-logo" href="/" aria-label="Prompt Helper home">PH</a>
+        <a class="sb-logo" href="/" aria-label="Prompt Helper home"><svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 12 L59 41 L88 50 L59 59 L50 88 L41 59 L12 50 L41 41 Z" fill="currentColor"/></svg></a>
         <span class="sb-brand-name">Prompt Helper</span>
         <button class="sb-collapse" id="sb-collapse" aria-label="Collapse sidebar" title="Collapse sidebar">‹</button>
       </div>
@@ -123,8 +123,11 @@
 
               <label class="gen-field-label" for="prompt-input">Your input</label>
               <textarea class="gen-input" id="prompt-input" placeholder="Describe what you want: 'write an email about my delayed order'" aria-label="Your prompt" inputmode="text" autocomplete="off" autocorrect="off" spellcheck="false"></textarea>
+              <p class="gen-hint" id="gen-hint">Plain words are fine. We add the structure.</p>
+              <div class="example-chips" id="example-chips" role="group" aria-label="Example ideas"></div>
+              <button type="button" class="gen-options-toggle" id="gen-options-toggle" aria-expanded="false" aria-controls="gen-toolbar">Options</button>
 
-              <div class="gen-toolbar">
+              <div class="gen-toolbar" id="gen-toolbar">
                 <div class="select-wrap">
                   <select id="style-select" aria-label="Enhancement style"></select>
                 </div>
@@ -363,6 +366,16 @@
           <div>
             <h4>Prompt Helper</h4>
             <p>Create, optimize, and explore prompts for ChatGPT, Claude, Gemini, Midjourney, Veo, and more.</p>
+          </div>
+          <div>
+            <h4>Prompt tools</h4>
+            <a href="/ai-image-prompt-generator.html">AI Image Prompt Generator</a>
+            <a href="/ai-video-prompt-generator.html">AI Video Prompt Generator</a>
+            <a href="/ai-code-prompt-generator.html">AI Code Prompt Generator</a>
+            <a href="/chatgpt-prompt-generator.html">ChatGPT Prompt Generator</a>
+            <a href="/claude-prompt-generator.html">Claude Prompt Generator</a>
+            <a href="/gemini-prompt-generator.html">Gemini Prompt Generator</a>
+            <a href="/ai-prompt-optimizer.html">AI Prompt Optimizer</a>
           </div>
           <div>
             <h4>Product</h4>

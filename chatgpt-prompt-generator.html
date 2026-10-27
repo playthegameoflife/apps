@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('phg_theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.setAttribute('data-theme', 'dark');
+      } catch (e) {}
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ChatGPT Prompt Generator: Turn Rough Ideas Into Clear Prompts | Prompt Helper</title>
+  <meta name="description" content="Write better ChatGPT prompts in seconds. Add a role, context, format and tone to any rough idea. Free to try, no sign-up needed.">
+  <link rel="canonical" href="https://promptgenerator.fyi/chatgpt-prompt-generator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ChatGPT Prompt Generator: Turn Rough Ideas Into Clear Prompts | Prompt Helper">
+  <meta property="og:description" content="Write better ChatGPT prompts in seconds. Add a role, context, format and tone to any rough idea. Free to try, no sign-up needed.">
+  <meta property="og:url" content="https://promptgenerator.fyi/chatgpt-prompt-generator.html">
+  <meta property="og:image" content="https://promptgenerator.fyi/og-phg.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@1,9..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css?v=7">
+  <link rel="stylesheet" href="/redesign.css?v=8">
+  <script src="/theme.js?v=1"></script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#FFFFFF">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is this an official OpenAI tool?", "acceptedAnswer": {"@type": "Answer", "text": "No. Prompt Helper is an independent tool. It writes prompts you can paste into ChatGPT."}}, {"@type": "Question", "name": "Does it work with other chatbots?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The output is plain text and works with other chat models too."}}, {"@type": "Question", "name": "Can I use it inside ChatGPT?", "acceptedAnswer": {"@type": "Answer", "text": "The Chrome extension adds an Improve button inside ChatGPT, Claude, Gemini, Grok and Perplexity on desktop Chrome."}}, {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "You can try it without signing in. Limits are shown on the pricing page."}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Prompt Helper", "item": "https://promptgenerator.fyi/"}, {"@type": "ListItem", "position": 2, "name": "ChatGPT Prompt Generator", "item": "https://promptgenerator.fyi/chatgpt-prompt-generator.html"}]}</script>
+</head>
+<body class="lp-body">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="nav">
+    <a class="brand" href="/" style="text-decoration:none">Prompt Helper</a>
+    <nav>
+      <a href="/">Generator</a>
+      <a href="/library.html">Library</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get Extension</a>
+      <span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span>
+    </nav>
+  </div>
+  <main id="main" class="container lp-container">
+    <header class="lp-hero">
+      <p class="lp-eyebrow">ChatGPT Prompt Generator</p>
+      <h1>Turn a rough idea into a ChatGPT prompt that gets a <em>useful answer.</em></h1>
+      <p class="lp-lede">ChatGPT answers what you ask, so vague questions get vague answers. Prompt Helper adds the role, context, format and tone that make the reply useful the first time.</p>
+      <div class="lp-cta-row">
+        <a class="btn btn-warn btn-lg lp-btn" href="/?mode=TEXT&amp;target=ChatGPT&amp;p=write%20an%20email%20about%20my%20delayed%20order">Try it free</a>
+        <a class="btn btn-lg lp-btn lp-btn-ghost" href="/library.html">Browse templates</a>
+      </div>
+      <p class="lp-fine">No sign-up needed to try. Limits are on the <a href="/pricing.html">pricing page</a>.</p>
+    </header>
+
+    <section class="lp-compare" aria-labelledby="lp-compare-h">
+      <h2 id="lp-compare-h" class="lp-h2">See the difference</h2>
+      <div class="lp-compare-grid">
+        <div class="lp-card">
+          <div class="lp-tag">Your rough idea</div>
+          <p class="lp-rough">write an email about my delayed order</p>
+        </div>
+        <div class="lp-arrow" aria-hidden="true">&rarr;</div>
+        <div class="lp-card lp-card-out">
+          <div class="lp-tag lp-tag-accent">Enhanced prompt (example)</div>
+          <pre class="lp-out">Role: customer support writer for an online store.
+Task: write a polite email asking about a delayed order.
+Context: the order was placed two weeks ago, the tracking has not updated for five days, and the customer wants an update.
+Format: a subject line plus three short paragraphs.
+Tone: warm, direct, accountable.
+Success: the reader knows the new delivery date and the next step.</pre>
+        </div>
+      </div>
+      <p class="lp-note">An illustrative example. Your result will depend on what you type.</p>
+      <p class="lp-center"><a class="btn btn-warn lp-btn" href="/?mode=TEXT&amp;target=ChatGPT&amp;p=write%20an%20email%20about%20my%20delayed%20order">Try this example</a></p>
+    </section>
+
+    <section aria-labelledby="lp-gets-h">
+      <h2 id="lp-gets-h" class="lp-h2">What you get</h2>
+      <ul class="lp-gets"><li class="lp-get"><h3>Role, context and task</h3><p>ChatGPT knows who it is writing as, for whom and why.</p></li><li class="lp-get"><h3>Format and tone</h3><p>You decide the shape of the answer before it is written.</p></li><li class="lp-get"><h3>A clear success measure</h3><p>The prompt says what a good answer looks like, so it is easier to judge.</p></li></ul>
+    </section>
+
+    <section aria-labelledby="lp-how-h">
+      <h2 id="lp-how-h" class="lp-h2">How it works</h2>
+      <ol class="lp-steps">
+        <li><span class="lp-step-n">1</span><div><h3>Describe your idea</h3><p>Type it the way you would say it. Rough is fine.</p></div></li>
+        <li><span class="lp-step-n">2</span><div><h3>Generate</h3><p>Prompt Helper adds the structure and details the AI tool needs.</p></div></li>
+        <li><span class="lp-step-n">3</span><div><h3>Copy and use</h3><p>Refine it if you like, then paste it into your AI tool.</p></div></li>
+      </ol>
+      <p class="lp-center"><a class="btn btn-warn btn-lg lp-btn" href="/?mode=TEXT&amp;target=ChatGPT">Open the generator</a></p>
+    </section>
+
+    <section class="faq-section" aria-labelledby="lp-faq-h">
+      <h2 id="lp-faq-h" class="lp-h2">Questions</h2>
+      <div class="faq-list lp-faq"><details class="faq-item"><summary><span class="faq-q">Is this an official OpenAI tool?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-a"><p>No. Prompt Helper is an independent tool. It writes prompts you can paste into ChatGPT.</p></div></details><details class="faq-item"><summary><span class="faq-q">Does it work with other chatbots?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-a"><p>Yes. The output is plain text and works with other chat models too.</p></div></details><details class="faq-item"><summary><span class="faq-q">Can I use it inside ChatGPT?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-a"><p>The Chrome extension adds an Improve button inside ChatGPT, Claude, Gemini, Grok and Perplexity on desktop Chrome.</p></div></details><details class="faq-item"><summary><span class="faq-q">Is it free?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-a"><p>You can try it without signing in. Limits are shown on the pricing page.</p></div></details></div>
+    </section>
+
+    <section aria-labelledby="lp-more-h">
+      <h2 id="lp-more-h" class="lp-h2">More prompt tools</h2>
+      <div class="lp-related"><a class="lp-rel" href="/ai-image-prompt-generator.html">AI Image Prompt Generator</a><a class="lp-rel" href="/ai-video-prompt-generator.html">AI Video Prompt Generator</a><a class="lp-rel" href="/ai-code-prompt-generator.html">AI Code Prompt Generator</a><a class="lp-rel" href="/claude-prompt-generator.html">Claude Prompt Generator</a><a class="lp-rel" href="/gemini-prompt-generator.html">Gemini Prompt Generator</a><a class="lp-rel" href="/ai-prompt-optimizer.html">AI Prompt Optimizer</a><a class="lp-rel" href="/library.html">Prompt Library</a><a class="lp-rel" href="/blog.html">Prompt Guides</a></div>
+    </section>
+  </main>
+  <footer>© 2026 Prompt Helper. All rights reserved. · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/pricing.html">Pricing</a> · <a href="/generations.html">My Generations</a></footer>
+  <script>if (window.PHGTheme) window.PHGTheme.mount('#nav-actions', 'inline');</script>
+</body>
+</html>

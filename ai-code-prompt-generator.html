@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('phg_theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.setAttribute('data-theme', 'dark');
+      } catch (e) {}
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AI Code Prompt Generator for Clearer Requests to Coding Models | Prompt Helper</title>
+  <meta name="description" content="Turn a vague coding request into a precise prompt with inputs, outputs, constraints and edge cases. Free to try, no sign-up needed.">
+  <link rel="canonical" href="https://promptgenerator.fyi/ai-code-prompt-generator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Code Prompt Generator for Clearer Requests to Coding Models | Prompt Helper">
+  <meta property="og:description" content="Turn a vague coding request into a precise prompt with inputs, outputs, constraints and edge cases. Free to try, no sign-up needed.">
+  <meta property="og:url" content="https://promptgenerator.fyi/ai-code-prompt-generator.html">
+  <meta property="og:image" content="https://promptgenerator.fyi/og-phg.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@1,9..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css?v=7">
+  <link rel="stylesheet" href="/redesign.css?v=8">
+  <script src="/theme.js?v=1"></script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#FFFFFF">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which languages does it support?", "acceptedAnswer": {"@type": "Answer", "text": "You describe the language in your request, and the generator keeps it in the prompt. It is not limited to one language."}}, {"@type": "Question", "name": "Does it write the code for me?", "acceptedAnswer": {"@type": "Answer", "text": "No. It writes a better prompt for you to give to a coding model. You paste the result into the tool you already use."}}, {"@type": "Question", "name": "Can I add my own context?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use Memory to keep notes about your stack, and edit the prompt before you copy it."}}, {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "You can try it without signing in. Limits are shown on the pricing page."}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Prompt Helper", "item": "https://promptgenerator.fyi/"}, {"@type": "ListItem", "position": 2, "name": "AI Code Prompt Generator", "item": "https://promptgenerator.fyi/ai-code-prompt-generator.html"}]}</script>
+</head>
+<body class="lp-body">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="nav">
+    <a class="brand" href="/" style="text-decoration:none">Prompt Helper</a>
+    <nav>
+      <a href="/">Generator</a>
+      <a href="/library.html">Library</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get Extension</a>
+      <span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span>
+    </nav>
+  </div>
+  <main id="main" class="container lp-container">
+    <header class="lp-hero">
+      <p class="lp-eyebrow">AI Code Prompt Generator</p>
+      <h1>Turn a vague coding request into a prompt that gets <em>working code.</em></h1>
+      <p class="lp-lede">Coding models do best with specifics. Prompt Helper adds the language and framework, inputs and outputs, constraints and edge cases that a good request needs.</p>
+      <div class="lp-cta-row">
+        <a class="btn btn-warn btn-lg lp-btn" href="/?mode=CODE&amp;p=a%20function%20that%20checks%20if%20an%20email%20is%20valid">Try it free</a>
+        <a class="btn btn-lg lp-btn lp-btn-ghost" href="/library.html">Browse templates</a>
+      </div>
+      <p class="lp-fine">No sign-up needed to try. Limits are on the <a href="/pricing.html">pricing page</a>.</p>
+    </header>
+
+    <section class="lp-compare" aria-labelledby="lp-compare-h">
+      <h2 id="lp-compare-h" class="lp-h2">See the difference</h2>
+      <div class="lp-compare-grid">
+        <div class="lp-card">
+          <div class="lp-tag">Your rough idea</div>
+          <p class="lp-rough">a function that checks if an email is valid</p>
+        </div>
+        <div class="lp-arrow" aria-hidden="true">&rarr;</div>
+        <div class="lp-card lp-card-out">
+          <div class="lp-tag lp-tag-accent">Enhanced prompt (example)</div>
+          <pre class="lp-out">Task: write a function that validates an email address.
+Language: JavaScript (ES2022), no external libraries.
+Input: a single string. Output: a boolean.
+Rules: require one @, a non-empty local part, and a domain with at least one dot; reject spaces.
+Edge cases: empty string, leading or trailing spaces, multiple @ signs, very long input.
+Style: small, readable function with comments only where the logic is not obvious.
+Also provide: five test cases (three valid, two invalid) with expected results.</pre>
+        </div>
+      </div>
+      <p class="lp-note">An illustrative example. Your result will depend on what you type.</p>
+      <p class="lp-center"><a class="btn btn-warn lp-btn" href="/?mode=CODE&amp;p=a%20function%20that%20checks%20if%20an%20email%20is%20valid">Try this example</a></p>
+    </section>
+
+    <section aria-labelledby="lp-gets-h">
+      <h2 id="lp-gets-h" class="lp-h2">What you get</h2>
+      <ul class="lp-gets"><li class="lp-get"><h3>Inputs, outputs and types</h3><p>The shape of the data going in and out is stated, not guessed.</p></li><li class="lp-get"><h3>Constraints and edge cases</h3><p>Libraries, versions and tricky inputs are listed so the answer handles them.</p></li><li class="lp-get"><h3>Tests requested up front</h3><p>Asking for examples and test cases makes the result easier to check.</p></li></ul>
+    </section>
+
+    <section aria-labelledby="lp-how-h">
+      <h2 id="lp-how-h" class="lp-h2">How it works</h2>
+      <ol class="lp-steps">
+        <li><span class="lp-step-n">1</span><div><h3>Describe your idea</h3><p>Type it the way you would say it. Rough is fine.</p></div></li>
+        <li><span class="lp-step-n">2</span><div><h3>Generate</h3><p>Prompt Helper adds the structure and details the AI tool needs.</p></div></li>
+        <li><span class="lp-step-n">3</span><div><h3>Copy and use</h3><p>Refine it if you like, then paste it into your AI tool.</p></div></li>
+      </ol>
+      <p class="lp-center"><a class="btn btn-warn btn-lg lp-btn" href="/?mode=CODE">Open the generator</a></p>
+    </section>
+
+    <section class="faq-section" aria-labelledby="lp-faq-h">
+      <h2 id="lp-faq-h" class="lp-h2">Questions</h2>
+      <div class="faq-list lp-faq"><details class="faq-item"><summary><span class="faq-q">Which languages does it support?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-a"><p>You describe the language in your request, and the generator keeps it in the prompt. It is not limited to one language.</p></div></details><details class="faq-item"><summary><span class="faq-q">Does it write the code for me?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-a"><p>No. It writes a better prompt for you to give to a coding model. You paste the result into the tool you already use.</p></div></details><details class="faq-item"><summary><span class="faq-q">Can I add my own context?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-a"><p>Yes. Use Memory to keep notes about your stack, and edit the prompt before you copy it.</p></div></details><details class="faq-item"><summary><span class="faq-q">Is it free?</span><span class="faq-icon" aria-hidden="true"></span></summary><div class="faq-a"><p>You can try it without signing in. Limits are shown on the pricing page.</p></div></details></div>
+    </section>
+
+    <section aria-labelledby="lp-more-h">
+      <h2 id="lp-more-h" class="lp-h2">More prompt tools</h2>
+      <div class="lp-related"><a class="lp-rel" href="/ai-image-prompt-generator.html">AI Image Prompt Generator</a><a class="lp-rel" href="/ai-video-prompt-generator.html">AI Video Prompt Generator</a><a class="lp-rel" href="/chatgpt-prompt-generator.html">ChatGPT Prompt Generator</a><a class="lp-rel" href="/claude-prompt-generator.html">Claude Prompt Generator</a><a class="lp-rel" href="/gemini-prompt-generator.html">Gemini Prompt Generator</a><a class="lp-rel" href="/ai-prompt-optimizer.html">AI Prompt Optimizer</a><a class="lp-rel" href="/library.html">Prompt Library</a><a class="lp-rel" href="/blog.html">Prompt Guides</a></div>
+    </section>
+  </main>
+  <footer>© 2026 Prompt Helper. All rights reserved. · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/pricing.html">Pricing</a> · <a href="/generations.html">My Generations</a></footer>
+  <script>if (window.PHGTheme) window.PHGTheme.mount('#nav-actions', 'inline');</script>
+</body>
+</html>

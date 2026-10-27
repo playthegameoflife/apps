@@ -425,6 +425,7 @@ function populateModes() {
       populateStyles(state.mode);
       const m = MODES.find(x => x.key === state.mode);
       if (m) $('prompt-input').placeholder = m.placeholder;
+      renderExampleChips();
     });
   });
 }
@@ -726,6 +727,7 @@ async function generate(variantStyle) {
   out.textContent = '';
   out.classList.remove('empty');
   out.classList.add('has-content');
+  setOutputLoading(true);
   showAIMessage();
   const meta = document.getElementById('output-meta');
   if (meta) meta.innerHTML = '';
@@ -736,7 +738,7 @@ async function generate(variantStyle) {
     let started = false;
     streamEnhance(prompt, buildSystemInstruction(state.mode, style, $('target-select').value, state.memory.notes),
       (full) => {
-        if (!started) { started = true; outputEl.classList.remove('empty'); }
+        if (!started) { started = true; outputEl.classList.remove('empty'); setOutputLoading(false); }
         outputEl.textContent = full;
         const cc = $('char-count'); if (cc && outputEl === $('output')) cc.textContent = `(${full.length} chars)`;
       },
@@ -755,11 +757,14 @@ async function generate(variantStyle) {
           // been consumed. This keeps the meter honest across devices.
           refreshUsage();
           setText('gen-status', 'Done');
+          setOutputLoading(false);
           renderAfterResult();
+          revealOutputOnPhone();
         }
         resolve(full);
       },
       (e) => {
+        setOutputLoading(false);
         // A quota rejection from the server is a normal state, not a crash:
         // show the limit with a real next action instead of a raw error.
         if (e && (e.status === 429 || e.status === 402 || e.quota)) {
@@ -826,12 +831,12 @@ async function refine() {
 function copyOutput() {
   const text = $('output').textContent;
   if (!text || $('output').classList.contains('empty')) return;
-  navigator.clipboard.writeText(text).then(() => { setText('copy-msg', 'Copied!'); setTimeout(() => setText('copy-msg',''), 1500); }).catch(() => setText('copy-msg','Copy failed'));
+  navigator.clipboard.writeText(text).then(() => { showToast('Copied to clipboard'); setText('copy-msg', 'Copied!'); setTimeout(() => setText('copy-msg',''), 1500); }).catch(() => setText('copy-msg','Copy failed'));
 }
 function shareLink() {
   const prompt = encodeURIComponent($('prompt-input').value.trim());
   const url = location.origin + '/?p=' + prompt;
-  navigator.clipboard.writeText(url).then(() => { setText('copy-msg', 'Link copied!'); setTimeout(() => setText('copy-msg',''), 1500); }).catch(() => setText('copy-msg','Copy failed'));
+  navigator.clipboard.writeText(url).then(() => { showToast('Link copied'); setText('copy-msg', 'Link copied!'); setTimeout(() => setText('copy-msg',''), 1500); }).catch(() => setText('copy-msg','Copy failed'));
 }
 
 // After a successful result: one short, honest next step, based on the plan.
@@ -865,6 +870,64 @@ function initAbUpsell() {
     if (t.disabled) { note.classList.remove('hidden'); }
   });
   t.addEventListener('change', () => { if (!t.disabled) note.classList.add('hidden'); });
+}
+
+// ---- UX polish: examples, options toggle, toast, loading state ----
+const EXAMPLES = {
+  TEXT_ENHANCEMENT: ['write an email about my delayed order', 'plan a 3-day trip to Lisbon', 'explain taxes to a teenager'],
+  CODE_ENHANCEMENT: ['a function that checks if an email is valid', 'sort a list of users by signup date', 'debug a slow database query'],
+  IMAGE_ENHANCEMENT: ['a cozy coffee shop on a rainy day', 'a futuristic city at sunset', 'a golden retriever astronaut'],
+  VIDEO_ENHANCEMENT: ['a drone flying over a forest at sunrise', 'a chef plating a dessert', 'a skateboarder at night in the city'],
+};
+function renderExampleChips() {
+  const box = $('example-chips');
+  if (!box) return;
+  const inputEl = $('prompt-input');
+  if (inputEl && !inputEl.dataset.chipsBound) {
+    inputEl.dataset.chipsBound = '1';
+    inputEl.addEventListener('input', () => { box.hidden = inputEl.value.trim().length > 0; });
+  }
+  box.hidden = !!(inputEl && inputEl.value.trim());
+  const list = EXAMPLES[state.mode] || EXAMPLES.TEXT_ENHANCEMENT;
+  box.innerHTML = '';
+  list.forEach((t) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'example-chip'; b.textContent = t;
+    b.addEventListener('click', () => {
+      const input = $('prompt-input');
+      input.value = t; input.focus({ preventScroll: true });
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    box.appendChild(b);
+  });
+}
+function initOptionsToggle() {
+  const btn = $('gen-options-toggle'); const bar = $('gen-toolbar');
+  if (!btn || !bar) return;
+  btn.addEventListener('click', () => {
+    const open = bar.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide options' : 'Options';
+  });
+}
+let toastTimer = null;
+function showToast(msg) {
+  let t = document.getElementById('phg-toast');
+  if (!t) { t = document.createElement('div'); t.id = 'phg-toast'; t.className = 'phg-toast'; t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); document.body.appendChild(t); }
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+function setOutputLoading(on) {
+  const out = $('output'); if (!out) return;
+  out.classList.toggle('is-loading', !!on);
+}
+function revealOutputOnPhone() {
+  try {
+    if (!window.matchMedia('(max-width: 860px)').matches) return;
+    const out = $('output'); if (!out) return;
+    const r = out.getBoundingClientRect();
+    if (r.top > window.innerHeight * 0.6 || r.bottom < 0) out.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } catch (e) {}
 }
 
 // ---- stripe ----
@@ -905,6 +968,7 @@ async function portal() {
 document.addEventListener('DOMContentLoaded', async () => {
   loadState();
   initAbUpsell();
+  initOptionsToggle();
   const isGeneratorPage = !!document.getElementById('mode-tabs');
 
   // load prompt from share link (only on generator page)
@@ -931,6 +995,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (isGeneratorPage) {
     populateModes();
+    renderExampleChips();
     populateStyles(state.mode);
     const m = MODES.find(x => x.key === state.mode);
     if (m) $('prompt-input').placeholder = m.placeholder;
