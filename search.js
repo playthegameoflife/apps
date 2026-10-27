@@ -1,12 +1,22 @@
 /* Top-bar search dropdown. Results come from /search-index.json (built by
-   tools/build_search_index.py): sample prompts, tools and guides. The prompt
-   library is searched on its own page because its catalog is served per tier. */
+   tools/build_search_index.py): sample prompts, tools and guides, plus library
+   prompt names fetched from the backend for the visitor's plan. */
 (function () {
   'use strict';
   var input = document.getElementById('tb-search-input');
   if (!input) return;
   var wrap = input.closest('.tb-search');
+  var BACKEND = 'https://api-clyep56cdq-uc.a.run.app';
   var index = null, loading = null, active = -1, rows = [];
+  function headers() {
+    var h = {};
+    try {
+      var t = window.PHGAuth && window.PHGAuth.getAccessToken ? window.PHGAuth.getAccessToken() : null;
+      if (t) h['x-phg-access-token'] = t;
+      var a = localStorage.getItem('phg_anon_id'); if (a) h['x-phg-anon-id'] = a;
+    } catch (e) {}
+    return h;
+  }
   var box = document.createElement('div');
   box.className = 'tb-results'; box.id = 'tb-results'; box.setAttribute('role', 'listbox'); box.hidden = true;
   wrap.appendChild(box);
@@ -16,8 +26,17 @@
 
   function load() {
     if (index || loading) return loading;
-    loading = fetch('/search-index.json').then(function (r) { return r.json(); })
-      .then(function (d) { index = d; }).catch(function () { index = []; });
+    var base = fetch('/search-index.json').then(function (r) { return r.json(); }).catch(function () { return []; });
+    // The library catalog is served per plan by the backend. Names only; if the
+    // request fails the dropdown simply works without library prompts.
+    var lib = fetch(BACKEND + '/library', { headers: headers() })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.items) return [];
+        var cats = {}; (d.cats || []).forEach(function (c) { cats[c.id] = c.name; });
+        return d.items.map(function (it) { return { k: 'lib', t: it.n, u: '/library.html?q=' + encodeURIComponent(it.n), d: cats[it.c] || '' }; });
+      }).catch(function () { return []; });
+    loading = Promise.all([base, lib]).then(function (r) { index = r[0].concat(r[1]); });
     return loading;
   }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -39,22 +58,22 @@
       if (ok) scored.push({ it: it, s: s });
     });
     scored.sort(function (a, b) { return b.s - a.s; });
-    var groups = { tool: [], prompt: [], guide: [] }, caps = { tool: 3, prompt: 4, guide: 5 };
+    var groups = { tool: [], lib: [], prompt: [], guide: [] }, caps = { tool: 3, lib: 5, prompt: 3, guide: 4 };
     scored.forEach(function (x) { var g = groups[x.it.k]; if (g.length < caps[x.it.k]) g.push(x.it); });
     return { words: words, groups: groups };
   }
-  var LABEL = { tool: 'Tools', prompt: 'Prompts', guide: 'Guides' };
+  var LABEL = { tool: 'Tools', lib: 'Library prompts', prompt: 'Examples', guide: 'Guides' };
   function render() {
     var q = input.value.trim();
     rows = []; active = -1;
     if (!q) { close(); return; }
     var res = search(q), html = '';
-    ['tool', 'prompt', 'guide'].forEach(function (k) {
+    ['tool', 'lib', 'prompt', 'guide'].forEach(function (k) {
       var g = res.groups[k]; if (!g.length) return;
       html += '<div class="tb-res-head">' + LABEL[k] + '</div>';
       g.forEach(function (it) {
         rows.push(it.u);
-        html += '<a class="tb-res" role="option" id="tb-res-' + (rows.length - 1) + '" href="' + esc(it.u) + '"><span class="tb-res-t">' + mark(it.t, res.words) + '</span>' + (it.d && k !== 'guide' ? '<span class="tb-res-d">' + esc(it.d) + '</span>' : '') + '</a>';
+        html += '<a class="tb-res" role="option" id="tb-res-' + (rows.length - 1) + '" href="' + esc(it.u) + '"><span class="tb-res-t">' + mark(it.t, res.words) + '</span>' + (it.d && k !== 'guide' && k !== 'lib' ? '<span class="tb-res-d">' + esc(it.d) + '</span>' : '') + '</a>';
       });
     });
     var enc = encodeURIComponent(q);
