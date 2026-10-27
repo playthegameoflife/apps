@@ -731,3 +731,19 @@ html[data-theme="dark"] { --muted-light: #9A988F; }
   .nav nav a, .nav nav a.cta, .theme-toggle, .nav .brand { min-height: 44px; display: inline-flex; align-items: center; }
   .theme-toggle { min-width: 44px; justify-content: center; }
 }
+
+/* ===== Compact account area (one strip + one link; Memory lives in Options) ===== */
+.rail.rail-compact { display: flex; flex-direction: column; gap: 10px; max-width: 720px; margin: 0 auto; }
+.acct-strip { padding: 14px 16px; }
+.acct-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.acct-who { display: flex; align-items: center; gap: 8px; min-width: 0; overflow-wrap: anywhere; }
+.acct-strip .usage-bar { margin-top: 6px; }
+.acct-actions { margin-top: 10px; }
+.acct-actions:not(:has(#portal-btn:not(.hidden))) #upgrade-btn { display: none; }
+body.near-limit .acct-actions #upgrade-btn:not(.hidden) { display: inline-flex; }
+.acct-actions:not(:has(*:not(.hidden):not(#upgrade-msg))) { display: none; }
+body.near-limit .acct-actions { display: block; }
+.rail-link { display: flex; justify-content: space-between; align-items: center; min-height: 48px; padding: 0 16px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-card); color: inherit; text-decoration: none; font-weight: 600; }
+.rail-link:hover { border-color: var(--border-strong); }
+.gen-memory { margin-top: 14px; width: 100%; }
+.gen-memory .memory-box { width: 100%; }

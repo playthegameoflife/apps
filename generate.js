@@ -135,6 +135,7 @@ function renderUsage() {
   const numericLimit = (limit === '∞') ? Infinity : limit;
   const pct = numericLimit === Infinity ? 100 : Math.min(100, (cur / numericLimit) * 100);
   const f = $('usage-fill'); if (f) f.style.width = pct + '%';
+  document.body.classList.toggle('near-limit', numericLimit !== Infinity && (numericLimit - cur) <= 1);
   renderUsageNudge(cur, numericLimit);
   applyQuotaGate(cur, numericLimit);
 }

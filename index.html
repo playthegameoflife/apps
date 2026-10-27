@@ -13,7 +13,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="stylesheet" href="/site.css?v=6">
   <link rel="stylesheet" href="/shell.css?v=1">
-  <link rel="stylesheet" href="/redesign.css?v=8">
+  <link rel="stylesheet" href="/redesign.css?v=9">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
@@ -155,7 +155,18 @@
                           aria-label="What is Memory?"
                           data-help="Adds your own notes and context to every prompt, so the AI knows about your product, audience and tone. Stored only in this browser.">?</button>
                 </label>
+              
+            <div class="gen-memory">
+              <div class="gen-field-label">Memory</div>
+              <p class="rail-note" style="margin-bottom:var(--space-2)">Tell the generator how you like your prompts.</p>
+              <textarea id="memory-input" class="memory-box" style="min-height:78px" placeholder="e.g. Concise, technical, always include an output format." aria-label="Memory notes"></textarea>
+              <div class="row" style="margin-top:var(--space-2)">
+                <button id="save-memory-btn" class="btn btn-sm">Save memory</button>
+                <span id="memory-msg" class="muted" aria-live="polite"></span>
               </div>
+            </div>
+
+</div>
 
               <div id="ab-upsell" class="after-result hidden" role="status">
                 <p><strong>A/B variants</strong> write two versions of your prompt so you can pick the stronger one. Included with Pro.</p>
@@ -195,16 +206,14 @@
           </div>
 
           <!-- RAIL -->
-          <aside class="rail">
-            <div class="rail-card">
-              <h3>Account</h3>
-              <div class="auth-row" style="margin-bottom:var(--space-3)">
-                <button id="signin-btn" class="btn btn-sm">Sign in with Google</button>
-                <button id="signout-btn" class="btn btn-sm hidden">Sign out</button>
-              </div>
-              <div class="rail-row" style="margin-bottom:var(--space-2)">
-                <span class="muted" id="user-label">Guest mode</span>
-                <span id="plan-pill" class="status-pill free">Free</span>
+          <aside class="rail rail-compact">
+            <div class="rail-card acct-strip">
+              <div class="acct-top">
+                <div class="acct-who"><span class="muted" id="user-label">Guest mode</span> <span id="plan-pill" class="status-pill free">Free</span></div>
+                <div class="auth-row">
+                  <button id="signin-btn" class="btn btn-sm">Sign in with Google</button>
+                  <button id="signout-btn" class="btn btn-sm hidden">Sign out</button>
+                </div>
               </div>
               <div class="muted" id="usage-label" style="font-size:0.78rem">Enhancements this week: 0 / 5</div>
               <div class="usage-bar" style="max-width:none"><div id="usage-fill" style="width:0%"></div></div>
@@ -212,29 +221,14 @@
                 <span id="usage-nudge-text"></span>
                 <button id="usage-nudge-cta" class="btn btn-sm btn-warn" type="button">Sign in for free</button>
               </div>
-              <div style="margin-top:var(--space-3)">
+              <div class="acct-actions">
                 <button id="upgrade-btn" class="btn btn-warn btn-sm">Upgrade to Pro — $19.99/mo</button>
                 <button id="portal-btn" class="btn hidden btn-sm">Manage Subscription</button>
                 <span id="upgrade-msg" class="muted" aria-live="polite"></span>
               </div>
             </div>
-
-            <div class="rail-card">
-              <h3>Memory</h3>
-              <p class="rail-note" style="margin-bottom:var(--space-2)">Tell the generator how you like your prompts.</p>
-              <textarea id="memory-input" class="memory-box" style="min-height:78px" placeholder="e.g. Concise, technical, always include an output format." aria-label="Memory notes"></textarea>
-              <div class="row" style="margin-top:var(--space-2)">
-                <button id="save-memory-btn" class="btn btn-sm">Save memory</button>
-                <span id="memory-msg" class="muted" aria-live="polite"></span>
-              </div>
-            </div>
-
-            <div class="rail-card">
-              <h3>My Generations</h3>
-              <p class="rail-note" style="margin-bottom:var(--space-3)">Every prompt you've created, grouped by day and searchable.</p>
-              <a href="/generations.html" class="btn btn-sm btn-block">Open My Generations</a>
-              <div id="auth-msg" class="muted" style="margin-top:var(--space-2)"></div>
-            </div>
+            <a href="/generations.html" class="rail-link"><span>My Generations</span><span aria-hidden="true">→</span></a>
+            <div id="auth-msg" class="muted"></div>
           </aside>
         </div>
 
