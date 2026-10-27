@@ -705,8 +705,8 @@ async function generate(variantStyle) {
   const btn = $('generate-btn');
   btn.disabled = true;
   btn.dataset.busy = '1';
-  btn.innerHTML = '<span class="spinner"></span>';
-  setText('gen-status', 'Streaming…');
+  btn.innerHTML = '<span class="spinner spinner-btn" aria-hidden="true"></span> Generating…';
+  setText('gen-status', 'Writing your prompt…');
   const sys = buildSystemInstruction(state.mode, variantStyle || state.style, $('target-select').value, state.memory.notes);
   state.refineMode = false;
 

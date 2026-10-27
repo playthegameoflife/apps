@@ -803,3 +803,9 @@ body.near-limit .acct-actions { display: block; }
 .mode-links ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 .mode-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--border-strong, var(--border)); border-radius: 999px; background: var(--bg-card); color: inherit; text-decoration: none; font-size: 0.9rem; font-weight: 500; }
 .mode-links a:hover { border-color: var(--accent-2); }
+
+/* Generate button while working: visible spinner + label, button stays at full strength */
+.spinner.spinner-btn { width: 18px; height: 18px; margin-right: 8px; border: 2.5px solid currentColor; border-top-color: transparent; opacity: .95; }
+#generate-btn:disabled[data-busy="1"] { opacity: 1; cursor: progress; }
+#gen-status { font-size: 0.875rem; }
+@media (prefers-reduced-motion: reduce) { .spinner.spinner-btn { animation-duration: 1.6s; } }
