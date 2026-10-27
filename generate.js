@@ -371,14 +371,14 @@ function renderPlan() {
     if (badge) { badge.textContent = 'Pro'; badge.style.background = ''; badge.style.color = ''; }
     hide($('upgrade-btn')); show($('portal-btn'));
   } else {
-    if (pill) { pill.textContent = 'Free'; pill.className = 'status-pill free'; }
+    if (pill) { pill.textContent = state.user ? 'Free' : 'Guest'; pill.className = 'status-pill free'; }
     if (badge) { badge.textContent = 'Free'; badge.style.background = ''; badge.style.color = ''; }
     show($('upgrade-btn')); hide($('portal-btn'));
   }
   if (state.user) {
     setText('user-label', state.user.displayName || state.user.email || 'Signed in');
     { const ul = $('user-label'); if (ul) ul.title = state.user.email || ''; }
-    show($('signout-btn')); hide($('signin-btn'));
+    show($('signout-btn')); hide($('signin-btn')); hide($('plan-meta-signin'));
   } else {
     // The old copy said "Not signed in - using guest mode", which
     // described the visitor's account state inside the Free plan card
@@ -386,7 +386,7 @@ function renderPlan() {
     // a price list. The plan card now says what the plan includes;
     // the sign-in control below carries the account state on its own.
     setText('user-label', 'Sign in to get 10 enhancements a week');
-    show($('signin-btn')); hide($('signout-btn'));
+    show($('signin-btn')); hide($('signout-btn')); show($('plan-meta-signin'));
   }
 }
 function renderMemory() {
@@ -1105,6 +1105,8 @@ document.addEventListener('click', function (e) {
       var m = document.getElementById('copy-msg');
       if (m) { m.textContent = 'Copied!'; setTimeout(function () { m.textContent = ''; }, 1500); }
     });
+  } else if (b.dataset.act === 'signin') {
+    signIn();
   } else if (b.dataset.act === 'refine' && out && inp) {
     inp.value = out.textContent; inp.focus();
   }
