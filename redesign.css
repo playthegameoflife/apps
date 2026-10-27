@@ -451,3 +451,72 @@ html[data-theme="dark"] {
   .hero-pill { font-size: 0.85rem; padding: 8px 16px; }
   .gen-submit { width: 100%; justify-content: center; }
 }
+
+/* ============================================================
+   PRICING PAGE (top-nav layout, no app shell)
+   ============================================================ */
+body:has(.pricing-container) { background: var(--bg); }
+body:has(.pricing-container)::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 560px; z-index: 0;
+  background: radial-gradient(900px 420px at 50% -60px, var(--glow-1), transparent 70%);
+  pointer-events: none;
+}
+.pricing-container { position: relative; z-index: 1; }
+.nav { background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom-color: var(--border); }
+.nav .brand { font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+.nav nav a { border-radius: 999px; padding: 8px 14px; }
+.nav nav a.cta { border-radius: 999px; padding: 8px 18px; }
+.pricing-container .page-title {
+  font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.045em; line-height: 1.04;
+  font-size: clamp(2.4rem, 5.4vw, 3.75rem);
+}
+.pricing-container .page-title em {
+  font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 500;
+  color: var(--accent-2); letter-spacing: -0.02em;
+}
+.pricing-container .page-sub { font-size: 1.125rem; }
+.plan-card { border-radius: 28px; box-shadow: var(--shadow-xs); background: var(--bg-card); }
+.plan-card-pro {
+  border: 1.5px solid var(--accent-2); box-shadow: var(--shadow-hero);
+  background: var(--bg-card);
+}
+.plan-badge { background: var(--pill-bg); }
+.plan-badge-recommended { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.plan-card .btn-primary, .plan-card .btn { border-radius: 999px; min-height: 48px; }
+.plan-card-pro .btn-primary { background: var(--accent-2); border-color: var(--accent-2); color: #fff; }
+.plan-card-pro .btn-primary:hover { background: var(--accent-2-dark); border-color: var(--accent-2-dark); }
+.plan-meta { border-radius: 999px; }
+.faq-eyebrow { background: var(--pill-bg); border-radius: 999px; }
+.faq-item { border-radius: 16px; }
+.faq-item[open] .faq-icon { background: var(--accent); }
+
+/* ============================================================
+   BLOG INDEX (own inline tokens: override after they load)
+   ============================================================ */
+:root {
+  --surface: #FFFFFF; --surface-2: #F6F1EA; --line: #ECE6DD; --glow: #FFE6D4;
+  --accent-soft: #F6F1EA;
+}
+html[data-theme="dark"] { --surface: #1D1D1B; --surface-2: #242422; --line: #2F2F2C; --glow: rgba(251,146,60,0.12); --accent-soft: rgba(237,235,230,0.08); }
+.blog-hero { background: radial-gradient(900px 420px at 50% -80px, var(--glow), transparent 70%), var(--bg); border-bottom: 0; }
+.blog-hero::after { display: none; }
+.blog-hero h1 {
+  background: none; -webkit-text-fill-color: currentColor; color: var(--text);
+  font-weight: 800; letter-spacing: -0.045em;
+}
+.blog-eyebrow { background: var(--pill-bg, #F6F1EA); color: var(--accent-2-dark, #C2410C); border-color: transparent; }
+.blog-stat { border-radius: 999px; box-shadow: none; background: var(--bg-card, #fff); }
+.blog-controls-inner { border-radius: 28px; box-shadow: var(--shadow-hero); }
+.blog-search, .blog-filter { border-radius: 999px; }
+.blog-filter.active, .blog-filter[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg, #fff); border-color: var(--accent); }
+.feat-card, .post-card { border-radius: 24px; box-shadow: none; }
+.post-card:hover, .feat-card:hover { border-color: var(--accent-2); box-shadow: var(--shadow-md); }
+.post-chip { background: var(--pill-bg, #F6F1EA); color: var(--accent-2-dark, #C2410C); border-radius: 999px; }
+.post-arrow { color: var(--accent-2); }
+
+/* wider pricing header so the title sits on one line on desktop */
+.pricing-container .page-header { max-width: 860px !important; }
+/* readable text on the light-orange dark-mode buttons */
+html[data-theme="dark"] .plan-card-pro .btn-primary,
+html[data-theme="dark"] .gen-submit,
+html[data-theme="dark"] .final-cta .btn { color: #1A0E05; }
