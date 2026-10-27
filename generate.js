@@ -812,6 +812,8 @@ async function upgrade() {
     signIn();
     return;
   }
+  // If user is signed in but not Pro, proceed to checkout
+  // If user is signed in but not Pro, proceed to checkout
   // Pro is monthly-only for now; there is no annual price in Stripe.
   const priceId = STRIPE_MONTHLY_PRICE_ID;
   msg.textContent = 'Opening checkout...';
