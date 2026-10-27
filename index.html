@@ -13,7 +13,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="stylesheet" href="/site.css?v=6">
   <link rel="stylesheet" href="/shell.css?v=1">
-  <link rel="stylesheet" href="/redesign.css?v=9">
+  <link rel="stylesheet" href="/redesign.css?v=10">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
@@ -156,15 +156,16 @@
                           data-help="Adds your own notes and context to every prompt, so the AI knows about your product, audience and tone. Stored only in this browser.">?</button>
                 </label>
               
-            <div class="gen-memory">
-              <div class="gen-field-label">Memory</div>
+            <details class="gen-memory" id="gen-memory">
+              <summary>Memory notes</summary>
+              
               <p class="rail-note" style="margin-bottom:var(--space-2)">Tell the generator how you like your prompts.</p>
               <textarea id="memory-input" class="memory-box" style="min-height:78px" placeholder="e.g. Concise, technical, always include an output format." aria-label="Memory notes"></textarea>
               <div class="row" style="margin-top:var(--space-2)">
                 <button id="save-memory-btn" class="btn btn-sm">Save memory</button>
                 <span id="memory-msg" class="muted" aria-live="polite"></span>
               </div>
-            </div>
+            </details>
 
 </div>
 

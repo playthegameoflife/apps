@@ -1108,3 +1108,13 @@ document.addEventListener('click', function (e) {
     inp.value = out.textContent; inp.focus();
   }
 });
+
+
+// Let the prompt box grow with what you type (up to its CSS max-height).
+(function () {
+  var t = document.getElementById('prompt-input');
+  if (!t) return;
+  function grow() { t.style.height = 'auto'; t.style.height = Math.min(t.scrollHeight, 420) + 'px'; }
+  t.addEventListener('input', grow);
+  window.addEventListener('load', grow);
+})();
