@@ -376,7 +376,8 @@ function renderPlan() {
     show($('upgrade-btn')); hide($('portal-btn'));
   }
   if (state.user) {
-    setText('user-label', `${state.user.displayName || state.user.email || 'Signed in'} (${state.user.email || ''})`);
+    setText('user-label', state.user.displayName || state.user.email || 'Signed in');
+    { const ul = $('user-label'); if (ul) ul.title = state.user.email || ''; }
     show($('signout-btn')); hide($('signin-btn'));
   } else {
     // The old copy said "Not signed in - using guest mode", which

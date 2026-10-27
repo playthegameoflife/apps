@@ -1,5 +1,5 @@
 const CACHE = 'phg-shell-v18';
-const SHELL = ['/', '/index.html', '/generate.js', '/prompt-templates.js', '/style.css', '/site.css', '/shell.css', '/redesign.css?v=15', '/shell.js', '/site.js', '/manifest.json'];
+const SHELL = ['/', '/index.html', '/generate.js', '/prompt-templates.js', '/style.css', '/site.css', '/shell.css', '/redesign.css?v=16', '/shell.js', '/site.js', '/manifest.json'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).catch(() => {}));
