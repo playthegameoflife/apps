@@ -193,7 +193,7 @@ function renderUsageNudge(used, limit) {
   if (state.tier === 'free' && !tier.fullHistory) {
     show(nudge);
     nudge.className = 'usage-nudge soft';
-    setText('usage-nudge-text', 'Pro adds full history, unlimited enhancements and ');
+    setText('usage-nudge-text', 'Pro adds full history, unlimited enhancements and custom styles inside the extension.'));
     setText('usage-nudge-cta', 'See Pro');
     return;
   }
@@ -715,9 +715,9 @@ async function generate(variantStyle) {
         const sl = scoreLabel(s);
         if (outputEl === $('output')) {
           const meta = document.getElementById('output-meta');
-          if (meta) meta.innerHTML = '<span id="score-badge" class="score-badge ' + sl.cls + '">' + sl.label + ' · ' + s + '/100</span>';
+          if (meta) meta.innerHTML = '';
           const actions = document.getElementById('output-actions');
-          if (actions) actions.innerHTML = '<button class="btn btn-sm" onclick="navigator.clipboard.writeText(document.getElementById(\'output\').textContent).then(()=>{const m=document.getElementById(\'copy-msg\');m.textContent=\'Copied!\';setTimeout(()=>m.textContent=\'\',1500)})">Copy result</button> <button class="btn btn-sm btn-ghost" onclick="document.getElementById(\'prompt-input\').value=document.getElementById(\'output\').textContent;document.getElementById(\'prompt-input\').focus()">Refine</button>';
+          if (actions) actions.innerHTML = '<button class="btn btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('output').textContent + '\n\nGenerated with Prompt Helper')(\'output\').textContent).then(()=>{const m=document.getElementById(\'copy-msg\');m.textContent=\'Copied!\';setTimeout(()=>m.textContent=\'\',1500)})">Copy result</button> <button class="btn btn-sm btn-ghost" onclick="document.getElementById(\'prompt-input\').value=document.getElementById(\'output\').textContent;document.getElementById(\'prompt-input\').focus()">Refine</button>';
           state.lastOutput = full; state.lastPrompt = prompt;
           trackUsage(); saveHistoryEntry(prompt, full, style);
           renderUsage();
