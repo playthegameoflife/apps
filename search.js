@@ -1,13 +1,37 @@
-/* Top-bar search dropdown. Results come from /search-index.json (built by
-   tools/build_search_index.py): sample prompts, tools and guides, plus library
-   prompt names fetched from the backend for the visitor's plan. */
+/* Top-bar search = prompt library search.
+   Matches prompt names from the library catalog the backend serves for the
+   visitor's plan (the same list the Library page uses), and sends Enter to
+   the Library page, which also searches inside prompt text.
+   On the Library page itself the top bar already drives the page's own search. */
 (function () {
   'use strict';
   var input = document.getElementById('tb-search-input');
   if (!input) return;
-  var wrap = input.closest('.tb-search');
+  var onLibrary = /\/library(\.html)?$/.test(location.pathname);
+  input.placeholder = 'Search the prompt library…';
+  input.setAttribute('aria-label', 'Search the prompt library');
+  if (onLibrary) {
+    // The page already has its own library search: drive it from the top bar.
+    input.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter') return;
+      var q = input.value.trim(), lib = document.getElementById('lib-search');
+      if (!q || !lib) return;
+      e.preventDefault(); e.stopImmediatePropagation();
+      lib.value = q; lib.dispatchEvent(new Event('input', { bubbles: true }));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, true);
+    return;
+  }
+
   var BACKEND = 'https://api-clyep56cdq-uc.a.run.app';
-  var index = null, loading = null, active = -1, rows = [];
+  var wrap = input.closest('.tb-search');
+  var items = null, loading = null, active = -1, rows = [];
+  var box = document.createElement('div');
+  box.className = 'tb-results'; box.id = 'tb-results'; box.setAttribute('role', 'listbox'); box.hidden = true;
+  wrap.appendChild(box);
+  input.setAttribute('role', 'combobox'); input.setAttribute('aria-expanded', 'false');
+  input.setAttribute('aria-controls', 'tb-results'); input.setAttribute('autocomplete', 'off');
+
   function headers() {
     var h = {};
     try {
@@ -17,26 +41,14 @@
     } catch (e) {}
     return h;
   }
-  var box = document.createElement('div');
-  box.className = 'tb-results'; box.id = 'tb-results'; box.setAttribute('role', 'listbox'); box.hidden = true;
-  wrap.appendChild(box);
-  input.setAttribute('role', 'combobox'); input.setAttribute('aria-expanded', 'false');
-  input.setAttribute('aria-controls', 'tb-results'); input.setAttribute('autocomplete', 'off');
-  input.placeholder = 'Search prompts, tools, guides…';
-
   function load() {
-    if (index || loading) return loading;
-    var base = fetch('/search-index.json').then(function (r) { return r.json(); }).catch(function () { return []; });
-    // The library catalog is served per plan by the backend. Names only; if the
-    // request fails the dropdown simply works without library prompts.
-    var lib = fetch(BACKEND + '/library', { headers: headers() })
+    if (items || loading) return loading;
+    loading = fetch(BACKEND + '/library', { headers: headers() })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
-        if (!d || !d.items) return [];
-        var cats = {}; (d.cats || []).forEach(function (c) { cats[c.id] = c.name; });
-        return d.items.map(function (it) { return { k: 'lib', t: it.n, u: '/library.html?q=' + encodeURIComponent(it.n), d: cats[it.c] || '' }; });
-      }).catch(function () { return []; });
-    loading = Promise.all([base, lib]).then(function (r) { index = r[0].concat(r[1]); });
+        var cats = {}; ((d && d.cats) || []).forEach(function (c) { cats[c.id] = c.name; });
+        items = ((d && d.items) || []).map(function (it) { return { t: it.n, c: cats[it.c] || '' }; });
+      }).catch(function () { items = []; });
     return loading;
   }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -45,65 +57,57 @@
     words.forEach(function (w) { if (w.length > 1) out = out.replace(new RegExp('(' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'), '<b>$1</b>'); });
     return out;
   }
-  function search(q) {
-    var words = q.toLowerCase().split(/\s+/).filter(Boolean);
-    var scored = [];
-    index.forEach(function (it) {
-      var t = it.t.toLowerCase(), d = (it.d || '').toLowerCase(), s = 0, ok = true;
-      for (var i = 0; i < words.length; i++) {
-        var w = words[i];
-        if (t.indexOf(w) === 0) s += 6; else if (t.indexOf(' ' + w) !== -1) s += 4; else if (t.indexOf(w) !== -1) s += 3;
-        else if (d.indexOf(w) !== -1) s += 1; else { ok = false; break; }
-      }
-      if (ok) scored.push({ it: it, s: s });
-    });
-    scored.sort(function (a, b) { return b.s - a.s; });
-    var groups = { tool: [], lib: [], prompt: [], guide: [] }, caps = { tool: 3, lib: 5, prompt: 3, guide: 4 };
-    scored.forEach(function (x) { var g = groups[x.it.k]; if (g.length < caps[x.it.k]) g.push(x.it); });
-    return { words: words, groups: groups };
-  }
-  var LABEL = { tool: 'Tools', lib: 'Library prompts', prompt: 'Examples', guide: 'Guides' };
+  function libUrl(q) { return '/library.html?q=' + encodeURIComponent(q); }
   function render() {
     var q = input.value.trim();
     rows = []; active = -1;
     if (!q) { close(); return; }
-    var res = search(q), html = '';
-    ['tool', 'lib', 'prompt', 'guide'].forEach(function (k) {
-      var g = res.groups[k]; if (!g.length) return;
-      html += '<div class="tb-res-head">' + LABEL[k] + '</div>';
-      g.forEach(function (it) {
-        rows.push(it.u);
-        html += '<a class="tb-res" role="option" id="tb-res-' + (rows.length - 1) + '" href="' + esc(it.u) + '"><span class="tb-res-t">' + mark(it.t, res.words) + '</span>' + (it.d && k !== 'guide' && k !== 'lib' ? '<span class="tb-res-d">' + esc(it.d) + '</span>' : '') + '</a>';
-      });
+    var words = q.toLowerCase().split(/\s+/).filter(Boolean), hits = [];
+    (items || []).forEach(function (it) {
+      var t = it.t.toLowerCase(), s = 0;
+      for (var i = 0; i < words.length; i++) {
+        var p = t.indexOf(words[i]);
+        if (p === -1) return;
+        s += p === 0 ? 3 : (t.charAt(p - 1) === ' ' ? 2 : 1);
+      }
+      hits.push({ it: it, s: s });
     });
-    var enc = encodeURIComponent(q);
-    html += '<div class="tb-res-head">Search everywhere</div>' +
-      '<a class="tb-res" role="option" id="tb-res-' + rows.length + '" href="/library.html?q=' + enc + '"><span class="tb-res-t">Search the prompt library for “' + esc(q) + '”</span></a>';
-    rows.push('/library.html?q=' + enc);
-    html += '<a class="tb-res" role="option" id="tb-res-' + rows.length + '" href="/blog.html?q=' + enc + '"><span class="tb-res-t">Search all guides for “' + esc(q) + '”</span></a>';
-    rows.push('/blog.html?q=' + enc);
+    hits.sort(function (a, b) { return b.s - a.s; });
+    var html = '';
+    if (hits.length) html += '<div class="tb-res-head">Prompt library</div>';
+    hits.slice(0, 7).forEach(function (h) {
+      rows.push(libUrl(h.it.t));
+      html += '<a class="tb-res" role="option" id="tb-res-' + (rows.length - 1) + '" href="' + esc(libUrl(h.it.t)) + '"><span class="tb-res-t">' + mark(h.it.t, words) + '</span>' + (h.it.c ? '<span class="tb-res-d">' + esc(h.it.c) + '</span>' : '') + '</a>';
+    });
+    rows.push(libUrl(q));
+    html += '<a class="tb-res" role="option" id="tb-res-' + (rows.length - 1) + '" href="' + esc(libUrl(q)) + '"><span class="tb-res-t">' +
+      (hits.length ? 'See all results for “' : 'Search the library for “') + esc(q) + '”</span><span class="tb-res-d">Also searches inside prompt text</span></a>';
     box.innerHTML = html; box.hidden = false; input.setAttribute('aria-expanded', 'true');
   }
-  function close() { box.hidden = true; input.setAttribute('aria-expanded', 'false'); active = -1; }
+  function close() { box.hidden = true; input.setAttribute('aria-expanded', 'false'); active = -1; input.removeAttribute('aria-activedescendant'); }
   function setActive(i) {
     var els = box.querySelectorAll('.tb-res');
     els.forEach(function (e) { e.classList.remove('on'); e.removeAttribute('aria-selected'); });
     active = i;
     if (i >= 0 && els[i]) { els[i].classList.add('on'); els[i].setAttribute('aria-selected', 'true'); input.setAttribute('aria-activedescendant', els[i].id); els[i].scrollIntoView({ block: 'nearest' }); }
-    else input.removeAttribute('aria-activedescendant');
   }
 
-  input.addEventListener('focus', load);
+  input.addEventListener('focus', function () { load(); if (input.value.trim() && items) render(); });
   input.addEventListener('input', function () { (load() || Promise.resolve()).then(render); });
-  // capture: runs before shell.js's Enter handler; only takes over when a result is highlighted
+  // Capture phase: runs before shell.js's own Enter handler, which we replace here.
   input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'Enter') {
+      var q = input.value.trim();
+      if (!q) return;
+      e.preventDefault(); e.stopImmediatePropagation();
+      location.href = (active >= 0 && rows[active]) ? rows[active] : libUrl(q);
+      return;
+    }
     if (box.hidden) return;
     var n = rows.length;
     if (e.key === 'ArrowDown') { e.preventDefault(); setActive((active + 1) % n); }
     else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(active <= 0 ? n - 1 : active - 1); }
-    else if (e.key === 'Escape') { close(); }
-    else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); e.stopImmediatePropagation(); location.href = rows[active]; }
   }, true);
   document.addEventListener('click', function (e) { if (!wrap.contains(e.target)) close(); });
-  input.addEventListener('focus', function () { if (input.value.trim() && index) render(); });
 })();
