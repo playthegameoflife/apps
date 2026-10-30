@@ -833,7 +833,7 @@ async function refine() {
 function copyOutput() {
   const text = $('output').textContent;
   if (!text || $('output').classList.contains('empty')) return;
-  navigator.clipboard.writeText(text).then(() => { showToast('Copied to clipboard'); setText('copy-msg', 'Copied!'); setTimeout(() => setText('copy-msg',''), 1500); }).catch(() => setText('copy-msg','Copy failed'));
+  navigator.clipboard.writeText(text).then(() => { showToast('Copied to clipboard'); setText('copy-msg', ''); const cb = $('copy-btn'); if (cb) { const t0 = cb.dataset.label || cb.textContent; cb.dataset.label = t0; cb.textContent = 'Copied ✓'; clearTimeout(cb._t); cb._t = setTimeout(() => { cb.textContent = t0; }, 1600); } }).catch(() => setText('copy-msg','Copy failed'));
 }
 function shareLink() {
   const prompt = encodeURIComponent($('prompt-input').value.trim());

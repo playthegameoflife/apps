@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/site.css?v=6">
   <link rel="stylesheet" href="/shell.css?v=1">
   <link rel="stylesheet" href="/redesign.css?v=18">
-  <link rel="stylesheet" href="/home-m2.css?v=21">
+  <link rel="stylesheet" href="/home-m2.css?v=24">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
@@ -191,13 +191,13 @@
               <div class="example-chips" id="example-chips" role="group" aria-label="Example ideas"></div>
               <div class="m2-result">
 
-              <div style="margin-top:var(--space-4)">
+              <div class="m2-out" style="margin-top:var(--space-4)">
                 <div class="gen-field-label">Output <span id="char-count" class="muted" style="font-weight:400;text-transform:none;letter-spacing:0"></span></div>
                 <div id="output" class="gen-output empty" role="status" aria-live="polite" aria-atomic="true">Your enhanced prompt will appear here.</div>
                 <div id="output-meta" class="row" style="margin-top:var(--space-3)"></div>
                 <div id="output-actions" class="row" style="margin-top:var(--space-2)"></div>
                 <div id="after-result" class="after-result hidden" role="status"></div>
-                <div class="row" style="margin-top:var(--space-2)">
+                <div class="row m2-copyrow" style="margin-top:var(--space-2)">
                   <button id="copy-btn" class="btn btn-sm btn-ghost">Copy</button>
                   <button id="share-btn" class="btn btn-sm btn-ghost">Share link</button>
                   <span id="copy-msg" class="muted" aria-live="polite"></span>
@@ -408,7 +408,7 @@
   <script src="prompt-templates.js"></script>
   <script src="/auth-config.js?v=2"></script>
   <script src="/auth.js?v=2"></script>
-  <script src="generate.js?v=3"></script>
+  <script src="generate.js?v=4"></script>
   <script src="/site.js?v=3"></script>
   <script src="/shell.js?v=1"></script>
   <script src="/search.js?v=1"></script>
