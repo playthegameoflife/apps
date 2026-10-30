@@ -435,3 +435,25 @@ html:not([data-theme="dark"]) body.m2 {
 }
 /* Clear comes back once there is something to clear */
 .m2 .gen-panel:has(#output.has-content) #clear-btn, .m2 .gen-main:has(#output.has-content) #clear-btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; background: transparent; border: 0; color: var(--muted); }
+
+/* ===== mode picker: one quiet dropdown instead of tabs ===== */
+.m2-composer .gen-tabs, .m2-composer .gen-tabs[class] { position: relative; overflow: visible; display: block; margin: 0 0 8px; }
+.m2 .mode-trigger { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border: 1px solid var(--m2-glass-border); background: var(--bg-input); color: var(--muted-light); border-radius: 999px; font: inherit; font-size: .875rem; cursor: pointer; }
+.m2 .mode-trigger b { color: var(--accent-2); font-weight: 700; }
+.m2 .mode-trigger svg { color: var(--muted-light); margin-left: 2px; }
+.m2 .mode-trigger:hover { border-color: var(--accent-2); }
+.m2 .mode-menu { position: absolute; z-index: 30; top: calc(100% + 4px); left: 0; min-width: 260px; padding: 6px; background: var(--bg-input); border: 1px solid var(--m2-glass-border); border-radius: 16px; box-shadow: 0 12px 32px rgba(31,77,58,.16); }
+.m2 .mode-menu[hidden] { display: none; }
+.m2 .gen-tabs .mode-menu .mode-tab { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; width: 100%; min-height: 48px; padding: 8px 12px; border-radius: 10px; text-align: left; background: transparent; color: var(--text); font-size: .9375rem; font-weight: 600; }
+.m2 .gen-tabs .mode-menu .mode-tab small { font-size: .75rem; font-weight: 400; color: var(--muted-light); }
+.m2 .gen-tabs .mode-menu .mode-tab:hover { background: var(--pill-bg); }
+.m2 .gen-tabs .mode-menu .mode-tab.active { background: var(--pill-bg); color: var(--accent-2); }
+@media (max-width: 860px) {
+  .m2-composer .gen-tabs, .m2-composer .gen-tabs[class] { margin: 0 0 8px; overflow: visible; }
+  .m2 .mode-trigger { min-height: 44px; }
+  .m2 .mode-menu { min-width: min(300px, calc(100vw - 48px)); }
+  .m2 .gen-tabs .mode-menu .mode-tab { min-height: 52px; }
+}
+.m2 .gen-main { position: relative; z-index: 5; }
+.m2-composer { position: relative; z-index: 20; }
+.m2 #example-chips { position: relative; z-index: 1; }

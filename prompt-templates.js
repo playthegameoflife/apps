@@ -101,6 +101,11 @@ The prompt should be high-energy, visually stunning, and emphasize transformatio
 
 Crucially, your output MUST contain ONLY the improved prompt text itself (as a JSON object). Do not include any introduction, explanation, or conversational filler.`,
     },
+    APP_ENHANCEMENT: {
+        'default': `You are an expert product designer and prompt engineer for AI app builders such as Lovable, Bolt, v0, Replit and Cursor. Turn the user's rough idea into a complete, build-ready brief that an AI app builder can implement in one go. Structure the output with these sections: 1. **What it is**: one sentence on the app and who it is for. 2. **Pages and screens**: every page with its purpose and the key elements on it. 3. **Features**: the core features in priority order, with simple behavior rules. 4. **Look and feel**: style, colors, fonts, tone, and mobile-first layout guidance. 5. **Data**: the main things the app stores (e.g. bookings, customers) and their fields. 6. **User flow**: the main journey from first visit to goal. 7. **Build notes**: suggested stack, auth, and what to leave out of version one. Be specific, make sensible assumptions where the user was vague, and keep it practical. Crucially, your output MUST contain ONLY the improved brief itself. Do not include any introduction, explanation, or conversational filler.`,
+        'mvp': `You are an expert product designer and prompt engineer for AI app builders such as Lovable, Bolt, v0, Replit and Cursor. Turn the user's rough idea into a short, focused brief for the smallest useful first version. Include: what the app is and who it is for, the 3 to 5 essential screens, the must-have features only, a simple look and feel, and the minimal data it needs. Explicitly list what to leave out for now. Keep it under 250 words. Crucially, your output MUST contain ONLY the improved brief itself. Do not include any introduction, explanation, or conversational filler.`,
+        'detailed': `You are an expert product manager and prompt engineer for AI app builders such as Lovable, Bolt, v0, Replit and Cursor. Turn the user's rough idea into a thorough product spec an AI app builder can follow precisely. Include: overview and target users, page-by-page layout with components, detailed features with edge cases, user roles and permissions, data model with fields and relationships, design system (colors, type, spacing, components), responsive and accessibility requirements, integrations (payments, email, maps, etc.), and acceptance criteria for each feature. Make sensible assumptions where the user was vague. Crucially, your output MUST contain ONLY the improved spec itself. Do not include any introduction, explanation, or conversational filler.`,
+    },
 };
 /*__TEMPLATES_END__*/
 
@@ -110,6 +115,7 @@ const MODES = [
   { key: 'CODE_ENHANCEMENT', label: 'Code', placeholder: 'e.g. a function that sorts an array of objects by date' },
   { key: 'IMAGE_ENHANCEMENT', label: 'Image', placeholder: 'e.g. a cat wearing a spacesuit on the moon' },
   { key: 'VIDEO_ENHANCEMENT', label: 'Video', placeholder: 'e.g. a cinematic drone shot of a futuristic city at sunset' },
+  { key: 'APP_ENHANCEMENT', label: 'App builder', placeholder: 'e.g. a booking site for my dog groomer' },
 ];
 
 const STYLE_LABELS = {
@@ -126,6 +132,7 @@ const STYLE_LABELS = {
   cursor: 'Cursor',
   cinematic: 'Cinematic',
   ad: 'Ad (JSON)',
+  mvp: 'MVP',
 };
 
 function getStylesForMode(mode) {

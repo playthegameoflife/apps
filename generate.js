@@ -417,9 +417,22 @@ function scoreLabel(s) {
 
 
 // ---- modes/styles ----
+const MODE_HINTS = { TEXT_ENHANCEMENT: 'Emails, plans, answers', CODE_ENHANCEMENT: 'Functions, bugs, features', IMAGE_ENHANCEMENT: 'Midjourney, DALL·E, Flux', VIDEO_ENHANCEMENT: 'Sora, Veo, Runway', APP_ENHANCEMENT: 'Lovable, Bolt, Replit, Cursor' };
+let modeMenuBound = false;
 function populateModes() {
   const tabs = $('mode-tabs');
-  tabs.innerHTML = MODES.map(m => `<button class="mode-tab ${m.key === state.mode ? 'active' : ''}" data-mode="${m.key}">${m.label}</button>`).join('');
+  const cur = MODES.find(m => m.key === state.mode) || MODES[0];
+  tabs.innerHTML = '<button type="button" class="mode-trigger" id="mode-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="mode-menu"><span class="mode-trigger-k">Make a prompt for</span> <b>' + cur.label + '</b><svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
+    '<div class="mode-menu" id="mode-menu" role="group" aria-label="Prompt type" hidden>' +
+    MODES.map(m => `<button type="button" class="mode-tab ${m.key === state.mode ? 'active' : ''}" data-mode="${m.key}"><span>${m.label}</span><small>${MODE_HINTS[m.key] || ''}</small></button>`).join('') + '</div>';
+  const trig = $('mode-trigger'), menu = $('mode-menu');
+  const setOpen = (o) => { menu.hidden = !o; trig.setAttribute('aria-expanded', o ? 'true' : 'false'); };
+  trig.addEventListener('click', (e) => { e.stopPropagation(); setOpen(menu.hidden); });
+  if (!modeMenuBound) {
+    modeMenuBound = true;
+    document.addEventListener('click', (e) => { const m = $('mode-menu'); if (m && !m.hidden && !e.target.closest('#mode-tabs')) { m.hidden = true; $('mode-trigger').setAttribute('aria-expanded', 'false'); } });
+    document.addEventListener('keydown', (e) => { const m = $('mode-menu'); if (e.key === 'Escape' && m && !m.hidden) { m.hidden = true; const t = $('mode-trigger'); t.setAttribute('aria-expanded', 'false'); t.focus(); } });
+  }
   tabs.querySelectorAll('.mode-tab').forEach(btn => {
     btn.addEventListener('click', () => {
       state.mode = btn.dataset.mode;
@@ -455,6 +468,7 @@ function applyDeepLink(params, opts) {
       CODE: 'CODE_ENHANCEMENT',
       IMAGE: 'IMAGE_ENHANCEMENT',
       VIDEO: 'VIDEO_ENHANCEMENT',
+      APP: 'APP_ENHANCEMENT',
     };
     const key = map[modeParam.toUpperCase()] || modeParam;
     const tab = document.querySelector('.mode-tab[data-mode="' + key + '"]');
@@ -879,6 +893,7 @@ const EXAMPLES = {
   TEXT_ENHANCEMENT: ['write an email about my delayed order', 'plan a 3-day trip to Lisbon', 'explain taxes to a teenager'],
   CODE_ENHANCEMENT: ['a function that checks if an email is valid', 'sort a list of users by signup date', 'debug a slow database query'],
   IMAGE_ENHANCEMENT: ['a cozy coffee shop on a rainy day', 'a futuristic city at sunset', 'a golden retriever astronaut'],
+  APP_ENHANCEMENT: ['a booking site for my dog groomer', 'a habit tracker with streaks', 'a simple store for my handmade candles'],
   VIDEO_ENHANCEMENT: ['a drone flying over a forest at sunrise', 'a chef plating a dessert', 'a skateboarder at night in the city'],
 };
 function renderExampleChips() {
