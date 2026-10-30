@@ -970,7 +970,20 @@ async function upgrade() {
   try {
     const headers = backendHeaders({ 'Content-Type': 'application/json' });
     const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, successUrl: location.origin + '/success.html', cancelUrl: location.origin + '/cancel.html' }) });
-    if (!r.ok) { const d = await r.json().catch(()=>({})); throw new Error(d.error || ('HTTP ' + r.status)); }
+    if (!r.ok) {
+      const d = await r.json().catch(()=>({}));
+      // 409 = this account already has a paid subscription. The server
+      // refuses a second checkout so nobody is billed twice. Our own
+      // status was stale, so refresh it and send them to billing.
+      if (r.status === 409 && d.alreadySubscribed) {
+        msg.textContent = 'You already have an active subscription — opening billing…';
+        await checkSubscription();
+        renderPlan();
+        await portal();
+        return;
+      }
+      throw new Error(d.error || ('HTTP ' + r.status));
+    }
     const d = await r.json();
     if (d.url) window.location.href = d.url; else throw new Error('No checkout URL');
   } catch (e) { msg.textContent = friendlyError(e, 'opening checkout') + ' You have not been charged.'; }
