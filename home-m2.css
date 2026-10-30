@@ -389,3 +389,7 @@ body.m2 .m2-composer #gen-toolbar.is-open { grid-row: 4; }
   .m2-composer #ab-upsell { grid-row: 6; }
   .m2-composer #gen-error { grid-row: 7; }
 }
+
+/* ===== Inter, self-hosted (variable, latin) so pages need no third-party font request ===== */
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/fonts/inter-latin-wght-normal.woff2") format("woff2"); }
+.m2 .final-cta h2 em, .m2 main h2 em { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-style: italic; }
