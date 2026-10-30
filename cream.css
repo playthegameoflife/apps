@@ -59,3 +59,7 @@ h1, h1.page-title, .page-title { font-family: "Instrument Serif", Georgia, serif
 html:not([data-theme="dark"]) body { background-image: radial-gradient(700px 420px at 8% 0%, rgba(236,220,190,.55), transparent 70%), radial-gradient(700px 420px at 96% 6%, rgba(214,226,214,.6), transparent 70%); background-repeat: no-repeat; }
 html[data-theme="dark"] body { background-image: radial-gradient(700px 380px at 50% 0%, rgba(127,203,160,.08), transparent 70%) !important; background-repeat: no-repeat; }
 html[data-theme="dark"] .lp-hero::before, html[data-theme="dark"] .lp-body::before { background: radial-gradient(600px 360px at 50% 0%, rgba(127,203,160,.08), transparent 70%) !important; }
+@media (max-width: 760px) {
+  .plan-row { grid-template-columns: 1.1rem minmax(0, 1fr) auto; row-gap: 0; }
+  .plan-row .feat-value { grid-column: auto; text-align: right; }
+}

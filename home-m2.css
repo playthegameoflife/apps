@@ -233,7 +233,7 @@ html[data-theme="dark"] .m2 .gen-submit { background: var(--m2-grad); color: #ff
 @media (min-width: 861px) { .m2 .page-head { padding-top: 56px; } }
 
 /* ===== match mockup: separate pills, inline target picker, no toggle ===== */
-.m2 #tb-theme { display: none; }
+.m2 #tb-theme { display: inline-flex; width: 40px; height: 40px; border-radius: 999px; align-items: center; justify-content: center; }
 .m2-composer .gen-tabs { background: transparent; padding: 0; gap: 8px; box-shadow: none; border: 0; }
 .m2 .gen-tabs .mode-tab { border: 1px solid var(--m2-glass-border); background: var(--bg-input); border-radius: 999px; min-height: 34px; padding: 0 16px; font-size: .8125rem; }
 .m2 .gen-tabs .mode-tab.active { background: var(--text); color: var(--bg); border-color: var(--text); }
@@ -473,3 +473,45 @@ html:not([data-theme="dark"]) body.m2 {
 @media (max-width: 860px) { .m2 .acct-strip .acct-actions { margin-left: 0; width: 100%; } .m2 .acct-strip .btn { min-height: 44px; } .m2 .acct-strip #upgrade-btn { flex: 1; } }
 .m2 .rail-compact .rail-link { display: none; } /* History is in the top nav */
 .m2 .rail-compact .rail-card.acct-strip { justify-content: center; }
+
+/* ===== spacing + rhythm pass ===== */
+.m2 .shell-section, .m2 .shell-content > section { max-width: 1040px; margin-left: auto; margin-right: auto; }
+.m2 .shell-section { margin-bottom: 88px; }
+.m2 .shell-section-head, .m2 #how .shell-section-head { align-items: center; text-align: center; margin-bottom: 28px; gap: 8px; }
+.m2 #how .shell-section-head p { margin-left: auto; }
+.m2 #how { padding: 40px; }
+.m2 #how .steps-row { gap: 28px; }
+.m2 .feat-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.m2 .feat:nth-child(n) { grid-column: auto; min-height: 0; padding: 28px; }
+.m2 .feat h3 { margin-bottom: 8px; }
+.m2 .feat-num { margin-bottom: 18px; }
+.m2 .faq-list { margin-top: 0; }
+.m2 .final-cta { padding: 56px 32px; }
+.m2 .acct-strip .acct-top { gap: 10px; }
+.m2 .rail-compact { margin-top: 20px; margin-bottom: 72px; }
+.m2 .m2-composer + #example-chips, .m2 #example-chips { margin-top: 18px; }
+@media (max-width: 860px) {
+  .m2 .shell-section { margin-bottom: 64px; }
+  .m2 #how { padding: 28px 20px; }
+  .m2 #how .steps-row { gap: 22px; }
+  .m2 .feat-list { grid-template-columns: 1fr; gap: 12px; }
+  .m2 .feat:nth-child(n) { padding: 22px; }
+  .m2 .final-cta { padding: 40px 20px; }
+  .m2 .rail-compact { margin-bottom: 56px; }
+}
+.m2 #lib-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+.m2 #lib-grid .lib-card { padding: 20px; }
+.m2 .lib-tabs { margin-bottom: 4px; }
+.m2 .feat:nth-child(n) { display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; }
+.m2 .feat .feat-num { flex: none; }
+@media (max-width: 1000px) { .m2 #lib-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 860px) {
+  .m2 #lib-grid { grid-template-columns: 1fr; gap: 10px; }
+  .m2 #lib-grid .lib-card:nth-child(n+5) { display: none; }
+  .m2 .lib-tabs { display: grid; grid-template-columns: 1fr 1fr; width: 100%; border-radius: 22px; padding: 4px; gap: 4px; }
+  .m2 .lib-tab { padding: 0 10px; justify-content: center; }
+  .m2 .mode-links ul { gap: 8px; }
+  .m2 .acct-strip .acct-top { justify-content: center; text-align: center; width: 100%; }
+  .m2 .rail-compact .rail-card.acct-strip { justify-content: center; text-align: center; padding: 6px 8px; }
+  .m2 #usage-label { width: 100%; text-align: center; }
+}

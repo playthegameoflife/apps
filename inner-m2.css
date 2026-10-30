@@ -10,3 +10,11 @@
   .m2-inner .shell-content { padding-left: 16px; padding-right: 16px; }
 }
 .m2-inner .shell-footer-grid a, .m2-inner .shell-footer a { display: flex; align-items: center; min-height: 36px; }
+
+/* ===== spacing pass ===== */
+@media (max-width: 860px) {
+  .m2-lib .lib-rail { margin: 0; }
+  .m2-inner .gen-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .m2-inner .gen-stats > * { padding: 12px 10px; min-width: 0; }
+  .m2-inner:not(.m2-lib) .tb-search { display: none; }
+}
