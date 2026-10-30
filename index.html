@@ -9,15 +9,16 @@
   <meta name="description" content="Free AI prompt generator that turns rough ideas into structured prompts for ChatGPT, Claude, Gemini, Grok, and Perplexity. Text, Code, Image, and Video modes with streaming output, quality score, and A/B variants. No sign-up required.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://api-clyep56cdq-uc.a.run.app">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=Fraunces:ital,opsz,wght@1,9..144,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=Fraunces:ital,opsz,wght@1,9..144,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="stylesheet" href="/site.css?v=6">
   <link rel="stylesheet" href="/shell.css?v=1">
   <link rel="stylesheet" href="/redesign.css?v=18">
+  <link rel="stylesheet" href="/home-m2.css?v=17">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
-  <meta name="theme-color" content="#FFFFFF">
+  <meta name="theme-color" content="#F5F2EC">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="alternate" hreflang="en" href="https://promptgenerator.fyi/">
   <link rel="alternate" hreflang="x-default" href="https://promptgenerator.fyi/">
@@ -52,7 +53,7 @@
   <script src="/consent.js?v=1" defer></script>
   
 </head>
-<body>  <div class="app-shell">
+<body class="m2">  <div class="app-shell">
 
     <!-- ===== SIDEBAR ===== -->
     <aside class="sidebar" id="sidebar">
@@ -88,6 +89,8 @@
     <!-- ===== MAIN ===== -->
     <div class="app-main">
       <header class="topbar">
+        <a class="m2-brand" href="/" aria-label="Prompt Helper home"><img src="/icons/ph-logo-128.png" alt="" width="30" height="30"><span>Prompt Helper</span></a>
+        <nav class="m2-pills" aria-label="Main navigation"><a class="on" href="/" aria-current="page">Create</a><a href="/library.html">Library</a><a href="/generations.html">History</a><a href="/pricing.html">Pricing</a></nav>
         <button class="tb-menu" id="tb-menu" aria-label="Open menu">☰</button>
         <div class="tb-search">
           <input type="search" id="tb-search-input" placeholder="Search the prompt library…" aria-label="Search the prompt library">
@@ -107,21 +110,22 @@
         <div class="page-head">
           <a class="hero-pill" href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener">New: an Improve button inside ChatGPT, Claude, Gemini, Grok and Perplexity <span aria-hidden="true">›</span></a>
           <p class="hero-eyebrow">AI Prompt Generator</p>
-          <h1>Turn rough ideas into prompts that <em>work.</em></h1>
-          <p>Generate clearer prompts in seconds for text, code, image, and video AI tools. Try it free with no sign-up: 5 prompts a week, or 10 with a free account.</p>
+          <h1>What should the AI do for you?</h1>
+          <p>Say it roughly. We turn it into a prompt that works.</p>
         </div>
 
         <!-- ===== GENERATOR + RAIL ===== -->
         <div class="gen-layout" id="generator">
           <div class="gen-main">
             <div class="gen-panel">
+              <div class="m2-composer">
               <div class="mode-tabs gen-tabs" id="mode-tabs" role="group" aria-label="Prompt type"></div>
 
               <label class="gen-field-label" for="prompt-input">Your input</label>
               <textarea class="gen-input" id="prompt-input" placeholder="Describe what you want: 'write an email about my delayed order'" aria-label="Your prompt" inputmode="text" autocomplete="off" autocorrect="off" spellcheck="false"></textarea>
               <p class="gen-hint" id="gen-hint">Plain words are fine. We add the structure.</p>
-              <div class="example-chips" id="example-chips" role="group" aria-label="Example ideas"></div>
-              <button type="button" class="gen-options-toggle" id="gen-options-toggle" aria-expanded="false" aria-controls="gen-toolbar">Options</button>
+              
+              <button type="button" class="gen-options-toggle" id="gen-options-toggle" aria-expanded="false" aria-controls="gen-toolbar">More options</button>
 
               <div class="gen-toolbar" id="gen-toolbar">
                 <div class="select-wrap">
@@ -140,6 +144,7 @@
                     <option value="Stable Diffusion">Stable Diffusion</option>
                   </select>
                 </div>
+                <div class="m2-more">
                 <label class="toggle has-help">
                   <input type="checkbox" id="ab-toggle">
                   <span>A/B variants</span>
@@ -166,7 +171,7 @@
                 <span id="memory-msg" class="muted" aria-live="polite"></span>
               </div>
             </details>
-
+                </div>
 </div>
 
               <div id="ab-upsell" class="after-result hidden" role="status">
@@ -182,6 +187,9 @@
               </div>
 
               <div id="gen-error" class="error hidden" role="alert"></div>
+              </div>
+              <div class="example-chips" id="example-chips" role="group" aria-label="Example ideas"></div>
+              <div class="m2-result">
 
               <div style="margin-top:var(--space-4)">
                 <div class="gen-field-label">Output <span id="char-count" class="muted" style="font-weight:400;text-transform:none;letter-spacing:0"></span></div>
@@ -202,6 +210,7 @@
                   <div class="variant"><h4>Variant A</h4><div id="variant-a" class="gen-output empty" style="min-height:80px"></div></div>
                   <div class="variant"><h4>Variant B</h4><div id="variant-b" class="gen-output empty" style="min-height:80px"></div></div>
                 </div>
+              </div>
               </div>
             </div>
           </div>
@@ -243,7 +252,7 @@
 
         <!-- ===== BEFORE / AFTER ===== -->
         <section class="shell-section ba" id="example" aria-labelledby="ba-title">
-          <div class="shell-section-head"><div><h2 id="ba-title">From rough idea to a prompt that <em>works</em></h2><p>An example of what the generator does with a short request.</p></div></div>
+          <div class="shell-section-head"><div><h2 id="ba-title">From rough idea to a prompt that <em>works</em></h2><p>One short request, and what the generator turns it into.</p></div></div>
           <div class="ba-grid">
             <div class="ba-card"><div class="ba-label">You type</div><p>write an email about my delayed order</p></div>
             <div class="ba-arrow" aria-hidden="true">→</div>
@@ -256,7 +265,7 @@
           <div class="shell-section-head">
             <div>
               <h2>Prompt Library</h2>
-              <p>Battle-tested prompt structures. Click one to load it into the generator.</p>
+              <p>Ready-made prompts. Pick one to load it into the generator.</p>
             </div>
             <a href="/library.html">Browse library</a>
           </div>
@@ -271,7 +280,7 @@
 
         <!-- ===== MODE LINKS ===== -->
         <section class="shell-section mode-links" id="tools">
-          <p class="mode-links-label">Start with a mode</p>
+          <p class="mode-links-label">Start with a tool</p>
           <ul>
             <li><a href="/?mode=IMAGE&target=Midjourney">AI Image Prompt Generator</a></li>
             <li><a href="/?mode=VIDEO">Video Prompt Generator</a></li>
@@ -288,24 +297,24 @@
           <div class="shell-section-head">
             <div>
               <h2>How to use the AI Prompt Generator</h2>
-              <p>Start with your goal, add the details that matter, and copy a structured prompt into any AI platform.</p>
+              <p>Say what you want, add any details, and copy the finished prompt into any AI tool.</p>
             </div>
           </div>
           <div class="steps-row">
             <div class="step-card">
               <div class="step-number">01</div>
               <h3>Choose your prompt type</h3>
-              <p>Text for ChatGPT-style tasks, Code for development, Image for Midjourney, or Video for cinematic scenes.</p>
+              <p>Text for writing and chat, Code for development, Image for Midjourney and DALL-E, Video for Runway, Veo and Luma.</p>
             </div>
             <div class="step-card">
               <div class="step-number">02</div>
               <h3>Add your rough idea</h3>
-              <p>Describe the goal in plain language. Add audience, style, format, or constraints if you know them.</p>
+              <p>Describe the goal in plain words. Add the audience, style, format or limits if you know them.</p>
             </div>
             <div class="step-card">
               <div class="step-number">03</div>
               <h3>Copy, test, and refine</h3>
-              <p>Send the generated prompt to your preferred AI platform, review the result, and refine to taste.</p>
+              <p>Paste the prompt into your AI tool, check the answer, and adjust it until it's right.</p>
             </div>
           </div>
         </section>
@@ -315,14 +324,14 @@
           <div class="shell-section-head">
             <div>
               <h2>What is Prompt Helper?</h2>
-              <p>Prompt Helper turns a rough idea into a complete, ready-to-use prompt — so you get useful answers instead of generic output.</p>
+              <p>Prompt Helper turns a rough idea into a complete prompt you can use right away, so you get useful answers instead of generic ones.</p>
             </div>
           </div>
           <div class="feat-list">
-            <div class="feat"><span class="feat-num">01</span><div><h3>Turn rough ideas into structured prompts</h3><p>Describe what you want in plain language and get a complete prompt with role, task, context, output format, tone, constraints, and success criteria.</p></div></div>
-            <div class="feat"><span class="feat-num">02</span><div><h3>Create prompts for text, code, image, and video</h3><p>One toolkit for ChatGPT writing prompts, code generation, image prompts for Midjourney and DALL-E, and video prompts for Runway, Veo, and Luma.</p></div></div>
-            <div class="feat"><span class="feat-num">03</span><div><h3>Check quality before you send</h3><p>A 0-100 quality score on every generated prompt shows structure, specificity, and completeness — so you know exactly how good it is.</p></div></div>
-            <div class="feat"><span class="feat-num">04</span><div><h3>Enhance prompts inside any AI chat</h3><p>The Chrome extension adds an "Improve" button next to the send field on ChatGPT, Gemini, Claude, Grok, and Perplexity. No copy-pasting between tabs.</p></div></div>
+            <div class="feat"><span class="feat-num">01</span><div><h3>Turn rough ideas into structured prompts</h3><p>Describe what you want in plain words and get a full prompt with a role, task, context, format, tone, limits and success criteria.</p></div></div>
+            <div class="feat"><span class="feat-num">02</span><div><h3>Create prompts for text, code, image, and video</h3><p>One tool for writing prompts, code prompts, image prompts for Midjourney and DALL-E, and video prompts for Runway, Veo and Luma.</p></div></div>
+            <div class="feat"><span class="feat-num">03</span><div><h3>Check quality before you send</h3><p>Every prompt gets a 0-100 quality score for structure, detail and completeness, so you know how strong it is.</p></div></div>
+            <div class="feat"><span class="feat-num">04</span><div><h3>Enhance prompts inside any AI chat</h3><p>The Chrome extension adds an "Improve" button next to the send box on ChatGPT, Gemini, Claude, Grok and Perplexity. No switching tabs.</p></div></div>
           </div>
         </section>
 
@@ -331,7 +340,7 @@
           <div class="shell-section-head">
             <div>
               <h2>AI Prompt Generator FAQ</h2>
-              <p>Clear answers about prompt generation, supported AI tools, prompt quality, and practical use cases.</p>
+              <p>Quick answers about how it works, which AI tools it supports, and how prompt quality is scored.</p>
             </div>
           </div>
           <div class="faq-list">
@@ -349,7 +358,7 @@
         <!-- ===== FINAL CTA ===== -->
         <section class="final-cta" aria-labelledby="final-cta-title">
           <h2 id="final-cta-title">Stop rewriting prompts. Start getting <em>answers.</em></h2>
-          <p>Paste a rough idea and get a prompt you can use right away.</p>
+          <p>Type a rough idea and get a prompt you can use right away.</p>
           <a class="cta-btn" href="#generator">Open the generator</a>
         </section>
 
@@ -360,7 +369,7 @@
         <div class="shell-footer-grid">
           <div>
             <h4>Prompt Helper</h4>
-            <p>Create, optimize, and explore prompts for ChatGPT, Claude, Gemini, Midjourney, Veo, and more.</p>
+            <p>Create, improve and explore prompts for ChatGPT, Claude, Gemini, Midjourney, Veo and more.</p>
           </div>
           <div>
             <h4>Prompt tools</h4>
@@ -399,7 +408,7 @@
   <script src="prompt-templates.js"></script>
   <script src="/auth-config.js?v=2"></script>
   <script src="/auth.js?v=2"></script>
-  <script src="generate.js"></script>
+  <script src="generate.js?v=3"></script>
   <script src="/site.js?v=3"></script>
   <script src="/shell.js?v=1"></script>
   <script src="/search.js?v=1"></script>

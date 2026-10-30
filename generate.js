@@ -888,6 +888,10 @@ function renderExampleChips() {
   if (inputEl && !inputEl.dataset.chipsBound) {
     inputEl.dataset.chipsBound = '1';
     inputEl.addEventListener('input', () => { box.hidden = inputEl.value.trim().length > 0; });
+    // Grow the box with the text (kept short when empty so Generate stays near the top).
+    const autoGrow = () => { inputEl.style.height = 'auto'; inputEl.style.height = Math.min(inputEl.scrollHeight, 240) + 'px'; };
+    inputEl.addEventListener('input', autoGrow);
+    autoGrow();
   }
   box.hidden = !!(inputEl && inputEl.value.trim());
   const list = EXAMPLES[state.mode] || EXAMPLES.TEXT_ENHANCEMENT;
@@ -899,6 +903,8 @@ function renderExampleChips() {
       const input = $('prompt-input');
       input.value = t; input.focus({ preventScroll: true });
       input.dispatchEvent(new Event('input', { bubbles: true }));
+      // One tap: run it. The visitor sees a real result without a second click.
+      if (typeof generate === 'function') generate();
     });
     box.appendChild(b);
   });
@@ -909,7 +915,7 @@ function initOptionsToggle() {
   btn.addEventListener('click', () => {
     const open = bar.classList.toggle('is-open');
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    btn.textContent = open ? 'Hide options' : 'Options';
+    btn.textContent = open ? 'Hide options' : 'More options';
   });
 }
 let toastTimer = null;
