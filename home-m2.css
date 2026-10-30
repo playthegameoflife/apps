@@ -213,7 +213,6 @@ html[data-theme="dark"] .m2 .gen-submit { background: var(--m2-grad); color: #ff
 .m2-composer .gen-options-toggle[aria-expanded="true"] { color: var(--accent-2-dark); border-color: var(--accent-2); }
 .m2-composer #gen-toolbar:not(.is-open) { display: none; }
 .m2-composer #gen-toolbar { margin-top: 10px; }
-.m2 .gen-layout:has(#output.empty:not(.is-loading)) .rail-compact { display: none; }
 @media (min-width: 861px) {
   .m2-composer .gen-options-toggle { grid-row: 4; grid-column: 1; justify-self: start; margin-top: 12px; }
   .m2-composer .gen-tabs { grid-row: 4; }
@@ -457,3 +456,18 @@ html:not([data-theme="dark"]) body.m2 {
 .m2 .gen-main { position: relative; z-index: 5; }
 .m2-composer { position: relative; z-index: 20; }
 .m2 #example-chips { position: relative; z-index: 1; }
+
+/* ===== account strip: always reachable (usage, sign in/out, upgrade), but quiet ===== */
+.m2 .rail-compact { margin-top: 14px; }
+.m2 .rail-compact .rail-card.acct-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 10px 16px; background: transparent; border: 0; box-shadow: none; backdrop-filter: none; font-size: .8125rem; }
+.m2 .acct-strip .acct-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.m2 .acct-strip .usage-bar { display: none; }
+.m2 .acct-strip #usage-label { margin: 0; }
+.m2 .acct-strip .acct-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.m2 .acct-strip .btn { min-height: 36px; border-radius: 999px; }
+.m2 .acct-strip #upgrade-btn { background: transparent; color: var(--accent-2); border: 1px solid var(--accent-2); box-shadow: none; }
+.m2 .acct-strip #signin-btn { display: none; } /* the top-right Sign in pill does this */
+.m2 .acct-strip #signin-btn:not(.hidden) { display: none; }
+@media (max-width: 860px) { .m2 .acct-strip .acct-actions { margin-left: 0; width: 100%; } .m2 .acct-strip .btn { min-height: 44px; } .m2 .acct-strip #upgrade-btn { flex: 1; } }
+.m2 .rail-compact .rail-link { display: none; } /* History is in the top nav */
+.m2 .rail-compact .rail-card.acct-strip { justify-content: center; }
