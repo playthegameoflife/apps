@@ -1,0 +1,61 @@
+/* ============================================================
+   Cream + forest skin for Pricing, the tool landing pages and the
+   blog index. Loaded last. Restyle only: markup and ids untouched.
+   Same palette and fonts as the homepage and the extension.
+   ============================================================ */
+@font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/instrument-serif-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; font-display: swap; src: url("/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/fonts/inter-latin-wght-normal.woff2") format("woff2"); }
+
+html:not([data-theme="dark"]) {
+  --bg: #F5F2EC; --bg-elevated: #FAF8F3; --bg-card: #FBF9F5; --bg-input: #FFFFFF; --bg-soft: #ECE8DD;
+  --border: #E3DED3; --border-strong: #D3CCBC;
+  --text: #1A1A17; --text-secondary: #3a3a33; --muted: #6B675C; --muted-light: #8f8a7c;
+  --accent: #1A1A17; --accent-light: #34332d; --accent-dark: #000;
+  --accent-2: #1F4D3A; --accent-2-dark: #173a2c; --accent-2-text: #1F4D3A; --on-accent-2: #fff; --accent-2-glow: rgba(31,77,58,.14);
+  --surface: #FBF9F5; --surface-2: #F0ECE2; --line: #E3DED3; --glow: rgba(31,77,58,.10); --accent-soft: rgba(31,77,58,.08);
+}
+html[data-theme="dark"] {
+  --bg: #111613; --bg-elevated: #171E19; --bg-card: #1A221D; --bg-input: #1F2822; --bg-soft: #222C26;
+  --border: #2B362F; --border-strong: #3A483F;
+  --text: #EDEBE4; --text-secondary: #D3D1C9; --muted: #A3A89E; --muted-light: #A3A89E;
+  --accent: #EDEBE4; --accent-light: #fff; --accent-dark: #fff; --accent-fg: #111613;
+  --accent-2: #7FCBA0; --accent-2-dark: #A6DDBF; --accent-2-text: #7FCBA0; --on-accent-2: #0E1A13; --accent-2-glow: rgba(127,203,160,.16);
+  --surface: #1A221D; --surface-2: #222C26; --line: #2B362F; --glow: rgba(127,203,160,.10); --accent-soft: rgba(127,203,160,.10);
+}
+body { background: var(--bg); font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; }
+
+/* headlines: Instrument Serif, like the extension */
+h1, .page-title, .lp-hero h1, .final-cta h2, .section-head h2, main h2 {
+  font-family: "Instrument Serif", Georgia, serif; font-weight: 400; letter-spacing: -.01em;
+}
+h1, .page-title, .lp-hero h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.02; text-wrap: balance; }
+h1 em, .page-title em, .lp-hero h1 em, .final-cta h2 em, main h2 em {
+  font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; color: var(--accent-2);
+}
+/* keep small card titles in Inter so they stay readable */
+.plan-name, .plan-amount, .card h3, .post-card h2, .post-card h3 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; }
+
+/* top bar */
+.nav { background: color-mix(in srgb, var(--bg) 88%, transparent); border-bottom-color: var(--border); }
+.nav .brand { font-weight: 700; }
+.nav nav a.cta, .nav .cta { background: var(--accent-2); color: var(--on-accent-2); border-color: var(--accent-2); }
+
+/* buttons + highlights go forest */
+.btn-primary, .plan-card-pro .btn-primary, .lp-hero .btn-primary, .final-cta .btn, .cta-btn { background: var(--accent-2); color: var(--on-accent-2); border-color: var(--accent-2); box-shadow: 0 8px 20px rgba(31,77,58,.22); }
+.btn-primary:hover, .final-cta .btn:hover, .cta-btn:hover { background: var(--accent-2-dark); border-color: var(--accent-2-dark); }
+html[data-theme="dark"] .btn-primary, html[data-theme="dark"] .final-cta .btn, html[data-theme="dark"] .plan-card-pro .btn-primary { color: var(--on-accent-2); box-shadow: none; }
+.plan-card-pro, .plan-card.recommended { border-color: var(--accent-2); }
+.plan-badge { background: var(--text); color: var(--bg); }
+.plan-features li::before, .plan-features .ic-check, .check { color: var(--accent-2); }
+a { text-decoration-color: color-mix(in srgb, var(--accent-2) 40%, transparent); }
+.lp-eyebrow, .eyebrow, .lp-hero .eyebrow, .hero-pill { color: var(--accent-2); background: var(--bg-soft); border-color: var(--border); }
+::selection { background: rgba(31,77,58,.22); }
+html[data-theme="dark"] ::selection { background: rgba(127,203,160,.28); }
+.card, .plan-card, .post-card { box-shadow: 0 1px 2px rgba(60,55,40,.05); }
+@media (max-width: 640px) { .nav nav a, .btn { min-height: 44px; } }
+h1, h1.page-title, .page-title { font-family: "Instrument Serif", Georgia, serif !important; font-weight: 400 !important; letter-spacing: -.01em !important; }
+.lp-hero::before, .lp-body::before, .hero-glow { background: radial-gradient(600px 360px at 50% 0%, rgba(31,77,58,.10), transparent 70%) !important; }
+html:not([data-theme="dark"]) body { background-image: radial-gradient(700px 420px at 8% 0%, rgba(236,220,190,.55), transparent 70%), radial-gradient(700px 420px at 96% 6%, rgba(214,226,214,.6), transparent 70%); background-repeat: no-repeat; }
+html[data-theme="dark"] body { background-image: radial-gradient(700px 380px at 50% 0%, rgba(127,203,160,.08), transparent 70%) !important; background-repeat: no-repeat; }
+html[data-theme="dark"] .lp-hero::before, html[data-theme="dark"] .lp-body::before { background: radial-gradient(600px 360px at 50% 0%, rgba(127,203,160,.08), transparent 70%) !important; }

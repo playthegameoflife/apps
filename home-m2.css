@@ -38,34 +38,37 @@ body.m2 {
   background: #F3EFFA;
 }
 html[data-theme="dark"] body.m2 {
-  --bg: #14102b;
-  --bg-elevated: #1c1738;
-  --bg-card: rgba(32,26,64,.78);
-  --bg-input: #1c1738;
-  --bg-soft: #1c1738;
-  --border: #2f2859;
-  --border-strong: #3d3470;
-  --border-accent: #EDE9FF;
-  --text: #F1EEFF;
-  --text-secondary: #d6d0f2;
-  --muted: #a9a2d3;
-  --muted-light: #8a83b4;
-  --accent: #F1EEFF;
+  --bg: #111613;
+  --bg-elevated: #171E19;
+  --bg-card: rgba(26,34,29,.82);
+  --bg-input: #1A221D;
+  --bg-soft: #1A221D;
+  --border: #2B362F;
+  --border-strong: #3A483F;
+  --border-accent: #EDEBE4;
+  --text: #EDEBE4;
+  --text-secondary: #D3D1C9;
+  --muted: #A3A89E;
+  --muted-light: #8E948A;
+  --accent: #EDEBE4;
   --accent-light: #fff;
   --accent-dark: #fff;
-  --accent-fg: #14102b;
-  --accent-2: #9D83FF;
-  --accent-2-dark: #B7A3FF;
-  --pill-bg: #241e48;
-  --glow-1: rgba(107,77,255,.3);
+  --accent-fg: #111613;
+  --accent-2: #7FCBA0;
+  --accent-2-dark: #A6DDBF;
+  --accent-2-glow: rgba(127,203,160,.18);
+  --pill-bg: #222C26;
+  --glow-1: rgba(127,203,160,.16);
   --glow-2: transparent;
-  --soft-panel: #1c1738;
-  --nav-active-bg: #2f2859;
-  --nav-active-fg: #d9d0ff;
+  --soft-panel: #171E19;
+  --nav-active-bg: #2B362F;
+  --nav-active-fg: #BFE6D0;
   --shadow-hero: 0 30px 70px rgba(0,0,0,.5);
-  --m2-glass: rgba(32,26,64,.7);
-  --m2-glass-border: rgba(255,255,255,.1);
-  background: #14102b;
+  --m2-glass: rgba(26,34,29,.72);
+  --m2-glass-border: rgba(255,255,255,.08);
+  --m2-grad: linear-gradient(135deg, #2d6a50, #1F4D3A);
+  --card-dark-bg: #1F4D3A; --card-dark-fg: #fff; --card-dark-muted: rgba(255,255,255,.78);
+  background: #111613;
 }
 
 /* ===== page background: soft mesh ===== */
@@ -78,9 +81,8 @@ body.m2::before {
 }
 html[data-theme="dark"] body.m2::before {
   background:
-    radial-gradient(600px 420px at 10% 6%, rgba(255,150,110,.16), transparent 70%),
-    radial-gradient(640px 460px at 94% 18%, rgba(107,77,255,.3), transparent 70%),
-    radial-gradient(700px 480px at 55% 108%, rgba(60,190,140,.14), transparent 70%);
+    radial-gradient(600px 420px at 8% 4%, rgba(127,203,160,.10), transparent 70%),
+    radial-gradient(640px 460px at 96% 14%, rgba(127,203,160,.07), transparent 70%);
 }
 .m2 .app-main::before { display: none; }
 .m2 .app-shell, .m2 .app-main { position: relative; z-index: 1; }
