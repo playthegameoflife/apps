@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="/shell.css?v=1">
   <link rel="stylesheet" href="/library.css?v=1">
   <link rel="stylesheet" href="/redesign.css?v=18">
+  <link rel="stylesheet" href="/home-m2.css?v=17">
+  <link rel="stylesheet" href="/inner-m2.css?v=3">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#FFFFFF">
   <script>
@@ -49,7 +51,7 @@
   </script>
 <script src="/consent.js?v=1" defer></script>
 </head>
-<body>
+<body class="m2 m2-inner m2-lib">
   <a href="#main" class="skip-link">Skip to content</a>
 
   <div class="app-shell">
@@ -88,6 +90,8 @@
     <!-- ===== MAIN ===== -->
     <div class="app-main">
       <header class="topbar">
+        <a class="m2-brand" href="/" aria-label="Prompt Helper home"><img src="/icons/ph-logo-128.png" alt="" width="30" height="30"><span>Prompt Helper</span></a>
+        <nav class="m2-pills" aria-label="Main navigation"><a href="/">Create</a><a class="on" aria-current="page" href="/library.html">Library</a><a href="/generations.html">History</a><a href="/pricing.html">Pricing</a></nav>
         <button class="tb-menu" id="tb-menu" aria-label="Open menu">☰</button>
         <div class="tb-search">
           <input type="search" id="tb-search-input" placeholder="Search the prompt library…" aria-label="Search the prompt library">
@@ -105,7 +109,7 @@
         <!-- ===== PAGE HEAD ===== -->
         <div class="page-head">
           <h1>Prompt Library</h1>
-          <p>Battle-tested prompt templates across 16 categories. Open one, copy it, and paste it into any AI chat.</p>
+          <p>Ready-made prompt templates across 16 categories. Open one, copy it, and paste it into any AI chat.</p>
           <p class="lib-tier-note hidden" id="lib-tier-note"></p>
         </div>
 

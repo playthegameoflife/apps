@@ -1,0 +1,12 @@
+/* Cream/forest look for inner app pages (Library, History). Loads after home-m2.css. */
+.m2-inner .tb-search { display: block; flex: 0 1 240px; }
+.m2-inner .tb-link, .m2-inner .tb-pricing-m, .m2-inner .tb-cta { display: none; }
+.m2-lib .tb-search { display: none; }
+.m2 .shell-footer { background: transparent; border-top-color: var(--border); position: relative; z-index: 1; }
+@media (max-width: 860px) {
+  .m2-inner .tb-search { flex: 1 1 100%; }
+  .m2-inner .tb-search input { width: 100%; padding: 0 14px 0 38px; cursor: text; }
+  .m2-inner .tb-search input::placeholder { color: var(--muted-light); }
+  .m2-inner .shell-content { padding-left: 16px; padding-right: 16px; }
+}
+.m2-inner .shell-footer-grid a, .m2-inner .shell-footer a { display: flex; align-items: center; min-height: 36px; }

@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="/site.css?v=6">
   <link rel="stylesheet" href="/shell.css?v=2">
   <link rel="stylesheet" href="/redesign.css?v=18">
+  <link rel="stylesheet" href="/home-m2.css?v=17">
+  <link rel="stylesheet" href="/inner-m2.css?v=3">
   <link rel="stylesheet" href="/generations.css?v=1">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -37,7 +39,7 @@
   
 
 
-<body>
+<body class="m2 m2-inner">
   <div class="app-shell">
 
     <!-- ===== SIDEBAR ===== -->
@@ -74,6 +76,8 @@
     <!-- ===== MAIN ===== -->
     <div class="app-main">
       <header class="topbar">
+        <a class="m2-brand" href="/" aria-label="Prompt Helper home"><img src="/icons/ph-logo-128.png" alt="" width="30" height="30"><span>Prompt Helper</span></a>
+        <nav class="m2-pills" aria-label="Main navigation"><a href="/">Create</a><a href="/library.html">Library</a><a class="on" aria-current="page" href="/generations.html">History</a><a href="/pricing.html">Pricing</a></nav>
         <button class="tb-menu" id="tb-menu" aria-label="Open menu">☰</button>
         <div class="tb-search">
           <input type="search" id="tb-search-input" placeholder="Search the prompt library…" aria-label="Search the prompt library">
