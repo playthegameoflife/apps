@@ -551,7 +551,6 @@ function signOut() {
   state.usage = null;
   if (window.PHGAuth) window.PHGAuth.signOut();
   renderPlan(); renderUsage(); renderFeatureGates();
-  setText('auth-msg', 'Signed out.');
 }
 // Called when the shared auth module reports a session change.
 function onAuthChanged(user) {
@@ -561,7 +560,9 @@ function onAuthChanged(user) {
   // The server now owns quota + tier, so ask it rather than computing
   // locally. This also picks up a Pro upgrade made on another device.
   refreshUsage();
-  if (user && state.pendingUpgrade) { state.pendingUpgrade = false; upgrade(); }
+  if (user) { state.reauthTried = false; }
+  if (user && state.pendingUpgrade) { state.pendingUpgrade = false; state.reauthTried = true; upgrade(); }
+  if (user && state.pendingPortal) { state.pendingPortal = false; state.reauthTried = true; portal(); }
 }
 
 // ---- subscription ----
@@ -965,6 +966,17 @@ function revealOutputOnPhone() {
 }
 
 // ---- stripe ----
+// The Google access token is short-lived (about an hour). The saved profile
+// outlives it, so a visitor can look signed in with no usable token. Billing
+// calls need the token, so in that case sign them in again, then carry on.
+function sessionExpired() {
+  return !!(state.user && window.PHGAuth && typeof PHGAuth.getAccessToken === 'function' && !PHGAuth.getAccessToken());
+}
+function reauth(msgEl, what) {
+  msgEl.textContent = 'Confirming it\u2019s you with Google\u2026';
+  if (what === 'portal') state.pendingPortal = true; else state.pendingUpgrade = true;
+  signIn();
+}
 async function upgrade(plan) {
   // The pricing page passes the billing period the visitor picked. It is kept
   // on state so the choice survives the sign-in round trip.
@@ -979,8 +991,7 @@ async function upgrade(plan) {
     signIn();
     return;
   }
-  // If user is signed in but not Pro, proceed to checkout
-  // If user is signed in but not Pro, proceed to checkout
+  if (sessionExpired()) { reauth(msg, 'upgrade'); return; }
   const priceId = PRICE_IDS[state.selectedPlan] || STRIPE_MONTHLY_PRICE_ID;
   msg.textContent = 'Opening secure checkout…';
   try {
@@ -988,6 +999,7 @@ async function upgrade(plan) {
     const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, successUrl: location.origin + '/success.html', cancelUrl: location.origin + '/cancel.html' }) });
     if (!r.ok) {
       const d = await r.json().catch(()=>({}));
+      if (r.status === 401 && !state.reauthTried) { state.reauthTried = true; reauth(msg, 'upgrade'); return; }
       // 409 = this account already has a paid subscription. The server
       // refuses a second checkout so nobody is billed twice. Our own
       // status was stale, so refresh it and send them to billing.
@@ -1005,11 +1017,14 @@ async function upgrade(plan) {
   } catch (e) { msg.textContent = friendlyError(e, 'opening checkout') + ' You have not been charged.'; }
 }
 async function portal() {
-  const msg = $('upgrade-msg'); msg.textContent = 'Opening billing portal...';
+  const msg = $('upgrade-msg');
+  if (sessionExpired()) { reauth(msg, 'portal'); return; }
+  msg.textContent = 'Opening billing portal...';
   try {
     const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId), { headers: backendHeaders() });
     const d = await r.json();
     const r2 = await fetch(BACKEND_URL + '/create-portal-session', { method:'POST', headers: backendHeaders({ 'Content-Type': 'application/json' }), body: JSON.stringify({ userId: state.userId, customerId: d.customerId, returnUrl: location.origin + '/' }) });
+    if (r2.status === 401 && !state.reauthTried) { state.reauthTried = true; reauth(msg, 'portal'); return; }
     if (!r2.ok) { const dd = await r2.json().catch(()=>({})); throw new Error(dd.error || ('HTTP ' + r2.status)); }
     const dd = await r2.json();
     if (dd.url) window.location.href = dd.url; else throw new Error('No portal URL');
