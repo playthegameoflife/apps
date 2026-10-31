@@ -591,3 +591,16 @@ html[data-theme="dark"] .m2 .acct-strip .usage-nudge .btn { color: #0E1A13; }
   .m2-extline, .m2-ext, .m2 .tb-cta, .m2 .hero-pill, .m2 .shell-footer a[href*="chromewebstore"], .nav .cta, .nav nav a.cta { display: none !important; }
   .m2 .shell-footer li:has(> a[href*="chromewebstore"]) { display: none; }
 }
+
+/* ===== signed-in account: one tidy row (plan, manage, sign out) + Account link in the top bar ===== */
+.m2 .rail-compact .rail-card.acct-strip { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 16px; }
+.m2 .acct-strip #usage-label { flex: 1 1 100%; text-align: center; }
+.m2 .acct-strip .acct-who, .m2 .acct-strip .auth-row, .m2 .acct-strip .acct-actions { order: 2; width: auto; margin: 0; }
+.m2 .acct-strip .acct-actions { display: inline-flex; gap: 8px; }
+.m2 .acct-strip .auth-row .btn, .m2 .acct-strip #portal-btn { background: transparent; border: 1px solid var(--border-strong); color: var(--text); min-height: 36px; padding: 0 16px; border-radius: 999px; font-weight: 600; }
+.m2 .acct-strip #upgrade-msg { flex-basis: 100%; text-align: center; }
+.m2 .m2-account { display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 999px; background: var(--text); color: var(--bg); font-size: .875rem; font-weight: 600; text-decoration: none; }
+.m2 .m2-account.hidden { display: none; }
+@media (max-width: 860px) { .m2 .m2-account { min-height: 44px; } .m2 .acct-strip .acct-actions { width: auto; } .m2 .acct-strip .auth-row .btn, .m2 .acct-strip #portal-btn { min-height: 44px; } }
+.m2 .acct-strip .auth-row .btn, .m2 .acct-strip #portal-btn { white-space: nowrap; padding: 0 12px; font-size: .8125rem; }
+.m2 .acct-strip .acct-who { flex: 1 1 100%; justify-content: center; text-align: center; }
