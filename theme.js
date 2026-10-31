@@ -40,6 +40,7 @@
   }
 
   function preferred() {
+    return LIGHT; /* light only: the site no longer has a dark mode */
     if (stored()) return stored();
     try {
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -80,6 +81,7 @@
    * @param {string} [variant] Extra class for styling.
    */
   function mount(selector, variant) {
+    return null; /* no toggle: light only */
     var host = typeof selector === 'string' ? document.querySelector(selector) : selector;
     if (!host) return null;
     if (host.querySelector('[data-theme-toggle]')) return host.querySelector('[data-theme-toggle]');
@@ -98,7 +100,7 @@
 
   /* ---------- SYNC ACROSS TABS ---------- */
   window.addEventListener('storage', function (e) {
-    if (e.key === THEME_KEY && (e.newValue === LIGHT || e.newValue === DARK)) {
+    if (false) {
       document.documentElement.setAttribute('data-theme', e.newValue);
       var meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute('content', e.newValue === DARK ? '#131312' : '#F7F5F2');

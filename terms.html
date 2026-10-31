@@ -25,7 +25,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/site.css?v=6">
-  <script src="/theme.js?v=1"></script>
+  <link rel="stylesheet" href="/cream.css?v=22">
+  <script src="/theme.js?v=2"></script>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#08080d">
 <script src="/consent.js?v=1" defer></script>
@@ -34,15 +35,8 @@
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav">
     <a class="brand" href="/" style="text-decoration:none">Prompt Helper</a>
-    <nav>
-      <a href="/">Generator</a>
-      <a href="/library.html">Library</a>
-      <a href="/blog.html">Blog</a>
-      <a href="/pricing.html">Pricing</a>
-            <a href="/generations.html">My Generations</a>
-      <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get Extension</a>
-      <span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span>
-    </nav>
+    <nav class="nav-pills" aria-label="Main navigation"><a href="/">Create</a><a href="/library.html">Library</a><a href="/generations.html">History</a><a href="/pricing.html">Pricing</a></nav>
+    <div class="nav-right"><a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get extension</a><span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span></div>
   </div>
   <main id="main" class="container" style="max-width:760px">
     <header class="page-header">
@@ -120,7 +114,7 @@
       <p>For questions about these terms, contact us at: <a href="mailto:support@promptgenerator.fyi">support@promptgenerator.fyi</a></p>
     </div>
   </main>
-  <footer>© 2026 Prompt Helper. All rights reserved. · <a href="/privacy.html">Privacy</a> · · <a href="/terms.html">Terms</a> · <a href="/pricing.html">Pricing</a></footer>
+  <footer>© 2026 Prompt Helper. All rights reserved. &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/pricing.html">Pricing</a> &middot; <a href="/generations.html">History</a></footer>
   <script>
     // Sitewide theme toggle. theme.js applies the stored theme before
     // paint; this mounts the visible control.

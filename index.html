@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-9Kf32C5esEPt6GC3DeDGHuJW7QpYfFUqViL8lAIFYFc=' https://accounts.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-W4gvBj/31biiUNtoyQym+z+GpcbCaWIUZnw7OD3jyEM=' https://accounts.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>AI Prompt Generator — Free Prompt Enhancer | Prompt Helper</title>
-  <meta name="description" content="Free AI prompt generator that turns rough ideas into structured prompts for ChatGPT, Claude, Gemini, Grok, and Perplexity. Text, Code, Image, and Video modes with streaming output, quality score, and A/B variants. No sign-up required.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta name="description" content="Free AI prompt generator that turns rough ideas into structured prompts for ChatGPT, Claude, Gemini, Grok, and Perplexity. Text, Code, Image, and Video modes with streaming output and A/B variants. No sign-up required.">
+  <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://api-clyep56cdq-uc.a.run.app">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=Fraunces:ital,opsz,wght@1,9..144,500&display=swap" rel="stylesheet">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="stylesheet" href="/site.css?v=6">
   <link rel="stylesheet" href="/shell.css?v=1">
-  <link rel="stylesheet" href="/redesign.css?v=17">
+  <link rel="stylesheet" href="/redesign.css?v=18">
+  <link rel="stylesheet" href="/home-m2.css?v=45">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
-  <meta name="theme-color" content="#FFFFFF">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <meta name="theme-color" content="#F5F2EC">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="alternate" hreflang="en" href="https://promptgenerator.fyi/">
   <link rel="alternate" hreflang="x-default" href="https://promptgenerator.fyi/">
@@ -26,9 +27,7 @@
     // Apply saved theme before paint to avoid flash
     (function () {
       try {
-        var t = localStorage.getItem('phg_theme');
-        if (t) document.documentElement.setAttribute('data-theme', t);
-        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-theme', 'light'); /* light only */
       } catch (e) {}
     })();
   </script>
@@ -38,12 +37,11 @@
     "@graph": [
       { "@type": "Organization", "@id": "https://promptgenerator.fyi/#organization", "name": "Prompt Helper", "url": "https://promptgenerator.fyi", "logo": "https://promptgenerator.fyi/logo.svg", "sameAs": "https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" },
       { "@type": "WebSite", "@id": "https://promptgenerator.fyi/#website", "url": "https://promptgenerator.fyi", "name": "Prompt Helper", "publisher": { "@id": "https://promptgenerator.fyi/#organization" } },
-      { "@type": "SoftwareApplication", "name": "Prompt Helper", "applicationCategory": "ProductivityApplication", "operatingSystem": "Web, Chrome, Edge, Brave, Arc", "description": "Free AI prompt enhancer and generator that rewrites rough prompts for ChatGPT, Claude, Gemini, Grok, and Perplexity.", "url": "https://promptgenerator.fyi", "downloadUrl": "https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "featureList": ["One-click prompt enhancement", "Text, Code, Image, Video modes", "12+ styles per mode", "Streaming output with quality score", "A/B variant comparison", "Memories (personalized style)", "Starter templates"] },
+      { "@type": "SoftwareApplication", "name": "Prompt Helper", "applicationCategory": "ProductivityApplication", "operatingSystem": "Web, Chrome, Edge, Brave, Arc", "description": "Free AI prompt enhancer and generator that rewrites rough prompts for ChatGPT, Claude, Gemini, Grok, and Perplexity.", "url": "https://promptgenerator.fyi", "downloadUrl": "https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "featureList": ["One-click prompt enhancement", "Text, Code, Image, Video modes", "12+ styles per mode", "Streaming output", "A/B variant comparison", "Memories (personalized style)", "Starter templates"] },
       { "@type": "FAQPage", "mainEntity": [
         { "@type": "Question", "name": "What is an AI prompt generator?", "acceptedAnswer": { "@type": "Answer", "text": "An AI prompt generator helps you turn a rough idea into a complete, ready-to-use prompt. It adds role, task, context, output format, tone, constraints, and success criteria automatically, so you get better answers from AI tools without rewriting prompts from scratch." } },
-        { "@type": "Question", "name": "Is Prompt Helper free to use?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The free plan gives you 10 prompt enhancements per week when you sign in with Google, plus Memory and a 300-template prompt library. Without signing in you get 5 a week. Pro unlocks unlimited enhancements, full history, the full 2,140-template library, and A/B variants." } },
-        { "@type": "Question", "name": "Which AI tools does it support?", "acceptedAnswer": { "@type": "Answer", "text": "It generates prompts optimized for ChatGPT, Claude, Gemini, Grok, Perplexity, Midjourney, DALL-E, and Stable Diffusion. The Chrome extension adds an in-chat Improve button on ChatGPT, Gemini, Claude, Grok, and Perplexity." } },
-        { "@type": "Question", "name": "How does the quality score work?", "acceptedAnswer": { "@type": "Answer", "text": "After generation, a 0-100 score is shown based on prompt length, structure, role definition, output format specification, constraints, and tone. It helps you see prompt quality at a glance." } },
+        { "@type": "Question", "name": "Is Prompt Helper free to use?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The free plan gives you 10 prompt enhancements per week when you sign in with Google, plus Memory and a 300-template prompt library. Without signing in you get 5 a week. Pro unlocks unlimited enhancements, full history, the full 2,140-template library, A/B variants, and the App builder, AI agent and Music modes." } },
+        { "@type": "Question", "name": "Which AI tools does it support?", "acceptedAnswer": { "@type": "Answer", "text": "It generates prompts optimized for ChatGPT, Claude, Gemini, Grok, Perplexity, Midjourney, DALL-E, Stable Diffusion, Suno and Udio. The Chrome extension adds an in-chat Improve button on ChatGPT, Gemini, Claude, Grok, and Perplexity." } },
         { "@type": "Question", "name": "How do I write better AI prompts?", "acceptedAnswer": { "@type": "Answer", "text": "Define the task clearly, add context the AI needs, set constraints, specify the output format, and state success criteria. Prompt Helper automates all of these — paste a rough idea and get a structured prompt instantly." } }
       ] }
     ]
@@ -52,7 +50,7 @@
   <script src="/consent.js?v=1" defer></script>
   
 </head>
-<body>  <div class="app-shell">
+<body class="m2">  <div class="app-shell">
 
     <!-- ===== SIDEBAR ===== -->
     <aside class="sidebar" id="sidebar">
@@ -88,15 +86,18 @@
     <!-- ===== MAIN ===== -->
     <div class="app-main">
       <header class="topbar">
+        <a class="m2-brand" href="/" aria-label="Prompt Helper home"><img src="/icons/icon-192.png" alt="" width="36" height="36"><span>Prompt Helper</span></a>
+        <nav class="m2-pills" aria-label="Main navigation"><a class="on" href="/" aria-current="page">Create</a><a href="/library.html">Library</a><a href="/generations.html">History</a><a href="/pricing.html">Pricing</a></nav>
         <button class="tb-menu" id="tb-menu" aria-label="Open menu">☰</button>
         <div class="tb-search">
-          <input type="search" id="tb-search-input" placeholder="Search prompts, tools, guides…" aria-label="Search">
+          <input type="search" id="tb-search-input" placeholder="Search the prompt library…" aria-label="Search the prompt library">
         </div>
         <div class="tb-spacer"></div>
         <a class="tb-link" href="/pricing.html">Pricing</a>
         <a class="tb-pricing-m" href="/pricing.html">Pricing</a>
         <a class="tb-link" href="/blog.html">Guides</a>
-        <button class="tb-icon-btn" id="tb-theme" aria-label="Toggle theme" title="Toggle light/dark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+        <a class="m2-ext" href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener">Get the extension</a>
+        <a class="m2-account hidden" id="m2-account" href="/pricing.html#account">Account</a>
         <button class="tb-icon-btn" id="sb-signin-top" aria-label="Sign in" title="Sign in"><svg class="tb-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg><span class="tb-label">Sign in</span></button>
         <a class="tb-cta" href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener">Get Extension</a>
       </header>
@@ -107,21 +108,22 @@
         <div class="page-head">
           <a class="hero-pill" href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener">New: an Improve button inside ChatGPT, Claude, Gemini, Grok and Perplexity <span aria-hidden="true">›</span></a>
           <p class="hero-eyebrow">AI Prompt Generator</p>
-          <h1>Turn rough ideas into prompts that <em>work.</em></h1>
-          <p>Generate clearer prompts in seconds for text, code, image, and video AI tools. Try it free with no sign-up: 5 prompts a week, or 10 with a free account.</p>
+          <h1>What should the AI do for you?</h1>
+          <p>Say it roughly. We turn it into a prompt that works.</p>
         </div>
 
         <!-- ===== GENERATOR + RAIL ===== -->
         <div class="gen-layout" id="generator">
           <div class="gen-main">
             <div class="gen-panel">
-              <div class="mode-tabs gen-tabs" id="mode-tabs" role="group" aria-label="Prompt type"></div>
+              <div class="m2-composer">
+              <div class="mode-tabs gen-tabs" id="mode-tabs" ></div>
 
               <label class="gen-field-label" for="prompt-input">Your input</label>
               <textarea class="gen-input" id="prompt-input" placeholder="Describe what you want: 'write an email about my delayed order'" aria-label="Your prompt" inputmode="text" autocomplete="off" autocorrect="off" spellcheck="false"></textarea>
               <p class="gen-hint" id="gen-hint">Plain words are fine. We add the structure.</p>
-              <div class="example-chips" id="example-chips" role="group" aria-label="Example ideas"></div>
-              <button type="button" class="gen-options-toggle" id="gen-options-toggle" aria-expanded="false" aria-controls="gen-toolbar">Options</button>
+              
+              <button type="button" class="gen-options-toggle" id="gen-options-toggle" aria-expanded="false" aria-controls="gen-toolbar">More options</button>
 
               <div class="gen-toolbar" id="gen-toolbar">
                 <div class="select-wrap">
@@ -138,8 +140,11 @@
                     <option value="Midjourney">Midjourney</option>
                     <option value="DALL-E">DALL-E</option>
                     <option value="Stable Diffusion">Stable Diffusion</option>
+                    <option value="Suno">Suno</option>
+                    <option value="Udio">Udio</option>
                   </select>
                 </div>
+                <div class="m2-more">
                 <label class="toggle has-help">
                   <input type="checkbox" id="ab-toggle">
                   <span>A/B variants</span>
@@ -159,18 +164,18 @@
             <details class="gen-memory" id="gen-memory">
               <summary>Memory notes</summary>
               
-              <p class="rail-note" style="margin-bottom:var(--space-2)">Tell the generator how you like your prompts.</p>
+              <p class="rail-note" style="margin-bottom:var(--space-2)">Tell the generator how you like your prompts. Free with an account.</p>
               <textarea id="memory-input" class="memory-box" style="min-height:78px" placeholder="e.g. Concise, technical, always include an output format." aria-label="Memory notes"></textarea>
               <div class="row" style="margin-top:var(--space-2)">
                 <button id="save-memory-btn" class="btn btn-sm">Save memory</button>
                 <span id="memory-msg" class="muted" aria-live="polite"></span>
               </div>
             </details>
-
+                </div>
 </div>
 
               <div id="ab-upsell" class="after-result hidden" role="status">
-                <p><strong>A/B variants</strong> write two versions of your prompt so you can pick the stronger one. Included with Pro.</p>
+                <p><strong>A/B variants</strong> writes two versions of your prompt so you can pick the stronger one. Included with Pro.</p>
                 <a class="btn btn-sm btn-warn" href="/pricing.html">See what Pro includes</a>
               </div>
 
@@ -182,14 +187,17 @@
               </div>
 
               <div id="gen-error" class="error hidden" role="alert"></div>
+              </div>
+              <div class="example-chips" id="example-chips" role="group" aria-label="Example ideas"></div>
+              <div class="m2-result">
 
-              <div style="margin-top:var(--space-4)">
+              <div class="m2-out" style="margin-top:var(--space-4)">
                 <div class="gen-field-label">Output <span id="char-count" class="muted" style="font-weight:400;text-transform:none;letter-spacing:0"></span></div>
                 <div id="output" class="gen-output empty" role="status" aria-live="polite" aria-atomic="true">Your enhanced prompt will appear here.</div>
                 <div id="output-meta" class="row" style="margin-top:var(--space-3)"></div>
                 <div id="output-actions" class="row" style="margin-top:var(--space-2)"></div>
                 <div id="after-result" class="after-result hidden" role="status"></div>
-                <div class="row" style="margin-top:var(--space-2)">
+                <div class="row m2-copyrow" style="margin-top:var(--space-2)">
                   <button id="copy-btn" class="btn btn-sm btn-ghost">Copy</button>
                   <button id="share-btn" class="btn btn-sm btn-ghost">Share link</button>
                   <span id="copy-msg" class="muted" aria-live="polite"></span>
@@ -202,6 +210,7 @@
                   <div class="variant"><h4>Variant A</h4><div id="variant-a" class="gen-output empty" style="min-height:80px"></div></div>
                   <div class="variant"><h4>Variant B</h4><div id="variant-b" class="gen-output empty" style="min-height:80px"></div></div>
                 </div>
+              </div>
               </div>
             </div>
           </div>
@@ -216,11 +225,11 @@
                   <button id="signout-btn" class="btn btn-sm hidden">Sign out</button>
                 </div>
               </div>
-              <div class="muted" id="usage-label" style="font-size:0.78rem">Enhancements this week: 0 / 5</div>
+              <div class="muted" id="usage-label" style="font-size:0.78rem">5 of 5 free enhancements left this week</div>
               <div class="usage-bar" style="max-width:none"><div id="usage-fill" style="width:0%"></div></div>
               <div id="usage-nudge" class="usage-nudge hidden" role="status" aria-live="polite">
                 <span id="usage-nudge-text"></span>
-                <button id="usage-nudge-cta" class="btn btn-sm btn-warn" type="button">Sign in for free</button>
+                <button id="usage-nudge-cta" class="btn btn-sm btn-warn" type="button">Upgrade to Pro</button>
               </div>
               <div class="acct-actions">
                 <button id="upgrade-btn" class="btn btn-warn btn-sm">Upgrade to Pro — $19.99/mo</button>
@@ -231,6 +240,9 @@
             <a href="/generations.html" class="rail-link"><span>My Generations</span><span aria-hidden="true">→</span></a>
             <div id="auth-msg" class="muted"></div>
           </aside>
+
+          <p class="m2-extline">Also works inside ChatGPT, Claude and Gemini. <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener">Get the Chrome extension <span aria-hidden="true">→</span></a></p>
+
         </div>
 
         <!-- ===== WORKS WITH ===== -->
@@ -243,7 +255,7 @@
 
         <!-- ===== BEFORE / AFTER ===== -->
         <section class="shell-section ba" id="example" aria-labelledby="ba-title">
-          <div class="shell-section-head"><div><h2 id="ba-title">From rough idea to a prompt that <em>works</em></h2><p>An example of what the generator does with a short request.</p></div></div>
+          <div class="shell-section-head"><div><h2 id="ba-title">From rough idea to a prompt that <em>works</em></h2><p>One short request, and what the generator turns it into.</p></div></div>
           <div class="ba-grid">
             <div class="ba-card"><div class="ba-label">You type</div><p>write an email about my delayed order</p></div>
             <div class="ba-arrow" aria-hidden="true">→</div>
@@ -256,7 +268,7 @@
           <div class="shell-section-head">
             <div>
               <h2>Prompt Library</h2>
-              <p>Battle-tested prompt structures. Click one to load it into the generator.</p>
+              <p>Ready-made prompts. Pick one to load it into the generator.</p>
             </div>
             <a href="/library.html">Browse library</a>
           </div>
@@ -271,10 +283,11 @@
 
         <!-- ===== MODE LINKS ===== -->
         <section class="shell-section mode-links" id="tools">
-          <p class="mode-links-label">Start with a mode</p>
+          <p class="mode-links-label">Start with a tool</p>
           <ul>
             <li><a href="/?mode=IMAGE&target=Midjourney">AI Image Prompt Generator</a></li>
             <li><a href="/?mode=VIDEO">Video Prompt Generator</a></li>
+            <li><a href="/?mode=APP">App Builder Prompt Generator</a></li>
             <li><a href="/?mode=CODE">Code Prompt Generator</a></li>
             <li><a href="/?mode=TEXT&target=ChatGPT">ChatGPT Prompt Generator</a></li>
             <li><a href="/?mode=TEXT&style=expert&target=Claude">Claude Prompt Generator</a></li>
@@ -288,24 +301,24 @@
           <div class="shell-section-head">
             <div>
               <h2>How to use the AI Prompt Generator</h2>
-              <p>Start with your goal, add the details that matter, and copy a structured prompt into any AI platform.</p>
+              <p>Say what you want, add any details, and copy the finished prompt into any AI tool.</p>
             </div>
           </div>
           <div class="steps-row">
             <div class="step-card">
               <div class="step-number">01</div>
               <h3>Choose your prompt type</h3>
-              <p>Text for ChatGPT-style tasks, Code for development, Image for Midjourney, or Video for cinematic scenes.</p>
+              <p>Text for writing and chat, Code for development, Image for Midjourney and DALL-E, Video for Runway, Veo and Luma.</p>
             </div>
             <div class="step-card">
               <div class="step-number">02</div>
               <h3>Add your rough idea</h3>
-              <p>Describe the goal in plain language. Add audience, style, format, or constraints if you know them.</p>
+              <p>Describe the goal in plain words. Add the audience, style, format or limits if you know them.</p>
             </div>
             <div class="step-card">
               <div class="step-number">03</div>
               <h3>Copy, test, and refine</h3>
-              <p>Send the generated prompt to your preferred AI platform, review the result, and refine to taste.</p>
+              <p>Paste the prompt into your AI tool, check the answer, and adjust it until it's right.</p>
             </div>
           </div>
         </section>
@@ -315,14 +328,14 @@
           <div class="shell-section-head">
             <div>
               <h2>What is Prompt Helper?</h2>
-              <p>Prompt Helper turns a rough idea into a complete, ready-to-use prompt — so you get useful answers instead of generic output.</p>
+              <p>Prompt Helper turns a rough idea into a complete prompt you can use right away, so you get useful answers instead of generic ones.</p>
             </div>
           </div>
           <div class="feat-list">
-            <div class="feat"><span class="feat-num">01</span><div><h3>Turn rough ideas into structured prompts</h3><p>Describe what you want in plain language and get a complete prompt with role, task, context, output format, tone, constraints, and success criteria.</p></div></div>
-            <div class="feat"><span class="feat-num">02</span><div><h3>Create prompts for text, code, image, and video</h3><p>One toolkit for ChatGPT writing prompts, code generation, image prompts for Midjourney and DALL-E, and video prompts for Runway, Veo, and Luma.</p></div></div>
-            <div class="feat"><span class="feat-num">03</span><div><h3>Check quality before you send</h3><p>A 0-100 quality score on every generated prompt shows structure, specificity, and completeness — so you know exactly how good it is.</p></div></div>
-            <div class="feat"><span class="feat-num">04</span><div><h3>Enhance prompts inside any AI chat</h3><p>The Chrome extension adds an "Improve" button next to the send field on ChatGPT, Gemini, Claude, Grok, and Perplexity. No copy-pasting between tabs.</p></div></div>
+            <div class="feat"><span class="feat-num">01</span><div><h3>Turn rough ideas into structured prompts</h3><p>Describe what you want in plain words and get a full prompt with a role, task, context, format, tone, limits and success criteria.</p></div></div>
+            <div class="feat"><span class="feat-num">02</span><div><h3>Create prompts for text, code, image, video and more</h3><p>One tool for writing prompts, code prompts, image prompts for Midjourney and DALL-E, video prompts for Runway, Veo and Luma, plus App builder, AI agent and Music modes with Pro.</p></div></div>
+            <div class="feat"><span class="feat-num">03</span><div><h3>Refine until it fits</h3><p>Not quite right? Refine the result or switch the style, and get a new version in seconds.</p></div></div>
+            <div class="feat"><span class="feat-num">04</span><div><h3>Enhance prompts inside any AI chat</h3><p>The Chrome extension adds an "Improve" button next to the send box on ChatGPT, Gemini, Claude, Grok and Perplexity. No switching tabs.</p></div></div>
           </div>
         </section>
 
@@ -331,14 +344,13 @@
           <div class="shell-section-head">
             <div>
               <h2>AI Prompt Generator FAQ</h2>
-              <p>Clear answers about prompt generation, supported AI tools, prompt quality, and practical use cases.</p>
+              <p>Quick answers about how it works and which AI tools it supports.</p>
             </div>
           </div>
           <div class="faq-list">
             <details><summary>What is an AI prompt generator?</summary><p>An AI prompt generator helps you turn a rough idea into a complete, ready-to-use prompt. It adds role, task, context, output format, tone, constraints, and success criteria automatically.</p></details>
-            <details><summary>Is Prompt Helper free to use?</summary><p>Yes. The free plan gives you 10 prompt enhancements per week when you sign in with Google, plus Memory and a 300-template prompt library. Without signing in you get 5 a week. Pro unlocks unlimited enhancements, full history, the full 2,140-template library, and A/B variants.</p></details>
-            <details><summary>Which AI tools does it support?</summary><p>It generates prompts optimized for ChatGPT, Claude, Gemini, Grok, Perplexity, Midjourney, DALL-E, and Stable Diffusion.</p></details>
-            <details><summary>How does the quality score work?</summary><p>After generation, a 0-100 score is shown based on prompt length, structure, role definition, output format specification, constraints, and tone.</p></details>
+            <details><summary>Is Prompt Helper free to use?</summary><p>Yes. The free plan gives you 10 prompt enhancements per week when you sign in with Google, plus Memory and a 300-template prompt library. Without signing in you get 5 a week. Pro unlocks unlimited enhancements, full history, the full 2,140-template library, A/B variants, and the App builder, AI agent and Music modes.</p></details>
+            <details><summary>Which AI tools does it support?</summary><p>It generates prompts optimized for ChatGPT, Claude, Gemini, Grok, Perplexity, Midjourney, DALL-E, Stable Diffusion, Suno and Udio.</p></details>
             <details><summary>How do I write better AI prompts?</summary><p>Define the task clearly, add context the AI needs, set constraints, specify the output format, and state success criteria. Prompt Helper automates all of these.</p></details>
             <details><summary>Is my data private?</summary><p>Enhancement is processed via a secure backend. Settings are stored locally. Data is not sold to third parties.</p></details>
             <details><summary>Does Pro work in the Chrome extension too?</summary><p>Yes &mdash; one Pro subscription covers both. There is no separate extension plan and no extra purchase. Sign in to the extension with the same Google account you use on the site and it picks up your Pro status automatically, giving you unlimited enhancements, full history, and custom styles inside the extension.</p></details>
@@ -349,7 +361,7 @@
         <!-- ===== FINAL CTA ===== -->
         <section class="final-cta" aria-labelledby="final-cta-title">
           <h2 id="final-cta-title">Stop rewriting prompts. Start getting <em>answers.</em></h2>
-          <p>Paste a rough idea and get a prompt you can use right away.</p>
+          <p>Type a rough idea and get a prompt you can use right away.</p>
           <a class="cta-btn" href="#generator">Open the generator</a>
         </section>
 
@@ -360,7 +372,7 @@
         <div class="shell-footer-grid">
           <div>
             <h4>Prompt Helper</h4>
-            <p>Create, optimize, and explore prompts for ChatGPT, Claude, Gemini, Midjourney, Veo, and more.</p>
+            <p>Create, improve and explore prompts for ChatGPT, Claude, Gemini, Midjourney, Veo and more.</p>
           </div>
           <div>
             <h4>Prompt tools</h4>
@@ -396,11 +408,12 @@
     </div>
   </div>
 
-  <script src="prompt-templates.js"></script>
+  <script src="prompt-templates.js?v=3"></script>
   <script src="/auth-config.js?v=2"></script>
   <script src="/auth.js?v=2"></script>
-  <script src="generate.js"></script>
+  <script src="generate.js?v=14"></script>
   <script src="/site.js?v=3"></script>
-  <script src="/shell.js?v=1"></script>
+  <script src="/shell.js?v=2"></script>
+  <script src="/search.js?v=1"></script>
 </body>
 </html>

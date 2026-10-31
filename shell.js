@@ -195,6 +195,9 @@
     // The top-bar Sign in button must also go away once you are signed in.
     const sbTop = $('sb-signin-top');
     if (sbTop) sbTop.classList.toggle('hidden', signedIn);
+    // Signed in: the same spot becomes an Account link (billing, sign out).
+    const acct = $('m2-account');
+    if (acct) acct.classList.toggle('hidden', !signedIn);
   }
   setInterval(mirrorAccount, 700);
 

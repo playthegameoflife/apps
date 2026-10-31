@@ -25,10 +25,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@1,9..144,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/site.css?v=7">
-  <link rel="stylesheet" href="/redesign.css?v=17">
-  <script src="/theme.js?v=1"></script>
+  <link rel="stylesheet" href="/redesign.css?v=18">
+  <link rel="stylesheet" href="/cream.css?v=22">
+  <script src="/theme.js?v=2"></script>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#FFFFFF">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which video tools does this work with?", "acceptedAnswer": {"@type": "Answer", "text": "The output is plain text written for text-to-video models, so you can paste it into the tool you use."}}, {"@type": "Question", "name": "Should I write one shot or a whole scene?", "acceptedAnswer": {"@type": "Answer", "text": "Start with one shot. Short, focused prompts tend to be easier to control, and you can run the generator once per shot."}}, {"@type": "Question", "name": "Does it add sound?", "acceptedAnswer": {"@type": "Answer", "text": "It can include sound cues as a line in the prompt. Whether the video tool uses them depends on the tool."}}, {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "You can try it without signing in. Limits are shown on the pricing page."}}]}</script>
@@ -39,14 +40,8 @@
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav">
     <a class="brand" href="/" style="text-decoration:none">Prompt Helper</a>
-    <nav>
-      <a href="/">Generator</a>
-      <a href="/library.html">Library</a>
-      <a href="/blog.html">Blog</a>
-      <a href="/pricing.html">Pricing</a>
-      <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get Extension</a>
-      <span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span>
-    </nav>
+    <nav class="nav-pills" aria-label="Main navigation"><a href="/">Create</a><a href="/library.html">Library</a><a href="/generations.html">History</a><a href="/pricing.html">Pricing</a></nav>
+    <div class="nav-right"><a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get extension</a><span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span></div>
   </div>
   <main id="main" class="container lp-container">
     <header class="lp-hero">

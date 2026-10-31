@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-ODsdc0CntO0GCql4/MhIAJbe/n4J3fhrmGo1m0cyxcI=' 'sha256-eN/rMA8tFLFIcn4gbuCepAnvmMtf141PK9fJgrOEedE=' https://accounts.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
+  <script>
+    /* Apply the stored theme before first paint so a dark-mode visitor
+       never sees a white flash. Kept in sync with theme.js. */
+    (function () {
+      try {
+        var t = localStorage.getItem('phg_theme');
+        if (t === 'dark' || t === 'light') {
+          document.documentElement.setAttribute('data-theme', t);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Welcome to Pro — Prompt Helper</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css?v=6">
+  <link rel="stylesheet" href="/cream.css?v=22">
+  <script src="/theme.js?v=2"></script>
+  <script src="/consent.js?v=1" defer></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#08080d">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="nav">
+    <a class="brand" href="/" style="text-decoration:none">Prompt Helper</a>
+    <nav class="nav-pills" aria-label="Main navigation"><a href="/">Create</a><a href="/library.html">Library</a><a href="/generations.html">History</a><a href="/pricing.html">Pricing</a></nav>
+    <div class="nav-right"><a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get extension</a><span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span></div>
+  </div>
+  <main id="main" class="container" style="max-width:560px">
+    <div class="card pay-card">
+      <div class="pay-icon" aria-hidden="true">&#10003;</div>
+      <h1 class="page-title">You&rsquo;re all set. <em>Welcome to Pro.</em></h1>
+      <p class="muted" id="pay-note">Your subscription is active. Unlimited enhancements, the full prompt library, A/B variants and App builder are unlocked on the website and in the Chrome extension.</p>
+      <p id="pay-sync" class="muted" hidden>Not showing as Pro yet? <a id="pay-sync-link" href="#">Sync my subscription</a></p>
+      <p id="pay-synced" hidden><strong>Subscription synced.</strong> Head back to the generator.</p>
+      <div class="pay-actions">
+        <a class="btn btn-primary" href="/">Start generating</a>
+        <a class="btn" href="/pricing.html#account">Manage subscription</a>
+      </div>
+    </div>
+  </main>
+  <footer>© 2026 Prompt Helper. All rights reserved. &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/pricing.html">Pricing</a> &middot; <a href="/generations.html">History</a></footer>
+  <script>
+    // Sitewide theme toggle. theme.js applies the stored theme before
+    // paint; this mounts the visible control.
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.PHGTheme) window.PHGTheme.mount('#nav-actions', 'inline');
+    });
+  </script>
+<script src="/pay-page.js?v=1"></script>
+</body>
+</html>

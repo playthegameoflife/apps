@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-LNbhEXp93Wi+PvUUFqJNwc6i79TjoEdT/mpPmMBlxNs=' 'sha256-ODsdc0CntO0GCql4/MhIAJbe/n4J3fhrmGo1m0cyxcI=' 'sha256-eN/rMA8tFLFIcn4gbuCepAnvmMtf141PK9fJgrOEedE=' https://accounts.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-F/djZo4V9KN2SOe+uFFDV7nItBQ0Av+IIQV6hdUJsEw=' 'sha256-ODsdc0CntO0GCql4/MhIAJbe/n4J3fhrmGo1m0cyxcI=' 'sha256-eN/rMA8tFLFIcn4gbuCepAnvmMtf141PK9fJgrOEedE=' https://accounts.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
   <script>
     /* Apply the stored theme before first paint so a dark-mode visitor
        never sees a white flash. Kept in sync with theme.js. */
@@ -21,15 +21,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Pricing — Prompt Helper</title>
-  <meta name="description" content="Simple, transparent pricing for Prompt Helper. Free: 10 prompt enhancements per week plus Memory and a 300-template prompt library. Pro: unlimited enhancements, the full 2,140-template library, A/B variants, full history, and Pro access in the Chrome extension too. $19.99/month, cancel anytime.">
+  <meta name="description" content="Simple, transparent pricing for Prompt Helper. Free: 10 prompt enhancements per week plus Memory and a 300-template prompt library. Pro: unlimited enhancements, the full 2,140-template library, A/B variants, plus the App builder, AI agent and Music modes, full history, and Pro access in the Chrome extension too. From $4.99/week, $19.99/month or $199/year. Cancel anytime.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=Fraunces:ital,opsz,wght@1,9..144,500&display=swap" rel="stylesheet">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="stylesheet" href="/site.css?v=7">
-  <link rel="stylesheet" href="/redesign.css?v=17">
-  <script src="/theme.js?v=1"></script>
+  <link rel="stylesheet" href="/redesign.css?v=18">
+  <link rel="stylesheet" href="/cream.css?v=22">
+  <script src="/theme.js?v=2"></script>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#FFFFFF">
   <link rel="alternate" hreflang="en" href="https://promptgenerator.fyi/pricing.html">
@@ -40,14 +41,8 @@
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav">
     <a class="brand" href="/" style="text-decoration:none">Prompt Helper</a>
-    <nav>
-      <a href="/">Generator</a>
-      <a href="/library.html">Library</a>
-      <a href="/blog.html">Blog</a>
-      <a href="/pricing.html" style="color:var(--text);background:var(--bg-soft)">Pricing</a>
-      <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get Extension</a>
-      <span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span>
-    </nav>
+    <nav class="nav-pills" aria-label="Main navigation"><a href="/">Create</a><a href="/library.html">Library</a><a href="/generations.html">History</a><a class="on" aria-current="page" href="/pricing.html">Pricing</a></nav>
+    <div class="nav-right"><a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get extension</a><span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span></div>
   </div>
   <main id="main" class="container pricing-container">
     <header class="page-header" style="text-align:center;max-width:640px;margin:0 auto var(--space-10)">
@@ -56,6 +51,12 @@
     </header>
 
     <!-- Plans -->
+    <div class="plan-switch plan-switch-top" role="radiogroup" aria-label="Billing period">
+      <button type="button" role="radio" aria-checked="false" data-plan="weekly">Weekly</button>
+      <button type="button" role="radio" aria-checked="false" data-plan="monthly">Monthly</button>
+      <button type="button" role="radio" aria-checked="true" data-plan="annual">Annual<span class="plan-save">Save 17%</span></button>
+    </div>
+
     <div class="plans-grid">
       <!-- Free -->
       <div class="card plan-card">
@@ -63,7 +64,7 @@
         <h2 class="plan-name">Free</h2>
         <div class="plan-price">
           <span class="plan-amount">$0</span>
-          <span class="plan-period muted">/month</span>
+          <span class="plan-period muted">forever</span>
         </div>
         <p class="plan-tagline muted">No credit card, no trial. Free forever.</p>
 
@@ -75,33 +76,18 @@
           </li>
           <li class="plan-row">
             <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">Text, Code, Image &amp; Video modes</span>
-            <span class="feat-value">All</span>
-          </li>
-          <li class="plan-row">
-            <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">Styles</span>
-            <span class="feat-value">13 styles</span>
-          </li>
-          <li class="plan-row">
-            <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">Quality score on every result</span>
-            <span class="feat-value">&#10003;</span>
+            <span class="feat-label">Prompt library</span>
+            <span class="feat-value">300 templates</span>
           </li>
           <li class="plan-row">
             <span class="feat-yes" aria-hidden="true">&#10003;</span>
             <span class="feat-label">History</span>
-            <span class="feat-value">10 items</span>
+            <span class="feat-value">10 prompts</span>
           </li>
           <li class="plan-row">
             <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">Memories</span>
+            <span class="feat-label">Text, code, image, video + Memory</span>
             <span class="feat-value">&#10003;</span>
-          </li>
-          <li class="plan-row">
-            <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">Prompt library</span>
-            <span class="feat-value">300 templates</span>
           </li>
           <li class="plan-row is-off">
             <span class="feat-no" aria-hidden="true">&mdash;</span>
@@ -109,6 +95,11 @@
             <span class="feat-value muted">Pro</span>
           </li>
           <li class="plan-row is-off">
+            <span class="feat-no" aria-hidden="true">&mdash;</span>
+            <span class="feat-label">App builder, AI agent &amp; Music</span>
+            <span class="feat-value muted">Pro</span>
+          </li>
+          <li class="plan-row is-off ext-row">
             <span class="feat-no" aria-hidden="true">&mdash;</span>
             <span class="feat-label">Pro in the Chrome extension</span>
             <span class="feat-value muted">Pro</span>
@@ -126,55 +117,41 @@
         <div class="plan-badge plan-badge-recommended">Recommended</div>
         <h2 class="plan-name">Pro</h2>
         <div class="plan-price">
-          <span class="plan-amount" id="pro-price">$19.99</span>
-          <span class="plan-period muted" id="pro-period">/month</span>
+          <span class="plan-amount" id="pro-price">$199</span>
+          <span class="plan-period muted" id="pro-period">/year</span>
         </div>
-        <p class="plan-tagline muted">For power users who want unlimited. Cancel anytime.</p>
-
+        <p class="plan-equiv muted" id="pro-equiv" aria-live="polite">$16.58 a month, billed once a year. Save 17%.</p>
+        
+        <p class="plan-includes">Everything in Free, plus:</p>
         <ul class="plan-features">
           <li class="plan-row">
             <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">Prompt enhancements</span>
+            <span class="feat-label">Unlimited enhancements<small>No weekly limit, ever</small></span>
             <span class="feat-value">Unlimited</span>
           </li>
           <li class="plan-row">
             <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">Text, Code, Image &amp; Video modes</span>
-            <span class="feat-value">All</span>
+            <span class="feat-label">Full prompt library<small>7&times; more ready-made prompts</small></span>
+            <span class="feat-value">2,140</span>
           </li>
           <li class="plan-row">
             <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">Styles</span>
-            <span class="feat-value">13 styles</span>
-          </li>
-          <li class="plan-row">
-            <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">Quality score on every result</span>
+            <span class="feat-label">A/B variants<small>Compare two versions, keep the stronger</small></span>
             <span class="feat-value">&#10003;</span>
           </li>
           <li class="plan-row">
             <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">History</span>
-            <span class="feat-value">100 items</span>
+            <span class="feat-label">Longer history<small>10&times; more saved prompts</small></span>
+            <span class="feat-value">100</span>
           </li>
           <li class="plan-row">
             <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">Memories</span>
+            <span class="feat-label">App builder, AI agent &amp; Music<small>Build-ready briefs, system prompts and songs</small></span>
             <span class="feat-value">&#10003;</span>
           </li>
-          <li class="plan-row">
+          <li class="plan-row ext-row">
             <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">Prompt library</span>
-            <span class="feat-value">2,140 templates</span>
-          </li>
-          <li class="plan-row">
-            <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">A/B variants</span>
-            <span class="feat-value">&#10003;</span>
-          </li>
-          <li class="plan-row">
-            <span class="feat-yes" aria-hidden="true">&#10003;</span>
-            <span class="feat-label">Pro in the Chrome extension</span>
+            <span class="feat-label">Pro in the Chrome extension<small>One subscription covers both</small></span>
             <span class="feat-value">&#10003;</span>
           </li>
         </ul>
@@ -186,15 +163,16 @@
       </div>
     </div>
 
-    <p class="plan-note">
-      Every mode ships its own set of styles &mdash; 13 in total across
-      text, code, image and video.
-    </p>
+    <ul class="plan-trust">
+      <li>Cancel anytime</li>
+      <li>Secure checkout with Stripe</li>
+      <li>One plan covers the website and the extension</li>
+    </ul>
 
     <!-- Account state lives here, outside both plan cards, so the two
          cards stay the same height and the card contents read as a
          price list rather than a debug panel. -->
-    <div class="plan-meta">
+    <div class="plan-meta" id="account">
       <span class="muted" id="user-label">Sign in to get 10 enhancements a week</span>
       <span id="plan-pill" class="status-pill free">Free</span>
       <button id="plan-meta-signin" class="btn btn-sm btn-primary" type="button" data-act="signin">Sign in free</button>
@@ -280,7 +258,7 @@
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">
-            <p>Not currently. Pro is <strong>$19.99/month</strong> and you can cancel any time. If we ever add a one-time lifetime option, we&rsquo;ll announce it here first.</p>
+            <p>Not currently. Pro is <strong>$4.99/week, $19.99/month or $199/year</strong>, and you can cancel any time. If we ever add a one-time lifetime option, we&rsquo;ll announce it here first.</p>
           </div>
         </details>
 
@@ -291,6 +269,16 @@
           </summary>
           <div class="faq-a">
             <p>One prompt you send through a generator. If you turn on <strong>A/B variants</strong>, that single run returns two versions of your prompt &mdash; it still counts as one enhancement, not two.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span class="faq-q"><span class="faq-cat">Features</span>What are the App builder, AI agent and Music modes?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-a">
+            <p>Three <strong>Pro-only</strong> modes for longer, more detailed outputs. <strong>App builder</strong> turns an idea into a build-ready brief for tools like Lovable, Bolt, v0 and Replit. <strong>AI agent</strong> writes a complete system prompt for a custom GPT, Claude Project or agent. <strong>Music</strong> writes a style prompt and lyrics for Suno and Udio. On Free they appear in the mode menu with a Pro tag.</p>
           </div>
         </details>
 
@@ -332,17 +320,36 @@
       <p class="muted">Secure checkout powered by Stripe. Cancel anytime. No hidden fees.</p>
     </div>
   </main>
-  <footer>© 2026 Prompt Helper. All rights reserved. · <a href="/privacy.html">Privacy</a> · · <a href="/terms.html">Terms</a> · <a href="/pricing.html">Pricing</a>
-            <a href="/generations.html">My Generations</a></footer>
+  <footer>© 2026 Prompt Helper. All rights reserved. &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/pricing.html">Pricing</a> &middot; <a href="/generations.html">History</a></footer>
   <script src="/auth-config.js?v=2"></script>
   <script src="/auth.js?v=2"></script>
-  <script src="generate.js"></script>
+  <script src="generate.js?v=14"></script>
   <script>
     // Upgrade button (gated behind sign-in via generate.js)
-    document.getElementById('upgrade-btn').addEventListener('click', () => {
-      if (typeof upgrade === 'function') upgrade();
-      else window.location.href = '/';
-    });
+    // Billing period toggle above the plans (annual preselected).
+    (function () {
+      var PLANS = {
+        weekly:  { price: '$4.99',  period: '/week',  equiv: '' },
+        monthly: { price: '$19.99', period: '/month', equiv: '' },
+        annual:  { price: '$199',   period: '/year',  equiv: '$16.58 a month, billed once a year. Save 17%.' }
+      };
+      var btns = document.querySelectorAll('.plan-switch [data-plan]');
+      function pick(p) {
+        if (typeof state !== 'undefined') state.selectedPlan = p;
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].setAttribute('aria-checked', btns[i].getAttribute('data-plan') === p ? 'true' : 'false');
+        }
+        document.getElementById('pro-price').textContent = PLANS[p].price;
+        document.getElementById('pro-period').textContent = PLANS[p].period;
+        document.getElementById('pro-equiv').textContent = PLANS[p].equiv;
+      }
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', function () { pick(this.getAttribute('data-plan')); });
+      }
+      pick('annual');
+      // The Upgrade button itself is wired by generate.js; it reads the
+      // chosen period from state.selectedPlan.
+    })();
   </script>
   <script>
     // Sitewide theme toggle. theme.js applies the stored theme before

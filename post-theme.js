@@ -34,8 +34,7 @@
 
   // Apply before paint so the page never flashes white in dark mode.
   (function applyStoredTheme() {
-    var t = null;
-    try { t = localStorage.getItem(THEME_KEY); } catch (e) {}
+    var t = 'light'; /* light only: no dark mode */
     if (t === 'dark' || t === 'light') {
       document.documentElement.setAttribute('data-theme', t);
     } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -60,7 +59,7 @@
   }
 
   function boot() {
-    buildToggle();
+    /* no toggle: light only */
   }
 
   if (document.readyState === 'loading') {

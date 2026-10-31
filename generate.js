@@ -1,6 +1,9 @@
 // Prompt Generator web app logic (enhanced)
 const BACKEND_URL = 'https://api-clyep56cdq-uc.a.run.app';
 const STRIPE_MONTHLY_PRICE_ID = 'price_1SuFV7GdisCqoeFIRmlo7yb2';
+const STRIPE_WEEKLY_PRICE_ID = 'price_1UWcHNGdisCqoeFID7u5xd2H';   // $4.99 / week
+const STRIPE_ANNUAL_PRICE_ID = 'price_1UWcHeGdisCqoeFICCbuliDL';   // $199 / year
+const PRICE_IDS = { weekly: STRIPE_WEEKLY_PRICE_ID, monthly: STRIPE_MONTHLY_PRICE_ID, annual: STRIPE_ANNUAL_PRICE_ID };
 const STRIPE_PRICE_ID = STRIPE_MONTHLY_PRICE_ID;
 // NOTE: the Google OAuth client id used to live here. It was the Chrome
 // extension's client, which Google rejects for web origins (origin_mismatch).
@@ -131,7 +134,11 @@ function renderUsage() {
   // Prefer the server's number — the local counter is only a hint.
   const limit = state.tier === 'pro' ? '∞' : (state.usage ? state.usage.limit : TIERS[state.tier].limit);
   const cur = state.usage ? state.usage.used : state.weeklyUsage.enhancements;
-  setText('usage-label', `Enhancements this week: ${cur} / ${limit}`);
+  // Say what is left, not a fraction: "4 of 5 free enhancements left" reads
+  // the same whether the person is a guest (5) or signed in (10).
+  setText('usage-label', limit === '∞'
+    ? 'Unlimited enhancements'
+    : `${Math.max(0, limit - cur)} of ${limit} free enhancements left this week`);
   const numericLimit = (limit === '∞') ? Infinity : limit;
   const pct = numericLimit === Infinity ? 100 : Math.min(100, (cur / numericLimit) * 100);
   const f = $('usage-fill'); if (f) f.style.width = pct + '%';
@@ -192,9 +199,9 @@ function renderUsageNudge(used, limit) {
     // with no room and pushed it out of the card.
     setText('usage-nudge-text',
       state.tier === 'guest'
-        ? `You've used all ${limit} free enhancements this week. Sign in for ${TIERS.free.limit} a week, or go Pro for unlimited.`
+        ? `You've used all ${limit} free enhancements this week. Go Pro for unlimited.`
         : `You've used all ${limit} free enhancements this week. Upgrade to Pro for unlimited.`);
-    setText('usage-nudge-cta', state.tier === 'guest' ? 'Sign in for free' : 'Upgrade to Pro');
+    setText('usage-nudge-cta', 'Upgrade to Pro');
     return;
   }
 
@@ -204,9 +211,9 @@ function renderUsageNudge(used, limit) {
     nudge.className = 'usage-nudge warn';
     setText('usage-nudge-text',
       state.tier === 'guest'
-        ? `${remaining} free enhancement${remaining === 1 ? '' : 's'} left this week. Sign in for ${TIERS.free.limit} a week.`
+        ? `${remaining} free enhancement${remaining === 1 ? '' : 's'} left this week. Go Pro for unlimited.`
         : `${remaining} enhancement${remaining === 1 ? '' : 's'} left this week. Upgrade to Pro for unlimited.`);
-    setText('usage-nudge-cta', state.tier === 'guest' ? 'Sign in for free' : 'Upgrade to Pro');
+    setText('usage-nudge-cta', 'Upgrade to Pro');
     return;
   }
 
@@ -271,12 +278,13 @@ function renderFeatureGates() {
     memInput.disabled = !tier.memory;
     memInput.placeholder = tier.memory
       ? 'e.g. Concise, technical, always include an output format.'
-      : 'Sign in free to unlock Memory';
+      : 'e.g. Concise, technical, always include an output format.';
+    memInput.title = tier.memory ? '' : 'Memory is free with an account';
   }
   const memSave = $('save-memory-btn');
   if (memSave) {
     memSave.disabled = !tier.memory;
-    memSave.textContent = tier.memory ? 'Save memory' : 'Sign in to save';
+    memSave.textContent = 'Save memory';
   }
   if (abToggle) {
     // A/B variants are a Pro feature. Free and Guest tiers see the control
@@ -339,7 +347,7 @@ function showQuotaLimit(q) {
   }
 
   const body = tier === 'guest'
-    ? `Sign in free to get ${TIERS.free.limit} a week, plus Memory.`
+    ? `Sign in free to get ${TIERS.free.limit} a week, plus memory.`
     : `Upgrade to Pro for unlimited enhancements, A/B variants, and full history.`;
 
   el.innerHTML = `
@@ -364,6 +372,8 @@ function showQuotaLimit(q) {
 }
 
 function renderPlan() {
+  // Refresh the Pro badge on the App builder menu item.
+  try { if ($('mode-tabs') && $('mode-tabs').firstChild) populateModes(); } catch (e) {}
   const pill = $('plan-pill');
   const badge = $('plan-badge');
   if (state.isPro) {
@@ -377,6 +387,7 @@ function renderPlan() {
   }
   if (state.user) {
     setText('user-label', state.user.displayName || state.user.email || 'Signed in');
+    { const ul0 = $('user-label'); if (ul0) delete ul0.dataset.guest; }
     { const ul = $('user-label'); if (ul) ul.title = state.user.email || ''; }
     show($('signout-btn')); hide($('signin-btn')); hide($('plan-meta-signin'));
   } else {
@@ -386,6 +397,7 @@ function renderPlan() {
     // a price list. The plan card now says what the plan includes;
     // the sign-in control below carries the account state on its own.
     setText('user-label', 'Sign in to get 10 enhancements a week');
+    { const ul = $('user-label'); if (ul) ul.dataset.guest = '1'; }
     show($('signin-btn')); hide($('signout-btn')); show($('plan-meta-signin'));
   }
 }
@@ -394,32 +406,27 @@ function renderMemory() {
   const t = $('memory-toggle'); if (t) t.checked = state.memory.use;
 }
 
-function scorePrompt(text) {
-  if (!text) return 0;
-  let s = 0;
-  const len = text.length;
-  s += Math.min(30, Math.round(len / 60));
-  const low = text.toLowerCase();
-  if (/\b(you are|act as|role|persona|expert)\b/.test(low)) s += 15;
-  if (/\b(table|bullet|json|format|structure|list|markdown)\b/.test(low)) s += 15;
-  if (/\b(constraints?|limit|must|should|exactly|at least|no more)\b/.test(low)) s += 10;
-  if (/\b(tone|style|professional|casual|concise|detailed)\b/.test(low)) s += 10;
-  if (/\n/.test(text)) s += 10;
-  if (/\d/.test(text)) s += 5;
-  return Math.min(100, s);
-}
-function scoreLabel(s) {
-  if (s >= 80) return { label: 'Excellent', cls: 'score-excellent' };
-  if (s >= 60) return { label: 'Good', cls: 'score-good' };
-  if (s >= 40) return { label: 'Fair', cls: 'score-fair' };
-  return { label: 'Poor', cls: 'score-poor' };
-}
 
 
 // ---- modes/styles ----
+const MODE_HINTS = { TEXT_ENHANCEMENT: 'Emails, plans, answers', CODE_ENHANCEMENT: 'Functions, bugs, features', IMAGE_ENHANCEMENT: 'Midjourney, DALL·E, Flux', VIDEO_ENHANCEMENT: 'Sora, Veo, Runway', APP_ENHANCEMENT: 'Lovable, Bolt, Replit, Cursor', AGENT_ENHANCEMENT: 'Custom GPTs, Claude Projects, agents', MUSIC_ENHANCEMENT: 'Suno, Udio' };
+// Pro-only modes: the longest outputs. Label is used in the upgrade message.
+const PRO_MODES = { APP_ENHANCEMENT: 'App builder', AGENT_ENHANCEMENT: 'AI agent', MUSIC_ENHANCEMENT: 'Music' };
+let modeMenuBound = false;
 function populateModes() {
   const tabs = $('mode-tabs');
-  tabs.innerHTML = MODES.map(m => `<button class="mode-tab ${m.key === state.mode ? 'active' : ''}" data-mode="${m.key}">${m.label}</button>`).join('');
+  const cur = MODES.find(m => m.key === state.mode) || MODES[0];
+  tabs.innerHTML = '<button type="button" class="mode-trigger" id="mode-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="mode-menu"><span class="mode-trigger-k">Make a prompt for</span> <b>' + cur.label + '</b><svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
+    '<div class="mode-menu" id="mode-menu" role="group" aria-label="Prompt type" hidden>' +
+    MODES.map(m => { const locked = PRO_MODES[m.key] && !state.isPro; return `<button type="button" class="mode-tab ${m.key === state.mode ? 'active' : ''}${locked ? ' is-locked' : ''}" data-mode="${m.key}"${locked ? ' disabled aria-disabled="true" title="App builder is a Pro feature"' : ''}><span>${m.label}${locked ? ' <em class="mode-pro">Pro</em>' : ''}</span><small>${MODE_HINTS[m.key] || ''}</small></button>`; }).join('') + '</div>';
+  const trig = $('mode-trigger'), menu = $('mode-menu');
+  const setOpen = (o) => { menu.hidden = !o; trig.setAttribute('aria-expanded', o ? 'true' : 'false'); };
+  trig.addEventListener('click', (e) => { e.stopPropagation(); setOpen(menu.hidden); });
+  if (!modeMenuBound) {
+    modeMenuBound = true;
+    document.addEventListener('click', (e) => { const m = $('mode-menu'); if (m && !m.hidden && !e.target.closest('#mode-tabs')) { m.hidden = true; $('mode-trigger').setAttribute('aria-expanded', 'false'); } });
+    document.addEventListener('keydown', (e) => { const m = $('mode-menu'); if (e.key === 'Escape' && m && !m.hidden) { m.hidden = true; const t = $('mode-trigger'); t.setAttribute('aria-expanded', 'false'); t.focus(); } });
+  }
   tabs.querySelectorAll('.mode-tab').forEach(btn => {
     btn.addEventListener('click', () => {
       state.mode = btn.dataset.mode;
@@ -455,6 +462,9 @@ function applyDeepLink(params, opts) {
       CODE: 'CODE_ENHANCEMENT',
       IMAGE: 'IMAGE_ENHANCEMENT',
       VIDEO: 'VIDEO_ENHANCEMENT',
+      APP: 'APP_ENHANCEMENT',
+      AGENT: 'AGENT_ENHANCEMENT',
+      MUSIC: 'MUSIC_ENHANCEMENT',
     };
     const key = map[modeParam.toUpperCase()] || modeParam;
     const tab = document.querySelector('.mode-tab[data-mode="' + key + '"]');
@@ -693,6 +703,18 @@ async function generate(variantStyle) {
   const prompt = $('prompt-input').value.trim();
   if (!prompt) { $('gen-error').textContent = 'Please enter a prompt.'; show($('gen-error')); return; }
   hide($('gen-error'));
+  // App builder, AI agent and Music produce the longest outputs: Pro-only.
+  if (PRO_MODES[state.mode] && !state.isPro) {
+    const nudge = $('usage-nudge');
+    if (nudge) {
+      show(nudge);
+      nudge.className = 'usage-nudge warn';
+      setText('usage-nudge-text', PRO_MODES[state.mode] + ' is a Pro feature. Upgrade to unlock App builder, AI agent and Music.');
+      setText('usage-nudge-cta', 'Upgrade to Pro');
+      nudge.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+    return;
+  }
   { const ar = $('after-result'); if (ar) ar.classList.add('hidden'); }
   // The server is authoritative on quota. We do a cheap optimistic check
   // against the last known usage so we don't waste a round trip, but the
@@ -745,11 +767,9 @@ async function generate(variantStyle) {
         const cc = $('char-count'); if (cc && outputEl === $('output')) cc.textContent = `(${full.length} chars)`;
       },
       (full) => {
-        const s = scorePrompt(full);
-        const sl = scoreLabel(s);
         if (outputEl === $('output')) {
           const meta = document.getElementById('output-meta');
-          if (meta) meta.innerHTML = '<span id="score-badge" class="score-badge ' + sl.cls + '">' + sl.label + ' · ' + s + '/100</span>';
+          if (meta) meta.innerHTML = '';
           const actions = document.getElementById('output-actions');
           if (actions) actions.innerHTML = '<button class="btn btn-sm btn-ghost" data-act="refine">Refine</button>';
           state.lastOutput = full; state.lastPrompt = prompt;
@@ -833,7 +853,7 @@ async function refine() {
 function copyOutput() {
   const text = $('output').textContent;
   if (!text || $('output').classList.contains('empty')) return;
-  navigator.clipboard.writeText(text).then(() => { showToast('Copied to clipboard'); setText('copy-msg', 'Copied!'); setTimeout(() => setText('copy-msg',''), 1500); }).catch(() => setText('copy-msg','Copy failed'));
+  navigator.clipboard.writeText(text).then(() => { showToast('Copied to clipboard'); setText('copy-msg', ''); const cb = $('copy-btn'); if (cb) { const t0 = cb.dataset.label || cb.textContent; cb.dataset.label = t0; cb.textContent = 'Copied ✓'; clearTimeout(cb._t); cb._t = setTimeout(() => { cb.textContent = t0; }, 1600); } }).catch(() => setText('copy-msg','Copy failed'));
 }
 function shareLink() {
   const prompt = encodeURIComponent($('prompt-input').value.trim());
@@ -848,7 +868,7 @@ function renderAfterResult() {
   const tier = currentTier();
   let html = '';
   if (tier === 'guest') {
-    html = '<p><strong>Like it?</strong> Sign in free to get ' + TIERS.free.limit + ' a week, plus Memory and saved history.</p>' +
+    html = '<p><strong>Like it?</strong> Sign in free to double your limit to ' + TIERS.free.limit + ' a week, plus memory and saved history.</p>' +
            '<button type="button" class="btn btn-sm btn-primary" id="after-signin">Sign in free</button>';
   } else if (tier === 'free') {
     html = '<p><strong>Want more?</strong> Pro adds unlimited enhancements, A/B variants and your full history.</p>' +
@@ -879,6 +899,9 @@ const EXAMPLES = {
   TEXT_ENHANCEMENT: ['write an email about my delayed order', 'plan a 3-day trip to Lisbon', 'explain taxes to a teenager'],
   CODE_ENHANCEMENT: ['a function that checks if an email is valid', 'sort a list of users by signup date', 'debug a slow database query'],
   IMAGE_ENHANCEMENT: ['a cozy coffee shop on a rainy day', 'a futuristic city at sunset', 'a golden retriever astronaut'],
+  AGENT_ENHANCEMENT: ['a support assistant for my yoga studio', 'a study coach for high-school chemistry', 'a recruiter that screens resumes'],
+  MUSIC_ENHANCEMENT: ['a mellow lo-fi track for studying', 'an upbeat indie-pop song about summer', 'an epic cinematic trailer score'],
+  APP_ENHANCEMENT: ['a booking site for my dog groomer', 'a habit tracker with streaks', 'a simple store for my handmade candles'],
   VIDEO_ENHANCEMENT: ['a drone flying over a forest at sunrise', 'a chef plating a dessert', 'a skateboarder at night in the city'],
 };
 function renderExampleChips() {
@@ -888,6 +911,10 @@ function renderExampleChips() {
   if (inputEl && !inputEl.dataset.chipsBound) {
     inputEl.dataset.chipsBound = '1';
     inputEl.addEventListener('input', () => { box.hidden = inputEl.value.trim().length > 0; });
+    // Grow the box with the text (kept short when empty so Generate stays near the top).
+    const autoGrow = () => { inputEl.style.height = 'auto'; inputEl.style.height = Math.min(inputEl.scrollHeight, 240) + 'px'; };
+    inputEl.addEventListener('input', autoGrow);
+    autoGrow();
   }
   box.hidden = !!(inputEl && inputEl.value.trim());
   const list = EXAMPLES[state.mode] || EXAMPLES.TEXT_ENHANCEMENT;
@@ -899,6 +926,8 @@ function renderExampleChips() {
       const input = $('prompt-input');
       input.value = t; input.focus({ preventScroll: true });
       input.dispatchEvent(new Event('input', { bubbles: true }));
+      // One tap: run it. The visitor sees a real result without a second click.
+      if (typeof generate === 'function') generate();
     });
     box.appendChild(b);
   });
@@ -909,7 +938,7 @@ function initOptionsToggle() {
   btn.addEventListener('click', () => {
     const open = bar.classList.toggle('is-open');
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    btn.textContent = open ? 'Hide options' : 'Options';
+    btn.textContent = open ? 'Hide options' : 'More options';
   });
 }
 let toastTimer = null;
@@ -933,7 +962,10 @@ function revealOutputOnPhone() {
 }
 
 // ---- stripe ----
-async function upgrade() {
+async function upgrade(plan) {
+  // The pricing page passes the billing period the visitor picked. It is kept
+  // on state so the choice survives the sign-in round trip.
+  if (typeof plan === 'string' && PRICE_IDS[plan]) state.selectedPlan = plan;
   const msg = $('upgrade-msg');
   if (!state.user) {
     state.pendingUpgrade = true;
@@ -943,8 +975,7 @@ async function upgrade() {
   }
   // If user is signed in but not Pro, proceed to checkout
   // If user is signed in but not Pro, proceed to checkout
-  // Pro is monthly-only for now; there is no annual price in Stripe.
-  const priceId = STRIPE_MONTHLY_PRICE_ID;
+  const priceId = PRICE_IDS[state.selectedPlan] || STRIPE_MONTHLY_PRICE_ID;
   msg.textContent = 'Opening secure checkout…';
   try {
     const headers = backendHeaders({ 'Content-Type': 'application/json' });
@@ -1072,8 +1103,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // upgrade flow.
   const nudgeCta = $('usage-nudge-cta');
   if (nudgeCta) nudgeCta.addEventListener('click', () => {
-    if (state.tier === 'guest') signIn();
-    else upgrade();
+    // Upgrade is gated behind sign-in inside upgrade(), so guests are
+    // asked to sign in first and then continue to checkout.
+    upgrade();
   });
   // Pricing page: the "Free account" card has its own sign-in button, so a
   // guest can upgrade their allowance without hunting for the small
