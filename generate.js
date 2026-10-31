@@ -3,6 +3,8 @@ const BACKEND_URL = 'https://api-clyep56cdq-uc.a.run.app';
 const STRIPE_MONTHLY_PRICE_ID = 'price_1SuFV7GdisCqoeFIRmlo7yb2';
 const STRIPE_WEEKLY_PRICE_ID = 'price_1UWcHNGdisCqoeFID7u5xd2H';   // $4.99 / week
 const STRIPE_ANNUAL_PRICE_ID = 'price_1UWcHeGdisCqoeFICCbuliDL';   // $199 / year
+// Stripe-hosted customer portal login (email sign-in). Fallback for portal().
+const STRIPE_PORTAL_LOGIN_URL = 'https://billing.stripe.com/p/login/bJe28racM6RSgzC1cT7AI00';
 const PRICE_IDS = { weekly: STRIPE_WEEKLY_PRICE_ID, monthly: STRIPE_MONTHLY_PRICE_ID, annual: STRIPE_ANNUAL_PRICE_ID };
 const STRIPE_PRICE_ID = STRIPE_MONTHLY_PRICE_ID;
 // NOTE: the Google OAuth client id used to live here. It was the Chrome
@@ -567,7 +569,7 @@ async function checkSubscription() {
     const headers = backendHeaders();
     const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId), { headers });
     if (!r.ok) { state.isPro = false; return; }
-    const d = await r.json(); state.isPro = !!d.active;
+    const d = await r.json(); state.isPro = !!d.active; state.subscription = d;
   } catch { state.isPro = false; }
 }
 
@@ -966,6 +968,9 @@ async function upgrade(plan) {
   // The pricing page passes the billing period the visitor picked. It is kept
   // on state so the choice survives the sign-in round trip.
   if (typeof plan === 'string' && PRICE_IDS[plan]) state.selectedPlan = plan;
+  // Only the Pricing page starts checkout. Every other "Upgrade" button just
+  // takes people there, where the plans and prices are.
+  if (!$('pro-price')) { location.href = '/pricing.html'; return; }
   const msg = $('upgrade-msg');
   if (!state.user) {
     state.pendingUpgrade = true;
@@ -1007,7 +1012,12 @@ async function portal() {
     if (!r2.ok) { const dd = await r2.json().catch(()=>({})); throw new Error(dd.error || ('HTTP ' + r2.status)); }
     const dd = await r2.json();
     if (dd.url) window.location.href = dd.url; else throw new Error('No portal URL');
-  } catch (e) { msg.textContent = friendlyError(e, 'opening the billing portal'); }
+  } catch (e) {
+    // The signed-in portal session could not be created. Stripe's hosted login
+    // page still lets the customer manage billing by email, so send them there.
+    msg.textContent = 'Opening Stripe billing…';
+    window.location.href = STRIPE_PORTAL_LOGIN_URL;
+  }
 }
 
 // ---- init ----
