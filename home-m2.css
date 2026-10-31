@@ -578,3 +578,5 @@ html[data-theme="dark"] .m2 .acct-strip .usage-nudge .btn { color: #0E1A13; }
 }
 @media (min-width: 861px) { .m2 .acct-strip .usage-nudge .btn { width: auto !important; flex: 0 0 auto; } }
 .m2 .acct-strip:has(.usage-nudge:not(.hidden)) .acct-who { display: none; }
+.m2 #user-label[data-guest] { display: none; } /* the top-right Sign in already covers this */
+.m2 .acct-strip:has(#user-label[data-guest]) .acct-who { display: none; }

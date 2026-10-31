@@ -271,12 +271,13 @@ function renderFeatureGates() {
     memInput.disabled = !tier.memory;
     memInput.placeholder = tier.memory
       ? 'e.g. Concise, technical, always include an output format.'
-      : 'Sign in free to unlock Memory';
+      : 'e.g. Concise, technical, always include an output format.';
+    memInput.title = tier.memory ? '' : 'Memory is free with an account';
   }
   const memSave = $('save-memory-btn');
   if (memSave) {
     memSave.disabled = !tier.memory;
-    memSave.textContent = tier.memory ? 'Save memory' : 'Sign in to save';
+    memSave.textContent = 'Save memory';
   }
   if (abToggle) {
     // A/B variants are a Pro feature. Free and Guest tiers see the control
@@ -377,6 +378,7 @@ function renderPlan() {
   }
   if (state.user) {
     setText('user-label', state.user.displayName || state.user.email || 'Signed in');
+    { const ul0 = $('user-label'); if (ul0) delete ul0.dataset.guest; }
     { const ul = $('user-label'); if (ul) ul.title = state.user.email || ''; }
     show($('signout-btn')); hide($('signin-btn')); hide($('plan-meta-signin'));
   } else {
@@ -386,6 +388,7 @@ function renderPlan() {
     // a price list. The plan card now says what the plan includes;
     // the sign-in control below carries the account state on its own.
     setText('user-label', 'Sign in to get 10 enhancements a week');
+    { const ul = $('user-label'); if (ul) ul.dataset.guest = '1'; }
     show($('signin-btn')); hide($('signout-btn')); show($('plan-meta-signin'));
   }
 }
