@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-F/djZo4V9KN2SOe+uFFDV7nItBQ0Av+IIQV6hdUJsEw=' 'sha256-ODsdc0CntO0GCql4/MhIAJbe/n4J3fhrmGo1m0cyxcI=' 'sha256-eN/rMA8tFLFIcn4gbuCepAnvmMtf141PK9fJgrOEedE=' https://accounts.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-ODsdc0CntO0GCql4/MhIAJbe/n4J3fhrmGo1m0cyxcI=' 'sha256-eN/rMA8tFLFIcn4gbuCepAnvmMtf141PK9fJgrOEedE=' 'sha256-hLb66c2mXGD9rlt4UGvKFjm7gSyXNjvk0ALhlDMDmQ0=' https://accounts.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
   <script>
     /* Apply the stored theme before first paint so a dark-mode visitor
        never sees a white flash. Kept in sync with theme.js. */
@@ -27,7 +27,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="stylesheet" href="/site.css?v=7">
   <link rel="stylesheet" href="/redesign.css?v=18">
-  <link rel="stylesheet" href="/cream.css?v=32">
+  <link rel="stylesheet" href="/cream.css?v=34">
   <script src="/theme.js?v=2"></script>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
@@ -42,7 +42,7 @@
   <div class="nav">
     <a class="brand" href="/" style="text-decoration:none">Prompt Helper</a>
     <nav class="nav-pills" aria-label="Main navigation"><a href="/">Create</a><a href="/library.html">Library</a><a href="/generations.html">History</a><a class="on" aria-current="page" href="/pricing.html">Pricing</a></nav>
-    <div class="nav-right"><a class="nav-account hidden" id="m2-account" href="/account.html">Account</a><a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get extension</a><span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span></div>
+    <div class="nav-right"><button type="button" class="nav-signin hidden" id="nav-signin">Sign in</button><a class="nav-account hidden" id="m2-account" href="/account.html">Account</a><a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get extension</a><span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span></div>
   </div>
   <main id="main" class="container pricing-container">
     <header class="page-header" style="text-align:center;max-width:640px;margin:0 auto var(--space-10)">
@@ -108,6 +108,7 @@
 
         <div class="plan-cta">
           <button id="signin-btn" class="btn btn-primary btn-block">Sign in free</button>
+          <div id="plan-current-free" class="plan-current hidden">Your current plan</div>
           <div id="auth-msg" class="muted" style="font-size:13px" aria-live="polite"></div>
         </div>
       </div>
@@ -158,6 +159,8 @@
 
         <div class="plan-cta">
           <button id="upgrade-btn" class="btn btn-primary btn-block">Upgrade to Pro</button>
+          <div id="plan-current-pro" class="plan-current plan-current-on-dark hidden">Your current plan</div>
+          <button id="portal-btn" class="btn btn-block hidden" type="button">Manage subscription</button>
           <span id="upgrade-msg" class="muted" style="display:block;font-size:13px" aria-live="polite"></span>
         </div>
       </div>
@@ -189,7 +192,7 @@
       </div>
 
       <div class="faq-list">
-        <details class="faq-item" open>
+        <details class="faq-item">
           <summary>
             <span class="faq-q"><span class="faq-cat">Billing</span>Can I cancel anytime?</span>
             <span class="faq-icon" aria-hidden="true"></span>
@@ -357,9 +360,13 @@
   </div>
   <div class="shell-footer-bottom">© 2026 Prompt Helper. All rights reserved.</div>
 </footer>
+  <div class="sticky-upgrade" id="sticky-upgrade" aria-hidden="true">
+    <div class="sticky-upgrade-plan"><strong id="su-name">Pro &middot; Annual</strong><span id="su-price">$199/year</span></div>
+    <button type="button" class="btn btn-primary" id="su-btn" tabindex="-1">Upgrade to Pro</button>
+  </div>
   <script src="/auth-config.js?v=2"></script>
   <script src="/auth.js?v=2"></script>
-  <script src="generate.js?v=19"></script>
+  <script src="generate.js?v=20"></script>
   <script>
     // Upgrade button (gated behind sign-in via generate.js)
     // Billing period toggle above the plans (annual preselected).
@@ -378,11 +385,24 @@
         document.getElementById('pro-price').textContent = PLANS[p].price;
         document.getElementById('pro-period').textContent = PLANS[p].period;
         document.getElementById('pro-equiv').textContent = PLANS[p].equiv;
+        var nm = {weekly:'Weekly',monthly:'Monthly',annual:'Annual'}[p];
+        document.getElementById('su-name').textContent = 'Pro \u00b7 ' + nm;
+        document.getElementById('su-price').textContent = PLANS[p].price + PLANS[p].period;
       }
       for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener('click', function () { pick(this.getAttribute('data-plan')); });
       }
       pick('annual');
+      // Sticky bar: only while the real Upgrade button is off screen.
+      var su = document.getElementById('sticky-upgrade'), ub = document.getElementById('upgrade-btn');
+      document.getElementById('su-btn').addEventListener('click', function () { if (typeof upgrade === 'function') upgrade(); });
+      if (su && ub && 'IntersectionObserver' in window) {
+        new IntersectionObserver(function (e) {
+          var on = !e[0].isIntersecting && e[0].boundingClientRect.top > 0;
+          su.classList.toggle('show', on); su.setAttribute('aria-hidden', on ? 'false' : 'true');
+          document.getElementById('su-btn').tabIndex = on ? 0 : -1;
+        }).observe(ub);
+      }
       // The Upgrade button itself is wired by generate.js; it reads the
       // chosen period from state.selectedPlan.
     })();

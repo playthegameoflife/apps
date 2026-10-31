@@ -379,6 +379,10 @@ function renderPlan() {
   const acctLink = $('m2-account'); if (acctLink) acctLink.classList.toggle('hidden', !state.user);
   const pill = $('plan-pill');
   const badge = $('plan-badge');
+  { const f = $('plan-current-free'), pr = $('plan-current-pro');
+    if (f) f.classList.toggle('hidden', !(state.user && !state.isPro));
+    if (pr) pr.classList.toggle('hidden', !state.isPro);
+    const ns = $('nav-signin'); if (ns) ns.classList.toggle('hidden', !!state.user); }
   if (state.isPro) {
     if (pill) { pill.textContent = 'Pro'; pill.className = 'status-pill pro'; }
     if (badge) { badge.textContent = 'Pro'; badge.style.background = ''; badge.style.color = ''; }
@@ -1126,6 +1130,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // page, so they must be wired OUTSIDE the isGeneratorPage block — they
   // used to be inside it, which left the pricing page's sign-in dead.
   const sb = $('signin-btn'); if (sb) sb.addEventListener('click', signIn);
+  const nsi = $('nav-signin'); if (nsi) nsi.addEventListener('click', signIn);
   const so = $('signout-btn'); if (so) so.addEventListener('click', signOut);
 
   // Upgrade button exists on pricing page too
