@@ -394,26 +394,6 @@ function renderMemory() {
   const t = $('memory-toggle'); if (t) t.checked = state.memory.use;
 }
 
-function scorePrompt(text) {
-  if (!text) return 0;
-  let s = 0;
-  const len = text.length;
-  s += Math.min(30, Math.round(len / 60));
-  const low = text.toLowerCase();
-  if (/\b(you are|act as|role|persona|expert)\b/.test(low)) s += 15;
-  if (/\b(table|bullet|json|format|structure|list|markdown)\b/.test(low)) s += 15;
-  if (/\b(constraints?|limit|must|should|exactly|at least|no more)\b/.test(low)) s += 10;
-  if (/\b(tone|style|professional|casual|concise|detailed)\b/.test(low)) s += 10;
-  if (/\n/.test(text)) s += 10;
-  if (/\d/.test(text)) s += 5;
-  return Math.min(100, s);
-}
-function scoreLabel(s) {
-  if (s >= 80) return { label: 'Excellent', cls: 'score-excellent' };
-  if (s >= 60) return { label: 'Good', cls: 'score-good' };
-  if (s >= 40) return { label: 'Fair', cls: 'score-fair' };
-  return { label: 'Poor', cls: 'score-poor' };
-}
 
 
 // ---- modes/styles ----
@@ -759,11 +739,9 @@ async function generate(variantStyle) {
         const cc = $('char-count'); if (cc && outputEl === $('output')) cc.textContent = `(${full.length} chars)`;
       },
       (full) => {
-        const s = scorePrompt(full);
-        const sl = scoreLabel(s);
         if (outputEl === $('output')) {
           const meta = document.getElementById('output-meta');
-          if (meta) meta.innerHTML = '<span id="score-badge" class="score-badge ' + sl.cls + '">' + sl.label + ' · ' + s + '/100</span>';
+          if (meta) meta.innerHTML = '';
           const actions = document.getElementById('output-actions');
           if (actions) actions.innerHTML = '<button class="btn btn-sm btn-ghost" data-act="refine">Refine</button>';
           state.lastOutput = full; state.lastPrompt = prompt;

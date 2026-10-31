@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>AI Prompt Generator — Free Prompt Enhancer | Prompt Helper</title>
-  <meta name="description" content="Free AI prompt generator that turns rough ideas into structured prompts for ChatGPT, Claude, Gemini, Grok, and Perplexity. Text, Code, Image, and Video modes with streaming output, quality score, and A/B variants. No sign-up required.">
+  <meta name="description" content="Free AI prompt generator that turns rough ideas into structured prompts for ChatGPT, Claude, Gemini, Grok, and Perplexity. Text, Code, Image, and Video modes with streaming output and A/B variants. No sign-up required.">
   <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://api-clyep56cdq-uc.a.run.app">
@@ -39,12 +39,11 @@
     "@graph": [
       { "@type": "Organization", "@id": "https://promptgenerator.fyi/#organization", "name": "Prompt Helper", "url": "https://promptgenerator.fyi", "logo": "https://promptgenerator.fyi/logo.svg", "sameAs": "https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" },
       { "@type": "WebSite", "@id": "https://promptgenerator.fyi/#website", "url": "https://promptgenerator.fyi", "name": "Prompt Helper", "publisher": { "@id": "https://promptgenerator.fyi/#organization" } },
-      { "@type": "SoftwareApplication", "name": "Prompt Helper", "applicationCategory": "ProductivityApplication", "operatingSystem": "Web, Chrome, Edge, Brave, Arc", "description": "Free AI prompt enhancer and generator that rewrites rough prompts for ChatGPT, Claude, Gemini, Grok, and Perplexity.", "url": "https://promptgenerator.fyi", "downloadUrl": "https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "featureList": ["One-click prompt enhancement", "Text, Code, Image, Video modes", "12+ styles per mode", "Streaming output with quality score", "A/B variant comparison", "Memories (personalized style)", "Starter templates"] },
+      { "@type": "SoftwareApplication", "name": "Prompt Helper", "applicationCategory": "ProductivityApplication", "operatingSystem": "Web, Chrome, Edge, Brave, Arc", "description": "Free AI prompt enhancer and generator that rewrites rough prompts for ChatGPT, Claude, Gemini, Grok, and Perplexity.", "url": "https://promptgenerator.fyi", "downloadUrl": "https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "featureList": ["One-click prompt enhancement", "Text, Code, Image, Video modes", "12+ styles per mode", "Streaming output", "A/B variant comparison", "Memories (personalized style)", "Starter templates"] },
       { "@type": "FAQPage", "mainEntity": [
         { "@type": "Question", "name": "What is an AI prompt generator?", "acceptedAnswer": { "@type": "Answer", "text": "An AI prompt generator helps you turn a rough idea into a complete, ready-to-use prompt. It adds role, task, context, output format, tone, constraints, and success criteria automatically, so you get better answers from AI tools without rewriting prompts from scratch." } },
         { "@type": "Question", "name": "Is Prompt Helper free to use?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The free plan gives you 10 prompt enhancements per week when you sign in with Google, plus Memory and a 300-template prompt library. Without signing in you get 5 a week. Pro unlocks unlimited enhancements, full history, the full 2,140-template library, and A/B variants." } },
         { "@type": "Question", "name": "Which AI tools does it support?", "acceptedAnswer": { "@type": "Answer", "text": "It generates prompts optimized for ChatGPT, Claude, Gemini, Grok, Perplexity, Midjourney, DALL-E, and Stable Diffusion. The Chrome extension adds an in-chat Improve button on ChatGPT, Gemini, Claude, Grok, and Perplexity." } },
-        { "@type": "Question", "name": "How does the quality score work?", "acceptedAnswer": { "@type": "Answer", "text": "After generation, a 0-100 score is shown based on prompt length, structure, role definition, output format specification, constraints, and tone. It helps you see prompt quality at a glance." } },
         { "@type": "Question", "name": "How do I write better AI prompts?", "acceptedAnswer": { "@type": "Answer", "text": "Define the task clearly, add context the AI needs, set constraints, specify the output format, and state success criteria. Prompt Helper automates all of these — paste a rough idea and get a structured prompt instantly." } }
       ] }
     ]
@@ -339,7 +338,7 @@
           <div class="feat-list">
             <div class="feat"><span class="feat-num">01</span><div><h3>Turn rough ideas into structured prompts</h3><p>Describe what you want in plain words and get a full prompt with a role, task, context, format, tone, limits and success criteria.</p></div></div>
             <div class="feat"><span class="feat-num">02</span><div><h3>Create prompts for text, code, image, and video</h3><p>One tool for writing prompts, code prompts, image prompts for Midjourney and DALL-E, and video prompts for Runway, Veo and Luma.</p></div></div>
-            <div class="feat"><span class="feat-num">03</span><div><h3>Check quality before you send</h3><p>Every prompt gets a 0-100 quality score for structure, detail and completeness, so you know how strong it is.</p></div></div>
+            <div class="feat"><span class="feat-num">03</span><div><h3>Refine until it fits</h3><p>Not quite right? Refine the result or switch the style, and get a new version in seconds.</p></div></div>
             <div class="feat"><span class="feat-num">04</span><div><h3>Enhance prompts inside any AI chat</h3><p>The Chrome extension adds an "Improve" button next to the send box on ChatGPT, Gemini, Claude, Grok and Perplexity. No switching tabs.</p></div></div>
           </div>
         </section>
@@ -349,14 +348,13 @@
           <div class="shell-section-head">
             <div>
               <h2>AI Prompt Generator FAQ</h2>
-              <p>Quick answers about how it works, which AI tools it supports, and how prompt quality is scored.</p>
+              <p>Quick answers about how it works, which AI tools it supports.</p>
             </div>
           </div>
           <div class="faq-list">
             <details><summary>What is an AI prompt generator?</summary><p>An AI prompt generator helps you turn a rough idea into a complete, ready-to-use prompt. It adds role, task, context, output format, tone, constraints, and success criteria automatically.</p></details>
             <details><summary>Is Prompt Helper free to use?</summary><p>Yes. The free plan gives you 10 prompt enhancements per week when you sign in with Google, plus Memory and a 300-template prompt library. Without signing in you get 5 a week. Pro unlocks unlimited enhancements, full history, the full 2,140-template library, and A/B variants.</p></details>
             <details><summary>Which AI tools does it support?</summary><p>It generates prompts optimized for ChatGPT, Claude, Gemini, Grok, Perplexity, Midjourney, DALL-E, and Stable Diffusion.</p></details>
-            <details><summary>How does the quality score work?</summary><p>After generation, a 0-100 score is shown based on prompt length, structure, role definition, output format specification, constraints, and tone.</p></details>
             <details><summary>How do I write better AI prompts?</summary><p>Define the task clearly, add context the AI needs, set constraints, specify the output format, and state success criteria. Prompt Helper automates all of these.</p></details>
             <details><summary>Is my data private?</summary><p>Enhancement is processed via a secure backend. Settings are stored locally. Data is not sold to third parties.</p></details>
             <details><summary>Does Pro work in the Chrome extension too?</summary><p>Yes &mdash; one Pro subscription covers both. There is no separate extension plan and no extra purchase. Sign in to the extension with the same Google account you use on the site and it picks up your Pro status automatically, giving you unlimited enhancements, full history, and custom styles inside the extension.</p></details>
@@ -417,7 +415,7 @@
   <script src="prompt-templates.js"></script>
   <script src="/auth-config.js?v=2"></script>
   <script src="/auth.js?v=2"></script>
-  <script src="generate.js?v=5"></script>
+  <script src="generate.js?v=6"></script>
   <script src="/site.js?v=3"></script>
   <script src="/shell.js?v=1"></script>
   <script src="/search.js?v=1"></script>
