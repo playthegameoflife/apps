@@ -339,3 +339,4 @@ footer.shell-footer .shell-footer-grid { grid-template-columns: 1.4fr repeat(4, 
   .sticky-upgrade-plan span { font-size: .85rem; color: var(--muted); }
   .sticky-upgrade .btn { min-height: 46px; padding: 0 22px; white-space: nowrap; }
 }
+@media (max-width: 400px) { .nav .nav-pills a, .nav .nav-pills a:not(.cta) { padding: 0 8px; font-size: .9rem; } }
