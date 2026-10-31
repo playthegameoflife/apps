@@ -452,7 +452,7 @@
         note.innerHTML =
           'Free library — <strong>' + state.items.length.toLocaleString() + '</strong> of ' +
           state.fullTotal.toLocaleString() + ' prompts. ' +
-          '<a href="/pricing.html">Upgrade to Pro</a> for the full catalog.';
+          '<br><a href="/pricing.html">Upgrade to Pro for the full catalog</a>';
         note.classList.remove('hidden');
       } else {
         note.classList.add('hidden');
