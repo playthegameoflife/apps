@@ -376,6 +376,7 @@ function showQuotaLimit(q) {
 function renderPlan() {
   // Refresh the Pro badge on the App builder menu item.
   try { if ($('mode-tabs') && $('mode-tabs').firstChild) populateModes(); } catch (e) {}
+  const acctLink = $('m2-account'); if (acctLink) acctLink.classList.toggle('hidden', !state.user);
   const pill = $('plan-pill');
   const badge = $('plan-badge');
   if (state.isPro) {

@@ -650,3 +650,6 @@ html[data-theme="dark"] .m2 .acct-strip .usage-nudge .btn { color: #0E1A13; }
 /* force the account links onto their own line below the panel */
 .m2 .acct-strip::after { content: ""; order: 2; flex: 1 1 100%; height: 0; }
 .m2 .acct-strip .usage-nudge { max-width: 560px !important; }
+
+/* Name, Sign out and billing live on the Account page now; the home strip is just usage + upgrade. */
+.m2 .acct-strip .acct-who, .m2 .acct-strip .auth-row, .m2 .acct-strip #portal-btn { display: none !important; }

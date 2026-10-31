@@ -270,3 +270,8 @@ html[data-theme="dark"] .lp-hero::before, html[data-theme="dark"] .lp-body::befo
 .acct-grid .acct-card:first-child .acct-big { color: #fff; }
 .acct-actions .btn { justify-content: center; text-align: center; }
 .acct-grid .acct-card:first-child .acct-actions .btn { display: inline-flex; align-items: center; }
+
+/* pricing: account controls moved to the Account page */
+.plan-meta { display: none !important; }
+.nav .nav-account { display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 999px; background: var(--text); color: var(--bg); font-size: .875rem; font-weight: 600; text-decoration: none; }
+.nav .nav-account.hidden { display: none; }
