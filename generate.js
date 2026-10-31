@@ -409,14 +409,16 @@ function renderMemory() {
 
 
 // ---- modes/styles ----
-const MODE_HINTS = { TEXT_ENHANCEMENT: 'Emails, plans, answers', CODE_ENHANCEMENT: 'Functions, bugs, features', IMAGE_ENHANCEMENT: 'Midjourney, DALL·E, Flux', VIDEO_ENHANCEMENT: 'Sora, Veo, Runway', APP_ENHANCEMENT: 'Lovable, Bolt, Replit, Cursor' };
+const MODE_HINTS = { TEXT_ENHANCEMENT: 'Emails, plans, answers', CODE_ENHANCEMENT: 'Functions, bugs, features', IMAGE_ENHANCEMENT: 'Midjourney, DALL·E, Flux', VIDEO_ENHANCEMENT: 'Sora, Veo, Runway', APP_ENHANCEMENT: 'Lovable, Bolt, Replit, Cursor', AGENT_ENHANCEMENT: 'Custom GPTs, Claude Projects, agents', MUSIC_ENHANCEMENT: 'Suno, Udio' };
+// Pro-only modes: the longest outputs. Label is used in the upgrade message.
+const PRO_MODES = { APP_ENHANCEMENT: 'App builder', AGENT_ENHANCEMENT: 'AI agent', MUSIC_ENHANCEMENT: 'Music' };
 let modeMenuBound = false;
 function populateModes() {
   const tabs = $('mode-tabs');
   const cur = MODES.find(m => m.key === state.mode) || MODES[0];
   tabs.innerHTML = '<button type="button" class="mode-trigger" id="mode-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="mode-menu"><span class="mode-trigger-k">Make a prompt for</span> <b>' + cur.label + '</b><svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
     '<div class="mode-menu" id="mode-menu" role="group" aria-label="Prompt type" hidden>' +
-    MODES.map(m => { const locked = m.key === 'APP_ENHANCEMENT' && !state.isPro; return `<button type="button" class="mode-tab ${m.key === state.mode ? 'active' : ''}${locked ? ' is-locked' : ''}" data-mode="${m.key}"${locked ? ' disabled aria-disabled="true" title="App builder is a Pro feature"' : ''}><span>${m.label}${locked ? ' <em class="mode-pro">Pro</em>' : ''}</span><small>${MODE_HINTS[m.key] || ''}</small></button>`; }).join('') + '</div>';
+    MODES.map(m => { const locked = PRO_MODES[m.key] && !state.isPro; return `<button type="button" class="mode-tab ${m.key === state.mode ? 'active' : ''}${locked ? ' is-locked' : ''}" data-mode="${m.key}"${locked ? ' disabled aria-disabled="true" title="App builder is a Pro feature"' : ''}><span>${m.label}${locked ? ' <em class="mode-pro">Pro</em>' : ''}</span><small>${MODE_HINTS[m.key] || ''}</small></button>`; }).join('') + '</div>';
   const trig = $('mode-trigger'), menu = $('mode-menu');
   const setOpen = (o) => { menu.hidden = !o; trig.setAttribute('aria-expanded', o ? 'true' : 'false'); };
   trig.addEventListener('click', (e) => { e.stopPropagation(); setOpen(menu.hidden); });
@@ -461,6 +463,8 @@ function applyDeepLink(params, opts) {
       IMAGE: 'IMAGE_ENHANCEMENT',
       VIDEO: 'VIDEO_ENHANCEMENT',
       APP: 'APP_ENHANCEMENT',
+      AGENT: 'AGENT_ENHANCEMENT',
+      MUSIC: 'MUSIC_ENHANCEMENT',
     };
     const key = map[modeParam.toUpperCase()] || modeParam;
     const tab = document.querySelector('.mode-tab[data-mode="' + key + '"]');
@@ -699,13 +703,13 @@ async function generate(variantStyle) {
   const prompt = $('prompt-input').value.trim();
   if (!prompt) { $('gen-error').textContent = 'Please enter a prompt.'; show($('gen-error')); return; }
   hide($('gen-error'));
-  // App builder briefs are the longest outputs, so the mode is Pro-only.
-  if (state.mode === 'APP_ENHANCEMENT' && !state.isPro) {
+  // App builder, AI agent and Music produce the longest outputs: Pro-only.
+  if (PRO_MODES[state.mode] && !state.isPro) {
     const nudge = $('usage-nudge');
     if (nudge) {
       show(nudge);
       nudge.className = 'usage-nudge warn';
-      setText('usage-nudge-text', 'App builder is a Pro feature. Upgrade to turn ideas into build-ready briefs.');
+      setText('usage-nudge-text', PRO_MODES[state.mode] + ' is a Pro feature. Upgrade to unlock App builder, AI agent and Music.');
       setText('usage-nudge-cta', 'Upgrade to Pro');
       nudge.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
@@ -895,6 +899,8 @@ const EXAMPLES = {
   TEXT_ENHANCEMENT: ['write an email about my delayed order', 'plan a 3-day trip to Lisbon', 'explain taxes to a teenager'],
   CODE_ENHANCEMENT: ['a function that checks if an email is valid', 'sort a list of users by signup date', 'debug a slow database query'],
   IMAGE_ENHANCEMENT: ['a cozy coffee shop on a rainy day', 'a futuristic city at sunset', 'a golden retriever astronaut'],
+  AGENT_ENHANCEMENT: ['a support assistant for my yoga studio', 'a study coach for high-school chemistry', 'a recruiter that screens resumes'],
+  MUSIC_ENHANCEMENT: ['a mellow lo-fi track for studying', 'an upbeat indie-pop song about summer', 'an epic cinematic trailer score'],
   APP_ENHANCEMENT: ['a booking site for my dog groomer', 'a habit tracker with streaks', 'a simple store for my handmade candles'],
   VIDEO_ENHANCEMENT: ['a drone flying over a forest at sunrise', 'a chef plating a dessert', 'a skateboarder at night in the city'],
 };
