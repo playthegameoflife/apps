@@ -368,6 +368,8 @@ function showQuotaLimit(q) {
 }
 
 function renderPlan() {
+  // Refresh the Pro badge on the App builder menu item.
+  try { if ($('mode-tabs') && $('mode-tabs').firstChild) populateModes(); } catch (e) {}
   const pill = $('plan-pill');
   const badge = $('plan-badge');
   if (state.isPro) {
@@ -410,7 +412,7 @@ function populateModes() {
   const cur = MODES.find(m => m.key === state.mode) || MODES[0];
   tabs.innerHTML = '<button type="button" class="mode-trigger" id="mode-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="mode-menu"><span class="mode-trigger-k">Make a prompt for</span> <b>' + cur.label + '</b><svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
     '<div class="mode-menu" id="mode-menu" role="group" aria-label="Prompt type" hidden>' +
-    MODES.map(m => `<button type="button" class="mode-tab ${m.key === state.mode ? 'active' : ''}" data-mode="${m.key}"><span>${m.label}</span><small>${MODE_HINTS[m.key] || ''}</small></button>`).join('') + '</div>';
+    MODES.map(m => `<button type="button" class="mode-tab ${m.key === state.mode ? 'active' : ''}" data-mode="${m.key}"><span>${m.label}${m.key === 'APP_ENHANCEMENT' && !state.isPro ? ' <em class="mode-pro">Pro</em>' : ''}</span><small>${MODE_HINTS[m.key] || ''}</small></button>`).join('') + '</div>';
   const trig = $('mode-trigger'), menu = $('mode-menu');
   const setOpen = (o) => { menu.hidden = !o; trig.setAttribute('aria-expanded', o ? 'true' : 'false'); };
   trig.addEventListener('click', (e) => { e.stopPropagation(); setOpen(menu.hidden); });
@@ -693,6 +695,18 @@ async function generate(variantStyle) {
   const prompt = $('prompt-input').value.trim();
   if (!prompt) { $('gen-error').textContent = 'Please enter a prompt.'; show($('gen-error')); return; }
   hide($('gen-error'));
+  // App builder briefs are the longest outputs, so the mode is Pro-only.
+  if (state.mode === 'APP_ENHANCEMENT' && !state.isPro) {
+    const nudge = $('usage-nudge');
+    if (nudge) {
+      show(nudge);
+      nudge.className = 'usage-nudge warn';
+      setText('usage-nudge-text', 'App builder is a Pro feature. Upgrade to turn ideas into build-ready briefs.');
+      setText('usage-nudge-cta', 'Upgrade to Pro');
+      nudge.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+    return;
+  }
   { const ar = $('after-result'); if (ar) ar.classList.add('hidden'); }
   // The server is authoritative on quota. We do a cheap optimistic check
   // against the last known usage so we don't waste a round trip, but the
