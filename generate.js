@@ -195,9 +195,9 @@ function renderUsageNudge(used, limit) {
     // with no room and pushed it out of the card.
     setText('usage-nudge-text',
       state.tier === 'guest'
-        ? `You've used all ${limit} free enhancements this week. Sign in for ${TIERS.free.limit} a week, or go Pro for unlimited.`
+        ? `You've used all ${limit} free enhancements this week. Go Pro for unlimited.`
         : `You've used all ${limit} free enhancements this week. Upgrade to Pro for unlimited.`);
-    setText('usage-nudge-cta', state.tier === 'guest' ? 'Sign in for free' : 'Upgrade to Pro');
+    setText('usage-nudge-cta', 'Upgrade to Pro');
     return;
   }
 
@@ -207,9 +207,9 @@ function renderUsageNudge(used, limit) {
     nudge.className = 'usage-nudge warn';
     setText('usage-nudge-text',
       state.tier === 'guest'
-        ? `${remaining} free enhancement${remaining === 1 ? '' : 's'} left this week. Sign in for ${TIERS.free.limit} a week.`
+        ? `${remaining} free enhancement${remaining === 1 ? '' : 's'} left this week. Go Pro for unlimited.`
         : `${remaining} enhancement${remaining === 1 ? '' : 's'} left this week. Upgrade to Pro for unlimited.`);
-    setText('usage-nudge-cta', state.tier === 'guest' ? 'Sign in for free' : 'Upgrade to Pro');
+    setText('usage-nudge-cta', 'Upgrade to Pro');
     return;
   }
 
@@ -1079,8 +1079,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // upgrade flow.
   const nudgeCta = $('usage-nudge-cta');
   if (nudgeCta) nudgeCta.addEventListener('click', () => {
-    if (state.tier === 'guest') signIn();
-    else upgrade();
+    // Upgrade is gated behind sign-in inside upgrade(), so guests are
+    // asked to sign in first and then continue to checkout.
+    upgrade();
   });
   // Pricing page: the "Free account" card has its own sign-in button, so a
   // guest can upgrade their allowance without hunting for the small
