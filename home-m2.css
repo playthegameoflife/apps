@@ -580,3 +580,14 @@ html[data-theme="dark"] .m2 .acct-strip .usage-nudge .btn { color: #0E1A13; }
 .m2 .acct-strip:has(.usage-nudge:not(.hidden)) .acct-who { display: none; }
 .m2 #user-label[data-guest] { display: none; } /* the top-right Sign in already covers this */
 .m2 .acct-strip:has(#user-label[data-guest]) .acct-who { display: none; }
+
+/* ===== extension mention: a quiet line, desktop only ===== */
+.m2-extcard { display: none; }
+.m2-extline { max-width: 880px; margin: 0 auto 72px; text-align: center; font-size: .875rem; color: var(--muted); }
+.m2-extline a { color: var(--accent-2); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.m2-extline a:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* phones can't install Chrome extensions: no extension promos at all */
+@media (max-width: 860px) {
+  .m2-extline, .m2-ext, .m2 .tb-cta, .m2 .hero-pill, .m2 .shell-footer a[href*="chromewebstore"], .nav .cta, .nav nav a.cta { display: none !important; }
+  .m2 .shell-footer li:has(> a[href*="chromewebstore"]) { display: none; }
+}

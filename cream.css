@@ -68,3 +68,5 @@ html[data-theme="dark"] .lp-hero::before, html[data-theme="dark"] .lp-body::befo
 .nav .brand { display: inline-flex; align-items: center; gap: 10px; font-family: "Instrument Serif", Georgia, serif !important; font-weight: 400 !important; font-size: 1.5rem; letter-spacing: -.01em; line-height: 1; }
 .nav .brand::before { content: ""; width: 32px; height: 32px; border-radius: 9px; background: url(/icons/icon-192.png) center / cover no-repeat; flex: none; }
 @media (max-width: 640px) { .nav .brand { font-size: 1.3rem; } .nav .brand::before { width: 30px; height: 30px; } }
+@media (max-width: 860px) { .nav .cta, .nav nav a.cta, a.cta[href*="chromewebstore"], .shell-footer a[href*="chromewebstore"] { display: none !important; } }
+@media (max-width: 860px) { .faq-a p:has(> a[href*="chromewebstore"]) { display: none; } }
