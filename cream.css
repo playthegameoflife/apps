@@ -206,3 +206,9 @@ html[data-theme="dark"] .lp-hero::before, html[data-theme="dark"] .lp-body::befo
 
 /* comfortable touch targets on phones */
 @media (max-width: 860px) { .nav .brand { min-height: 44px; display: inline-flex; align-items: center; } }
+
+/* phones: lead with Pro, right under the billing toggle; Free follows */
+@media (max-width: 860px) {
+  .plans-grid { display: flex; flex-direction: column; }
+  .plans-grid .plan-card-pro { order: -1; }
+}
