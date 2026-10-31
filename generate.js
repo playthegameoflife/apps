@@ -347,7 +347,7 @@ function showQuotaLimit(q) {
   }
 
   const body = tier === 'guest'
-    ? `Sign in free to get ${TIERS.free.limit} a week, plus Memory.`
+    ? `Sign in free to get ${TIERS.free.limit} a week, plus memory.`
     : `Upgrade to Pro for unlimited enhancements, A/B variants, and full history.`;
 
   el.innerHTML = `
