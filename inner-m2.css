@@ -22,3 +22,4 @@
 
 /* History: search box was 280px tall on phones (flex-basis became height in a column) */
 @media (max-width: 560px) { .m2-inner .gen-search-wrap { flex: none; } }
+@media (max-width: 860px) { .m2-inner .gen-filter { min-height: 40px; padding-top: 0; padding-bottom: 0; display: inline-flex; align-items: center; } }

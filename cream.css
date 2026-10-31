@@ -196,3 +196,13 @@ html[data-theme="dark"] .lp-hero::before, html[data-theme="dark"] .lp-body::befo
 
 /* tool pages: the short "rough idea" card should not stretch to the tall result */
 .lp-compare-grid { align-items: start; }
+
+/* checkout success / cancel */
+.pay-card { text-align: center; padding: 48px 32px; margin: 48px auto; }
+.pay-card .page-title { margin-bottom: 14px; }
+.pay-icon { width: 56px; height: 56px; margin: 0 auto 18px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-2); color: var(--on-accent-2); font-size: 1.5rem; }
+.pay-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 28px; }
+@media (max-width: 520px) { .pay-card { padding: 36px 20px; margin: 24px auto; } .pay-actions .btn { width: 100%; } }
+
+/* comfortable touch targets on phones */
+@media (max-width: 860px) { .nav .brand { min-height: 44px; display: inline-flex; align-items: center; } }
