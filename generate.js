@@ -567,7 +567,7 @@ async function checkSubscription() {
     const headers = backendHeaders();
     const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId), { headers });
     if (!r.ok) { state.isPro = false; return; }
-    const d = await r.json(); state.isPro = !!d.active;
+    const d = await r.json(); state.isPro = !!d.active; state.subscription = d;
   } catch { state.isPro = false; }
 }
 
@@ -966,6 +966,9 @@ async function upgrade(plan) {
   // The pricing page passes the billing period the visitor picked. It is kept
   // on state so the choice survives the sign-in round trip.
   if (typeof plan === 'string' && PRICE_IDS[plan]) state.selectedPlan = plan;
+  // Only the Pricing page starts checkout. Every other "Upgrade" button just
+  // takes people there, where the plans and prices are.
+  if (!$('pro-price')) { location.href = '/pricing.html'; return; }
   const msg = $('upgrade-msg');
   if (!state.user) {
     state.pendingUpgrade = true;

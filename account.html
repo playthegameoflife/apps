@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-ODsdc0CntO0GCql4/MhIAJbe/n4J3fhrmGo1m0cyxcI=' 'sha256-eN/rMA8tFLFIcn4gbuCepAnvmMtf141PK9fJgrOEedE=' https://accounts.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
+  <script>
+    /* Apply the stored theme before first paint so a dark-mode visitor
+       never sees a white flash. Kept in sync with theme.js. */
+    (function () {
+      try {
+        var t = localStorage.getItem('phg_theme');
+        if (t === 'dark' || t === 'light') {
+          document.documentElement.setAttribute('data-theme', t);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Your account — Prompt Helper</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css?v=6">
+  <link rel="stylesheet" href="/cream.css?v=24">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="/theme.js?v=2"></script>
+  <script src="/consent.js?v=1" defer></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#08080d">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="nav">
+    <a class="brand" href="/" style="text-decoration:none">Prompt Helper</a>
+    <nav class="nav-pills" aria-label="Main navigation"><a href="/">Create</a><a href="/library.html">Library</a><a href="/generations.html">History</a><a href="/pricing.html">Pricing</a></nav>
+    <div class="nav-right"><a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get extension</a><span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span></div>
+  </div>
+  <main id="main" class="container acct-page">
+    <header class="page-header" style="text-align:center;max-width:640px;margin:0 auto var(--space-8)">
+      <h1 class="page-title">Your <em>account</em></h1>
+    </header>
+
+    <!-- Signed out -->
+    <section id="acct-guest" class="card acct-card acct-center" hidden>
+      <h2>Sign in to see your account</h2>
+      <p class="muted">Your plan, weekly usage and billing live here once you&rsquo;re signed in. It&rsquo;s free and takes a few seconds.</p>
+      <button id="signin-btn" class="btn btn-primary" type="button">Sign in with Google</button>
+      <p id="auth-msg" class="muted"></p>
+    </section>
+
+    <!-- Signed in -->
+    <section id="acct-user" hidden>
+      <div class="card acct-card acct-hero">
+        <div class="acct-avatar" id="acct-avatar" aria-hidden="true">P</div>
+        <div class="acct-id">
+          <h2 id="acct-name">Your name</h2>
+          <p class="muted" id="acct-email"></p>
+        </div>
+        <span id="acct-plan-pill" class="status-pill free">Free</span>
+      </div>
+
+      <div class="acct-grid">
+        <div class="card acct-card" id="acct-plan-card">
+          <p class="acct-eyebrow">Plan</p>
+          <p class="acct-big" id="acct-plan-name">Free</p>
+          <p class="muted" id="acct-plan-detail">10 enhancements a week, 300 templates, 10 history items.</p>
+          <div class="acct-actions">
+            <a class="btn btn-primary" id="acct-upgrade" href="/pricing.html">Upgrade to Pro</a>
+            <button class="btn hidden" id="portal-btn" type="button">Manage subscription</button>
+          </div>
+          <p class="muted acct-hint hidden" id="acct-portal-hint">Update your card, switch plans, download invoices or cancel &mdash; all in Stripe&rsquo;s secure billing portal.</p>
+        </div>
+
+        <div class="card acct-card">
+          <p class="acct-eyebrow">This week</p>
+          <p class="acct-big" id="acct-usage-big">0 of 10</p>
+          <p class="muted" id="acct-usage-sub">enhancements used. Resets every Monday.</p>
+          <div class="acct-bar" aria-hidden="true"><div id="acct-bar-fill"></div></div>
+        </div>
+
+        <div class="card acct-card acct-ext">
+          <p class="acct-eyebrow">Chrome extension</p>
+          <p class="acct-big acct-big-sm">One account, everywhere</p>
+          <p class="muted" id="acct-ext-text">Sign in to the extension with this Google account and your plan follows you.</p>
+          <a class="btn" href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener">Get the extension</a>
+        </div>
+      </div>
+
+      <div class="acct-foot">
+        <button id="signout-btn" class="btn" type="button">Sign out</button>
+        <span id="upgrade-msg" class="muted" aria-live="polite"></span>
+      </div>
+    </section>
+  </main>
+  <footer>© 2026 Prompt Helper. All rights reserved. &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/pricing.html">Pricing</a> &middot; <a href="/generations.html">History</a></footer>
+  <script>
+    // Sitewide theme toggle. theme.js applies the stored theme before
+    // paint; this mounts the visible control.
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.PHGTheme) window.PHGTheme.mount('#nav-actions', 'inline');
+    });
+  </script>
+<script src="/auth-config.js?v=2"></script>
+  <script src="/auth.js?v=2"></script>
+  <script src="generate.js?v=15"></script>
+  <script src="/account.js?v=1"></script>
+</body>
+</html>
