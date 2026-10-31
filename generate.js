@@ -1036,6 +1036,16 @@ async function portal() {
   }
 }
 
+// Coming back from Stripe with the browser's Back button restores this page
+// exactly as it was left ("Opening secure checkout…"). Reset it.
+window.addEventListener('pageshow', (e) => {
+  if (!e.persisted) return;
+  const m = document.getElementById('upgrade-msg');
+  if (m) m.textContent = '';
+  state.pendingUpgrade = false; state.pendingPortal = false; state.reauthTried = false;
+  try { renderPlan(); refreshUsage(); } catch (err) {}
+});
+
 // ---- init ----
 document.addEventListener('DOMContentLoaded', async () => {
   loadState();
