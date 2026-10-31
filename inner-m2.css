@@ -18,3 +18,4 @@
   .m2-inner .gen-stats > * { padding: 12px 10px; min-width: 0; }
   .m2-inner:not(.m2-lib) .tb-search { display: none; }
 }
+.m2-inner:not(.m2-lib) .tb-search { display: none; } /* History: the library search crowded the nav */

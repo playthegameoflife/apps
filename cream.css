@@ -63,3 +63,8 @@ html[data-theme="dark"] .lp-hero::before, html[data-theme="dark"] .lp-body::befo
   .plan-row { grid-template-columns: 1.1rem minmax(0, 1fr) auto; row-gap: 0; }
   .plan-row .feat-value { grid-column: auto; text-align: right; }
 }
+
+/* same brand lockup as the app pages: mark + serif wordmark */
+.nav .brand { display: inline-flex; align-items: center; gap: 10px; font-family: "Instrument Serif", Georgia, serif !important; font-weight: 400 !important; font-size: 1.5rem; letter-spacing: -.01em; line-height: 1; }
+.nav .brand::before { content: ""; width: 32px; height: 32px; border-radius: 9px; background: url(/icons/icon-192.png) center / cover no-repeat; flex: none; }
+@media (max-width: 640px) { .nav .brand { font-size: 1.3rem; } .nav .brand::before { width: 30px; height: 30px; } }
