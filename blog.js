@@ -42,16 +42,14 @@
   (function applyStoredTheme() {
     var t = null;
     try { t = localStorage.getItem(THEME_KEY); } catch (e) {}
-    if (t === 'dark' || t === 'light') {
-      document.documentElement.setAttribute('data-theme', t);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
+    // The site is light-only now: ignore any stored or system dark preference.
+    document.documentElement.setAttribute('data-theme', 'light');
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta && currentTheme() === 'dark') meta.setAttribute('content', '#0E0E0D');
   })();
 
   function buildThemeToggle() {
+    return; // light-only: no toggle
     if (document.getElementById('blog-theme-toggle')) return;
     var btn = document.createElement('button');
     btn.id = 'blog-theme-toggle';

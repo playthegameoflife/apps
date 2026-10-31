@@ -19,3 +19,6 @@
   .m2-inner:not(.m2-lib) .tb-search { display: none; }
 }
 .m2-inner:not(.m2-lib) .tb-search { display: none; } /* History: the library search crowded the nav */
+
+/* History: search box was 280px tall on phones (flex-basis became height in a column) */
+@media (max-width: 560px) { .m2-inner .gen-search-wrap { flex: none; } }

@@ -146,3 +146,53 @@ html[data-theme="dark"] .lp-hero::before, html[data-theme="dark"] .lp-body::befo
 .plan-card-pro .plan-price { margin-top: 6px; }
 .plan-meta #user-label, .plan-meta #plan-meta-signin { display: none !important; }
 .plan-meta:not(:has(button:not(.hidden):not(#plan-meta-signin))) { display: none; }
+
+/* ===== pricing, refined: left-aligned cards, dark Pro card for clear hierarchy ===== */
+.plans-grid { gap: 24px; max-width: 960px; margin-left: auto; margin-right: auto; }
+.plan-card { padding: 36px 32px 32px; border-radius: 28px; text-align: left; }
+.plan-card .plan-name { font-size: 1.875rem; margin: 0 0 14px; text-align: left; }
+.plan-card .plan-price { justify-content: flex-start; text-align: left; margin: 0; align-items: baseline; }
+.plan-card .plan-amount { font-size: 4rem; line-height: 1; }
+.plan-card .plan-period { font-size: 1rem; margin-left: 6px; }
+.plan-card .plan-tagline { text-align: left; margin: 10px 0 0; }
+.plan-card .plan-equiv { text-align: left; margin: 8px 0 0; min-height: 1.3em; }
+.plan-card .plan-features { margin-top: 24px; }
+.plan-card .plan-includes { margin: 24px 0 4px; }
+.plan-card .plan-badge { top: 20px; right: 24px; left: auto; transform: none; }
+.plan-card .plan-row { padding: 13px 0; border-color: var(--border); }
+.plan-card .btn-block { min-height: 52px; font-size: 1rem; }
+
+.plan-card-pro { background: #1F4D3A; border-color: #1F4D3A; color: #F5F2EC; box-shadow: 0 24px 60px -24px rgba(31,77,58,.55); }
+.plan-card-pro .plan-name, .plan-card-pro .plan-amount { color: #fff; }
+.plan-card-pro .muted, .plan-card-pro .plan-period, .plan-card-pro .plan-equiv { color: rgba(245,242,236,.72); }
+.plan-card-pro .plan-includes { color: rgba(245,242,236,.6); }
+.plan-card-pro .plan-row { border-color: rgba(245,242,236,.14); }
+.plan-card-pro .feat-label, .plan-card-pro .feat-label small { color: #fff; }
+.plan-card-pro .feat-label small { color: rgba(245,242,236,.68); }
+.plan-card-pro .feat-value, .plan-card-pro .feat-yes { color: #CFE8D9; }
+.plan-card-pro .plan-badge, .plan-card-pro .plan-badge-recommended { background: #F5F2EC; color: #1F4D3A; border-color: #F5F2EC; }
+.plan-card-pro .btn-primary { background: #F5F2EC; color: #1F4D3A; border-color: #F5F2EC; box-shadow: none; }
+.plan-card-pro .btn-primary:hover { background: #fff; }
+.plan-card-pro #upgrade-msg { color: rgba(245,242,236,.8); }
+
+/* toggle: a little more presence */
+.plan-switch-top { max-width: 420px; margin-bottom: 40px; background: rgba(255,255,255,.7); }
+.plan-switch-top button { min-height: 44px; font-size: .9375rem; }
+
+/* reassurance line under the cards */
+.plan-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px; margin: 32px auto 0; padding: 0; list-style: none; color: var(--muted); font-size: .875rem; }
+.plan-trust li::before { content: "\2713"; color: var(--accent-2); font-weight: 700; margin-right: 8px; }
+
+@media (max-width: 860px) {
+  .plan-card { padding: 32px 22px 24px; }
+  .plan-card .plan-amount { font-size: 3.25rem; }
+  .plan-card .plan-badge { top: 16px; right: 18px; }
+  .plan-switch-top { margin-bottom: 28px; }
+}
+.plan-card .plan-name { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 2rem; color: var(--text); }
+.plan-card .plan-tagline.muted { text-align: left; }
+.plan-card.plan-card-pro .plan-name { color: #fff; }
+.plan-card .plan-tagline, .plan-card .plan-tagline.muted { text-align: left !important; }
+
+/* tool pages: the short "rough idea" card should not stretch to the tall result */
+.lp-compare-grid { align-items: start; }
