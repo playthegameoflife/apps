@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/site.css?v=6">
-  <link rel="stylesheet" href="/cream.css?v=25">
+  <link rel="stylesheet" href="/cream.css?v=28">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="/theme.js?v=2"></script>
   <script src="/consent.js?v=1" defer></script>
@@ -45,11 +45,20 @@
     </header>
 
     <!-- Signed out -->
-    <section id="acct-guest" class="card acct-card acct-center" hidden>
-      <h2>Sign in to see your account</h2>
-      <p class="muted">Your plan, weekly usage and billing live here once you&rsquo;re signed in. It&rsquo;s free and takes a few seconds.</p>
-      <button id="signin-btn" class="btn btn-primary" type="button">Sign in with Google</button>
-      <p id="auth-msg" class="muted"></p>
+    <section id="acct-guest" class="card acct-card acct-center acct-welcome" hidden>
+      <div class="acct-welcome-icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4 4.2-6 8-6s6.8 2 8 6"/></svg></div>
+      <h2>Welcome back</h2>
+      <p class="acct-welcome-sub">Sign in to see your plan, weekly usage and billing in one place.</p>
+      <ul class="acct-perks">
+        <li>Double your weekly prompts &mdash; free</li>
+        <li>Pro follows you to every device</li>
+        <li>Manage or cancel any time</li>
+      </ul>
+      <button id="signin-btn" class="btn btn-primary acct-google" type="button">
+        <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#fff" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 8 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/></svg>
+        Sign in with Google
+      </button>
+      <p id="auth-msg" class="acct-msg" role="status"></p>
     </section>
 
     <!-- Signed in -->
@@ -96,7 +105,43 @@
       </div>
     </section>
   </main>
-  <footer>© 2026 Prompt Helper. All rights reserved. &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/pricing.html">Pricing</a> &middot; <a href="/generations.html">History</a></footer>
+  <footer class="shell-footer">
+  <div class="shell-footer-grid">
+    <div>
+      <h4>Prompt Helper</h4>
+      <p>Create, improve and explore prompts for ChatGPT, Claude, Gemini, Midjourney, Veo and more.</p>
+    </div>
+    <div>
+      <h4>Prompt tools</h4>
+      <a href="/ai-image-prompt-generator.html">AI Image Prompt Generator</a>
+      <a href="/ai-video-prompt-generator.html">AI Video Prompt Generator</a>
+      <a href="/ai-code-prompt-generator.html">AI Code Prompt Generator</a>
+      <a href="/chatgpt-prompt-generator.html">ChatGPT Prompt Generator</a>
+      <a href="/claude-prompt-generator.html">Claude Prompt Generator</a>
+      <a href="/gemini-prompt-generator.html">Gemini Prompt Generator</a>
+      <a href="/ai-prompt-optimizer.html">AI Prompt Optimizer</a>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <a href="/">AI Prompt Generator</a>
+      <a href="/library.html">Prompt Library</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener">Chrome Extension</a>
+    </div>
+    <div>
+      <h4>Learn</h4>
+      <a href="/blog.html">Prompt Guides</a>
+      <a href="/blog-how-to-write-better-ai-prompts.html">How to Write Better Prompts</a>
+      <a href="/blog-what-is-prompt-engineering.html">What Is Prompt Engineering?</a>
+      <a href="/blog-ai-prompt-examples-2026.html">30 AI Prompt Examples</a>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <a href="/privacy.html">Privacy Policy</a> <a href="/terms.html">Terms of Service</a>
+    </div>
+  </div>
+  <div class="shell-footer-bottom">© 2026 Prompt Helper. All rights reserved.</div>
+</footer>
   <script>
     // Sitewide theme toggle. theme.js applies the stored theme before
     // paint; this mounts the visible control.
@@ -106,7 +151,7 @@
   </script>
 <script src="/auth-config.js?v=2"></script>
   <script src="/auth.js?v=2"></script>
-  <script src="generate.js?v=17"></script>
+  <script src="generate.js?v=18"></script>
   <script src="/account.js?v=1"></script>
 </body>
 </html>
