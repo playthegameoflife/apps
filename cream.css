@@ -318,3 +318,24 @@ footer.shell-footer .shell-footer-grid { grid-template-columns: 1.4fr repeat(4, 
   footer.shell-footer .shell-footer-grid > div:nth-child(2) h4 { grid-column: 1 / -1; }
   footer.shell-footer .shell-footer-bottom { margin-top: 20px; }
 }
+
+/* header Sign in button (signed-out, pricing + tool pages) */
+.nav-signin { font: inherit; font-weight: 600; font-size: .9rem; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--border); background: #fff; color: var(--text); cursor: pointer; }
+.nav-signin:hover { border-color: var(--accent-2); color: var(--accent-2); }
+.nav-signin.hidden { display: none; }
+/* "Your current plan" on pricing cards */
+.plan-current { text-align: center; padding: 14px; border-radius: 14px; border: 1px dashed var(--border); color: var(--muted); font-weight: 600; font-size: .95rem; }
+.plan-current.hidden { display: none; }
+.plan-card-pro .plan-current-on-dark { border-color: rgba(245,242,236,.35); color: rgba(245,242,236,.85); }
+.plan-card-pro #portal-btn { background: #F5F2EC; color: #1F4D3A; border-color: #F5F2EC; margin-top: 10px; }
+#portal-btn.hidden { display: none; }
+/* sticky upgrade bar, phones only */
+.sticky-upgrade { display: none; }
+@media (max-width: 760px) {
+  .sticky-upgrade { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: rgba(255,255,255,.96); backdrop-filter: blur(10px); border-top: 1px solid var(--border); box-shadow: 0 -10px 30px -18px rgba(31,77,58,.4); transform: translateY(110%); transition: transform .22s ease; }
+  .sticky-upgrade.show { transform: none; }
+  .sticky-upgrade-plan { display: flex; flex-direction: column; line-height: 1.25; }
+  .sticky-upgrade-plan strong { font-size: .95rem; color: var(--text); }
+  .sticky-upgrade-plan span { font-size: .85rem; color: var(--muted); }
+  .sticky-upgrade .btn { min-height: 46px; padding: 0 22px; white-space: nowrap; }
+}

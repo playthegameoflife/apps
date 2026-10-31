@@ -314,12 +314,16 @@
     }
   </style>
   <link rel="stylesheet" href="/redesign.css?v=18">
-  <link rel="stylesheet" href="/cream.css?v=32">
+  <link rel="stylesheet" href="/cream.css?v=34">
 <script src="/consent.js?v=1" defer></script>
 </head>
 <body>
+  <div class="nav">
+    <a class="brand" href="/" style="text-decoration:none">Prompt Helper</a>
+    <nav class="nav-pills" aria-label="Main navigation"><a href="/">Create</a><a href="/library.html">Library</a><a href="/generations.html">History</a><a href="/pricing.html">Pricing</a></nav>
+    <div class="nav-right"><a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get extension</a></div>
+  </div>
   <header class="blog-hero">
-    <a class="blog-home" href="/">&larr; Prompt Helper</a>
     <h1>Prompt guides that<br>actually work</h1>
     <p class="lede">Practical, example-first writing on prompt engineering, frameworks, and getting <strong>better output from ChatGPT, Claude, Gemini, and Grok</strong>.</p>
     <div class="blog-stats">
@@ -342,7 +346,7 @@
     <p class="blog-search-status" id="blog-search-status" aria-live="polite"></p>
   </div>
 
-  <main class="blog-container">
+  <main class="blog-container" id="main">
     <section id="featured-section">
       <h2 class="blog-section-label">Latest guides</h2>
       <div class="feat-grid">
