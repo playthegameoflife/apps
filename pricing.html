@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-LNbhEXp93Wi+PvUUFqJNwc6i79TjoEdT/mpPmMBlxNs=' 'sha256-ODsdc0CntO0GCql4/MhIAJbe/n4J3fhrmGo1m0cyxcI=' 'sha256-eN/rMA8tFLFIcn4gbuCepAnvmMtf141PK9fJgrOEedE=' https://accounts.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-ODsdc0CntO0GCql4/MhIAJbe/n4J3fhrmGo1m0cyxcI=' 'sha256-eN/rMA8tFLFIcn4gbuCepAnvmMtf141PK9fJgrOEedE=' 'sha256-hNwpfob2PG5or+ZGjfsDMq3lqz/TnjIkD9BG0gUjFm0=' https://accounts.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
   <script>
     /* Apply the stored theme before first paint so a dark-mode visitor
        never sees a white flash. Kept in sync with theme.js. */
@@ -21,13 +21,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Pricing — Prompt Helper</title>
-  <meta name="description" content="Simple, transparent pricing for Prompt Helper. Free: 10 prompt enhancements per week plus Memory and a 300-template prompt library. Pro: unlimited enhancements, the full 2,140-template library, A/B variants, full history, and Pro access in the Chrome extension too. $19.99/month, cancel anytime.">
+  <meta name="description" content="Simple, transparent pricing for Prompt Helper. Free: 10 prompt enhancements per week plus Memory and a 300-template prompt library. Pro: unlimited enhancements, the full 2,140-template library, A/B variants, full history, and Pro access in the Chrome extension too. From $4.99/week, $19.99/month or $199/year. Cancel anytime.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Libre+Baskerville:wght@400;700&family=Fraunces:ital,opsz,wght@1,9..144,500&display=swap" rel="stylesheet">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="stylesheet" href="/site.css?v=7">
   <link rel="stylesheet" href="/redesign.css?v=18">
-  <link rel="stylesheet" href="/cream.css?v=10">
+  <link rel="stylesheet" href="/cream.css?v=11">
   <script src="/theme.js?v=2"></script>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
@@ -111,10 +111,16 @@
       <div class="card plan-card plan-card-pro">
         <div class="plan-badge plan-badge-recommended">Recommended</div>
         <h2 class="plan-name">Pro</h2>
+        <div class="plan-switch" role="radiogroup" aria-label="Billing period">
+          <button type="button" role="radio" aria-checked="false" data-plan="weekly">Weekly</button>
+          <button type="button" role="radio" aria-checked="true" data-plan="monthly">Monthly</button>
+          <button type="button" role="radio" aria-checked="false" data-plan="annual">Annual<span class="plan-save">Save 17%</span></button>
+        </div>
         <div class="plan-price">
           <span class="plan-amount" id="pro-price">$19.99</span>
           <span class="plan-period muted" id="pro-period">/month</span>
         </div>
+        <p class="plan-equiv muted" id="pro-equiv" aria-live="polite">&nbsp;</p>
         <p class="plan-tagline muted">For power users who want unlimited. Cancel anytime.</p>
 
         <p class="plan-includes">Everything in Free, plus:</p>
@@ -247,7 +253,7 @@
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
           <div class="faq-a">
-            <p>Not currently. Pro is <strong>$19.99/month</strong> and you can cancel any time. If we ever add a one-time lifetime option, we&rsquo;ll announce it here first.</p>
+            <p>Not currently. Pro is <strong>$4.99/week, $19.99/month or $199/year</strong>, and you can cancel any time. If we ever add a one-time lifetime option, we&rsquo;ll announce it here first.</p>
           </div>
         </details>
 
@@ -303,13 +309,34 @@
             <a href="/generations.html">My Generations</a></footer>
   <script src="/auth-config.js?v=2"></script>
   <script src="/auth.js?v=2"></script>
-  <script src="generate.js"></script>
+  <script src="generate.js?v=7"></script>
   <script>
     // Upgrade button (gated behind sign-in via generate.js)
-    document.getElementById('upgrade-btn').addEventListener('click', () => {
-      if (typeof upgrade === 'function') upgrade();
-      else window.location.href = '/';
-    });
+    // Billing period switch: weekly / monthly / annual.
+    (function () {
+      var PLANS = {
+        weekly:  { price: '$4.99',   period: '/week',  equiv: 'About $21.62 a month. Billed weekly, cancel anytime.' },
+        monthly: { price: '$19.99',  period: '/month', equiv: '\u00a0' },
+        annual:  { price: '$199',    period: '/year',  equiv: '$16.58 a month, billed once a year. Save 17%.' }
+      };
+      var plan = 'monthly';
+      var btns = document.querySelectorAll('.plan-switch [data-plan]');
+      function pick(p) {
+        plan = p;
+        if (typeof state !== 'undefined') state.selectedPlan = p;
+        for (var i = 0; i < btns.length; i++) {
+          btns[i].setAttribute('aria-checked', btns[i].getAttribute('data-plan') === p ? 'true' : 'false');
+        }
+        document.getElementById('pro-price').textContent = PLANS[p].price;
+        document.getElementById('pro-period').textContent = PLANS[p].period;
+        document.getElementById('pro-equiv').textContent = PLANS[p].equiv;
+      }
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', function () { pick(this.getAttribute('data-plan')); });
+      }
+      // The Upgrade button itself is wired by generate.js; it reads the
+      // chosen period from state.selectedPlan.
+    })();
   </script>
   <script>
     // Sitewide theme toggle. theme.js applies the stored theme before

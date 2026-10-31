@@ -1,6 +1,9 @@
 // Prompt Generator web app logic (enhanced)
 const BACKEND_URL = 'https://api-clyep56cdq-uc.a.run.app';
 const STRIPE_MONTHLY_PRICE_ID = 'price_1SuFV7GdisCqoeFIRmlo7yb2';
+const STRIPE_WEEKLY_PRICE_ID = 'price_1UWcHNGdisCqoeFID7u5xd2H';   // $4.99 / week
+const STRIPE_ANNUAL_PRICE_ID = 'price_1UWcHeGdisCqoeFICCbuliDL';   // $199 / year
+const PRICE_IDS = { weekly: STRIPE_WEEKLY_PRICE_ID, monthly: STRIPE_MONTHLY_PRICE_ID, annual: STRIPE_ANNUAL_PRICE_ID };
 const STRIPE_PRICE_ID = STRIPE_MONTHLY_PRICE_ID;
 // NOTE: the Google OAuth client id used to live here. It was the Chrome
 // extension's client, which Google rejects for web origins (origin_mismatch).
@@ -935,7 +938,10 @@ function revealOutputOnPhone() {
 }
 
 // ---- stripe ----
-async function upgrade() {
+async function upgrade(plan) {
+  // The pricing page passes the billing period the visitor picked. It is kept
+  // on state so the choice survives the sign-in round trip.
+  if (typeof plan === 'string' && PRICE_IDS[plan]) state.selectedPlan = plan;
   const msg = $('upgrade-msg');
   if (!state.user) {
     state.pendingUpgrade = true;
@@ -945,8 +951,7 @@ async function upgrade() {
   }
   // If user is signed in but not Pro, proceed to checkout
   // If user is signed in but not Pro, proceed to checkout
-  // Pro is monthly-only for now; there is no annual price in Stripe.
-  const priceId = STRIPE_MONTHLY_PRICE_ID;
+  const priceId = PRICE_IDS[state.selectedPlan] || STRIPE_MONTHLY_PRICE_ID;
   msg.textContent = 'Opening secure checkout…';
   try {
     const headers = backendHeaders({ 'Content-Type': 'application/json' });
