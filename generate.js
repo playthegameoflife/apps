@@ -868,7 +868,7 @@ function renderAfterResult() {
   const tier = currentTier();
   let html = '';
   if (tier === 'guest') {
-    html = '<p><strong>Like it?</strong> Sign in free to double your limit to ' + TIERS.free.limit + ' a week, plus Memory and saved history.</p>' +
+    html = '<p><strong>Like it?</strong> Sign in free to double your limit to ' + TIERS.free.limit + ' a week, plus memory and saved history.</p>' +
            '<button type="button" class="btn btn-sm btn-primary" id="after-signin">Sign in free</button>';
   } else if (tier === 'free') {
     html = '<p><strong>Want more?</strong> Pro adds unlimited enhancements, A/B variants and your full history.</p>' +
