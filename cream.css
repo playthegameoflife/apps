@@ -212,3 +212,21 @@ html[data-theme="dark"] .lp-hero::before, html[data-theme="dark"] .lp-body::befo
   .plans-grid { display: flex; flex-direction: column; }
   .plans-grid .plan-card-pro { order: -1; }
 }
+
+/* ===== header matching Create / Library / History: brand left, pill nav centered, actions right ===== */
+.nav { display: flex; align-items: center; gap: 12px; position: relative; padding: 12px 24px; }
+.nav .brand { margin-right: auto; }
+.nav .nav-pills { display: flex !important; align-items: center; gap: 2px; padding: 4px; background: rgba(255,255,255,.7); border: 1px solid var(--border); border-radius: 999px; position: absolute; left: 50%; transform: translateX(-50%); }
+.nav .nav-pills a, .nav .nav-pills a:not(.cta) { display: inline-flex !important; align-items: center; min-height: 36px; padding: 0 16px; border-radius: 999px; color: var(--muted); font-size: .9375rem; font-weight: 500; white-space: nowrap; text-decoration: none; background: transparent; }
+.nav .nav-pills a:hover { color: var(--text); background: transparent; }
+.nav .nav-pills a.on { background: #fff; color: var(--text); font-weight: 600; box-shadow: 0 1px 3px rgba(29,27,46,.1); }
+.nav .nav-right { display: inline-flex; align-items: center; gap: 10px; }
+.nav .nav-right .cta { display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 999px; background: transparent; color: var(--text); border: 1px solid var(--border-strong, #cfc9b8); font-size: .875rem; font-weight: 600; text-decoration: none; }
+.nav .nav-right .cta:hover { border-color: var(--accent-2); color: var(--accent-2); }
+@media (max-width: 860px) {
+  .nav { flex-wrap: wrap; padding: 12px 14px; }
+  .nav .nav-pills { position: static; transform: none; order: 3; width: 100%; justify-content: space-between; overflow-x: auto; }
+  .nav .nav-pills a { flex: 1 1 auto; justify-content: center; min-height: 44px; padding: 0 12px; }
+}
+.nav { background: transparent !important; border-bottom: 0 !important; backdrop-filter: none; -webkit-backdrop-filter: none; position: relative; }
+@media (min-width: 861px) { .nav { padding: 16px 40px; } }

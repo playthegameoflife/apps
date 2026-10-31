@@ -27,7 +27,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="stylesheet" href="/site.css?v=7">
   <link rel="stylesheet" href="/redesign.css?v=18">
-  <link rel="stylesheet" href="/cream.css?v=20">
+  <link rel="stylesheet" href="/cream.css?v=22">
   <script src="/theme.js?v=2"></script>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
@@ -41,14 +41,8 @@
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav">
     <a class="brand" href="/" style="text-decoration:none">Prompt Helper</a>
-    <nav>
-      <a href="/">Generator</a>
-      <a href="/library.html">Library</a>
-      <a href="/blog.html">Blog</a>
-      <a href="/pricing.html" style="color:var(--text);background:var(--bg-soft)">Pricing</a>
-      <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get Extension</a>
-      <span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span>
-    </nav>
+    <nav class="nav-pills" aria-label="Main navigation"><a href="/">Create</a><a href="/library.html">Library</a><a href="/generations.html">History</a><a class="on" aria-current="page" href="/pricing.html">Pricing</a></nav>
+    <div class="nav-right"><a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get extension</a><span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span></div>
   </div>
   <main id="main" class="container pricing-container">
     <header class="page-header" style="text-align:center;max-width:640px;margin:0 auto var(--space-10)">
