@@ -416,7 +416,7 @@ function populateModes() {
   const cur = MODES.find(m => m.key === state.mode) || MODES[0];
   tabs.innerHTML = '<button type="button" class="mode-trigger" id="mode-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="mode-menu"><span class="mode-trigger-k">Make a prompt for</span> <b>' + cur.label + '</b><svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
     '<div class="mode-menu" id="mode-menu" role="group" aria-label="Prompt type" hidden>' +
-    MODES.map(m => `<button type="button" class="mode-tab ${m.key === state.mode ? 'active' : ''}" data-mode="${m.key}"><span>${m.label}${m.key === 'APP_ENHANCEMENT' && !state.isPro ? ' <em class="mode-pro">Pro</em>' : ''}</span><small>${MODE_HINTS[m.key] || ''}</small></button>`).join('') + '</div>';
+    MODES.map(m => { const locked = m.key === 'APP_ENHANCEMENT' && !state.isPro; return `<button type="button" class="mode-tab ${m.key === state.mode ? 'active' : ''}${locked ? ' is-locked' : ''}" data-mode="${m.key}"${locked ? ' disabled aria-disabled="true" title="App builder is a Pro feature"' : ''}><span>${m.label}${locked ? ' <em class="mode-pro">Pro</em>' : ''}</span><small>${MODE_HINTS[m.key] || ''}</small></button>`; }).join('') + '</div>';
   const trig = $('mode-trigger'), menu = $('mode-menu');
   const setOpen = (o) => { menu.hidden = !o; trig.setAttribute('aria-expanded', o ? 'true' : 'false'); };
   trig.addEventListener('click', (e) => { e.stopPropagation(); setOpen(menu.hidden); });
