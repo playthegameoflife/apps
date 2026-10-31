@@ -140,3 +140,9 @@ html[data-theme="dark"] .lp-hero::before, html[data-theme="dark"] .lp-body::befo
 .plan-meta #plan-pill { display: none; }
 .plan-meta:has(#plan-meta-signin:not(.hidden)) .btn-primary { min-height: 36px; }
 @media (max-width: 420px) { .plan-opt { padding: 12px 14px; gap: 10px; } .opt-price { font-size: 1.375rem; } }
+
+/* toggle sits above the plan cards */
+.plan-switch-top { margin: 0 auto 36px; max-width: 400px; }
+.plan-card-pro .plan-price { margin-top: 6px; }
+.plan-meta #user-label, .plan-meta #plan-meta-signin { display: none !important; }
+.plan-meta:not(:has(button:not(.hidden):not(#plan-meta-signin))) { display: none; }
