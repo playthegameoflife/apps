@@ -134,7 +134,11 @@ function renderUsage() {
   // Prefer the server's number — the local counter is only a hint.
   const limit = state.tier === 'pro' ? '∞' : (state.usage ? state.usage.limit : TIERS[state.tier].limit);
   const cur = state.usage ? state.usage.used : state.weeklyUsage.enhancements;
-  setText('usage-label', `Enhancements this week: ${cur} / ${limit}`);
+  // Say what is left, not a fraction: "4 of 5 free enhancements left" reads
+  // the same whether the person is a guest (5) or signed in (10).
+  setText('usage-label', limit === '∞'
+    ? 'Unlimited enhancements'
+    : `${Math.max(0, limit - cur)} of ${limit} free enhancements left this week`);
   const numericLimit = (limit === '∞') ? Infinity : limit;
   const pct = numericLimit === Infinity ? 100 : Math.min(100, (cur / numericLimit) * 100);
   const f = $('usage-fill'); if (f) f.style.width = pct + '%';
@@ -860,7 +864,7 @@ function renderAfterResult() {
   const tier = currentTier();
   let html = '';
   if (tier === 'guest') {
-    html = '<p><strong>Like it?</strong> Sign in free to get ' + TIERS.free.limit + ' a week, plus Memory and saved history.</p>' +
+    html = '<p><strong>Like it?</strong> Sign in free to double your limit to ' + TIERS.free.limit + ' a week, plus Memory and saved history.</p>' +
            '<button type="button" class="btn btn-sm btn-primary" id="after-signin">Sign in free</button>';
   } else if (tier === 'free') {
     html = '<p><strong>Want more?</strong> Pro adds unlimited enhancements, A/B variants and your full history.</p>' +
