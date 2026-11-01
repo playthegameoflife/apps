@@ -219,7 +219,7 @@ function renderUsageNudge(used, limit) {
     show(nudge);
     nudge.className = 'usage-nudge warn';
     if (state.tier === 'guest') {
-      setText('usage-nudge-text', `${remaining} free prompt${remaining === 1 ? '' : 's'} left Sign in for 5 more.`);
+      setText('usage-nudge-text', `${remaining} prompt${remaining === 1 ? '' : 's'} left. Sign in for 5 more.`);
       setText('usage-nudge-cta', 'Sign in free');
       nudge.dataset.act = 'signin';
     } else {
