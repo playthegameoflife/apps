@@ -665,3 +665,4 @@ body.m2 { --accent-2-ring: rgba(31,77,58,.18); }
   .m2-pills { display: flex; justify-content: space-between; gap: 2px; }
   .m2-pills a { flex: 1 1 auto; justify-content: center; padding-left: 12px; padding-right: 12px; }
 }
+.m2 .example-chip:disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }

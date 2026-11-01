@@ -171,6 +171,8 @@ function applyQuotaGate(used, limit) {
 
   btn.disabled = exhausted;
   btn.classList.toggle('is-exhausted', exhausted);
+  // The example chips run a generation on tap, so they stop at the limit too.
+  document.querySelectorAll('.example-chip').forEach((c) => { c.disabled = exhausted; });
 
   if (exhausted) {
     btn.dataset.exhaustedLabel = btn.dataset.exhaustedLabel || btn.innerHTML;
@@ -219,7 +221,7 @@ function renderUsageNudge(used, limit) {
     show(nudge);
     nudge.className = 'usage-nudge warn';
     if (state.tier === 'guest') {
-      setText('usage-nudge-text', `${remaining} free prompt${remaining === 1 ? '' : 's'} left Sign in for 5 more.`);
+      setText('usage-nudge-text', `${remaining} prompt${remaining === 1 ? '' : 's'} left. Sign in for 5 more.`);
       setText('usage-nudge-cta', 'Sign in free');
       nudge.dataset.act = 'signin';
     } else {
@@ -338,51 +340,16 @@ function applyQuotaFromServer(q) {
  * the old dead-end message that offered no way to act.
  */
 function showQuotaLimit(q) {
-  const el = $('gen-error');
-  if (!el) return;
+  // At the limit there is one message: the nudge in the account strip. (This
+  // used to build a separate red panel that repeated it in different words.)
   const tier = q && q.tier ? q.tier : currentTier();
   const limit = q && q.limit !== undefined ? q.limit : TIERS[tier].limit;
-
-  // This used to be one long paragraph with the actions as inline
-  // links. On narrow screens the links wrapped away from the sentence
-  // and the "Sign in" action ended up pushed onto its own line,
-  // separated from the message it belonged to, which read as a
-  // broken layout.
-  //
-  // It is now a proper panel: a headline, a short explanation, and the
-  // two actions as real buttons in a row that wraps cleanly.
-  const canUpgrade = tier !== 'pro';
-  const actions = [];
-  if (tier === 'guest') {
-    actions.push(`<button type="button" id="quota-signin" class="btn btn-sm btn-primary">Sign in free</button>`);
-  }
-  if (canUpgrade) {
-    actions.push(`<button type="button" id="quota-upgrade" class="btn btn-sm btn-warn">Go Pro</button>`);
-  }
-
-  const body = tier === 'guest'
-    ? `Sign in free to get ${TIERS.free.limit} a week, plus memory.`
-    : `Upgrade to Pro for unlimited enhancements, A/B variants, and full history.`;
-
-  el.innerHTML = `
-    <div class="quota-panel" role="alert">
-      <div class="quota-panel-head">
-        <span class="quota-panel-icon" aria-hidden="true">&#9679;</span>
-        <span class="quota-panel-title">You've used all ${limit} free enhancements this week</span>
-      </div>
-      <p class="quota-panel-body">${body}</p>
-      <div class="quota-panel-actions">${actions.join('')}</div>
-    </div>`;
-  el.classList.remove('hidden');
-
-  // Keep the button state in sync: the user is out of credits whether we
-  // learned that from a 402 or from /usage-status.
-  applyQuotaGate(limit, limit);
-
-  const s = document.getElementById('quota-signin');
-  if (s) s.addEventListener('click', (e) => { e.preventDefault(); signIn(); });
-  const u = document.getElementById('quota-upgrade');
-  if (u) u.addEventListener('click', (e) => { e.preventDefault(); upgrade(); });
+  const ge = $('gen-error'); if (ge) { ge.innerHTML = ''; ge.classList.add('hidden'); }
+  // We may have learned this from a 402 before the meter caught up.
+  state.usage = Object.assign({}, state.usage || {}, { used: limit, limit: limit, remaining: 0 });
+  renderUsage();
+  const nudge = $('usage-nudge');
+  if (nudge && !nudge.classList.contains('hidden')) nudge.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 }
 
 function renderPlan() {
@@ -733,6 +700,7 @@ async function generate(variantStyle) {
       nudge.className = 'usage-nudge warn';
       setText('usage-nudge-text', PRO_MODES[state.mode] + ' is a Pro feature. Upgrade to unlock App builder, AI agent and Music.');
       setText('usage-nudge-cta', 'Upgrade to Pro');
+      nudge.dataset.act = 'upgrade';
       nudge.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
     return;
@@ -953,6 +921,7 @@ function renderExampleChips() {
     });
     box.appendChild(b);
   });
+  { const gb = $('generate-btn'); if (gb && gb.classList.contains('is-exhausted')) box.querySelectorAll('button').forEach((b) => { b.disabled = true; }); }
 }
 function initOptionsToggle() {
   const btn = $('gen-options-toggle'); const bar = $('gen-toolbar');
