@@ -203,11 +203,11 @@ function renderUsageNudge(used, limit) {
     // and the old copy ran to three sentences, which left the button
     // with no room and pushed it out of the card.
     if (state.tier === 'guest') {
-      setText('usage-nudge-text', `You've used your ${limit} free prompts this week. Sign in free to double it.`);
+      setText('usage-nudge-text', `You've used your ${limit} free prompts. Sign in for 5 more.`);
       setText('usage-nudge-cta', 'Sign in free');
       nudge.dataset.act = 'signin';
     } else {
-      setText('usage-nudge-text', `You've used your ${limit} free prompts this week. Pro is unlimited, and yours resets next week.`);
+      setText('usage-nudge-text', `You've used your ${limit} free prompts for this week. Go Pro for unlimited.`);
       setText('usage-nudge-cta', 'Upgrade to Pro');
       nudge.dataset.act = 'upgrade';
     }
@@ -219,11 +219,11 @@ function renderUsageNudge(used, limit) {
     show(nudge);
     nudge.className = 'usage-nudge warn';
     if (state.tier === 'guest') {
-      setText('usage-nudge-text', `${remaining} free prompt${remaining === 1 ? '' : 's'} left this week. Sign in free to double it.`);
+      setText('usage-nudge-text', `${remaining} free prompt${remaining === 1 ? '' : 's'} left Sign in for 5 more.`);
       setText('usage-nudge-cta', 'Sign in free');
       nudge.dataset.act = 'signin';
     } else {
-      setText('usage-nudge-text', `${remaining} prompt${remaining === 1 ? '' : 's'} left this week. Pro is unlimited.`);
+      setText('usage-nudge-text', `${remaining} prompt${remaining === 1 ? '' : 's'} left this week. Go Pro for unlimited.`);
       setText('usage-nudge-cta', 'Upgrade to Pro');
       nudge.dataset.act = 'upgrade';
     }
