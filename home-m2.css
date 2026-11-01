@@ -666,3 +666,17 @@ body.m2 { --accent-2-ring: rgba(31,77,58,.18); }
   .m2-pills a { flex: 1 1 auto; justify-content: center; padding-left: 12px; padding-right: 12px; }
 }
 .m2 .example-chip:disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
+
+/* ===== options panel: chip pickers (Style, Write it for) ===== */
+.pickers { display: none; }
+body.m2 .m2-composer #gen-toolbar.is-open > .select-wrap { display: none !important; }
+body.m2 .m2-composer #gen-toolbar.is-open .pickers { display: grid; gap: 18px; flex: 1 1 100%; grid-column: 1 / -1; width: 100%; padding: 2px 0 14px; margin-bottom: 4px; border-bottom: 1px solid var(--border); }
+.picker[hidden] { display: none; }
+.picker-label { font-size: .6875rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted-light); margin-bottom: 9px; }
+.picker-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.pick-chip { appearance: none; -webkit-appearance: none; font: 500 .9rem "Inter", sans-serif; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-input, #fff); color: var(--text-secondary, #3a3a33); cursor: pointer; transition: background .15s, border-color .15s, color .15s, box-shadow .15s; }
+.pick-chip:hover { border-color: var(--accent-2); color: var(--accent-2); }
+.pick-chip.is-on { background: var(--accent-2); border-color: var(--accent-2); color: #fff; font-weight: 600; box-shadow: 0 6px 14px -8px rgba(31,77,58,.7); }
+.pick-chip:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+html[data-theme="dark"] .pick-chip.is-on { color: #0E1A13; }
+@media (max-width: 860px) { .pick-chip { min-height: 44px; padding: 0 16px; } .picker-chips { gap: 8px; } }

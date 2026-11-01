@@ -418,6 +418,8 @@ function populateModes() {
       // Pro-only modes: send free and guest visitors to the plans.
       if (btn.dataset.locked) { location.href = '/pricing'; return; }
       state.mode = btn.dataset.mode;
+      // A tool chosen for the old mode (Claude, for a text prompt) doesn't fit the new one.
+      { const t = $('target-select'); if (t && t.value && (TARGETS_BY_MODE[state.mode] || []).indexOf(t.value) === -1) { t.value = ''; t.dispatchEvent(new Event('change')); } }
       populateModes();
       populateStyles(state.mode);
       const m = MODES.find(x => x.key === state.mode);
@@ -494,6 +496,47 @@ function applyDeepLink(params, opts) {
   }
 }
 
+
+// ---- style + "write it for" pickers (chips over the two selects) ----
+// The <select>s stay the source of truth (the rest of the app reads them);
+// the chips are a friendlier way to drive them.
+const TARGETS_BY_MODE = {
+  TEXT_ENHANCEMENT:  ['ChatGPT', 'Claude', 'Gemini', 'Grok', 'Perplexity'],
+  CODE_ENHANCEMENT:  ['ChatGPT', 'Claude', 'Gemini', 'Grok'],
+  IMAGE_ENHANCEMENT: ['Midjourney', 'DALL-E', 'Stable Diffusion'],
+  VIDEO_ENHANCEMENT: [],
+  APP_ENHANCEMENT:   ['ChatGPT', 'Claude', 'Gemini'],
+  AGENT_ENHANCEMENT: ['ChatGPT', 'Claude', 'Gemini'],
+  MUSIC_ENHANCEMENT: ['Suno', 'Udio']
+};
+function renderPickers() {
+  const sc = $('style-chips'), tc = $('target-chips');
+  const ssel = $('style-select'), tsel = $('target-select');
+  if (!sc || !tc || !ssel || !tsel) return;
+  const chip = (label, active, onClick) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'pick-chip' + (active ? ' is-on' : '');
+    b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', active ? 'true' : 'false');
+    b.textContent = label; b.addEventListener('click', onClick);
+    return b;
+  };
+  // Style
+  sc.innerHTML = '';
+  Array.from(ssel.options).forEach((o) => {
+    sc.appendChild(chip(o.textContent, o.value === ssel.value, () => {
+      ssel.value = o.value; ssel.dispatchEvent(new Event('change')); renderPickers();
+    }));
+  });
+  // Write it for: only the tools that make sense for this mode
+  const cur = tsel.value;
+  const list = (TARGETS_BY_MODE[state.mode] || []).slice();
+  if (cur && list.indexOf(cur) === -1) list.push(cur);   // never hide what is selected
+  const pt = $('picker-target'); if (pt) pt.hidden = list.length === 0;
+  tc.innerHTML = '';
+  tc.appendChild(chip('General', !cur, () => { tsel.value = ''; tsel.dispatchEvent(new Event('change')); renderPickers(); }));
+  list.forEach((t) => tc.appendChild(chip(t, cur === t, () => { tsel.value = t; tsel.dispatchEvent(new Event('change')); renderPickers(); })));
+}
+
 function populateStyles(mode) {
   const sel = $('style-select');
   const styles = getStylesForMode(mode);
@@ -501,6 +544,7 @@ function populateStyles(mode) {
   if (styles.includes(state.style)) sel.value = state.style;
   else { state.style = styles[0]; sel.value = state.style; }
   sel.onchange = () => { state.style = sel.value; };
+  renderPickers();
 }
 
 
@@ -1038,6 +1082,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadState();
   initAbUpsell();
   initOptionsToggle();
+  { const _s = $('style-select'), _t = $('target-select'); if (_s) _s.addEventListener('change', renderPickers); if (_t) _t.addEventListener('change', renderPickers); renderPickers(); }
   const isGeneratorPage = !!document.getElementById('mode-tabs');
 
   // load prompt from share link (only on generator page)

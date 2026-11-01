@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/site.css?v=6">
   <link rel="stylesheet" href="/shell.css?v=1">
   <link rel="stylesheet" href="/redesign.css?v=18">
-  <link rel="stylesheet" href="/home-m2.css?v=55">
+  <link rel="stylesheet" href="/home-m2.css?v=56">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
@@ -145,6 +145,16 @@
                   </select>
                 </div>
                 <div class="m2-more">
+                <div class="pickers" id="pickers">
+                  <div class="picker">
+                    <div class="picker-label" id="style-chips-label">Style</div>
+                    <div class="picker-chips" id="style-chips" role="radiogroup" aria-labelledby="style-chips-label"></div>
+                  </div>
+                  <div class="picker" id="picker-target">
+                    <div class="picker-label" id="target-chips-label">Write it for</div>
+                    <div class="picker-chips" id="target-chips" role="radiogroup" aria-labelledby="target-chips-label"></div>
+                  </div>
+                </div>
                 <label class="toggle has-help">
                   <input type="checkbox" id="ab-toggle">
                   <span>A/B variants</span>
@@ -396,7 +406,7 @@
   <script src="prompt-templates.js?v=3"></script>
   <script src="/auth-config.js?v=2"></script>
   <script src="/auth.js?v=3"></script>
-  <script src="generate.js?v=27"></script>
+  <script src="generate.js?v=29"></script>
   <script src="/site.js?v=3"></script>
   <script src="/shell.js?v=2"></script>
   <script src="/search.js?v=1"></script>
