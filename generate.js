@@ -146,6 +146,9 @@ function renderUsage() {
   const f = $('usage-fill'); if (f) f.style.width = pct + '%';
   document.body.classList.toggle('near-limit', numericLimit !== Infinity && (numericLimit - cur) <= 1);
   renderUsageNudge(cur, numericLimit);
+  { // The warning already says how many are left; don't repeat it above.
+    const lab = $('usage-label'), nd = $('usage-nudge');
+    if (lab) lab.classList.toggle('hidden', !!(nd && nd.classList.contains('warn') && !nd.classList.contains('hidden'))); }
   applyQuotaGate(cur, numericLimit);
 }
 
@@ -199,11 +202,15 @@ function renderUsageNudge(used, limit) {
     // Kept short on purpose. The nudge sits in a narrow sidebar card,
     // and the old copy ran to three sentences, which left the button
     // with no room and pushed it out of the card.
-    setText('usage-nudge-text',
-      state.tier === 'guest'
-        ? `You've used all ${limit} free enhancements this week. Go Pro for unlimited.`
-        : `You've used all ${limit} free enhancements this week. Upgrade to Pro for unlimited.`);
-    setText('usage-nudge-cta', 'Upgrade to Pro');
+    if (state.tier === 'guest') {
+      setText('usage-nudge-text', `You've used your ${limit} free prompts this week. Sign in free to double it.`);
+      setText('usage-nudge-cta', 'Sign in free');
+      nudge.dataset.act = 'signin';
+    } else {
+      setText('usage-nudge-text', `You've used your ${limit} free prompts this week. Pro is unlimited, and yours resets next week.`);
+      setText('usage-nudge-cta', 'Upgrade to Pro');
+      nudge.dataset.act = 'upgrade';
+    }
     return;
   }
 
@@ -211,11 +218,15 @@ function renderUsageNudge(used, limit) {
   if (remaining <= Math.max(1, Math.ceil(limit * 0.2))) {
     show(nudge);
     nudge.className = 'usage-nudge warn';
-    setText('usage-nudge-text',
-      state.tier === 'guest'
-        ? `${remaining} free enhancement${remaining === 1 ? '' : 's'} left this week. Go Pro for unlimited.`
-        : `${remaining} enhancement${remaining === 1 ? '' : 's'} left this week. Upgrade to Pro for unlimited.`);
-    setText('usage-nudge-cta', 'Upgrade to Pro');
+    if (state.tier === 'guest') {
+      setText('usage-nudge-text', `${remaining} free prompt${remaining === 1 ? '' : 's'} left this week. Sign in free to double it.`);
+      setText('usage-nudge-cta', 'Sign in free');
+      nudge.dataset.act = 'signin';
+    } else {
+      setText('usage-nudge-text', `${remaining} prompt${remaining === 1 ? '' : 's'} left this week. Pro is unlimited.`);
+      setText('usage-nudge-cta', 'Upgrade to Pro');
+      nudge.dataset.act = 'upgrade';
+    }
     return;
   }
 
@@ -225,6 +236,7 @@ function renderUsageNudge(used, limit) {
     nudge.className = 'usage-nudge soft';
     setText('usage-nudge-text', 'Pro adds full history, unlimited enhancements and A/B variants.');
     setText('usage-nudge-cta', 'See Pro');
+    nudge.dataset.act = 'upgrade';
     return;
   }
 
@@ -1062,7 +1074,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // load prompt from share link (only on generator page)
   if (isGeneratorPage) {
     const params = new URLSearchParams(location.search);
-    if (params.get('p')) $('prompt-input').value = decodeURIComponent(params.get('p'));
+    if (params.get('p')) { try { $('prompt-input').value = decodeURIComponent(params.get('p')); } catch (e) { $('prompt-input').value = params.get('p'); } }
+    // History "Reuse" sends the original prompt as ?prompt=
+    else if (params.get('prompt')) $('prompt-input').value = params.get('prompt');
     // Library handoff: full prompt bodies can be thousands of characters, which
     // is too long for a URL query string. The library page stores the body in
     // localStorage and passes only a key.
@@ -1146,9 +1160,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // upgrade flow.
   const nudgeCta = $('usage-nudge-cta');
   if (nudgeCta) nudgeCta.addEventListener('click', () => {
-    // Upgrade is gated behind sign-in inside upgrade(), so guests are
-    // asked to sign in first and then continue to checkout.
-    upgrade();
+    const n = $('usage-nudge');
+    // Guests are offered the bigger free allowance; everyone else goes to the plans.
+    if (n && n.dataset.act === 'signin') signIn(); else upgrade();
   });
   // Pricing page: the "Free account" card has its own sign-in button, so a
   // guest can upgrade their allowance without hunting for the small
