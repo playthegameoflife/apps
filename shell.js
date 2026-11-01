@@ -66,7 +66,7 @@
       //    the user there with the search term already applied.
       const hasHistory = Array.from(document.querySelectorAll('#history-list .history-item')).length > 0;
       if (hasHistory || /generat/i.test(q)) {
-        location.href = '/generations.html?q=' + encodeURIComponent(q);
+        location.href = '/generations?q=' + encodeURIComponent(q);
         return;
       }
       // 3) fall back to blog search

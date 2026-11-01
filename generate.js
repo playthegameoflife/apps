@@ -437,7 +437,7 @@ function populateModes() {
   tabs.querySelectorAll('.mode-tab').forEach(btn => {
     btn.addEventListener('click', () => {
       // Pro-only modes: send free and guest visitors to the plans.
-      if (btn.dataset.locked) { location.href = '/pricing.html'; return; }
+      if (btn.dataset.locked) { location.href = '/pricing'; return; }
       state.mode = btn.dataset.mode;
       populateModes();
       populateStyles(state.mode);
@@ -529,10 +529,10 @@ function populateStyles(mode) {
 // Sign-in lives in auth.js (shared, Authorization Code + PKCE). The old
 // inline implementation used the Chrome extension's OAuth client, which
 // Google rejects for web origins, so sign-in failed on every page.
-async function signIn() {
+async function signIn(hint) {
   if (!window.PHGAuth) { setText('auth-msg', 'Sign-in is unavailable on this page.'); return; }
   try {
-    await window.PHGAuth.signIn();
+    await window.PHGAuth.signIn(typeof hint === 'string' && hint ? { hint } : undefined);
   } catch (e) {
     if (!e || e.code !== 'no_authorized_client') {
       const code = e && (e.code || e.message);
@@ -882,7 +882,7 @@ function renderAfterResult() {
            '<button type="button" class="btn btn-sm btn-primary" id="after-signin">Sign in free</button>';
   } else if (tier === 'free') {
     html = '<p><strong>Want more?</strong> Pro adds unlimited enhancements, A/B variants and your full history.</p>' +
-           '<a class="btn btn-sm btn-warn" href="/pricing.html">See Pro</a>';
+           '<a class="btn btn-sm btn-warn" href="/pricing">See Pro</a>';
   } else {
     box.classList.add('hidden'); box.innerHTML = ''; return;
   }
@@ -981,7 +981,7 @@ function sessionExpired() {
 function reauth(msgEl, what) {
   msgEl.textContent = 'Confirming it\u2019s you with Google\u2026';
   if (what === 'portal') state.pendingPortal = true; else state.pendingUpgrade = true;
-  signIn();
+  signIn(state.user && state.user.email);
 }
 async function upgrade(plan) {
   // The pricing page passes the billing period the visitor picked. It is kept
@@ -989,7 +989,7 @@ async function upgrade(plan) {
   if (typeof plan === 'string' && PRICE_IDS[plan]) state.selectedPlan = plan;
   // Only the Pricing page starts checkout. Every other "Upgrade" button just
   // takes people there, where the plans and prices are.
-  if (!$('pro-price')) { location.href = '/pricing.html'; return; }
+  if (!$('pro-price')) { location.href = '/pricing'; return; }
   const msg = $('upgrade-msg');
   if (!state.user) {
     state.pendingUpgrade = true;
@@ -1002,7 +1002,7 @@ async function upgrade(plan) {
   msg.textContent = 'Opening secure checkout…';
   try {
     const headers = backendHeaders({ 'Content-Type': 'application/json' });
-    const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, successUrl: location.origin + '/success.html', cancelUrl: location.origin + '/cancel.html' }) });
+    const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, successUrl: location.origin + '/success', cancelUrl: location.origin + '/cancel' }) });
     if (!r.ok) {
       const d = await r.json().catch(()=>({}));
       if (r.status === 401 && !state.reauthTried) { state.reauthTried = true; reauth(msg, 'upgrade'); return; }
