@@ -57,7 +57,7 @@
     words.forEach(function (w) { if (w.length > 1) out = out.replace(new RegExp('(' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'), '<b>$1</b>'); });
     return out;
   }
-  function libUrl(q) { return '/library.html?q=' + encodeURIComponent(q); }
+  function libUrl(q) { return '/library?q=' + encodeURIComponent(q); }
   function render() {
     var q = input.value.trim();
     rows = []; active = -1;

@@ -452,7 +452,7 @@
         note.innerHTML =
           'Free library — <strong>' + state.items.length.toLocaleString() + '</strong> of ' +
           state.fullTotal.toLocaleString() + ' prompts. ' +
-          '<br><a href="/pricing.html">Upgrade to Pro for the full catalog</a>';
+          '<br><a href="/pricing">Upgrade to Pro for the full catalog</a>';
         note.classList.remove('hidden');
       } else {
         note.classList.add('hidden');
@@ -479,7 +479,7 @@
         '<div class="lib-empty">' +
           '<h3>' + (proGate ? 'This is a Pro library' : 'The library did not load') + '</h3>' +
           '<p>' + esc(msg) + '</p>' +
-          (proGate ? '<p><a class="btn btn-sm btn-warn" href="/pricing.html">See Pro</a></p>' : '<p><button type="button" class="btn btn-sm" data-act="reload">Try again</button></p>') +
+          (proGate ? '<p><a class="btn btn-sm btn-warn" href="/pricing">See Pro</a></p>' : '<p><button type="button" class="btn btn-sm" data-act="reload">Try again</button></p>') +
         '</div>';
     }
   }

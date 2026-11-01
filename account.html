@@ -31,12 +31,13 @@
   <script src="/consent.js?v=1" defer></script>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#08080d">
+  <script src="/clean-url.js"></script>
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
   <div class="nav">
     <a class="brand" href="/" style="text-decoration:none">Prompt Helper</a>
-    <nav class="nav-pills" aria-label="Main navigation"><a href="/">Create</a><a href="/library.html">Library</a><a href="/generations.html">History</a><a href="/pricing.html">Pricing</a></nav>
+    <nav class="nav-pills" aria-label="Main navigation"><a href="/">Create</a><a href="/library">Library</a><a href="/generations">History</a><a href="/pricing">Pricing</a></nav>
     <div class="nav-right"><a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" class="cta" target="_blank" rel="noopener">Get extension</a><span id="nav-actions" style="display:inline-flex;align-items:center;gap:8px"></span></div>
   </div>
   <main id="main" class="container acct-page">
@@ -78,7 +79,7 @@
           <p class="acct-big" id="acct-plan-name">Free</p>
           <p class="muted" id="acct-plan-detail">10 enhancements a week, 300 templates, 10 history items.</p>
           <div class="acct-actions">
-            <a class="btn btn-primary" id="acct-upgrade" href="/pricing.html">Upgrade to Pro</a>
+            <a class="btn btn-primary" id="acct-upgrade" href="/pricing">Upgrade to Pro</a>
             <button class="btn hidden" id="portal-btn" type="button">Manage subscription</button>
           </div>
           <p class="muted acct-hint hidden" id="acct-portal-hint">Update your card, switch plans, download invoices or cancel &mdash; all in Stripe&rsquo;s secure billing portal.</p>
@@ -124,8 +125,8 @@
     <div>
       <h4>Product</h4>
       <a href="/">AI Prompt Generator</a>
-      <a href="/library.html">Prompt Library</a>
-      <a href="/pricing.html">Pricing</a>
+      <a href="/library">Prompt Library</a>
+      <a href="/pricing">Pricing</a>
       <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp" target="_blank" rel="noopener">Chrome Extension</a>
     </div>
     <div>
@@ -150,8 +151,8 @@
     });
   </script>
 <script src="/auth-config.js?v=2"></script>
-  <script src="/auth.js?v=2"></script>
-  <script src="generate.js?v=21"></script>
+  <script src="/auth.js?v=3"></script>
+  <script src="generate.js?v=22"></script>
   <script src="/account.js?v=1"></script>
 </body>
 </html>

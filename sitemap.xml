@@ -7,13 +7,13 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/pricing.html</loc>
+    <loc>https://promptgenerator.fyi/pricing</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/library.html</loc>
+    <loc>https://promptgenerator.fyi/library</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

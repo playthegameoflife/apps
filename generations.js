@@ -311,7 +311,7 @@
     if (c) {
       c.textContent = cta;
       c.onclick = function () {
-        if (tier === 'free') location.href = '/pricing.html';
+        if (tier === 'free') location.href = '/pricing';
         else if (window.PHGAuth) window.PHGAuth.signIn();
       };
     }

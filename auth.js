@@ -217,15 +217,17 @@
     return json.access_token;
   }
 
-  function buildAuthUrl(candidate, flow, state, challenge) {
+  function buildAuthUrl(candidate, flow, state, challenge, hint) {
     const params = {
       client_id: candidate.clientId,
       response_type: flow === 'code' ? 'code' : 'token',
       scope: SCOPE,
       redirect_uri: location.origin + CALLBACK_PATH,
-      state,
-      prompt: 'select_account'
+      state
     };
+    // Returning, already-signed-in visitors: skip the account chooser and let
+    // Google approve silently for the account we already know.
+    if (hint) params.login_hint = hint; else params.prompt = 'select_account';
     if (flow === 'code') {
       params.code_challenge = challenge;
       params.code_challenge_method = 'S256';
@@ -235,7 +237,7 @@
 
   /* ---------------- sign-in attempt ---------------- */
 
-  async function attemptSignIn(candidate, flow, popup) {
+  async function attemptSignIn(candidate, flow, popup, hint) {
     const state = randomString(32);
     let verifier = null;
     let challenge = null;
@@ -246,7 +248,7 @@
     }
     writeLS(PKCE_STORE, { verifier, state, clientId: candidate.clientId });
 
-    const url = buildAuthUrl(candidate, flow, state, challenge);
+    const url = buildAuthUrl(candidate, flow, state, challenge, hint);
 
     const resultPromise = listenForCallback();
     const timeoutPromise = new Promise((resolve) => {
@@ -315,7 +317,8 @@
 
   /* ---------------- public API ---------------- */
 
-  async function signIn() {
+  async function signIn(opts) {
+    const hint = opts && typeof opts === 'object' && typeof opts.hint === 'string' ? opts.hint : '';
     if (pending) return pending;
 
     // Open the popup NOW, synchronously, so the browser treats it as a
@@ -352,7 +355,7 @@
         }
 
         try {
-          const accessToken = await attemptSignIn(candidate, flow, popup);
+          const accessToken = await attemptSignIn(candidate, flow, popup, hint);
           resolved = { clientId: candidate.clientId, flow };
           const user = await verifyTokenAtBackend(accessToken);
           writeLS(STORAGE_KEY, user);
