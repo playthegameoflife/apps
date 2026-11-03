@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Schedule Mastodon Posts in 2026 (Postiz Guide)</title>
+  <meta name="description" content="Learn how to schedule Mastodon posts in 2026, the native API limits, how Postiz connects any instance, and where Buffer fits. Try it free at postiz.pro/try.">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-postiz-schedule-mastodon-posts-2026.html">
+  <link rel="stylesheet" href="style.css">
+  <meta property="og:title" content="How to Schedule Mastodon Posts in 2026 (Postiz Guide)">
+  <meta property="og:description" content="Learn how to schedule Mastodon posts in 2026, the native API limits, how Postiz connects any instance, and where Buffer fits. Try it free at postiz.pro/try.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-postiz-schedule-mastodon-posts-2026.html">
+  <meta property="og:site_name" content="Gamified Living Apps">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Schedule Mastodon Posts in 2026 (Postiz Guide)">
+  <meta name="twitter:description" content="Learn how to schedule Mastodon posts in 2026, the native API limits, how Postiz connects any instance, and where Buffer fits. Try it free at postiz.pro/try.">
+  <meta name="twitter:url" content="https://promptgenerator.fyi/blog-postiz-schedule-mastodon-posts-2026.html">
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://promptgenerator.fyi/blog-postiz-schedule-mastodon-posts-2026.html",
+      "url": "https://promptgenerator.fyi/blog-postiz-schedule-mastodon-posts-2026.html",
+      "headline": "How to Schedule Mastodon Posts in 2026 (Postiz Guide)",
+      "description": "Learn how to schedule Mastodon posts in 2026, the native API limits, how Postiz connects any instance, and where Buffer fits. Try it free at postiz.pro/try.",
+      "datePublished": "2026-11-03",
+      "dateModified": "2026-11-03",
+      "inLanguage": "en",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://promptgenerator.fyi/blog-postiz-schedule-mastodon-posts-2026.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Gamified Living Apps",
+        "url": "https://promptgenerator.fyi"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can you schedule posts on Mastodon?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Mastodon has supported native scheduling since version 2.7.0, when the scheduled_at parameter was added to POST /api/v1/statuses. The official docs confirm that when scheduled_at is present, the API returns a ScheduledStatus instead of a published status. The catch is scale: the instance caps you at 25 scheduled statuses per day and 300 total."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best scheduler for Mastodon?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on where you already post. Mastodon-native tools such as Postpone, SawirPost and Prasar are built around one network and add timing hints and thread previews that general schedulers skip. If you need Mastodon alongside X, LinkedIn, Instagram and TikTok, a unified scheduler like Postiz or Buffer is a better fit because one calendar handles every channel."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Buffer support Mastodon scheduling?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Buffer added Mastodon to its channel list and announced the integration in January 2023. Its free plan allows three connected channels with ten scheduled posts per channel, and paid tiers are priced per channel per month. Buffer is a strong choice if Mastodon is one of two or three channels you manage, but a weaker fit if you need fifteen accounts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many Mastodon posts can I schedule at once?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mastodon's own API limits bind if you schedule natively: 25 scheduled statuses per day, 300 total, and a five-minute minimum offset. Unified schedulers that own their own queue sidestep those instance-side caps, because the scheduler publishes on its own timeline rather than handing the task to the instance. A single status also caps at 500 characters and four media items."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Postiz support Mastodon and custom instances?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, both. Postiz ships two Mastodon providers: a standard one that connects to a default instance such as mastodon.social, and a custom-instance provider that registers the OAuth application against any instance URL automatically and returns the client id and secret. You can point it at a community-run instance without hand-registering an app. It requests write:statuses, profile and write:media."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I schedule a Mastodon thread across multiple accounts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Postiz posts threads by publishing a reply against the parent status, so you queue the parent and each reply as separate entries and they publish in order. Because native scheduling enforces a five-minute minimum offset, a long thread scheduled on the instance itself needs generous spacing. A scheduler that owns its queue can pace the chain itself, which is one practical reason unified tools exist."
+          }
+        }
+      ]
+    }
+  ]
+}</script>
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; color: #cbd5e1; }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; border-bottom: none; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/blog.html">&larr; Back to Blog</a> &nbsp;|&nbsp; <a href="/">Gamified Living Apps</a>
+</nav>
+
+<header>
+  <h1>How to Schedule Mastodon Posts in 2026 (Postiz Guide)</h1>
+  <div class="meta">Published 2026-11-03 &middot; 11 min read &middot; Social Media Scheduling</div>
+</header>
+
+<main>
+<article>
+
+<div class="intro">
+If you want to <strong>schedule Mastodon posts</strong> without babysitting a calendar, the first thing to know is that Mastodon grew a native scheduler &mdash; but it is a small one. The instance caps you at 25 scheduled statuses per day and 300 total, refuses anything less than five minutes in the future, and stores the queue on the server you do not control. This guide covers what the native limits actually are, how Postiz handles Mastodon differently, and where Buffer, Hootsuite and Mastodon-only tools fit. If you just want to try it, <a href="https://postiz.pro/try" target="_blank" rel="noopener">try Postiz free</a> and connect an instance in a couple of minutes.
+</div>
+
+<h2>What most &ldquo;Mastodon scheduler&rdquo; guides get wrong</h2>
+
+<p>Search for a tool to schedule Mastodon posts and most pages describe Mastodon as a platform with no scheduling support at all. That was true until Mastodon 2.7.0 added the <code>scheduled_at</code> parameter to <code>POST /api/v1/statuses</code>. The <a href="https://docs.joinmastodon.org/methods/statuses/" target="_blank" rel="noopener">official Mastodon API documentation</a> states it plainly: when <code>scheduled_at</code> is present, the endpoint returns a <code>ScheduledStatus</code> instead of a published status.</p>
+
+<p>So the accurate framing in 2026 is not &ldquo;Mastodon cannot schedule posts.&rdquo; It is that <strong>native scheduling is capped, per-instance, and lives on the server</strong>. If you run one account on one instance, the native queue may well be enough. If you post across several accounts and instances, or you want to plan a month of content in one view, the instance-side caps become the binding constraint.</p>
+
+<p>The limits are defined in Mastodon's own <code>ScheduledStatus</code> model and are worth memorising before you plan around them:</p>
+
+<ul>
+  <li><strong>25 scheduled statuses per day</strong>, counted by calendar date</li>
+  <li><strong>300 scheduled statuses total</strong> across the account</li>
+  <li><strong>A five-minute minimum offset</strong> &mdash; anything closer is rejected as &ldquo;too soon&rdquo;</li>
+  <li><strong>500 characters</strong> maximum for a single status</li>
+  <li><strong>Four media attachments</strong> per status</li>
+</ul>
+
+<h2>How to schedule Mastodon posts: the two approaches compared</h2>
+
+<p>There are only two real ways to schedule Mastodon posts, and the difference between them is where the queue lives. That single architectural choice explains nearly every practical difference between tools.</p>
+
+<div class="comparison">
+  <div class="comparison-box bad">
+    <h4>Native instance queue</h4>
+    <p><strong>Mastodon's own scheduler.</strong> You POST a status with <code>scheduled_at</code> set and the instance stores it in a <code>scheduled_statuses</code> table, then a background scheduler worker publishes it when due.</p>
+    <p class="before">Capped at 25/day and 300 total, 5-minute minimum, tied to one account on one instance.</p>
+    <p class="after">No third-party tool to trust, no per-post cost, and it survives your scheduler going away.</p>
+  </div>
+  <div class="comparison-box good">
+    <h4>Tool-owned queue</h4>
+    <p><strong>Postiz, Buffer, and similar.</strong> The scheduler stores the post and its intended time in its own database, then calls <code>POST /api/v1/statuses</code> with no <code>scheduled_at</code> at the due moment.</p>
+    <p class="before">Requires the tool to stay running and its credentials to stay valid.</p>
+    <p class="after">One calendar for every channel, no instance-side caps, one place to edit everything.</p>
+  </div>
+</div>
+
+<p>This is not a hidden implementation detail. It is verifiable in Postiz's own provider source, which never sets <code>scheduled_at</code> at all. Instead it uploads media first, waits for the instance to finish processing it, then posts the status itself at the due time.</p>
+
+<div class="code-block">
+  <span class="label">What Postiz actually sends to a Mastodon instance</span>
+  POST /api/v1/statuses<br>
+  Authorization: Bearer &lt;access_token&gt;<br>
+  Idempotency-Key: &lt;post-id&gt;-&lt;random&gt;<br>
+  <br>
+  status=...<br>
+  visibility=public<br>
+  media_ids[]=...<br>
+  <br>
+  <span class="before">// no scheduled_at — Postiz fires this at the due time</span>
+  <span class="after">// Idempotency-Key means a retry returns the SAME status</span>
+</div>
+
+<p>That last line matters more than it looks. Mastodon documents the <code>Idempotency-Key</code> header and stores keys for up to an hour, so a finalize retry after an unclear network outcome returns the already-created status instead of posting twice. Postiz generates a fresh key per publish run rather than reusing the database post id, because reusing the id would make an edited post silently return the old toot.</p>
+
+<h2>How to set up Mastodon in Postiz</h2>
+
+<p>Mastodon is the unusual case among the platforms Postiz supports, because there is no app to download and no developer console to click through. Client registration happens over HTTP against the instance itself.</p>
+
+<p>For a self-hosted Postiz install, you register the app with <code>curl</code> and point it at your instance:</p>
+
+<div class="code-block">
+  <span class="label">Register a Mastodon client (self-hosted Postiz)</span>
+  curl -X POST -sS https://mastodon.social/api/v1/apps \<br>
+    &nbsp;&nbsp;-F "client_name=YourAppName" \<br>
+    &nbsp;&nbsp;-F "redirect_uris=http://localhost:4200/integrations/social/mastodon" \<br>
+    &nbsp;&nbsp;-F "scopes=write:statuses write:media profile" | jq
+</div>
+
+<p>The redirect URI has to match the environment exactly &mdash; <code>http://localhost:4200/integrations/social/mastodon</code> for local development, <code>http://localhost:5000/integrations/social/mastodon</code> for Docker, and <code>https://your-domain.com/integrations/social/mastodon</code> in production. Then you set three environment variables and restart:</p>
+
+<div class="code-block">
+  <span class="label">Environment variables</span>
+  MASTODON_CLIENT_ID="your client_id"<br>
+  MASTODON_CLIENT_SECRET="your client_secret"<br>
+  MASTODON_URL="https://mastodon.social"
+</div>
+
+<p>On Postiz Cloud you skip all of this &mdash; every platform is already registered for you.</p>
+
+<h3>Connecting a community-run instance</h3>
+
+<p>Most people do not post on <code>mastodon.social</code>. They post on a niche instance: a city server, a gaming community, an arts server, a self-hosted instance they run themselves. Postiz ships a second provider for exactly this case. The custom-instance provider posts to the instance's <code>/api/v1/apps</code> endpoint itself, registers the OAuth application with the correct redirect URI and scopes, and hands back a client id and secret. No manual app registration, no remembering to register a second app when you switch instances.</p>
+
+<p>One catch worth knowing: Postiz's public API endpoint for generating OAuth authorisation URLs only supports platforms that use a standard external URL. Because a Mastodon instance URL is user-supplied, Mastodon connections are not available through that endpoint &mdash; you connect them through the interface.</p>
+
+<h2>What actually goes wrong when a scheduled Mastodon post fails</h2>
+
+<p>Media handling is where scheduling on Mastodon gets genuinely tricky, and it is where most &ldquo;it just didn't post&rdquo; complaints come from. Mastodon processes uploaded media asynchronously, and attaching a video or a large GIF before the instance has finished transcoding it fails with a 422.</p>
+
+<p>Postiz splits publishing into three phases to handle this properly. Media uploads first and the provider waits. Then it polls the media endpoint, which answers <code>206</code> while processing is still running and <code>200</code> once the file is ready. Only after every attachment is confirmed ready does it create the status.</p>
+
+<div class="code-block">
+  <span class="label">How Postiz reads media readiness</span>
+  GET /api/v1/media/:id<br>
+  <br>
+  <span class="before">206 &rarr; still processing, keep polling</span>
+  <span class="after">200 &rarr; ready to attach</span>
+  <span class="before">404 / 410 &rarr; media already attached to a published status</span>
+  <span class="after">422 &rarr; media expired, repost needed</span>
+</div>
+
+<p>That 404 case is the subtle one. After a finalize whose outcome was lost, an already-published status makes its media return 404. A naive implementation reads that as &ldquo;expired, repost again&rdquo; and creates a duplicate toot. Postiz instead continues checking the remaining attachments and lets the idempotent finalize either deduplicate into the existing status or get Mastodon's verdict.</p>
+
+<p>If you hit media problems specifically on a self-hosted setup, the <a href="https://docs.postiz.com/self-host/providers/mastodon" target="_blank" rel="noopener">Postiz Mastodon provider documentation</a> has the fix. When your instance hostname resolves to a private IP from inside the container &mdash; common behind Caddy, split DNS or hairpin NAT &mdash; the SSRF guard blocks the media fetch and you get <code>Error: Blocked IP</code> while text posts publish fine. The documented remedy is <code>DISABLE_SSRF_PROTECTION=true</code> on a trusted private network, or better, fixing name resolution so the guard stays on.</p>
+
+<h2>Postiz vs Buffer vs Mastodon-only tools for Mastodon posting</h2>
+
+<p>Buffer added Mastodon support in January 2023 and is a credible option if Mastodon is one of two or three channels you manage. Its free plan allows three connected channels with ten scheduled posts per channel, and paid tiers are priced per channel per month. Buffer genuinely wins on polish, on its community inbox for replying across networks, and on how little friction there is in the interface.</p>
+
+<p>Later and Hootsuite are the wrong shape for this particular problem. Neither lists Mastodon among its supported channels, so you would be running a second tool for a second network and reconciling two calendars by hand. Publer does list Mastodon alongside Bluesky and Telegram, which makes it a closer match than those two.</p>
+
+<p>And the Mastodon-native tools deserve real credit. Postpone, SawirPost, Prasar and Postopus are built around one network, so they can offer Mastodon-specific niceties &mdash; visibility controls, per-instance character handling, thread previews &mdash; that a unified scheduler skips. Postopus, for example, currently supports X and Bluesky with Mastodon listed as coming soon, which shows how quickly this category moves. If Mastodon is 90% of your posting, a native tool is a legitimate choice.</p>
+
+<div class="comparison">
+  <div class="comparison-box bad">
+    <h4>Single-purpose Mastodon tools</h4>
+    <p><strong>Postpone, SawirPost, Prasar</strong></p>
+    <ul>
+      <li>Deepest Mastodon-specific features</li>
+      <li>One network only</li>
+      <li>No unified calendar for other channels</li>
+      <li>Usually fewer integrations overall</li>
+    </ul>
+  </div>
+  <div class="comparison-box good">
+    <h4>Unified schedulers</h4>
+    <p><strong>Postiz, Buffer, Publer</strong></p>
+    <ul>
+      <li>One calendar across 30+ channels</li>
+      <li>Cross-posting and per-platform previews</li>
+      <li>Custom-instance support in Postiz</li>
+      <li>Postiz is self-hostable and open source</li>
+    </ul>
+  </div>
+</div>
+
+<p>Postiz's own advantage is specific rather than absolute. It supports <strong>34 platforms</strong>, including the federation-adjacent ones most schedulers skip: Mastodon, Bluesky, Lemmy, Farcaster, Nostr, Telegram, Discord and Slack. It is open source with a self-hostable Docker image, which means no channel cap on a self-hosted install and full control over where your content queue and credentials live. Plans start at <strong>$29/month</strong> for 5 channels, with Team at $39, Pro at $49 and Ultimate at $99 for 100 channels &mdash; and every plan includes unlimited posts per month.</p>
+
+<p>You can see the difference in the numbers. Buffer's per-channel pricing means a fifteen-account operation costs fifteen times the entry price. Postiz prices by tier, not by channel, so adding a second Mastodon account on the same plan costs nothing extra.</p>
+
+<h2>Scheduling Mastodon threads and visibility</h2>
+
+<p>Two details bite people who assume Mastodon behaves like X. First, threads: on Mastodon a thread is a chain of statuses where each reply references the previous one by id. Postiz handles this by publishing the parent and then replying against it, so you queue the parent and each reply as separate entries in order. Because native scheduling enforces a five-minute minimum, a long thread scheduled on the instance itself needs generous spacing between every part.</p>
+
+<p>Second, visibility. Mastodon posts can be public, unlisted, private (followers-only) or direct. Postiz's provider sets <code>visibility: public</code> by default on the status payload, so if you need unlisted or followers-only toots you will want to check how the instance's own preferences interact with that default before you publish a batch.</p>
+
+<p>Character counting is the last surprise. Mastodon counts <strong>500 characters</strong> and, like Twitter before it, a URL always counts as a fixed 23 characters regardless of its actual length. Long links eat your budget silently, which is another argument for keeping Mastodon copy separate from your X copy rather than cross-posting the same string unchanged.</p>
+
+<div class="key-takeaways">
+  <h3>Key Takeaways</h3>
+  <ul>
+    <li>Mastodon <strong>does</strong> have native scheduling, added in version 2.7.0 via the <code>scheduled_at</code> parameter.</li>
+    <li>Native limits: 25 scheduled statuses per day, 300 total, a five-minute minimum offset, 500 characters, four media items.</li>
+    <li>Postiz and Buffer own the queue themselves and publish at the due time, which sidesteps those instance-side caps.</li>
+    <li>Mastodon client registration is a <code>curl</code> call to <code>/api/v1/apps</code>, with the redirect URI matching your environment exactly.</li>
+    <li>Postiz's custom-instance provider registers the OAuth app for you on any community-run instance.</li>
+    <li>Media is the failure point: Mastodon returns <code>206</code> while processing and <code>200</code> when a file is safe to attach.</li>
+    <li>Later and Hootsuite do not support Mastodon at all. Buffer, Publer and Postiz do.</li>
+  </ul>
+</div>
+
+<div class="cta-box">
+  <h2>Schedule Mastodon posts on your own infrastructure</h2>
+  <p>Postiz connects to any Mastodon instance, registers custom instances automatically, and puts every channel on one calendar. Plans start at $29/month with a 7-day trial, or self-host the open-source build with no channel cap. If you have been managing toots by hand, <a href="https://postiz.pro/try" target="_blank" rel="noopener">get started with Postiz</a> and connect your instance.</p>
+  <a href="https://postiz.pro/try" target="_blank" rel="noopener">Try Postiz free &rarr;</a>
+</div>
+
+<div class="faq">
+<h2>Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <h3>Can you schedule posts on Mastodon?</h3>
+    <p>Yes. Mastodon has supported native scheduling since version 2.7.0, when the scheduled_at parameter was added to POST /api/v1/statuses. The official docs confirm that when scheduled_at is present, the API returns a ScheduledStatus instead of a published status. The catch is scale: the instance caps you at 25 scheduled statuses per day and 300 total.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What is the best scheduler for Mastodon?</h3>
+    <p>It depends on where you already post. Mastodon-native tools such as Postpone, SawirPost and Prasar are built around one network and add timing hints and thread previews that general schedulers skip. If you need Mastodon alongside X, LinkedIn, Instagram and TikTok, a unified scheduler like Postiz or Buffer is a better fit because one calendar handles every channel.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Does Buffer support Mastodon scheduling?</h3>
+    <p>Yes. Buffer added Mastodon to its channel list and announced the integration in January 2023. Its free plan allows three connected channels with ten scheduled posts per channel, and paid tiers are priced per channel per month. Buffer is a strong choice if Mastodon is one of two or three channels you manage, but a weaker fit if you need fifteen accounts.</p>
+  </div>
+  <div class="faq-item">
+    <h3>How many Mastodon posts can I schedule at once?</h3>
+    <p>Mastodon's own API limits bind if you schedule natively: 25 scheduled statuses per day, 300 total, and a five-minute minimum offset. Unified schedulers that own their own queue sidestep those instance-side caps, because the scheduler publishes on its own timeline rather than handing the task to the instance. A single status also caps at 500 characters and four media items.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Does Postiz support Mastodon and custom instances?</h3>
+    <p>Yes, both. Postiz ships two Mastodon providers: a standard one that connects to a default instance such as mastodon.social, and a custom-instance provider that registers the OAuth application against any instance URL automatically and returns the client id and secret. You can point it at a community-run instance without hand-registering an app. It requests write:statuses, profile and write:media.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can I schedule a Mastodon thread across multiple accounts?</h3>
+    <p>Yes. Postiz posts threads by publishing a reply against the parent status, so you queue the parent and each reply as separate entries and they publish in order. Because native scheduling enforces a five-minute minimum offset, a long thread scheduled on the instance itself needs generous spacing. A scheduler that owns its queue can pace the chain itself, which is one practical reason unified tools exist.</p>
+  </div>
+</div>
+
+</article>
+</main>
+
+<footer>
+  <p>&copy; 2026 <a href="https://promptgenerator.fyi">Gamified Living Apps</a> &middot;
+  <a href="/blog.html">All blog posts</a></p>
+</footer>
+</body>
+</html>
