@@ -52,7 +52,7 @@ let state = {
   usage: null,            // server-reported usage { used, limit, remaining }
   pendingUpgrade: false,
   mode: 'TEXT_ENHANCEMENT',
-  style: 'default',
+  style: 'expert',
   target: '',
   weeklyUsage: { weekStart: null, enhancements: 0 },
   history: [],
@@ -418,6 +418,8 @@ function populateModes() {
       // Pro-only modes: send free and guest visitors to the plans.
       if (btn.dataset.locked) { location.href = '/pricing'; return; }
       state.mode = btn.dataset.mode;
+      // Coming into a mode that has an Expert style, start on it.
+      if (state.style === 'default' && getStylesForMode(state.mode).includes('expert')) state.style = 'expert';
       populateModes();
       populateStyles(state.mode);
       const m = MODES.find(x => x.key === state.mode);
@@ -496,8 +498,12 @@ function applyDeepLink(params, opts) {
 
 function populateStyles(mode) {
   const sel = $('style-select');
-  const styles = getStylesForMode(mode);
-  sel.innerHTML = styles.map(s => `<option value="${s}">${STYLE_LABELS[s] || s}</option>`).join('');
+  let styles = getStylesForMode(mode).slice();
+  // Where there is an Expert style it leads the list and is the starting choice;
+  // the plainer original is shown as "Simple".
+  const hasExpert = styles.includes('expert');
+  if (hasExpert) styles = ['expert'].concat(styles.filter(s => s !== 'expert'));
+  sel.innerHTML = styles.map(s => `<option value="${s}">${(s === 'default' && hasExpert) ? 'Simple' : (STYLE_LABELS[s] || s)}</option>`).join('');
   if (styles.includes(state.style)) sel.value = state.style;
   else { state.style = styles[0]; sel.value = state.style; }
   sel.onchange = () => { state.style = sel.value; };
