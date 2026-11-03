@@ -52,7 +52,7 @@ let state = {
   usage: null,            // server-reported usage { used, limit, remaining }
   pendingUpgrade: false,
   mode: 'TEXT_ENHANCEMENT',
-  style: 'default',
+  style: 'expert',
   target: '',
   weeklyUsage: { weekStart: null, enhancements: 0 },
   history: [],
@@ -420,6 +420,7 @@ function populateModes() {
       state.mode = btn.dataset.mode;
       // A tool chosen for the old mode (Claude, for a text prompt) doesn't fit the new one.
       { const t = $('target-select'); if (t && t.value && (TARGETS_BY_MODE[state.mode] || []).indexOf(t.value) === -1) { t.value = ''; t.dispatchEvent(new Event('change')); } }
+      state.style = preferredStyle(state.mode);
       populateModes();
       populateStyles(state.mode);
       const m = MODES.find(x => x.key === state.mode);
@@ -537,12 +538,20 @@ function renderPickers() {
   list.forEach((t) => tc.appendChild(chip(t, cur === t, () => { tsel.value = t; tsel.dispatchEvent(new Event('change')); renderPickers(); })));
 }
 
+function preferredStyle(mode) {
+  const s = getStylesForMode(mode);
+  return s.includes('expert') ? 'expert' : s[0];
+}
 function populateStyles(mode) {
   const sel = $('style-select');
-  const styles = getStylesForMode(mode);
-  sel.innerHTML = styles.map(s => `<option value="${s}">${STYLE_LABELS[s] || s}</option>`).join('');
+  let styles = getStylesForMode(mode).slice();
+  // Where there is an Expert style it leads the list and is the starting choice;
+  // the plainer original is shown as "Simple".
+  const hasExpert = styles.includes('expert');
+  if (hasExpert) styles = ['expert'].concat(styles.filter(s => s !== 'expert'));
+  sel.innerHTML = styles.map(s => `<option value="${s}">${(s === 'default' && hasExpert) ? 'Simple' : (STYLE_LABELS[s] || s)}</option>`).join('');
   if (styles.includes(state.style)) sel.value = state.style;
-  else { state.style = styles[0]; sel.value = state.style; }
+  else { state.style = preferredStyle(mode); sel.value = state.style; }
   sel.onchange = () => { state.style = sel.value; };
   renderPickers();
 }
