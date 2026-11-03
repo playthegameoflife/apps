@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why My Scheduled Posts Failed to Publish (2026)</title>
+<meta name="description" content="Why my scheduled posts failed to publish? The 3 real causes explained, the exact fix for each, and a 5-minute diagnosis. Try Postiz free: https://postiz.pro/try">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://promptgenerator.fyi/blog-postiz-why-scheduled-posts-failed-to-publish-2026.html">
+<meta property="og:title" content="Why My Scheduled Posts Failed to Publish (2026)">
+<meta property="og:description" content="Expired access tokens, platform rules, rejected content - the three real causes of failed scheduled posts, and how to fix each one.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://promptgenerator.fyi/blog-postiz-why-scheduled-posts-failed-to-publish-2026.html">
+<meta property="og:site_name" content="Gamified Living Apps">
+<meta property="og:image" content="https://promptgenerator.fyi/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why My Scheduled Posts Failed to Publish (2026)">
+<meta name="twitter:description" content="The three real causes of failed scheduled posts, the exact fix for each, and how to stop it happening.">
+<meta name="twitter:image" content="https://promptgenerator.fyi/og-image.png">
+<link rel="stylesheet" href="style.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; color: #cbd5e1; }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://promptgenerator.fyi/blog-postiz-why-scheduled-posts-failed-to-publish-2026.html#article",
+      "headline": "Why My Scheduled Posts Failed to Publish (2026)",
+      "description": "Expired access tokens, platform rules, rejected content - the three real causes of failed scheduled posts, and how to fix each one.",
+      "image": "https://promptgenerator.fyi/og-image.png",
+      "datePublished": "2026-11-03",
+      "dateModified": "2026-11-03",
+      "inLanguage": "en-US",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://promptgenerator.fyi/blog-postiz-why-scheduled-posts-failed-to-publish-2026.html"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Gamified Living Apps",
+        "url": "https://promptgenerator.fyi"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Gamified Living Apps",
+        "url": "https://promptgenerator.fyi"
+      },
+      "mainEntity": {
+        "@id": "https://promptgenerator.fyi/blog-postiz-why-scheduled-posts-failed-to-publish-2026.html#faq"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://promptgenerator.fyi/blog-postiz-why-scheduled-posts-failed-to-publish-2026.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why did my scheduled posts fail to publish?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Three causes cover nearly every failure: the channel's access token expired and needs reconnecting, the post broke a platform rule such as too many images or a missing setting, or the platform rejected the content for duplicate text, a blocked link or an account restriction. The calendar tooltip tells you which applies in seconds."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know which scheduled post failed and why?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In Postiz, a failed post shows on the calendar with a red ring around it, and hovering shows the reason. If the sidebar channel also shows a red marker, it needs re-authorising. Over the API, GET /public/v1/posts lists every post so you can inspect status and release state and see what published, failed or is still queued."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often do social media access tokens expire?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on the platform. Meta access tokens typically last one to two hours for short-lived tokens and around sixty days for long-lived ones, and Meta warns lifetimes can change without notice. TikTok issues refresh tokens with shorter windows. That is why a scheduler needs a reconnect path for every channel, not just an initial connect."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do failed scheduled posts get retried automatically?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. In Postiz, posts that already failed are not retried automatically after you reconnect the channel - you reschedule them yourself. That is deliberate: a post rejected for its content would fail again on an automatic retry. Keep a backup copy of the copy and media so rescheduling takes seconds rather than a rebuild."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why did my Instagram post fail to publish from a scheduler?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Usually one of four things. The account must be a professional account for API publishing, media must sit on a publicly reachable HTTPS URL at upload time, the image must be JPEG because it is the only image format Instagram accepts, and Instagram allows only 100 API-published posts per rolling 24 hours, with a carousel counting as one."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I stop scheduled posts from failing on every channel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reconnect channels the moment a red marker appears rather than on a schedule, keep a per-platform rules checklist next to your composer, upload media through the scheduler's own upload endpoint instead of inlining it, and check failed posts weekly. If you self-host, confirm your queue worker is running - a stopped worker silently strands every queued post."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav>
+  <a href="/">Home</a> &middot; <a href="/blog.html">Blog</a> &middot; <a href="https://postiz.com">Postiz</a>
+</nav>
+
+<article>
+<header>
+  <h1>Why My Scheduled Posts Failed to Publish (2026)</h1>
+  <p class="meta">Published November 3, 2026 &middot; 10 min read &middot; Social media scheduling</p>
+</header>
+
+<div class="intro">
+  <p>Ask why my scheduled posts failed to publish and the answer is almost always one of three things, with only one being anything like a bug. This guide covers all three, shows you how to spot which one you hit in under five minutes, and explains how to stop it recurring. Want to see the failures yourself? <a href="https://postiz.pro/try">Try Postiz free</a> and reproduce the workflow on a test channel.</p>
+</div>
+
+<div class="key-takeaways">
+  <h3>Key takeaways</h3>
+  <ul>
+    <li><strong>Expired channel tokens are the number one cause.</strong> Schedulers that connect once and never re-authorise fail silently, platform by platform.</li>
+    <li><strong>Platform rules are the second cause.</strong> Image counts, video-vs-photo rules, limits and required settings differ on every network.</li>
+    <li><strong>Content rejection is the third.</strong> Duplicate text, blocked links and account restrictions - the platform's own verdict.</li>
+    <li><strong>Failed posts are not auto-retried.</strong> Reconnecting does not replay the backlog - you reschedule, so keep the copy somewhere to paste it back.</li>
+    <li><strong>Rate limits look like random failures.</strong> Instagram caps API publishing at 100 posts per 24 hours; scheduler APIs often cap creates at 90 per hour.</li>
+  </ul>
+</div>
+
+<h2>The three real reasons a scheduled post fails</h2>
+
+<p>Every scheduler worth using surfaces failure the same way: a red ring on the calendar entry, with a reason in the tooltip. The Postiz documentation puts it bluntly - the three usual causes, in order of frequency, are a channel that needs reconnecting, a post that broke a platform rule, and content the platform rejected. That ordering tells you where to look first.</p>
+
+<h3>Cause 1: The channel needs reconnecting</h3>
+
+<p>This is the one that catches people. A channel is not a permanent login - it is OAuth credentials the platform will eventually expire. When that happens, the channel gets a red marker in the sidebar and every post queued against it starts failing. Meta access tokens are the clearest example: short-lived ones last roughly one to two hours, long-lived ones about sixty days, and Meta warns lifetimes may change without notice. TikTok's windows are tighter.</p>
+
+<p>The trap is that the failure is asymmetric. Your other channels keep working, so you see one platform quietly going dark rather than the whole tool breaking. The posts that fail are the ones queued furthest ahead, so you notice the gap weeks later.</p>
+
+<p>The fix is a reconnect, not a re-setup. In Postiz the channel menu offers <strong>Reconnect channel</strong>, which re-runs authorisation for an existing channel. Reconnecting does not count as connecting a new channel, so it does not consume a channel slot. Postiz also separates this from <strong>Disable</strong> and <strong>Delete</strong> - disabling keeps history and frees a slot, deleting is permanent and is refused while posts are still attached. One warning from the same documentation: reconnect as the same account, or you create a mismatch between the channel's history and its new identity.</p>
+
+<h3>Cause 2: The post broke a platform rule</h3>
+
+<p>Every network has its own rules and they disagree about nearly everything. Postiz supports 34 platforms, and character limits alone range from 300 on Threads and Pinterest to 100,000 on Medium and WordPress. X is the special case - 280 characters normally, 4,000 if verified, 100,000 in article mode.</p>
+
+<p>Media rules are where scheduled posts fail most often, because the mistake is made once and repeated across a queue:</p>
+
+<ul>
+  <li><strong>X</strong> takes up to 4 images <em>or</em> 1 video - not both.</li>
+  <li><strong>Instagram</strong> accepts JPEG only. Other formats fail at the provider even if they upload cleanly on your side.</li>
+  <li><strong>Instagram publishing rate limit:</strong> 100 API-published posts per rolling 24 hours, with a carousel counting as one post.</li>
+  <li><strong>Facebook Pages</strong> allow roughly 63,000 characters; <strong>Slack</strong> around 400,000; <strong>Discord</strong> about 1,980.</li>
+</ul>
+
+<p>Required settings are the silent blockers. In the Postiz API each post carries a <code>settings</code> object with a <code>__type</code> field identifying the platform, and several platforms demand specific options - X accepts <code>who_can_reply_post</code> values like <code>community</code>, and a missing or invalid value is a rejection rather than a default. Instagram additionally requires a professional account, and Meta's docs require Page Publishing Authorization in some configurations.</p>
+
+<div class="code-block">
+  <span class="label">Postiz public API - create a scheduled post</span>
+  POST https://api.postiz.com/public/v1/posts
+  Authorization: &lt;your-api-key&gt;
+  Content-Type: application/json
+
+  {
+    "type": "schedule",
+    "date": "2026-11-05T14:30:00.000Z",
+    "integrations": ["&lt;channel-id&gt;"],
+    "content": [
+      {
+        "id": "&lt;post-id&gt;",
+        "socialProvider": "x",
+        "type": "text",
+        "text": "Your post copy here",
+        "media": [],
+        "settings": { "__type": "x", "who_can_reply_post": "community" }
+      }
+    ]
+  }
+
+
+  <span class="after">type: "now"     -&gt; publish immediately</span>
+  <span class="after">type: "schedule" -&gt; publish at the ISO 8601 date</span>
+  <span class="after">type: "draft"    -&gt; store without publishing</span>
+</div>
+
+<p>That last option - <code>"draft"</code> - is worth using as a safety net. It lets you stage the payload through an automated workflow and inspect it in the composer before committing it to a publish time.</p>
+
+<h3>Cause 3: The platform rejected the content</h3>
+
+<p>Some failures are not about your scheduler at all. The platform looked at the content and said no: duplicate text, a blocked link, or an account restriction. The platform's error message is the whole diagnosis - read it verbatim.</p>
+
+<p>Duplicate text deserves attention because it is the least intuitive. Pushing the same caption to several networks in the same short window can trip platform duplication filters - the opposite of what cross-posting tools assume. Recycled evergreen content fares no better: YouTube's policy on inauthentic and repetitious content covers repetitive or mass-produced content at the channel level.</p>
+
+<p>The safe pattern is to vary the copy per platform rather than pushing one identical blob everywhere. Postiz gives each channel its own preview in the composer, so you can adjust copy, media and hashtags first. If you automate it, template the content per <code>socialProvider</code> before it reaches the API.</p>
+
+<div class="comparison">
+  <div class="comparison-box bad">
+    <h4>The failure pattern</h4>
+    <p><span class="before">One identical caption</span> pushed everywhere at the same minute, with a media file the channel was never asked to carry. Tokens lapse quietly, rules break in bulk, and when the calendar shows red there is no way to tell which cause applies.</p>
+  </div>
+  <div class="comparison-box good">
+    <h4>The working pattern</h4>
+    <p><span class="after">Per-platform copy and media</span> checked against that platform's rules before it is queued, a reconnect path for every channel, and a weekly five-minute review. Failures become rare, small and diagnosable instead of a monthly rebuild.</p>
+  </div>
+</div>
+
+<h2>How to diagnose a failed post in five minutes</h2>
+
+<p>Start at the platform, not at the tool. Over the API, step two is a query: listing posts and inspecting each status tells you whether it published, failed, or is still queued.</p>
+
+<ol>
+  <li><strong>Look for the red marker in the sidebar.</strong> If a channel is flagged, the token is the problem. Reconnect it - this alone resolves most failures, in about thirty seconds per channel.</li>
+  <li><strong>Hover the red ring on the calendar entry.</strong> The tooltip tells you which of the three causes applies and often includes the platform's own message verbatim.</li>
+  <li><strong>Check the channel against that platform's rules.</strong> Character count, image count, file format, required settings. Postiz publishes a per-platform reference covering all 34, including each API <code>__type</code> name - Farcaster is <code>wrapcast</code>, Google My Business is <code>gmb</code>.</li>
+  <li><strong>Rule out rate limits.</strong> If a burst of posts failed at once with valid content, look at publishing caps: Instagram's 100 posts per 24 hours, or your scheduler API's request ceiling.</li>
+  <li><strong>Check the transport, if you self-host.</strong> A stopped queue worker, full database or bounced Redis strands every queued post at once. That failure has a different signature - <em>every</em> channel fails at once, not one.</li>
+  <li><strong>Reschedule from a saved copy.</strong> Failed posts are not replayed automatically, so keep the text and media somewhere you can paste them back.</li>
+</ol>
+
+<p>That same <code>GET /public/v1/posts</code> endpoint is also how you duplicate a post - fetch it, strip the server-managed fields, then resubmit with a fresh <code>type</code> and <code>date</code>.</p>
+
+<h2>Three failure modes nobody warns you about</h2>
+
+<p>Beyond the three headline causes, a smaller set of problems produces failures that look identical from the outside.</p>
+
+<h3>The upload that was too large</h3>
+
+<p>Postiz accepts JSON bodies up to 50 MB on the post-creation routes, and you hit that limit almost always by inlining image data instead of uploading first. The error is <code>PayloadTooLargeError</code>. The fix is the two-step flow: upload through <code>/public/v1/upload</code> or <code>/public/v1/upload-from-url</code>, then reference the returned <code>id</code> and <code>path</code> in the post's <code>image</code> array. File limits are separate - 10 MB per image, 1 GB per video. The <code>upload-from-url</code> variant proxies the source URL through the backend, so a slow server or expired signed URL fails it. Videos get a second pass: Postiz inspects duration, dimensions and codec, and unsupported files fail at "Failed to load video metadata". Use MP4 with H.264 video, AAC audio, 30 fps or lower, at or below 1920x1080 - portrait for TikTok and Shorts.</p>
+
+<h3>The connect flow that broke halfway</h3>
+
+<p>Connecting a channel spans three parties - your browser, the provider and the scheduler backend - so any of them can fail. "Invalid state" means the one-time CSRF token did not match, usually because you started the connect in one tab and finished in another. "invalid_grant" means the authorisation code was rejected: reused by a double-click, expired, or a redirect URI that does not match character for character. "Failed to fetch" is a network-level failure talking to the provider's API. Two known product bugs have no fix on your side either - a TikTok connect page that crashes for some accounts, and an X connect screen throwing <code>t/r is not a function</code>. The workaround for both: start the flow over from the Channels page.</p>
+
+<h2>How to stop scheduled posts failing in the first place</h2>
+
+<p>Everything above is mitigation. Prevention is cheaper, and comes down to six habits.</p>
+
+<ul>
+  <li><strong>Treat reconnect as routine maintenance.</strong> Check the sidebar for red markers on a schedule - weekly for a few channels, daily if you run many.</li>
+  <li><strong>Keep a per-platform rules cheat sheet.</strong> Limits, image counts, formats and required settings for each network. The most common avoidable failure is a media rule you relearn every month.</li>
+  <li><strong>Upload media through the scheduler's own endpoint.</strong> Never inline base64 - it keeps you under the body limit and gives reusable <code>id</code> and <code>path</code>.</li>
+  <li><strong>Draft first when automating, and keep a copy.</strong> Create as a <code>"draft"</code>, confirm it renders correctly, then promote it to a scheduled post. Failed posts are not retried, so if content only lives in the scheduler, a reschedule means rebuilding from scratch.</li>
+  <li><strong>If you self-host, monitor the queue.</strong> A stopped Temporal worker, a full Postgres volume or bounced Redis strands every pending post at once - an unmistakable signature worth an alert.</li>
+</ul>
+
+<p>One more habit if you publish across many networks: watch the API ceiling. The Postiz public API is limited to 90 requests per hour on the create-post endpoint - a fixed value that does not scale with your plan, since plans tier on channels, not throughput. It also does not mean 90 posts per hour, as one request can carry many. Batch rather than loop.</p>
+
+<div class="cta-box">
+  <h2>See the failure states for yourself</h2>
+  <p>Every cause here shows up in the calendar with a reason attached, and each is diagnosable in under five minutes once you know where to look. Postiz supports 34 platforms from one calendar, with a public REST API and an AGPL-3.0 self-hosted edition.</p>
+  <p><a href="https://postiz.pro/try">Try Postiz free</a> and connect a test channel. Queue a post, let the token lapse, and watch where the error surfaces.</p>
+</div>
+
+<h2>Frequently asked questions</h2>
+
+<div class="faq">
+  <div class="faq-item">
+    <h3>Why did my scheduled posts fail to publish?</h3>
+    <p>Three causes cover nearly every failure: the channel's access token expired and needs reconnecting, the post broke a platform rule such as too many images or a missing setting, or the platform rejected the content for duplicate text, a blocked link or an account restriction. The failure tooltip on the calendar tells you which applies in seconds.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>How do I know which scheduled post failed and why?</h3>
+    <p>In Postiz, a failed post shows on the calendar with a red ring around it, and hovering shows the reason. If the sidebar channel also shows a red marker, it needs re-authorising. Over the API, GET /public/v1/posts lists every post so you can inspect status and release state and see what published, failed or is still queued.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>How often do social media access tokens expire?</h3>
+    <p>It depends on the platform. Meta access tokens typically last one to two hours for short-lived tokens and around sixty days for long-lived ones, and Meta warns lifetimes can change without notice. TikTok issues refresh tokens with much shorter windows. That is why a scheduler needs a reconnect path for every channel, not just an initial connect.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Do failed scheduled posts get retried automatically?</h3>
+    <p>No. In Postiz, posts that already failed are not retried automatically after you reconnect the channel - you reschedule them yourself. That is deliberate: a post rejected for its content would fail again on an automatic retry. Keep a backup copy of the copy and media so rescheduling takes seconds rather than a rebuild.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Why did my Instagram post fail to publish from a scheduler?</h3>
+    <p>Usually one of four things. The account must be a professional account for API publishing, media must sit on a publicly reachable HTTPS URL at upload time, the image must be JPEG because that is the only image format Instagram accepts, and Instagram allows only 100 API-published posts per rolling 24 hours, with a carousel counting as one post.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>How do I stop scheduled posts from failing on every channel?</h3>
+    <p>Reconnect channels the moment a red marker appears rather than on a schedule, keep a per-platform rules checklist next to your composer, upload media through the scheduler's own upload endpoint instead of inlining it, and check failed posts weekly. If you self-host, confirm your queue worker is running - a stopped worker silently strands every queued post.</p>
+  </div>
+</div>
+
+<h2>Conclusion: why my scheduled posts failed to publish</h2>
+
+<p>To answer directly - why my scheduled posts failed to publish - it is almost certainly one of three things, and the order of likelihood is fixed. An expired channel token comes first, because tokens always expire and most calendars will not tell you when yours did. A platform rule violation comes second, usually a media rule right for one network and wrong for another. Content rejection comes third, and is fastest to diagnose - the error message belongs to the platform.</p>
+
+<p>The difference between a calendar full of red rings and one that just works is not a better tool - it is a reconnect habit, a rules cheat sheet and saved copies of your content. Get those in place and failures shrink to the ones you actually caused, which are the ones you can fix.</p>
+
+<p>If you want a scheduler that shows you the reason for every failure instead of silently dropping posts, <a href="https://postiz.pro/try">try Postiz free</a> and run one post through it. If you would rather self-host the AGPL-3.0 edition, the install guide and full troubleshooting docs are both public.</p>
+
+</article>
+
+<footer>
+  <p>&copy; 2026 Gamified Living Apps &middot; <a href="/blog.html">All posts</a> &middot; <a href="https://docs.postiz.com">Postiz documentation</a></p>
+</footer>
+
+</body>
+</html>
