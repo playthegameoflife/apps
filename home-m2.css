@@ -680,3 +680,9 @@ body.m2 .m2-composer #gen-toolbar.is-open .pickers { display: grid; gap: 18px; f
 .pick-chip:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
 html[data-theme="dark"] .pick-chip.is-on { color: #0E1A13; }
 @media (max-width: 860px) { .pick-chip { min-height: 44px; padding: 0 16px; } .picker-chips { gap: 8px; } }
+
+/* "Like it? Sign in free" / "Want more?" card: centered like the rest of the page */
+.m2 .after-result { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 12px; padding: 16px 18px; }
+.m2 .after-result p { flex: 0 1 auto; max-width: 34ch; line-height: 1.5; }
+.m2 .after-result .btn { min-height: 44px; padding: 0 28px; font-weight: 600; }
+@media (max-width: 560px) { .m2 .after-result .btn { width: 100%; max-width: 320px; justify-content: center; } }
