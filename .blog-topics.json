@@ -123,13 +123,13 @@
       "slug": "blog-why-ai-content-sounds-generic-fix.html",
       "primary_keyword": "why AI content sounds generic fix",
       "published": "2026-10-18",
-      "angle": "why AI content sounds generic — customer pain language from r/ChatGPT, 5 concrete prompt fixes"
+      "angle": "why AI content sounds generic \u2014 customer pain language from r/ChatGPT, 5 concrete prompt fixes"
     },
     {
       "slug": "blog-why-ai-gives-different-answers-same-question.html",
       "primary_keyword": "why AI gives different answers to the same question",
       "published": "2026-10-19",
-      "angle": "AI non-determinism explained — temperature, top_p, prompt structure for consistent results"
+      "angle": "AI non-determinism explained \u2014 temperature, top_p, prompt structure for consistent results"
     },
     {
       "slug": "blog-prompt-exhaustion-ai-fix",
@@ -140,7 +140,7 @@
       "slug": "blog-ai-temperature-settings-explained",
       "primary_keyword": "AI temperature settings explained",
       "published": "2026-10-18",
-      "angle": "what does AI temperature actually do — top-p, temperature by task, community workarounds"
+      "angle": "what does AI temperature actually do \u2014 top-p, temperature by task, community workarounds"
     },
     {
       "slug": "blog-what-is-an-ai-agent-explained",
@@ -168,7 +168,7 @@
       "slug": "blog-ai-prompt-rewording-fix",
       "primary_keyword": "why rephrasing AI prompts doesn't work constraints instead",
       "published": "2026-10-20",
-      "angle": "rephrasing cycle pain — rewording doesn't fix generic output, adding constraints does"
+      "angle": "rephrasing cycle pain \u2014 rewording doesn't fix generic output, adding constraints does"
     },
     {
       "slug": "blog-how-to-catch-ai-hallucinations.html",
@@ -179,7 +179,7 @@
       "slug": "blog-why-prompts-work-in-chatgpt-but-fail-in-claude.html",
       "primary_keyword": "why prompts work in ChatGPT but fail in Claude cross-platform AI prompts",
       "published": "2026-10-20",
-      "angle": "model-specific prompting differences — why same prompt fails across ChatGPT/Claude/Gemini, concrete fixes"
+      "angle": "model-specific prompting differences \u2014 why same prompt fails across ChatGPT/Claude/Gemini, concrete fixes"
     },
     {
       "slug": "blog-prompt-helper-vs-aiprm-vs-prompt-storm",
@@ -190,7 +190,7 @@
       "slug": "blog-stop-rewording-prompts",
       "primary_keyword": "stop rewording your prompts AI understand you",
       "published": "2026-10-20",
-      "angle": "why rewording is a trap — 3 context gaps (role/audience/format) + ask-before-answering technique to stop the rephrasing loop"
+      "angle": "why rewording is a trap \u2014 3 context gaps (role/audience/format) + ask-before-answering technique to stop the rephrasing loop"
     },
     {
       "slug": "blog-ai-character-consistency",
@@ -239,6 +239,37 @@
       "published": "2026-11-04",
       "angle": "Why ChatGPT UI updates break browser extensions - selector rot, terminated MV3 service worker, uninjected content script after URL change, and patches stuck in store review - plus a 5-minute diagnosis path and what to check before trusting an extension",
       "url": "https://promptgenerator.fyi/blog-chatgpt-extension-stopped-working.html"
+    },
+    {
+      "slug": "blog-postiz-schedule-threads-posts-2026",
+      "primary_keyword": "schedule Threads posts",
+      "published": "2026-11-02",
+      "angle": "Threads API has no scheduled_time field - container-based publishing, media URL requirements, Meta advanced-access permission wall, and self-host setup checklist"
+    },
+    {
+      "slug": "blog-postiz-schedule-pinterest-pins-2026",
+      "primary_keyword": "schedule Pinterest pins",
+      "published": "2026-11-02",
+      "angle": "Pinterest API has no scheduled_time field - how Postiz queues and bulk-schedules Pins across boards"
+    },
+    {
+      "slug": "blog-postiz-why-scheduled-posts-failed-to-publish-2026",
+      "primary_keyword": "why my scheduled posts failed to publish",
+      "published": "2026-11-03",
+      "angle": "Troubleshooting angle - the 3 causes of failed scheduled posts (expired channel token, platform rule violation, content rejection) with a 5-minute diagnosis path"
+    },
+    "blog-postiz-schedule-mastodon-posts-2026",
+    {
+      "slug": "blog-postiz-schedule-telegram-posts-2026",
+      "primary_keyword": "schedule Telegram posts",
+      "published": "2026-11-05",
+      "angle": "Telegram Bot API has NO schedule_date - every scheduler owns its own queue; one-bot-token-per-deployment rule"
+    },
+    {
+      "slug": "blog-do-ai-prompt-enhancers-actually-work-2026",
+      "primary_keyword": "do AI prompt enhancers actually work",
+      "published": "2026-11-05",
+      "angle": "Measured enhancer test - 5 real requests, 2 enhancement styles, expansion ratio vs invention rate (97.4% invention for generic one-click vs 0% for structured)"
     }
   ]
 }
