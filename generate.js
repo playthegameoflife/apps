@@ -989,7 +989,7 @@ async function upgrade(plan) {
   msg.textContent = 'Opening secure checkout…';
   try {
     const headers = backendHeaders({ 'Content-Type': 'application/json' });
-    const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, successUrl: location.origin + '/success', cancelUrl: location.origin + '/cancel' }) });
+    const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, endorsely_referral: window.endorsely_referral || undefined, successUrl: location.origin + '/success', cancelUrl: location.origin + '/cancel' }) });
     if (!r.ok) {
       const d = await r.json().catch(()=>({}));
       if (r.status === 401 && !state.reauthTried) { state.reauthTried = true; reauth(msg, 'upgrade'); return; }
