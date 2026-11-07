@@ -30,16 +30,6 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
-    <url>
-    <loc>https://promptgenerator.fyi/blog-HIIT-timer-martial-arts-training-20262107.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-MMA-striking-drills-apartment-20262108.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-ai-image-prompts-midjourney-dall-e.html</loc>
     <changefreq>weekly</changefreq>
@@ -111,27 +101,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/blog-best-boxing-timer-apps-2025-20262010.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://promptgenerator.fyi/blog-best-paid-ai-prompt-tool-creators-20261603.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-best-solo-boxing-training-apps-compared-20261422.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-best-solo-boxing-training-apps-compared-20262110.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-boxing-timer-with-rounds-setup-20260513.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -256,11 +226,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/blog-define-own-combat-style-mycombat-20262716.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://promptgenerator.fyi/blog-easy-ai-prompt-generator-beginners-20262516.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -297,26 +262,6 @@
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-few-shot-prompting-examples.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-fight-combination-generator-MMA-20260514.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-focus-mitt-solo-training-app-20262104.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-free-boxing-workout-app-20262627.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-free-shadow-boxing-timer-app-20262111.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -401,52 +346,12 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/blog-judo-throw-solo-training-20262017.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-kickboxing-combination-drills-home-20262102.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://promptgenerator.fyi/blog-maintain-training-intensity-solo-fighter-20262007.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-multi-ai-prompt-generator-power-users-20261514.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-mycombat-dark-mode-night-training-20262106.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-mycombat-drag-drop-style-organizer-20261416.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-mycombat-favorites-training-speed-20262103.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-mycombat-favorites-training-speed-20262113.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-mycombat-random-combo-mode-20262030.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-mycombat-vs-real-pad-work-20262014.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -461,92 +366,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/blog-personal-combo-arsenal-mycombat-20262023.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://promptgenerator.fyi/blog-phg-seo-blog-2026-07-13.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-agency-client-management-2026.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-agency-workflow-2026.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-ai-automation-cut-publishing-time-2026.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-ai-automation-workflow-2026.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-api-automation-2026.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-open-source-social-media-scheduler-2026.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-open-source-social-media-scheduler-34-platforms.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-open-source-social-media-scheduler-postiz-guide.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-open-source-social-media-scheduler-postiz.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-open-source-social-media-scheduler.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-schedule-tiktok-posts-open-source.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-self-host-docker-2026.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-self-hosted-scheduler-2026.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-self-hosted-scheduler-guide.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-self-hosted-scheduler.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-vs-buffer-2026.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -617,21 +437,6 @@
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-role-prompting-examples.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-shadow-boxing-muay-thai-kicks-20262025.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-shadow-boxing-muay-thai-kicks-20262112.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-solo-martial-arts-training-home-20262101.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -746,11 +551,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-n8n-automation-workflow.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://promptgenerator.fyi/blog-ai-prompt-length-paradox.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -769,18 +569,6 @@
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-why-ai-chatbot-forgets-context.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-queues-content-calendar-team-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-getting-started-guide-2026.html</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -810,35 +598,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-open-source-scheduler-2026.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-evergreen-content-recycling-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://promptgenerator.fyi/blog-how-to-get-consistent-ai-results-20260926.html</loc>
     <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-all-in-one-social-media-management.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-schedule-youtube-shorts.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-vs-buffer-open-source-alternative-2026.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -856,12 +617,6 @@
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-why-ai-content-sounds-generic-fix.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-open-source-scheduler.html</loc>
-    <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -889,16 +644,6 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-open-source-scheduler-guide.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-social-media-workflow-2026.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://promptgenerator.fyi/blog-what-is-an-ai-agent-explained.html</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -919,18 +664,6 @@
     <loc>https://promptgenerator.fyi/blog-how-to-stop-ai-over-explaining.html</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-unlimited-vs-per-post-pricing-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-buffer-hootsuite-comparison-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
@@ -955,11 +688,6 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-ai-social-media.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://promptgenerator.fyi/blog-prompt-helper-vs-aiprm-vs-prompt-storm.html</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -978,17 +706,6 @@
     <loc>https://promptgenerator.fyi/blog-ai-character-consistency.html</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-vs-later-2026.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-vs-metricool-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-prompt-injection-stay-safe-2026.html</loc>
@@ -1012,30 +729,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-schedule-reddit-posts-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-post-multiple-platforms-at-once-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-schedule-bluesky-posts-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-schedule-google-business-profile-posts-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://promptgenerator.fyi/blog-chatgpt-resume-prompts-no-fabricated-metrics.html</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -1047,16 +740,6 @@
   </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-contrastive-chain-of-thought-ccot-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-ai-agent-social-media.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-vs-buffer-solopreneurs-2026.html</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
   </url>
@@ -1080,27 +763,8 @@
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
   </url>
-
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-schedule-linkedin-posts-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-schedule-different-times-each-platform-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
   <url>
     <loc>https://promptgenerator.fyi/blog-how-to-stop-chatgpt-asking-clarifying-questions.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-rss-to-social-media-2026.html</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -1141,38 +805,8 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-why-scheduled-posts-failed-to-publish-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-schedule-mastodon-posts-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://promptgenerator.fyi/blog-chatgpt-extension-stopped-working.html</loc>
     <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-schedule-instagram-posts-2026.html</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-alternatives-2026.html</loc>
-    <lastmod>2026-11-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://promptgenerator.fyi/blog-postiz-schedule-telegram-posts-2026.html</loc>
-    <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
