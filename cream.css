@@ -340,3 +340,6 @@ footer.shell-footer .shell-footer-grid { grid-template-columns: 1.4fr repeat(4, 
   .sticky-upgrade .btn { min-height: 46px; padding: 0 22px; white-space: nowrap; }
 }
 @media (max-width: 400px) { .nav .nav-pills a, .nav .nav-pills a:not(.cta) { padding: 0 8px; font-size: .9rem; } }
+
+/* Five header tabs on phones: tighten so Affiliates fits without scrolling */
+@media (max-width: 480px) { .nav .nav-pills a, .nav .nav-pills a:not(.cta) { padding: 0 5px; font-size: .8rem; } }
