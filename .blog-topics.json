@@ -271,6 +271,11 @@
       "primary_keyword": "do AI prompt enhancers actually work",
       "published": "2026-11-05",
       "angle": "Measured enhancer test - 5 real requests, 2 enhancement styles, expansion ratio vs invention rate (97.4% invention for generic one-click vs 0% for structured)"
+    },
+    {
+      "slug": "blog-chatgpt-tells-you-what-to-do-instead-of-doing-it",
+      "primary_keyword": "ChatGPT tells you what to do instead of doing it",
+      "published": "2026-11-07"
     }
   ]
 }
