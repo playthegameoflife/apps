@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why ChatGPT Tells You What to Do Instead of Doing It</title>
+  <meta name="description" content="ChatGPT tells you what to do instead of doing it? Use the deliverable-first prompt block, an explicit no-advice rule, and 5 fixes that survive a real model.">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-chatgpt-tells-you-what-to-do-instead-of-doing-it.html">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Why ChatGPT Tells You What to Do Instead of Doing It">
+  <meta property="og:description" content="ChatGPT tells you what to do instead of doing it? Use the deliverable-first prompt block, an explicit no-advice rule, and 5 fixes that survive a real model.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-chatgpt-tells-you-what-to-do-instead-of-doing-it.html">
+  <meta property="og:site_name" content="Prompt Helper Gemini">
+  <meta property="og:image" content="https://promptgenerator.fyi/og.png">
+  <meta property="article:published_time" content="2026-11-07">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why ChatGPT Tells You What to Do Instead of Doing It">
+  <meta name="twitter:description" content="ChatGPT tells you what to do instead of doing it? Use the deliverable-first prompt block, an explicit no-advice rule, and 5 fixes that survive a real model.">
+  <meta name="twitter:image" content="https://promptgenerator.fyi/og.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Why ChatGPT Tells You What to Do Instead of Doing It",
+  "description": "ChatGPT tells you what to do instead of doing it? Use the deliverable-first prompt block, an explicit no-advice rule, and 5 fixes that survive a real model.",
+  "author": {
+    "@type": "Organization",
+    "name": "Prompt Helper Gemini",
+    "url": "https://promptgenerator.fyi"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Prompt Helper Gemini",
+    "url": "https://promptgenerator.fyi"
+  },
+  "datePublished": "2026-11-07",
+  "dateModified": "2026-11-07",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://promptgenerator.fyi/blog-chatgpt-tells-you-what-to-do-instead-of-doing-it.html"
+  },
+  "url": "https://promptgenerator.fyi/blog-chatgpt-tells-you-what-to-do-instead-of-doing-it.html",
+  "image": "https://promptgenerator.fyi/og.png",
+  "keywords": "ChatGPT tells you what to do instead of doing it",
+  "inLanguage": "en"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why does ChatGPT explain the task instead of doing it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because a plan is the safest output. Describing a task costs the model nothing, and a plan reads like competence, so it optimises for text that cannot be wrong. Naming the artifact and the format forces a result instead. Ask for a deliverable rather than guidance and the model has an artifact to produce, not a topic to describe."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I make ChatGPT do the work instead of giving me instructions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Name the artifact and forbid the commentary. Ask for the finished table, the actual code, the real email, and add one line such as no preamble, no explanation of what you would do, output only the deliverable. Also say what to do when something is missing. Vague requests invite guidance; specific requests with an explicit format produce output."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does telling ChatGPT to 'just do it' actually work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rarely on its own. Just do it states a preference but leaves the decision to the model, and a model that thinks a question is safer keeps asking. What works is transferring authority: make assumptions, state them in one line, and proceed. Pair that with a deliverable and an output contract, and coaching mode has nowhere left to go."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does ChatGPT ask me to run the command instead of running it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Two reasons. The model has drifted into explaining rather than acting, so it hands the step back to you. And a long conversation can push it into a degraded band where caution wins. The fix: restate the action as the deliverable, keep the brief short, and start a fresh thread once it has grown long."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the same fix work on Claude, Gemini, and other chat models?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The coaching behaviour is a property of instruction-tuned models rather than one vendor, and the fix sits in the request rather than the interface. Ask for the artifact, forbid preamble, state the format, and grant permission to assume. The one vendor-specific variable is how much padding you accept by default, since models differ in how much they pad."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I stop ChatGPT describing a function instead of calling it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Say the requirement instead of assuming it. State that the action must be taken rather than discussed, and make the trigger part of the request, for example always update the record rather than explain how to update it. When the action has a set of inputs, name the fields you expect back. A described function is a missing result."
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+<nav>
+  <a href="/blog.html">&larr; Back to Blog</a> &nbsp;|&nbsp; <a href="/">Prompt Helper</a>
+</nav>
+<main>
+<header>
+  <h1>Why ChatGPT Tells You What to Do Instead of Doing It</h1>
+  <p class="meta">Published 2026-11-07 &middot; 11 min read &middot; Prompt Helper Gemini</p>
+</header>
+<article>
+
+<div class="intro">
+  <p>If you have ever asked ChatGPT for something and received a careful, confident lecture instead of the
+  actual work, you know the failure mode: <strong>ChatGPT tells you what to do instead of doing it</strong>.
+  The r/ChatGPT thread that named the behaviour is titled
+  <em>"How can I get chatGPT to actually complete the task as opposed to just telling me what to do it"</em>.
+  One reply in that thread put the mood exactly: <em>"ChatGPT's new behavior is quite frustrating, but I
+  understand the challenges it faces. Sometimes it helps to provide hypothetical examples, but it's
+  discouraging when it forgets by the next response."</em></p>
+  <p>This is not one model's moody week. It is the default failure of every instruction-tuned chat model, and
+  it shows up in three shapes: a plan with no patch, a set of instructions with no command, and a description
+  of a tool with no tool call. One developer described the first shape like this:
+  <em>"instead of running tests, it suddenly started asking me to run the tests and printed instructions how to
+  do so"</em>.</p>
+  <p>The good news is that the fix is not a cleverer question. It is a different shape of request, and it is
+  short enough to paste into any chat box. Below: what the failure actually looks like, why the model defaults
+  to coaching, and the five-part prompt block that turns a request into a deliverable.</p>
+</div>
+
+<h2>What "it tells you how" actually looks like</h2>
+<p>The phrase covers three separate behaviours, and each one has a different cause. Diagnosing which you are
+looking at is most of the work, because the fix for one is useless against another.</p>
+
+<h3>1. The plan with no output</h3>
+<p>The model announces, in detail, exactly what it is about to do, and then stops. This is the most common
+shape and the most demoralising, because the plan is good. A user on the OpenAI community forum described a
+long-running project thread in which the model
+<em>"switches from execution mode into explanation/planning mode"</em>, and another reply spelled out the
+sequence precisely: <em>"And then the actual result of the announced and thoroughly explained action is
+completely missing."</em></p>
+<p>The tell is that the reply contains no object you could paste somewhere. It reads like a summary of work
+rather than the work.</p>
+
+<h3>2. The instruction handed back to you</h3>
+<p>Here the model does the thinking and returns the last step to you. One Hacker News comment described an
+assistant that had been applying a patch for hours and then announced that
+<em>"if you want to run the tests, just paste this instruction into a terminal somewhere"</em>. Another user
+put the frustration more bluntly: <em>"No, I don't need you to write a tmux emulator in bash to test your
+changes bro, just ask me to run the command."</em></p>
+<p>The tell is an imperative aimed at you rather than an action taken. You are now the execution layer, which
+is the opposite of what you paid for.</p>
+
+<h3>3. The tool described instead of called</h3>
+<p>On the API side the same behaviour shows up when a model talks about a function rather than invoking it. A
+developer asked the forum a question that reads like a punchline: <em>"it tells the user about the
+functions"</em>. The function was fully described, the parameters were fully understood, and the call never
+happened.</p>
+
+<div class="comparison">
+  <div class="comparison-box bad">
+    <h4>Request that invites coaching</h4>
+    <p>"Give me a plan for a six-week launch campaign for our new analytics product. Include what I should do
+    and why, and any steps I might be missing."</p>
+    <p><strong>What you get:</strong> a thorough strategy memo, a channel list, a budget outline, and a
+    schedule skeleton. Nothing you can publish.</p>
+  </div>
+  <div class="comparison-box good">
+    <h4>Request that names the deliverable</h4>
+    <p>"Produce the finished six-week launch campaign for our new analytics product. Deliver a week-by-week
+    schedule table, the actual post copy for three channels, and the metrics to track. Output the campaign
+    itself, not advice on how to build one."</p>
+    <p><strong>What you get:</strong> a table, three sets of copy, and a metrics list you can paste straight
+    into a spreadsheet.</p>
+  </div>
+</div>
+
+<h2>Why ChatGPT tells you what to do instead of doing it</h2>
+<p>Explaining is the cheapest output a model can produce. A plan cannot be wrong in a way anyone can check;
+a finished artifact can. Every instinct of an instruction-tuned model points toward the safe one, and a
+paragraph that reads like a competent consultant satisfies almost any instruction you gave it. Ask for
+"something about a launch campaign" and a strategy memo is a completely reasonable response.</p>
+<p>There is a second cause, and it is more interesting: the behaviour gets worse as the conversation grows. One
+developer noticed that the assistant had been running code happily for months, then switched into
+instruction-printing mode, and observed that the context window was running full at the time.
+Compacting the conversation restored the old behaviour. That matches what other users report about long
+threads: the model starts restating the plan, losing earlier constraints, and preferring the narrow safe move
+because it no longer has the working memory to attempt the broad one.</p>
+<p>Two practical consequences follow. First, the fix belongs in the request, not in the interface, because
+there is no interface setting for "stop coaching". Second, a fresh thread is a genuinely useful debugging
+step, and it is a much cheaper one than re-prompting the same bloated conversation a fifth time.</p>
+<p>The prompting guidance published by the model vendors converges on the same point from a different
+direction: be specific about the task, the context and the output format, and treat the request as a contract
+rather than a topic. <a href="https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-your-prompts">Anthropic's
+prompting guidance</a> and <a href="https://platform.openai.com/docs/guides/prompt-engineering">OpenAI's
+prompt engineering guide</a> both describe the format instruction as the highest-leverage line in the prompt.
+A format instruction is also the most direct cure for coaching, because it replaces a topic with a shape.</p>
+
+<h2>The fix: name the deliverable, forbid the commentary</h2>
+<p>Before you reach for a tool, know the shape of the request that works. Everything in this section can be
+typed by hand in about twenty seconds.</p>
+
+<div class="code-block">
+  <span class="label">Before — the request that invites a plan</span>
+  <span class="before">Write me a plan for a six-week launch campaign for our new analytics product.
+  Include what I should do and why, and any steps I might be missing. Explain your thinking.</span>
+</div>
+
+<div class="code-block">
+  <span class="label">After — the same ask, written as a contract</span>
+  <span class="after">Produce the finished six-week launch campaign for our new analytics product.
+
+  DELIVERABLE: a week-by-week schedule table with date, channel and owner per row.
+  ASSETS: the actual post copy for three channels, one per channel, each under 90 words.
+  MEASURES: the five metrics to track, each with a target value.
+
+  RULES: output the campaign only. No preamble, no summary of what you would do, no explanation of why you
+  chose this approach. If a detail is missing, make a reasonable assumption, state it in one line at the end,
+  and continue.</span>
+</div>
+
+<p>Four things changed. The output is now enumerated, so "complete" has a definition. The artefacts are
+specified, so there is nothing to advise about. The forbidden material is named, so the preamble has a
+target. And the permission to assume removes the last excuse for stopping to ask.</p>
+
+<p>The one line that most reliably does the work is the rules block. If you only change one thing, change that
+one. A model told what <em>not</em> to do has a constraint to satisfy; a model merely told what to do still
+has to decide how much to say.</p>
+
+<h2>Five fixes that survive contact with a real model</h2>
+
+<h3>1. Ask for the object, not the topic</h3>
+<p>"Tell me about onboarding" produces an essay about onboarding. "Give me the five screens of the onboarding
+flow, each with its heading, its body copy and one button label" produces five screens. The difference is
+whether there is a noun in your request that can be counted.</p>
+
+<h3>2. Write the prohibition as a rule, not a complaint</h3>
+<p>Users report trying <em>"just do it"</em> and getting more coaching. A complaint states a preference; a rule
+states a constraint. "Output the deliverable only. No preamble, no explanation of your approach, no questions
+back to me" is a rule, and it is checkable. One forum user found the same in a different register: the
+working instruction reads <em>"output format: brief, answer only, avoid AI commentary, don't ask for more user
+questions"</em>.</p>
+
+<h3>3. Grant the authority to assume</h3>
+<p>Coaching is often a form of hedging. If the model believes a wrong guess costs more than a question, it
+asks. Remove that belief by naming who accepts the risk: make a reasonable assumption, state it in one line,
+and continue. Users who adopted this rule report it works better than any wording that tries to forbid
+questions, because it gives the model permission rather than taking permission away.</p>
+
+<h3>4. Keep the brief short</h3>
+<p>The opposite of coaching is not a longer prompt. Users testing this found that
+<em>"for me, a very terse but clear set of 30 lines performed better than providing examples and more nuanced
+explanations"</em>. Thirty lines is enough to hold a deliverable, a format and a set of rules. Every extra
+paragraph is another chance to dilute the instruction that matters.</p>
+
+<h3>5. Start a fresh thread when the thread gets heavy</h3>
+<p>If the model has begun restating the plan, restating your constraints and generally narrating instead of
+producing, the context is probably the cause. Compact the conversation or open a new one, restate the goal in
+one paragraph, and paste the deliverable spec. This costs one message and regularly beats three more rounds of
+re-prompting in a thread that is already three hundred messages deep.</p>
+
+<div class="key-takeaways">
+  <h3>What actually changes the behaviour</h3>
+  <ul>
+    <li>Name the artifact. A countable noun is the difference between a plan and a result.</li>
+    <li>Ban the preamble explicitly. A rule beats a complaint because it can be satisfied.</li>
+    <li>Say the output format. Vendor prompting guidance treats this as the highest-leverage line.</li>
+    <li>Grant permission to assume. Hedge-removal beats question-banning.</li>
+    <li>Keep it to about thirty lines, and start a fresh thread once the model starts narrating.</li>
+  </ul>
+</div>
+
+<div class="cta-box">
+  <h2>Skip the blank page, keep your words</h2>
+  <p>Typing a deliverable-first brief from scratch every time is the tedious part, and it is the part most
+  people skip. Prompt Helper is a Chrome extension that takes the rough sentence you already have and turns
+  it into a structured brief, then puts it straight into the chat box you are already typing in. Pick a mode,
+  choose a style, and an "Improve" button appears next to the send button inside ChatGPT, Claude and Gemini.
+  It also rewrites emails, posts and messages in place, with Shorter, Friendlier, More professional and More
+  confident as one-click options.</p>
+  <p>The free tier gives you 10 improvements and 5 Ask questions per week plus limited history; Pro adds
+  unlimited improvements, unlimited Ask and full history. You sign in with Google, and the keyboard shortcut
+  is Ctrl+Shift+E on Windows or Cmd+Shift+E on Mac. Optional conversation context is off by default, and
+  nothing is read or sent until you press MORE.</p>
+  <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp">Add it to Chrome</a>
+</div>
+<div class="faq">
+  <h2>Frequently asked questions</h2>
+  <div class="faq-item">
+    <h3>Why does ChatGPT explain the task instead of doing it?</h3>
+    <p>Because a plan is the safest output. Describing a task costs the model nothing, and a plan reads like competence, so it optimises for text that cannot be wrong. Naming the artifact and the format forces a result instead. Ask for a deliverable rather than guidance and the model has an artifact to produce, not a topic to describe.</p>
+  </div>
+  <div class="faq-item">
+    <h3>How do I make ChatGPT do the work instead of giving me instructions?</h3>
+    <p>Name the artifact and forbid the commentary. Ask for the finished table, the actual code, the real email, and add one line such as no preamble, no explanation of what you would do, output only the deliverable. Also say what to do when something is missing. Vague requests invite guidance; specific requests with an explicit format produce output.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Does telling ChatGPT to 'just do it' actually work?</h3>
+    <p>Rarely on its own. Just do it states a preference but leaves the decision to the model, and a model that thinks a question is safer keeps asking. What works is transferring authority: make assumptions, state them in one line, and proceed. Pair that with a deliverable and an output contract, and coaching mode has nowhere left to go.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Why does ChatGPT ask me to run the command instead of running it?</h3>
+    <p>Two reasons. The model has drifted into explaining rather than acting, so it hands the step back to you. And a long conversation can push it into a degraded band where caution wins. The fix: restate the action as the deliverable, keep the brief short, and start a fresh thread once it has grown long.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Does the same fix work on Claude, Gemini, and other chat models?</h3>
+    <p>Yes. The coaching behaviour is a property of instruction-tuned models rather than one vendor, and the fix sits in the request rather than the interface. Ask for the artifact, forbid preamble, state the format, and grant permission to assume. The one vendor-specific variable is how much padding you accept by default, since models differ in how much they pad.</p>
+  </div>
+  <div class="faq-item">
+    <h3>How do I stop ChatGPT describing a function instead of calling it?</h3>
+    <p>Say the requirement instead of assuming it. State that the action must be taken rather than discussed, and make the trigger part of the request, for example always update the record rather than explain how to update it. When the action has a set of inputs, name the fields you expect back. A described function is a missing result.</p>
+  </div>
+</div>
+<h2>The bottom line: ask for the artifact, not the advice</h2>
+<p>None of this is a trick about hidden settings or a magic phrase. When ChatGPT tells you what to do instead
+of doing it, the request has left the door open for a plan, and a plan is always a respectable answer to a
+question about a topic. Close the door by naming the object you want, naming its format, forbidding the
+preamble in the rules block, and letting the model assume rather than ask. The users who cracked this did it
+with a rule, not a wish: <em>"So when you give me a task, don't tell me how to do it."</em> That is a
+contract. And once you have the contract, the same rough sentence you already type every morning can carry
+it for you.</p>
+<p>Want the full brief template ready to paste? You can try the
+<a href="/ai-prompt-optimizer.html">AI Prompt Optimizer</a>, browse the
+<a href="/chatgpt-prompt-generator.html">ChatGPT prompt generator</a>, or read through
+<a href="/blog-how-to-stop-chatgpt-asking-clarifying-questions.html">how to stop ChatGPT asking clarifying
+questions</a> — the other half of the same problem. And if you want more posts like this one,
+<a href="/blog.html">browse the full guide library</a>.</p>
+
+</article>
+</main>
+<footer>
+  <p>Published 2026-11-07 by Prompt Helper Gemini &middot;
+  <a href="https://promptgenerator.fyi/">promptgenerator.fyi</a> &middot;
+  <a href="https://promptgenerator.fyi/blog.html">All blog posts</a></p>
+</footer>
+</body>
+</html>
