@@ -21,6 +21,17 @@
       }
     }
   }
+  function swInit() {
+    var sw = document.querySelectorAll('[data-copy-text]');
+    for (var i = 0; i < sw.length; i++) {
+      sw[i].addEventListener('click', function () {
+        var b = this, lab = b.querySelector('span'), old = lab.textContent;
+        var done = function () { lab.textContent = 'Copied'; setTimeout(function () { lab.textContent = old; }, 1500); };
+        var t = b.getAttribute('data-copy-text');
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, done); else done();
+      });
+    }
+  }
   function copyInit() {
     var btns = document.querySelectorAll('[data-copy]');
     for (var i = 0; i < btns.length; i++) {
@@ -31,5 +42,5 @@
       });
     }
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { init(); copyInit(); }); else { init(); copyInit(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { init(); copyInit(); swInit(); }); else { init(); copyInit(); swInit(); }
 })();
