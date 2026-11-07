@@ -21,5 +21,15 @@
       }
     }
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  function copyInit() {
+    var btns = document.querySelectorAll('[data-copy]');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', function () {
+        var b = this, t = b.parentNode.querySelector('[data-copy-src]').textContent;
+        var done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1500); };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, done); else done();
+      });
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { init(); copyInit(); }); else { init(); copyInit(); }
 })();

@@ -38,3 +38,19 @@
   .aff-lead{font-size:16px}
   .aff-section h2,.aff-final h2{font-size:26px}
 }
+
+.aff-sub{margin:-6px 0 16px;color:#4a4a44}
+.aff-earn{background:#fff;border:1px solid #e4dfd3;border-radius:16px;padding:22px}
+.aff-earn>p:first-child{margin:0 0 16px}
+.aff-earn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.aff-earn-grid div{background:#F5F2EC;border-radius:12px;padding:16px;text-align:center}
+.aff-earn-grid strong{display:block;font-family:'Instrument Serif',serif;font-weight:400;font-size:24px;color:#1F4D3A}
+.aff-earn-grid span{font-size:14px;color:#4a4a44}
+.aff-kit{display:grid;gap:12px}
+.aff-copy{background:#fff;border:1px solid #e4dfd3;border-radius:16px;padding:18px 20px;position:relative}
+.aff-copy h3{margin:0 0 6px;font-size:16px}
+.aff-copy p{margin:0 0 12px;line-height:1.5;color:#4a4a44}
+.aff-copy-btn{font:inherit;font-size:14px;font-weight:600;padding:8px 16px;border-radius:999px;border:1px solid #1F4D3A;background:transparent;color:#1F4D3A;cursor:pointer}
+.aff-copy-btn:hover{background:#1F4D3A;color:#fff}
+.aff-fine a{color:#1F4D3A}
+@media(max-width:640px){.aff-earn-grid{grid-template-columns:1fr}}
