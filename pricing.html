@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-ODsdc0CntO0GCql4/MhIAJbe/n4J3fhrmGo1m0cyxcI=' 'sha256-eN/rMA8tFLFIcn4gbuCepAnvmMtf141PK9fJgrOEedE=' 'sha256-oFGSqbl9TlAU+g8MKL/c9EzvSImkritPYqwZlh2G4/w=' https://accounts.google.com https://www.googletagmanager.com https://assets.endorsely.com https://*.endorsely.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://assets.endorsely.com https://*.endorsely.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-ODsdc0CntO0GCql4/MhIAJbe/n4J3fhrmGo1m0cyxcI=' 'sha256-eN/rMA8tFLFIcn4gbuCepAnvmMtf141PK9fJgrOEedE=' 'sha256-fBmArtkFdcy/dyvgDiYyHd2gN8Lju8GhcRl/u2KuJCQ=' https://accounts.google.com https://www.googletagmanager.com https://assets.endorsely.com https://*.endorsely.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://api-clyep56cdq-uc.a.run.app https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://assets.endorsely.com https://*.endorsely.com https://*.google.com https://*.googlesyndication.com https://*.doubleclick.net https://*.googleadservices.com https://*.adtrafficquality.google https://*.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com https://checkout.stripe.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com; form-action 'self' https://checkout.stripe.com https://accounts.google.com; object-src 'none'; base-uri 'self'">
   <script>
     /* Apply the stored theme before first paint so a dark-mode visitor
        never sees a white flash. Kept in sync with theme.js. */
@@ -27,7 +27,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <link rel="stylesheet" href="/site.css?v=7">
   <link rel="stylesheet" href="/redesign.css?v=18">
-  <link rel="stylesheet" href="/cream.css?v=36">
+  <link rel="stylesheet" href="/cream.css?v=37">
   <script src="/theme.js?v=2"></script>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
@@ -369,7 +369,7 @@
   </div>
   <script src="/auth-config.js?v=2"></script>
   <script src="/auth.js?v=3"></script>
-  <script src="generate.js?v=29"></script>
+  <script src="generate.js?v=30"></script>
   <script>
     // Upgrade button (gated behind sign-in via generate.js)
     // Billing period toggle above the plans (annual preselected).
@@ -382,6 +382,7 @@
       var btns = document.querySelectorAll('.plan-switch [data-plan]');
       function pick(p) {
         if (typeof state !== 'undefined') state.selectedPlan = p;
+        if (typeof renderPlanPeriod === 'function') renderPlanPeriod();
         for (var i = 0; i < btns.length; i++) {
           btns[i].setAttribute('aria-checked', btns[i].getAttribute('data-plan') === p ? 'true' : 'false');
         }

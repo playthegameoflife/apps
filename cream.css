@@ -343,3 +343,6 @@ footer.shell-footer .shell-footer-grid { grid-template-columns: 1.4fr repeat(4, 
 
 /* Five header tabs on phones: tighten so Affiliates fits without scrolling */
 @media (max-width: 480px) { .nav .nav-pills a, .nav .nav-pills a:not(.cta) { padding: 0 5px; font-size: .8rem; } }
+
+/* Pro users never see the floating upgrade bar */
+body.is-pro .sticky-upgrade { display: none !important; }

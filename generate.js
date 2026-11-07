@@ -352,7 +352,35 @@ function showQuotaLimit(q) {
   if (nudge && !nudge.classList.contains('hidden')) nudge.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 }
 
+// Which billing period (weekly/monthly/annual) the signed-in Pro user is on,
+// from the price id the backend reports; null when unknown.
+function currentPeriod() {
+  const pid = state.subscription && state.subscription.plan;
+  if (!pid) return null;
+  for (const k in PRICE_IDS) if (PRICE_IDS[k] === pid) return k;
+  return null;
+}
+// Pro card on the pricing page: say "current plan" only for the period the
+// person is actually on; for another period offer a switch via the portal.
+function renderPlanPeriod() {
+  const cur = $('plan-current-pro'), pb = $('portal-btn');
+  if (!cur || !pb || !state.isPro) return;
+  const NAMES = { weekly: 'Weekly', monthly: 'Monthly', annual: 'Annual' };
+  const per = currentPeriod(), sel = state.selectedPlan;
+  if (per && sel && per === sel) {
+    cur.textContent = 'Your current plan'; cur.classList.remove('hidden');
+    pb.textContent = 'Manage subscription'; pb.classList.remove('btn-primary');
+  } else if (per && sel) {
+    cur.textContent = 'You\u2019re on the ' + NAMES[per] + ' plan'; cur.classList.remove('hidden');
+    pb.textContent = 'Switch to ' + NAMES[sel]; pb.classList.add('btn-primary');
+  } else {
+    cur.classList.add('hidden');
+    pb.textContent = 'Manage subscription'; pb.classList.remove('btn-primary');
+  }
+}
+
 function renderPlan() {
+  document.body.classList.toggle('is-pro', !!state.isPro);
   // Refresh the Pro badge on the App builder menu item.
   try { if ($('mode-tabs') && $('mode-tabs').firstChild) populateModes(); } catch (e) {}
   const acctLink = $('m2-account'); if (acctLink) acctLink.classList.toggle('hidden', !state.user);
@@ -371,6 +399,7 @@ function renderPlan() {
     if (badge) { badge.textContent = 'Free'; badge.style.background = ''; badge.style.color = ''; }
     show($('upgrade-btn')); hide($('portal-btn'));
   }
+  renderPlanPeriod();
   if (state.user) {
     setText('user-label', state.user.displayName || state.user.email || 'Signed in');
     { const ul0 = $('user-label'); if (ul0) delete ul0.dataset.guest; }
