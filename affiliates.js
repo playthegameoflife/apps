@@ -3,7 +3,7 @@
    FirstPromoter...) between the quotes below. While it is empty, the Join
    buttons show "Applications opening soon" instead of a broken link. */
 (function () {
-  var SIGNUP_URL = '';
+  var SIGNUP_URL = 'https://promptgeneratorfyi-37e2.endorsely.com';
 
   function init() {
     var links = document.querySelectorAll('[data-aff-join]');
