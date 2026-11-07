@@ -275,7 +275,8 @@
     {
       "slug": "blog-chatgpt-tells-you-what-to-do-instead-of-doing-it",
       "primary_keyword": "ChatGPT tells you what to do instead of doing it",
-      "published": "2026-11-07"
+      "published": "2026-11-07",
+      "angle": "Three shapes of the failure (plan-no-patch, instructions-no-command, description-no-call) and a 5-rule prompt block that names the deliverable, forbids preamble, and transfers authority to assume"
     }
   ]
 }
