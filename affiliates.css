@@ -1,0 +1,40 @@
+/* Affiliate program page — loads after cream.css */
+.aff-page{max-width:880px;margin:0 auto;padding:32px 20px 64px}
+.aff-hero{text-align:center;padding:32px 0 8px}
+.aff-eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#1F4D3A;margin:0 0 12px}
+.aff-hero .page-title{margin:0 0 14px}
+.aff-lead{font-size:18px;line-height:1.5;color:#4a4a44;max-width:560px;margin:0 auto 24px}
+.aff-cta{display:flex;flex-direction:column;align-items:center;gap:10px}
+.aff-note{font-size:13px;color:#6b6b63;margin:0}
+.aff-join{display:inline-block;padding:14px 26px;border-radius:999px;background:#1F4D3A;color:#fff;font-weight:600;text-decoration:none}
+.aff-join:hover{background:#18402f}
+.aff-join.is-soon{background:#d9d4c8;color:#6b6b63;cursor:default;pointer-events:none}
+.aff-glance{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:32px 0}
+.aff-stat{background:#fff;border:1px solid #e4dfd3;border-radius:16px;padding:20px 16px;text-align:center}
+.aff-stat strong{display:block;font-family:'Instrument Serif',serif;font-size:36px;font-weight:400;color:#1F4D3A;line-height:1.1}
+.aff-stat span{display:block;font-weight:600;margin-top:4px}
+.aff-stat em{display:block;font-style:normal;font-size:13px;color:#6b6b63;margin-top:6px}
+.aff-section{margin:44px 0}
+.aff-section h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:30px;margin:0 0 18px}
+.aff-steps{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.aff-steps li{display:flex;gap:14px;align-items:flex-start}
+.aff-num{flex:none;width:34px;height:34px;border-radius:50%;background:#1F4D3A;color:#fff;display:grid;place-items:center;font-weight:600}
+.aff-steps h3,.aff-card h3{margin:0 0 4px;font-size:17px}
+.aff-steps p,.aff-card p{margin:0;color:#4a4a44;line-height:1.5}
+.aff-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.aff-card{background:#fff;border:1px solid #e4dfd3;border-radius:16px;padding:20px}
+.aff-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.aff-chips li{background:#fff;border:1px solid #e4dfd3;border-radius:999px;padding:8px 16px;font-size:15px}
+.aff-rules ul{margin:0;padding-left:20px;display:grid;gap:10px;line-height:1.5}
+.aff-fine{font-size:13px;color:#6b6b63;margin-top:14px}
+.aff-faq details{background:#fff;border:1px solid #e4dfd3;border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.aff-faq summary{cursor:pointer;font-weight:600}
+.aff-faq p{margin:10px 0 0;color:#4a4a44;line-height:1.5}
+.aff-final{text-align:center;background:#fff;border:1px solid #e4dfd3;border-radius:20px;padding:36px 20px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.aff-final h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:30px;margin:0}
+.aff-final p{margin:0 0 12px;color:#4a4a44}
+@media(max-width:640px){
+  .aff-glance,.aff-cards{grid-template-columns:1fr}
+  .aff-lead{font-size:16px}
+  .aff-section h2,.aff-final h2{font-size:26px}
+}
