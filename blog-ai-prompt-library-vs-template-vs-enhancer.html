@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Prompt Library vs Template vs Enhancer: Which Works?</title>
+  <meta name="description" content="An AI prompt library stores words written by others. A template fills in the blanks. An enhancer rewrites your own. We measured all three to see which works.">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-ai-prompt-library-vs-template-vs-enhancer.html">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="AI Prompt Library vs Template vs Enhancer: Which Works?">
+  <meta property="og:description" content="An AI prompt library stores words written by others. A template fills in the blanks. An enhancer rewrites your own. We measured all three to see which works.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-ai-prompt-library-vs-template-vs-enhancer.html">
+  <meta property="og:site_name" content="Prompt Helper Gemini">
+  <meta property="og:image" content="https://promptgenerator.fyi/og.png">
+  <meta property="article:published_time" content="2026-11-11">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Prompt Library vs Template vs Enhancer: Which Works?">
+  <meta name="twitter:description" content="An AI prompt library stores words written by others. A template fills in the blanks. An enhancer rewrites your own. We measured all three to see which works.">
+  <meta name="twitter:image" content="https://promptgenerator.fyi/og.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AI Prompt Library vs Template vs Enhancer: Which Works?",
+  "description": "An AI prompt library stores words written by others. A template fills in the blanks. An enhancer rewrites your own. We measured all three to see which works.",
+  "url": "https://promptgenerator.fyi/blog-ai-prompt-library-vs-template-vs-enhancer.html",
+  "mainEntityOfPage": "https://promptgenerator.fyi/blog-ai-prompt-library-vs-template-vs-enhancer.html",
+  "datePublished": "2026-11-11",
+  "dateModified": "2026-11-11",
+  "inLanguage": "en-US",
+  "image": "https://promptgenerator.fyi/og.png",
+  "author": {
+    "@type": "Organization",
+    "name": "Prompt Helper Gemini",
+    "url": "https://promptgenerator.fyi/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Prompt Helper Gemini",
+    "url": "https://promptgenerator.fyi/"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between an AI prompt library and a prompt template?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A prompt library is a collection of saved prompts you browse and reuse. A prompt template is one reusable shape with blanks to fill, usually a role, a task, some context and an output format. The library may hold thousands of templates; the template is the individual document. Neither one writes anything of yours without you supplying the specifics first."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do AI prompt libraries actually improve your results?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In our test of six requests, the template arm kept your distinctive details in the answer 31.8 percent of the time and the enhancer arm 36.5 percent, against 47.9 percent for the raw sentence you typed. What the wrapper reliably changed was the shape and length of the answer, not whether your specific details survived into it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a prompt enhancer just a template that fills itself in?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. A template applies a fixed set of assumptions, so it fits when your request matches its shape and overwrites you when it does not. An enhancer reads your sentence and rewrites it, so it can follow your wording. Our enhancer arm expanded the average request 11 times, so it invents far more than a template does."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which one should I use when my request has hard specifics?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Write the specific sentence. On the four requests that carried names, numbers and versions, the raw sentence, the template and the enhancer all landed within 8.3 points of each other on detail survival. When the specifics are yours, the deciding factor is not the tool you paste them into. It is whether you wrote them at all."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I tell whether a prompt library is worth using?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Two checks. First, does it show you the prompt before you send it, so you can see what was added and what was invented? Second, does it keep your own words, so your original is never lost? A library that hides the prompt it assembled gives you no way to tell a good rewrite from a generic one."
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+<nav>
+  <a href="/blog.html">&larr; Back to Blog</a> &nbsp;|&nbsp; <a href="/">Prompt Helper</a>
+</nav>
+<main>
+<header>
+  <h1>AI Prompt Library vs Template vs Enhancer: Which Works?</h1>
+  <p class="meta">Published 2026-11-11 &middot; 12 min read &middot; Prompt Helper Gemini</p>
+</header>
+<article>
+
+<div class="intro">
+  <p>Ask three people what they want from a prompt tool and you will get three different answers, all of
+  them called a prompt library. An <strong>AI prompt library</strong> stores other people's words, a
+  template fills in blanks, and an enhancer rewrites your own rough sentence into something a model will
+  actually obey. Those are three different products, and they fail in three different ways. A commenter on
+  <a href="https://news.ycombinator.com/item?id=38840626" rel="nofollow noopener" target="_blank">Hacker News</a> named the problem
+  exactly: <em>"Its useful for writing generic code/template/boilerplate, then customizing it by inserting your own code. For something you already know better, there isn't a magic prompt to express it"</em>.</p>
+  <p>So instead of picking a winner by opinion, we ran the three side by side. We took six real requests,
+  put each one through three arms &mdash; your raw sentence, a generic library template with your specifics
+  slotted into the blanks, and a prompt enhancer rewriting your sentence &mdash; then measured what actually
+  reached the answer. Six requests, one model (MiniMax-M2.7), temperature zero, three metrics.</p>
+  <p>The result was not the one the marketing pages imply. A prompt library did not reliably give you your
+  own request back. It gave you the shape of somebody else's, with your details somewhere inside it. And
+  the cost of the wrapper is not always visible: one commenter on
+  <a href="https://news.ycombinator.com/item?id=44798189" rel="nofollow noopener" target="_blank">a Hacker News thread on AI coding assistants</a>
+  noted that <em>"even one cycle of that often means the whole prompting exercise takes me longer than if I just wrote the code myself"</em>.</p>
+</div>
+
+<h2>What an AI prompt library, a template, and an enhancer actually do</h2>
+<p>These three get marketed as variations on a theme. They are not. Each one changes the request in a
+fundamentally different way, and each one fails in a way the other two do not.</p>
+
+<h3>The library: storage and reuse</h3>
+<p>A prompt library is a catalogue. It stores prompts somebody else wrote so you can paste them instead of
+typing them. The value is speed for a task you have done many times: the same weekly report, the same
+product description, the same code review request. The cost is that the prompt was written for someone
+else's situation, and the blanks it leaves are exactly where your specifics belong. Leave them empty and
+you get their situation. Fill them and you have done the work yourself.</p>
+<h3>The template: a fixed set of assumptions</h3>
+<p>A template is one reusable shape: a role, a task, some context, an output format, and a slot for your
+content. It is more structured than a loose library entry, and it is completely rigid. A template has
+already decided what your request is about, how long the answer should be, and what shape it takes. It
+does not read what you wrote. It waits for you to pour your content into a space it already sized.</p>
+
+<h3>The enhancer: a rewrite of your sentence</h3>
+<p>An enhancer reads what you typed and produces a new, larger prompt from it. Because it reads first, it
+can follow your actual wording and intent. Because it rewrites, it also adds material you never asked
+for: examples, edge cases, role definitions, output specifications. The value is that it removes the work
+of specifying the output shape. The cost is that the output is no longer yours in any strict sense.</p>
+<h2>How the three were tested</h2>
+<p>Every request went through the same three arms. The raw arm was the sentence exactly as written. The
+template arm was a generic role, task, context and output-format template with the request dropped into
+the content slot &mdash; the mechanical effect of clicking a library entry and filling it in. The enhancer
+arm was a prompt-improvement instruction applied verbatim to the same request.</p>
+<p>Three metrics, each answering a different question: <strong>expansion</strong> (prompt words divided by
+request words), <strong>invention rate</strong> (the share of the prompt's concrete tokens &mdash; numbers,
+names, error codes, versions &mdash; that appear nowhere in your original request), and <strong>detail
+survival</strong> (the share of your distinctive tokens that still appear in the delivered answer, the
+only one measured at the end of the pipeline). Half the requests were deliberately generic, the kind a
+template fits; half carried details a template cannot hold &mdash; an error code, a product name, a price
+change, a row count. All three arms were answered with the same system instruction and temperature, so
+the only variable was the prompt itself.</p>
+<div class="key-takeaways">
+  <h3>What the measurement found</h3>
+  <ul>
+    <li>Your raw sentence kept your details in the answer 47.9% of the time. The template managed 31.8%. The enhancer managed 36.5%.</li>
+    <li>On generic requests the template was the worst arm: 10.0% survival, against 50.0% for the raw sentence.</li>
+    <li>On requests carrying hard specifics, all three arms landed within 8.4 points of each other.</li>
+    <li>The template added 3.1x as many words as your request. The enhancer added 11.0x, and invented 80.1% of its own concrete tokens.</li>
+    <li>What a wrapper reliably changes is the shape of the answer: 137.5 words from the template, 247.3 from the enhancer, 142.8 from your raw sentence.</li>
+  </ul>
+</div>
+
+<h2>Templates overwrite you on generic requests</h2>
+<p>The sharpest result came from the two requests that sounded like the kind of thing a template is made
+for. Take the simplest one: <em>"Write a product description for a reusable stainless steel water
+bottle."</em> Eleven words.</p>
+<p>Raw, that sentence kept all five of its distinctive details &mdash; reusable, stainless, steel, water,
+bottle &mdash; in the answer. The template turned it into 57 words of e-commerce
+scaffolding &mdash; expert copywriter, direct-to-consumer, warm and confident, headline plus two sentences
+plus three bullets &mdash; and 88.9% of the concrete tokens in that prompt were invented by
+the template rather than written by you. The answer came back at 20.0% detail survival.
+<strong>Four of the five things you actually said had gone missing.</strong></p>
+<p>The enhancer kept the product words but added a specification the request never contained: material,
+lid design, insulation, wide mouth. That detail is plausible, useful, and invented. A reader cannot tell
+it apart from something you asked for.</p>
+
+<h2>On specific requests, the wrapper stops being the deciding factor</h2>
+<p>Now take the other half of the test: four requests carrying details a template cannot hold. One asked
+for a status-page update about a CSV export dropping rows with unicode names, for a company called
+Northwind Analytics, under 120 characters. One asked whether a SaaS should grandfather customers after
+raising the Starter price from $19 to $29.</p>
+<p>Across those four requests, detail survival was 46.9% for your raw sentence,
+42.7% for the template and 38.5% for the enhancer. Three different tools,
+three different prompt lengths, one result: the details that mattered either made it into the answer or
+they did not, and the wrapper had almost no say in it. The whole spread across the three was
+8.4 points.</p>
+<p>The SaaS row is the clearest case. All three arms scored identically at 37.5% detail
+survival, because the model did the same thing with the numbers in every case: it computed a churn rate
+rather than repeating the figures, and the token check found 14%, Q3, $19, $29, $310k missing from all
+three answers. The enhancer turned a 793-word prompt into a formatted consulting memo
+with executive summary and transition timeline. It was the most impressive output of the six. It was also
+not more faithful.</p>
+
+<div class="code-block">
+  <span class="label">Template prompt &mdash; 89 words, 45.0% invented concrete tokens</span>
+  <span class="before">You are a senior data analyst.
+Task: Analyse the situation described below and recommend a decision.
+Context: Use only the information provided.
+Tone: Direct and quantitative.
+Output format: A short verdict paragraph, then a table of findings, then a recommended action.
+
+Situation: Our SaaS churned 14% in Q3 after we raised the Starter price from $19 to $29. We have 840 paying accounts, 92 of which churned. Annual contract value is $310k. The price page is still showing $19 for some annual customers. Should we grandfather them or not?</span>
+</div>
+
+<div class="code-block">
+  <span class="label">Enhancer prompt &mdash; 793 words, same request</span>
+  <span class="after">You are a senior SaaS pricing and revenue strategy advisor with expertise in churn analysis, customer retention, pricing-page governance, and contract policy. Analyze the following situation and recommend whether affected annual customers should be grandfathered at the legacy Starter price of $19/month or moved to the new $29/month price. ## Business Context - Q3 churn was reported as 14%. - The Starter price increased from $19/month to $29/month. - There are 840 paying accounts. - 92 accounts churned during the period. - Total Annual Contract Value (ACV) is $310,000. - The pricing page is still displaying $19 for some annual customers, even though the intended new price is $29...</span>
+</div>
+
+<h2>The library complaint is really a template complaint</h2>
+<p>Read the reviews on the tools in this category and the same three complaints appear again and again.</p>
+<p>The first is about having to hunt for what you saved. A <a href="https://chromewebstore.google.com/detail/teleprompt-ai-%E2%80%93-prompt-ge/alfpjlcndmeoainjfgbbnphcidpnmoae/reviews" rel="nofollow noopener" target="_blank">Teleprompt reviewer</a>, praising the extension in
+the same breath, wrote that it would be five stars <em>"Would be 5* if had had some basic organizing and cataloging of created prompts... don;t wanna lose a great one but it means opening up another plugin and copypasting"</em>. That is
+the library tax in one sentence: your good prompt exists somewhere, and retrieving it costs more than
+writing a new one. The second is about the template taking over. Another Teleprompt reviewer gave it three
+stars and said <em>"It certainly would be 5 stars for me if you could customize the prompt that is used to generate the new prompt"</em>. The complaint is not that the tool is bad.
+The complaint is that the prompt behind the tool is not yours, and you cannot change it.</p>
+<p>The third is about the free tier being a demo. A <a href="https://chromewebstore.google.com/detail/prompt-genie/inafdkdkghgibhijaplaobmomoahefin/reviews" rel="nofollow noopener" target="_blank">Prompt Genie reviewer</a> put it as <em>"nothing for free here"</em>,
+and an Open Prompt Manager reviewer asked for <em>"need prompt sync and classify and version control"</em> &mdash; a library
+request for versioning and classification, which is code for the fact that a pile of prompts without
+structure is not a library, it is a folder.</p>
+<p>And the sharpest review of all sits on
+<a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp/reviews" rel="nofollow noopener" target="_blank">Prompt Helper's own listing</a>:
+<em>"Doesn't work. It does nothing"</em>.
+The trust problem is real and it is not evenly distributed. The same listing carries a review that says
+the opposite &mdash; <em>"It's remarkably efficient how accurately The Prompt Helper get Gemini to understand my requests"</em> &mdash; and both describe the same product,
+which is what you would expect when the difference between a good result and no result is one setting.</p>
+<p>The pattern in the reviews is the same one the measurement found. The tools are not broken; the
+<em>shape</em> of what they hand back is what people argue about. One commenter on
+<a href="https://news.ycombinator.com/item?id=45679390" rel="nofollow noopener" target="_blank">a Hacker News thread on AI-assisted work</a>
+put it as <em>"the time I supposedly save building things gets eaten up debugging, correcting, improving the AI-generated slop"</em>.</p>
+<h2>What to pick, and the checks that settle it</h2>
+<p>If your request is genuinely routine &mdash; the same email, the same description, the same weekly
+summary &mdash; a library or template is the right tool, because you are paying in tokens for something
+that genuinely repeats. Just fill in the specifics rather than accepting the defaults, and check what
+the tool added before you send it.</p>
+<p>If your request is one-offs with details that matter, the raw sentence beats both wrappers on fidelity,
+and the thing to outsource is the output format rather than the request itself. That is the trade an
+enhancer is actually good at: not more words, but a specified shape.</p>
+
+<div class="comparison">
+  <div class="comparison-box bad">
+    <h4>What a template does</h4>
+    <p>Assumes the task, the audience and the output shape before reading your request, then fills a space
+    it already sized. Your specifics are the only thing that does not fit, so they are squeezed out
+    first.</p>
+  </div>
+  <div class="comparison-box good">
+    <h4>What to do instead</h4>
+    <p>Type the specifics into the sentence itself &mdash; the material, the error code, the price &mdash;
+    and let the tool handle only the part you wanted outsourced: the output format.</p>
+  </div>
+</div>
+<ul>
+  <li><strong>Show me the prompt.</strong> If the tool will not show you the assembled prompt, you cannot
+  tell a good rewrite from a generic one.</li>
+  <li><strong>Keep my words.</strong> Your original should survive the rewrite. If the only way to recover
+  your sentence is to select and copy it, the tool is replacing you rather than helping you.</li>
+  <li><strong>Let me make it shorter.</strong> A wrapper that only ever adds is a wrapper you will fight.</li>
+  <li><strong>Do not invent facts.</strong> An enhancer that adds examples and specifications you never
+  mentioned is writing a different request than the one you sent.</li>
+</ul>
+
+<div class="cta-box">
+  <h2>Try the difference on your own worst prompt</h2>
+  <p>Prompt Helper rewrites the sentence you already typed, in a mode and style you choose, with a
+  concise option when you want structure without the sludge. The free tier includes 10 improvements and
+  10 Ask questions per week plus limited history &mdash; sign in with Google and it works inside
+  ChatGPT, Claude, Gemini, Grok and Perplexity, with the text you improve processed by the
+  extension&rsquo;s secure backend.</p>
+  <p><a href="/ai-prompt-optimizer.html">Open the AI Prompt Optimizer</a></p>
+</div>
+
+<div class="faq">
+  <h2>Frequently asked questions</h2>
+  
+  <div class="faq-item">
+    <h3>What is the difference between an AI prompt library and a prompt template?</h3>
+    <p>A prompt library is a collection of saved prompts you browse and reuse. A prompt template is one reusable shape with blanks to fill, usually a role, a task, some context and an output format. The library may hold thousands of templates; the template is the individual document. Neither one writes anything of yours without you supplying the specifics first.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Do AI prompt libraries actually improve your results?</h3>
+    <p>In our test of six requests, the template arm kept your distinctive details in the answer 31.8 percent of the time and the enhancer arm 36.5 percent, against 47.9 percent for the raw sentence you typed. What the wrapper reliably changed was the shape and length of the answer, not whether your specific details survived into it.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Is a prompt enhancer just a template that fills itself in?</h3>
+    <p>No. A template applies a fixed set of assumptions, so it fits when your request matches its shape and overwrites you when it does not. An enhancer reads your sentence and rewrites it, so it can follow your wording. Our enhancer arm expanded the average request 11 times, so it invents far more than a template does.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Which one should I use when my request has hard specifics?</h3>
+    <p>Write the specific sentence. On the four requests that carried names, numbers and versions, the raw sentence, the template and the enhancer all landed within 8.3 points of each other on detail survival. When the specifics are yours, the deciding factor is not the tool you paste them into. It is whether you wrote them at all.</p>
+  </div>
+  <div class="faq-item">
+    <h3>How do I tell whether a prompt library is worth using?</h3>
+    <p>Two checks. First, does it show you the prompt before you send it, so you can see what was added and what was invented? Second, does it keep your own words, so your original is never lost? A library that hides the prompt it assembled gives you no way to tell a good rewrite from a generic one.</p>
+  </div>
+</div>
+
+<h2>The bottom line: the third option beats the AI prompt library</h2>
+<p>Measured against your own details rather than against each other's marketing, the ranking is not the
+one the category expects. A template is the cheapest and the most damaging on generic requests, because
+it decides what your request means before reading it. An enhancer is the most capable and the most
+verbose, because it produces a well-structured prompt that is partly its own invention. Your raw
+sentence, the one you would have typed anyway, kept your specifics in the answer more often than either
+wrapper did.</p>
+<p>That is not an argument against libraries. It is an argument for using them for what they are good
+at &mdash; repetition, speed, and a shape you do not want to specify &mdash; and then writing the
+specific sentence yourself. Across these six requests, a good prompt was something you wrote, not
+something you found. Compare the <a href="/ai-prompt-optimizer.html">AI Prompt Optimizer</a> with the
+<a href="/chatgpt-prompt-generator.html">ChatGPT prompt generator</a>, and read
+<a href="/blog-do-ai-prompt-enhancers-actually-work-2026.html">do AI prompt enhancers actually work</a>
+for the longer version of this test.</p>
+
+</article>
+</main>
+<footer>
+  <p>Published 2026-11-11 by Prompt Helper Gemini &middot;
+  <a href="https://promptgenerator.fyi/">promptgenerator.fyi</a> &middot;
+  <a href="https://promptgenerator.fyi/blog.html">All blog posts</a></p>
+</footer>
+</body>
+</html>
