@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Tell If a Chrome Extension Opens Ads Tabs</title>
+  <meta name="description" content="How to tell if a Chrome extension opens ads tabs: we read 566 reviews and unpacked 24 published packages. Chrome will not warn you, so here is the signal.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-how-to-tell-if-a-chrome-extension-opens-ads-tabs.html">
+  <meta property="og:title" content="How to Tell If a Chrome Extension Opens Ads Tabs">
+  <meta property="og:description" content="How to tell if a Chrome extension opens ads tabs: we read 566 reviews and unpacked 24 published packages. Chrome will not warn you, so here is the signal.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-how-to-tell-if-a-chrome-extension-opens-ads-tabs.html">
+  <meta property="og:site_name" content="Prompt Helper">
+  <meta property="og:image" content="https://promptgenerator.fyi/og-phg.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Tell If a Chrome Extension Opens Ads Tabs">
+  <meta name="twitter:description" content="How to tell if a Chrome extension opens ads tabs: we read 566 reviews and unpacked 24 published packages. Chrome will not warn you, so here is the signal.">
+  <meta name="twitter:image" content="https://promptgenerator.fyi/og-phg.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+blockquote { font-style: italic; color: #6b7280; border-left: 3px solid #d1d5db; padding-left: 16px; margin: 20px 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+  </style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Tell If a Chrome Extension Opens Ads Tabs", "description": "How to tell if a Chrome extension opens ads tabs: we read 566 reviews and unpacked 24 published packages. Chrome will not warn you, so here is the signal.", "url": "https://promptgenerator.fyi/blog-how-to-tell-if-a-chrome-extension-opens-ads-tabs.html", "mainEntityOfPage": {"@id": "https://promptgenerator.fyi/blog-how-to-tell-if-a-chrome-extension-opens-ads-tabs.html"}, "image": "https://promptgenerator.fyi/og-phg.png", "datePublished": "2026-11-23", "dateModified": "2026-11-23", "author": {"@type": "Organization", "name": "Prompt Helper", "url": "https://promptgenerator.fyi/"}, "publisher": {"@type": "Organization", "name": "Prompt Helper", "url": "https://promptgenerator.fyi/"}, "inLanguage": "en"}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does Chrome warn me if an extension will open ads tabs?", "acceptedAnswer": {"@type": "Answer", "text": "No. Opening a new tab needs no permission at all, so the install dialog stays silent about it. Chrome only warns on permissions such as reading browsing history or accessing every site. A prompt or writing extension that quietly opens promotional tabs produces a clean permission list, a clean install screen, and no warning you can act on."}}, {"@type": "Question", "name": "Where do I actually look for the ad-tab signal?", "acceptedAnswer": {"@type": "Answer", "text": "The review text, not the rating. Aggregate stars bury a specific complaint that a few reviewers repeat. Read the one-star and two-star reviews and search for tab-opening language. One extension in our sample of 149 listings carried a 2.8 average from 161 ratings, and the tab-opening complaint only appears in the individual review bodies."}}, {"@type": "Question", "name": "Is a low star rating enough to disqualify an extension?", "acceptedAnswer": {"@type": "Answer", "text": "It is a reason to read the reviews, not a verdict. Low ratings also come from bugs, login failures, and missing features. What matters is the shape of the complaint. Tab-opening and browsing-history complaints describe what the extension does to your browser, which is a different category of problem from a feature that does not work."}}, {"@type": "Question", "name": "Does checking the manifest tell me whether ads will open?", "acceptedAnswer": {"@type": "Answer", "text": "It tells you what the extension is allowed to do, which is useful but not conclusive. The manifest shows which permissions and hosts were requested. It does not reveal which tabs the extension opens, or whether it opens them on a timer. To answer that you need the reviews, or you need to read the packaged code yourself."}}, {"@type": "Question", "name": "How do I remove an extension that is already opening ads tabs?", "acceptedAnswer": {"@type": "Answer", "text": "Remove the extension first, because that ends the behavior regardless of what else is wrong. Google lists unwanted Chrome extensions that keep coming back as a symptom of unwanted software. Then run a Safe Browsing check and confirm the extension is gone from the extensions page rather than merely switched off."}}]}</script>
+</head>
+<body>
+  <nav aria-label="Site">
+    <a href="/index.html">Home</a> &middot;
+    <a href="/blog.html">Blog</a> &middot;
+    <a href="/library.html">Prompt Library</a> &middot;
+    <a href="/ai-prompt-optimizer.html">Prompt Optimizer</a> &middot;
+    <a href="/pricing.html">Pricing</a>
+  </nav>
+  <header>
+    <h1>How to Tell If a Chrome Extension Opens Ads Tabs</h1>
+    <p class="meta">November 23, 2026 &middot; 10 min read &middot; Prompt Helper</p>
+  </header>
+  <main>
+<article>
+  <div class="intro">
+    <p><strong>"This extension opens advertising tabs by itself."</strong>
+    That is one review on a prompt extension with 100,000 users and a 2.8 average rating.
+    The same reviewer went on: <strong>"If I wanted pop-up adware, I would not have
+    installed a prompt manager."</strong></p>
+    <p>How to tell if a Chrome extension opens ads tabs: you cannot rely on the install
+    dialog. Chrome does not warn about it, because opening a tab needs no permission at
+    all. Below we read 566 reviews across 149 prompt and writing extensions and unpacked
+    24 published packages to find where the signal really hides.</p>
+  </div>
+
+  <h2>How to tell if a Chrome extension opens ads tabs</h2>
+
+  <p>Start by ruling out the thing everyone else checks. The store listing shows
+  permissions, and the install dialog shows a warning for the sensitive ones. But an
+  extension that force-opens a promotional tab is doing so with the
+  <code>tabs.create</code> API, and Chrome's own documentation notes that this
+  <a href="https://developer.chrome.com/docs/extensions/reference/api/tabs">does not require any permissions</a>:</p>
+
+  <blockquote>"This example doesn't require any permissions"</blockquote>
+
+  <p>That is the whole problem in one sentence. The tab-opening behavior sits outside the
+  permission system entirely. An extension can request nothing scary, install without a
+  single warning, and still open whatever it likes. The permission list is not evidence
+  of safety, and the absence of a warning is not evidence of absence.</p>
+
+  <p>The second place people look is the source code, often by grepping the package for
+  known ad network domains. We tried that and it failed in an instructive way. Across 24
+  published packages we found 400 occurrences of strings that look like ad network
+  hostnames. 398 of them were false positives. 369 were React event handlers for the
+  double-click gesture, 24 were cosmetic filter lists inside a bundled article
+  readability library, and 5 were ordinary identifiers such as a content-length field. A
+  string scan is not a safety signal, and a grep that finds an ad hostname is very
+  probably telling you about a double-click handler.</p>
+
+  <h2>Why the install warning will not tell you</h2>
+
+  <p>Chrome's permission warning system is real, and it works the way the documentation
+  describes. Some permissions are quiet and some are loud:
+  <em>"Some permissions are less intrusive and don't display a warning. Other
+  permissions trigger a warning that users have to allow."</em> That part is
+  <a href="https://developer.chrome.com/docs/extensions/develop/concepts/permission-warnings">documented</a>. The catch is which permissions get folded into
+  which others.</p>
+
+  <p>The documented example is worth reading twice. Chrome states that the
+  <em>"tabs" warning won't show if the extension also requests "&lt;all_urls&gt;"</em>.
+  An extension that asks for every site is allowed to read every tab, and Chrome
+  suppresses the narrower warning that would have flagged it. The warning you see
+  depends on the rest of the permission list, and a broad permission can make the list
+  look calmer than the underlying access.</p>
+
+  <p>Chrome offers <code>activeTab</code> as the quiet alternative. It
+  <em>"gives an extension temporary access to the currently active tab when the user
+  invokes the extension"</em> and <em>"displays no warning message during
+  installation"</em>. That is a fair trade for a tool that only needs the page you are
+  looking at. It is also a reminder that an install screen showing one warning is a
+  snapshot of one permission, not a verdict on the whole extension. The
+  <a href="https://developer.chrome.com/docs/extensions/develop/concepts/activeTab">activeTab reference</a> spells out the trade in full.</p>
+
+  <h2>Where the signal actually lives: the review bodies</h2>
+
+  <p>We collected the listings for 149 prompt and writing extensions, with 566 reviews
+  between them. 94 listings had at least one review and 55 had none, so most of this
+  category has a thin public record. That matters, because the review text is where the
+  tab-opening complaint surfaces, and there is very little of it.</p>
+
+  <p>Exactly one listing in the set carried ad-tab complaints, and it carries three
+  distinct ones. The reviewer who reported the behavior described watching it happen
+  without consent: <em>"This extension opens advertising tabs by itself."</em> and
+  <em>"without any click or consent."</em> A second reviewer wrote
+  <em>"The extension secretly opens new Chrome tabs that load promotional pages. These
+  ad pages interrupt work and erode trust. An add-on that injects unsolicited
+  advertising belongs nowhere near my browser."</em> A third flagged the pattern across
+  the category rather than one product: <em>"WARNING!, makes extremely penetrating
+  advertising"</em>.</p>
+
+  <p>The extension's own developer answered two of those reviewers and confirmed the
+  behavior rather than denying it. To the second: <em>"We offer a pro version for users
+  who prefer an ad-free experience."</em> and <em>"Additionally, we limit ad popups to
+  twice per month."</em> That last sentence is the whole disclosure, and it is also the
+  reason the complaint keeps recurring: the paid tier is where the ads stop.</p>
+
+  <p>Now the reason this is hard to catch. The listing shows a 2.8 average from 161
+  ratings. Two point eight is low, but it is low for a mix of reasons, and nothing in the
+  star figure says which. A reader who sees 2.8 and moves on has lost the information.
+  The reviewer who wrote about the ad tabs had it flagged as helpful by 11 other people,
+  which is a stronger signal than the aggregate ever gets to be. The full thread is in
+  the <a href="https://chromewebstore.google.com/detail/ai-prompt-genius/jjdnakkfjnnbbckhifcfchagnpofjffo/reviews">AI Prompt Genius review page</a>.</p>
+
+  <h2>Read the manifest, not the store description</h2>
+
+  <p>The manifest is the one part of an extension you can read without installing it. It
+  tells you which API permissions were requested, which hosts were granted, and whether
+  the package can open tabs at all. We unpacked 24 published packages and counted.</p>
+
+  <ul>
+    <li><strong>7 of 24</strong> requested <code>&lt;all_urls&gt;</code>, access to
+    every site on every page.</li>
+    <li><strong>9 of 24</strong> requested the <code>tabs</code> permission, which
+    exposes tab URLs and titles.</li>
+    <li><strong>16 of 24</strong> contain a <code>tabs.create</code> call, and
+    <strong>2 of 24</strong> can open a new window.</li>
+    <li>Permission counts ran from 1 to 28, with a median of 3. 9 packages requested 5
+    or more API permissions.</li>
+  </ul>
+
+  <p>The <code>tabs</code> permission is worth understanding, because the name
+  oversells it. Chrome documents that it <em>"does not give access to the
+  browser.tabs namespace. Instead, it grants an extension the ability to call
+  tabs.query() against four sensitive properties on tabs.Tab instances"</em>. What it
+  really adds is the ability to see where you are. Host permissions are the broader
+  grant: they <em>"allow an extension to read and query a matching tab's four sensitive
+  tabs.Tab properties"</em> and to inject scripts into matching pages.</p>
+
+  <p>So the manifest narrows the question. It cannot tell you whether the extension
+  opens a tab on a timer or after every fifth prompt, but it tells you what the
+  extension could reach if it did, and a <code>tabs.create</code> call with a remote
+  URL in it is worth reading.</p>
+
+  <h2>One package did hide an ad system in plain sight</h2>
+
+  <p>Of the 24 packages, exactly one had a real ad system rather than a coincidental
+  string. A developer tool called Merlin Glass, version 0.1.7, ships a function named
+  <code>initAdSystem</code> containing three rotating promotional links to font and
+  texture marketplaces. Its manifest requests only <code>activeTab</code> and
+  <code>scripting</code>, so the install screen is quiet. Its code calls
+  <code>tabs.create</code> zero times, so it does not open tabs. It renders the ad in
+  its own panel instead.</p>
+
+  <p>That case is instructive because it shows how ad code hides. It was not found by
+  searching for a known ad domain. It was found by searching for the word ad in
+  function names, which surfaced a function that no string scan for ad networks would
+  have caught.</p>
+
+  <h2>What Prompt Helper actually ships</h2>
+
+  <p>Since this article is about transparency, here is our own package, read from the
+  published version 2.7.22 rather than from a development tree.</p>
+
+  <ul>
+    <li><strong>3 API permissions:</strong> <code>tabs</code>, <code>storage</code>,
+    <code>identity</code>. The <code>identity</code> permission is what makes Sign in
+    with Google work.</li>
+    <li><strong>15 host permissions</strong>, every one of them a named AI site such as
+    ChatGPT, Claude, Gemini, Grok and Perplexity. No <code>&lt;all_urls&gt;</code>.</li>
+    <li><strong>5 <code>tabs.create</code> calls</strong>, all of them user-initiated:
+    the welcome page after install, the Stripe checkout page, the customer portal, and
+    the leave-a-review link.</li>
+    <li><strong>0</strong> <code>windows.create</code> calls and <strong>0</strong>
+    notification API calls.</li>
+    <li><strong>0</strong> <code>permissions.request</code> calls. The one occurrence of
+    <code>&lt;all_urls&gt;</code> in the package sits inside a
+    <code>permissions.remove</code> call that revokes a legacy all-sites permission on
+    install, which removes access rather than adding it.</li>
+  </ul>
+
+  <p>That last bullet is the one worth copying. The
+  <a href="https://chromewebstore.google.com/detail/prompt-helper-gemini/iggefchbkdlmljflfcnhahphoojnimbp">live listing</a> describes an optional rewrite button on any
+  site that is off by default, and the package actively revokes the old blanket
+  permission that used to back it.</p>
+
+  <h2>A five-minute checklist before you install</h2>
+
+  <ol>
+    <li>Read the one and two star reviews, not the average. Search the text for
+    <em>tabs</em>, <em>opens</em>, <em>popups</em>, and <em>advertising</em>.</li>
+    <li>Open the manifest. Count the permissions, and check whether
+    <code>&lt;all_urls&gt;</code> is present.</li>
+    <li>Look for a <code>tabs.create</code> call with a remote URL in it, and for
+    functions whose name contains ad.</li>
+    <li>Check whether the developer answers complaints about advertising. A reply that
+    confirms the behavior is at least honest about it.</li>
+    <li>Compare the store rating against the review count. A 2.8 from 161 ratings is a
+    different signal from a 2.8 from 7.</li>
+  </ol>
+
+  <div class="key-takeaways">
+    <h3>Key takeaways</h3>
+    <ul>
+      <li>Opening a tab requires no permission, so the install warning cannot flag it.</li>
+      <li>A broad <code>&lt;all_urls&gt;</code> request can suppress Chrome's narrower
+      tab warning entirely.</li>
+      <li>Grepping for ad domains produced 400 hits, 398 of them false positives.</li>
+      <li>The signal is in individual review bodies, not in the star average.</li>
+      <li>The manifest tells you what an extension can reach. Only the reviews tell you
+      what it does with it.</li>
+    </ul>
+  </div>
+
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <h3>Does Chrome warn me if an extension will open ads tabs?</h3>
+      <p>No. Opening a new tab needs no permission at all, so the install dialog stays silent about it. Chrome only warns on permissions such as reading browsing history or accessing every site. A prompt or writing extension that quietly opens promotional tabs produces a clean permission list, a clean install screen, and no warning you can act on.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Where do I actually look for the ad-tab signal?</h3>
+      <p>The review text, not the rating. Aggregate stars bury a specific complaint that a few reviewers repeat. Read the one-star and two-star reviews and search for tab-opening language. One extension in our sample of 149 listings carried a 2.8 average from 161 ratings, and the tab-opening complaint only appears in the individual review bodies.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is a low star rating enough to disqualify an extension?</h3>
+      <p>It is a reason to read the reviews, not a verdict. Low ratings also come from bugs, login failures, and missing features. What matters is the shape of the complaint. Tab-opening and browsing-history complaints describe what the extension does to your browser, which is a different category of problem from a feature that does not work.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Does checking the manifest tell me whether ads will open?</h3>
+      <p>It tells you what the extension is allowed to do, which is useful but not conclusive. The manifest shows which permissions and hosts were requested. It does not reveal which tabs the extension opens, or whether it opens them on a timer. To answer that you need the reviews, or you need to read the packaged code yourself.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How do I remove an extension that is already opening ads tabs?</h3>
+      <p>Remove the extension first, because that ends the behavior regardless of what else is wrong. Google lists unwanted Chrome extensions that keep coming back as a symptom of unwanted software. Then run a Safe Browsing check and confirm the extension is gone from the extensions page rather than merely switched off.</p>
+    </div>
+  </div>
+
+  <h2>How to tell if a Chrome extension opens ads tabs: what to do next</h2>
+
+  <p>To tell if a Chrome extension opens ads tabs, start where the install dialog cannot go. Read the review bodies for tab-opening language, then open the manifest and check what the extension requested. Prompt Helper ships 3 API permissions and 15 named host permissions, opens no windows, and never calls a notification API. If you want that transparency in the tools you install, the manifest and the review text are where you will find it.</p>
+
+  <p>If the extension is already installed and behaving this way, start with Google's
+  own <a href="https://support.google.com/chrome/answer/2765944?hl=en&co=GENIE.Platform=Desktop">unwanted software and ads guide</a>, which lists
+  unwanted Chrome extensions that keep coming back among the symptoms of a problem, and
+  then remove the extension rather than merely switching it off.</p>
+</article>
+  </main>
+  <footer>
+    <p>Prompt Helper &mdash; promptgenerator.fyi</p>
+    <p><a href="/blog.html">Back to Blog</a></p>
+  </footer>
+</body>
+</html>
