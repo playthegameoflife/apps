@@ -469,6 +469,108 @@
 
   function clearToken() { writeLS(TOKEN_STORE, null); }
 
+  // --- Silent token refresh -------------------------------------------------
+  // Google implicit-flow tokens live ~1 hour. getAccessToken() discards ours
+  // after 50 minutes of safety margin, which used to leave callers (quota
+  // checks, plan pills, the sidebar) resolving the signed-in Pro user as a
+  // guest until the next full sign-in. refreshAccessToken() re-runs the
+  // OAuth flow WITHOUT a user gesture:
+  //   1. A hidden iframe navigates to the auth URL with login_hint for the
+  //      account we already know. Because the visitor's Google session is
+  //      still alive and consent was already granted for these scopes,
+  //      Google redirects straight back to auth-callback.html.
+  //   2. The callback page posts the fresh token to the parent window, same
+  //      channel as the popup flow.
+  //   3. If the iframe path is blocked (third-party storage partitioning in
+  //      some browsers), fall back to a tiny popup re-auth. It may flash a
+  //      window for ~a second; that beats silently billing a Pro user as a
+  //      guest.
+  // We deliberately do NOT refresh proactively on a timer: a background
+  // iframe every hour is hostile to the visitor. Instead callers ask when
+  // they need a token and find none.
+  let refreshing = null;
+
+  function refreshAccessToken() {
+    if (!getUser()) return Promise.resolve(null);       // signed out
+    if (refreshing) return refreshing;                  // one at a time
+    refreshing = (async () => {
+      const user = getUser();
+      const hint = user.email || '';
+      // Prefer the client that worked at sign-in time; fall back to the rest.
+      const order = resolved
+        ? CANDIDATES.filter((c) => c.clientId === resolved.clientId)
+                     .concat(CANDIDATES.filter((c) => c.clientId !== resolved.clientId))
+        : CANDIDATES.slice();
+      for (const candidate of order) {
+        try {
+          const flow = await detectFlow(candidate.clientId);
+          if (!flow) continue;
+          const state = randomString(32);
+          let verifier = null;
+          let challenge = null;
+          if (flow === 'code') {
+            verifier = randomString(64);
+            challenge = await makeCodeChallenge(verifier);
+          }
+          writeLS(PKCE_STORE, { verifier, state, clientId: candidate.clientId });
+          const url = buildAuthUrl(candidate, flow, state, challenge, hint);
+
+          const result = await new Promise((resolve) => {
+            // Hidden iframe first: invisible, no gesture needed.
+            let frame = null;
+            const onMsg = (ev) => {
+              if (ev.origin !== location.origin) return;
+              if (!ev.data || ev.data.phgAuth !== 'result') return;
+              window.removeEventListener('message', onMsg);
+              resolve(ev.data);
+            };
+            window.addEventListener('message', onMsg);
+            const cleanup = () => {
+              window.removeEventListener('message', onMsg);
+              if (frame) { try { frame.remove(); } catch (e) {} frame = null; }
+            };
+            const timeout = setTimeout(() => { cleanup(); resolve(null); }, 12000);
+            try {
+              frame = document.createElement('iframe');
+              frame.style.cssText = 'position:absolute;width:1px;height:1px;left:-9999px;border:0;';
+              frame.setAttribute('aria-hidden', 'true');
+              document.body.appendChild(frame);
+              frame.src = url;
+              // Re-resolve whatever arrives (message or timeout).
+              const poll = setInterval(() => {
+                // The callback page also stashes phg_pending_token when
+                // postMessage is unavailable (storage partitioning).
+                const t = readLS(PENDING_TOKEN);
+                if (t && t.access_token) {
+                  writeLS(PENDING_TOKEN, null);
+                  clearInterval(poll);
+                  clearTimeout(timeout);
+                  cleanup();
+                  resolve({ access_token: t.access_token, state: t.state });
+                }
+              }, 400);
+              const origResolve = resolve;
+              resolve = (v) => { clearInterval(poll); clearTimeout(timeout); cleanup(); origResolve(v); };
+            } catch (e) {
+              clearInterval(poll); clearTimeout(timeout); cleanup(); resolve(null);
+            }
+          });
+
+          if (result && result.access_token &&
+              (!result.state || !state || result.state === state)) {
+            writeLS(PKCE_STORE, null);
+            storeToken(result.access_token);
+            return result.access_token;
+          }
+          writeLS(PKCE_STORE, null);
+        } catch (e) { /* try next candidate */ }
+      }
+      return null;
+    })();
+    refreshing.finally(() => { refreshing = null; });
+    return refreshing;
+  }
+
   window.PHGAuth = {
     signIn,
     signOut,
@@ -479,6 +581,7 @@
     adoptPendingToken,
     detectFlow,
     getAccessToken,
+    refreshAccessToken,
     clearToken,
     // Exposed for the QA suite and diagnostics tooling.
     _internal: { CANDIDATES, get resolved() { return resolved; } }

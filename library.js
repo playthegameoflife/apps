@@ -90,11 +90,17 @@
     }
   }
 
-  function backendHeaders(extra) {
+  // Async like generate.js's version: if the cached Google token is stale,
+  // run a silent re-auth first so a Pro account keeps seeing the full
+  // library (and Pro-tier counts) instead of being answered as a guest.
+  async function backendHeaders(extra) {
     const headers = Object.assign({}, extra || {});
-    const token = window.PHGAuth && window.PHGAuth.getAccessToken
+    let token = window.PHGAuth && window.PHGAuth.getAccessToken
       ? window.PHGAuth.getAccessToken()
       : null;
+    if (!token && window.PHGAuth && window.PHGAuth.refreshAccessToken) {
+      try { token = await window.PHGAuth.refreshAccessToken(); } catch (e) { token = null; }
+    }
     if (token) headers['x-phg-access-token'] = token;
     const anon = getAnonId();
     if (anon) headers['x-phg-anon-id'] = anon;
@@ -141,11 +147,11 @@
   // bookkeeping just lets the rest of the file stay category-shaped.
   let bodiesPromise = null;
 
-  function loadTexts(cat) {
+  async function loadTexts(cat) {
     if (state.texts[cat]) return Promise.resolve(state.texts[cat]);
     if (!bodiesPromise) {
       bodiesPromise = fetch(BACKEND_URL + '/library/bodies', {
-        headers: backendHeaders(),
+        headers: await backendHeaders(),
       })
         .then(r => r.ok ? r.json() : {})
         .then(d => {
@@ -484,13 +490,13 @@
     }
   }
 
-  function boot() {
+  async function boot() {
     if (cards) {
       cards.innerHTML =
         '<div class="lib-empty"><h3>Loading prompts…</h3>' +
         '<p>Fetching the library for your plan.</p></div>';
     }
-    fetch(BACKEND_URL + '/library', { headers: backendHeaders() })
+    fetch(BACKEND_URL + '/library', { headers: await backendHeaders() })
       .then(r => {
         if (r.status === 402) throw new Error('upgrade');
         if (!r.ok) throw new Error('The library service returned ' + r.status + '.');

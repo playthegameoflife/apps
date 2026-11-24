@@ -115,11 +115,20 @@ function saveMemory() { lsSet('phg_memory', state.memory); }
 // this browser so the guest allowance is per-browser and can be carried
 // into the account on sign-in. Both are always sent — the server decides
 // which one applies.
-function backendHeaders(extra) {
+//
+// When the cached Google token has gone stale (about an hour, per Google's
+// implicit-flow lifetime), getAccessToken() returns null and the server
+// would answer as a guest — silently downgrading a Pro account in the UI.
+// refreshAccessToken() runs a silent re-auth against the visitor's still-
+// alive Google session instead, so tier checks stay honest all day.
+async function backendHeaders(extra) {
   const headers = Object.assign({}, extra || {});
-  const token = window.PHGAuth && window.PHGAuth.getAccessToken
+  let token = window.PHGAuth && window.PHGAuth.getAccessToken
     ? window.PHGAuth.getAccessToken()
     : null;
+  if (!token && window.PHGAuth && window.PHGAuth.refreshAccessToken) {
+    try { token = await window.PHGAuth.refreshAccessToken(); } catch (e) { token = null; }
+  }
   if (token) headers['x-phg-access-token'] = token;
   headers['x-phg-anon-id'] = getAnonId();
   return headers;
@@ -257,7 +266,7 @@ function currentTier() {
  */
 async function refreshUsage() {
   try {
-    const headers = backendHeaders({ 'Content-Type': 'application/json' });
+    const headers = await backendHeaders({ 'Content-Type': 'application/json' });
 
     const r = await fetch(BACKEND_URL + '/usage-status', { headers });
     if (!r.ok) return;
@@ -588,7 +597,7 @@ function onAuthChanged(user) {
 // ---- subscription ----
 async function checkSubscription() {
   try {
-    const headers = backendHeaders();
+    const headers = await backendHeaders();
     const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId), { headers });
     if (!r.ok) { state.isPro = false; return; }
     const d = await r.json(); state.isPro = !!d.active; state.subscription = d;
@@ -632,7 +641,7 @@ async function streamEnhance(prompt, systemInstruction, onChunk, onDone, onError
     // Send the Google access token so the backend can identify the caller
     // and enforce the quota against the right account. Without it the
     // request is treated as an anonymous guest.
-    const headers = backendHeaders({ 'Content-Type': 'application/json' });
+    const headers = await backendHeaders({ 'Content-Type': 'application/json' });
 
     const r = await fetch(BACKEND_URL + '/enhance-stream', {
       method: 'POST',
@@ -1017,7 +1026,7 @@ async function upgrade(plan) {
   const priceId = PRICE_IDS[state.selectedPlan] || STRIPE_MONTHLY_PRICE_ID;
   msg.textContent = 'Opening secure checkout…';
   try {
-    const headers = backendHeaders({ 'Content-Type': 'application/json' });
+    const headers = await backendHeaders({ 'Content-Type': 'application/json' });
     const r = await fetch(BACKEND_URL + '/create-checkout-session', { method:'POST', headers, body: JSON.stringify({ userId: state.userId, priceId: priceId, email: state.user ? state.user.email : undefined, endorsely_referral: window.endorsely_referral || undefined, successUrl: location.origin + '/success', cancelUrl: location.origin + '/cancel' }) });
     if (!r.ok) {
       const d = await r.json().catch(()=>({}));
@@ -1043,9 +1052,9 @@ async function portal() {
   if (sessionExpired()) { reauth(msg, 'portal'); return; }
   msg.textContent = 'Opening billing portal...';
   try {
-    const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId), { headers: backendHeaders() });
+    const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId), { headers: await backendHeaders() });
     const d = await r.json();
-    const r2 = await fetch(BACKEND_URL + '/create-portal-session', { method:'POST', headers: backendHeaders({ 'Content-Type': 'application/json' }), body: JSON.stringify({ userId: state.userId, customerId: d.customerId, returnUrl: location.origin + '/' }) });
+    const r2 = await fetch(BACKEND_URL + '/create-portal-session', { method:'POST', headers: await backendHeaders({ 'Content-Type': 'application/json' }), body: JSON.stringify({ userId: state.userId, customerId: d.customerId, returnUrl: location.origin + '/' }) });
     if (r2.status === 401 && !state.reauthTried) { state.reauthTried = true; reauth(msg, 'portal'); return; }
     if (!r2.ok) { const dd = await r2.json().catch(()=>({})); throw new Error(dd.error || ('HTTP ' + r2.status)); }
     const dd = await r2.json();
