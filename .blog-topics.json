@@ -87,6 +87,11 @@
       "published": "2026-10-14"
     },
     {
+      "slug": "blog-prompt-exhaustion-ai-fix",
+      "primary_keyword": "prompt exhaustion AI burnout fix",
+      "published": "2026-10-15"
+    },
+    {
       "slug": "blog-prompt-exhaustion-fix",
       "primary_keyword": "prompt exhaustion fix AI workflow burnout",
       "published": "2026-10-15",
@@ -229,13 +234,6 @@
       "url": "https://promptgenerator.fyi/blog-how-to-stop-chatgpt-asking-clarifying-questions.html"
     },
     {
-      "slug": "blog-chatgpt-extension-stopped-working.html",
-      "primary_keyword": "chatgpt extension stopped working",
-      "published": "2026-11-04",
-      "angle": "Why ChatGPT UI updates break browser extensions - selector rot, terminated MV3 service worker, uninjected content script after URL change, and patches stuck in store review - plus a 5-minute diagnosis path and what to check before trusting an extension",
-      "url": "https://promptgenerator.fyi/blog-chatgpt-extension-stopped-working.html"
-    },
-    {
       "slug": "blog-postiz-schedule-threads-posts-2026",
       "primary_keyword": "schedule Threads posts",
       "published": "2026-11-02",
@@ -253,13 +251,7 @@
       "published": "2026-11-03",
       "angle": "Troubleshooting angle - the 3 causes of failed scheduled posts (expired channel token, platform rule violation, content rejection) with a 5-minute diagnosis path"
     },
-    {
-      "slug": "blog-postiz-schedule-mastodon-posts-2026",
-      "primary_keyword": "schedule Mastodon posts",
-      "published": "2026-11-04",
-      "angle": "Mastodon API has no scheduled_time field - Postiz runs its own per-instance queue and handles OAuth app registration for each Mastodon server",
-      "url": "https://promptgenerator.fyi/blog-postiz-schedule-mastodon-posts-2026.html"
-    },
+    "blog-postiz-schedule-mastodon-posts-2026",
     {
       "slug": "blog-postiz-schedule-telegram-posts-2026",
       "primary_keyword": "schedule Telegram posts",
@@ -271,32 +263,6 @@
       "primary_keyword": "do AI prompt enhancers actually work",
       "published": "2026-11-05",
       "angle": "Measured enhancer test - 5 real requests, 2 enhancement styles, expansion ratio vs invention rate (97.4% invention for generic one-click vs 0% for structured)"
-    },
-    {
-      "slug": "blog-chatgpt-tells-you-what-to-do-instead-of-doing-it",
-      "primary_keyword": "ChatGPT tells you what to do instead of doing it",
-      "published": "2026-11-07",
-      "angle": "Three shapes of the failure (plan-no-patch, instructions-no-command, description-no-call) and a 5-rule prompt block that names the deliverable, forbids preamble, and transfers authority to assume"
-    },
-    {
-      "slug": "blog-ai-prompt-library-vs-template-vs-enhancer",
-      "primary_keyword": "AI prompt library vs template vs enhancer",
-      "published": "2026-11-11"
-    },
-    {
-      "slug": "blog-perplexity-prompts-guide-2026",
-      "primary_keyword": "Perplexity prompts",
-      "published": "2026-11-13"
-    },
-    {
-      "slug": "blog-why-prompt-enhancers-make-answers-worse-2026",
-      "primary_keyword": "why prompt enhancers make answers worse",
-      "published": "2026-11-16"
-    },
-    {
-      "slug": "blog-how-to-tell-if-a-chrome-extension-opens-ads-tabs",
-      "primary_keyword": "how to tell if a chrome extension opens ads tabs",
-      "published": "2026-11-23"
     }
   ]
 }
