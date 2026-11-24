@@ -175,19 +175,69 @@
     const label = $('user-label');
     return !!(label && /@/.test(label.textContent));
   }
+
+  // Plan state. Two sources, in priority order:
+  //   1. #plan-pill (generator + pricing pages) — generate.js keeps it
+  //      in sync from /usage-status, so it is the most current signal.
+  //   2. The stored user's isPro flag — auth.js stores whatever
+  //      /verify-google-token returned at sign-in time. The backend now
+  //      sends isPro on that response, so this works without any extra
+  //      network call on pages that never load generate.js.
+  //   3. If neither is available (user signed in before the isPro field
+  //      existed), ask the server once and cache the answer for the
+  //      lifetime of the page. Same limit model as generate.js TIERS:
+  //      guest 5/week, signed-in free 10/week, Pro unlimited.
+  const sbTier = { pro: null };
+  const SB_BACKEND = (window.PHG_AUTH_CONFIG && window.PHG_AUTH_CONFIG.backendUrl) || '';
+  function getAnonId() {
+    try {
+      let id = localStorage.getItem('phg_anon_id');
+      if (!id) {
+        id = 'a_' + Math.random().toString(36).slice(2, 12) + Date.now().toString(36);
+        localStorage.setItem('phg_anon_id', id);
+      }
+      return id;
+    } catch (e) { return null; }
+  }
   function isPro() {
     const plan = $('plan-pill');
     if (plan) return plan.textContent.trim() === 'Pro';
-    // No #plan-pill on this page: ask the shared module's stored user.
+    if (sbTier.pro !== null) return sbTier.pro;
     try {
       const u = window.PHGAuth && window.PHGAuth.getUser();
-      return !!(u && u.isPro);
-    } catch (e) { return false; }
+      if (u && typeof u.isPro === 'boolean') { sbTier.pro = u.isPro; return u.isPro; }
+    } catch (e) { /* fall through */ }
+    // Unknown: fetch once. The 700ms mirror loop keeps calling isPro()
+    // while the request is in flight; sbTier.pro stays null (not yet
+    // known) rather than caching a false "Free".
+    if (SB_BACKEND && !sbTier.pending) {
+      sbTier.pending = true;
+      try {
+        const headers = {};
+        const token = window.PHGAuth && window.PHGAuth.getAccessToken
+          ? window.PHGAuth.getAccessToken() : null;
+        if (token) headers['x-phg-access-token'] = token;
+        const anon = getAnonId();
+        if (anon) headers['x-phg-anon-id'] = anon;
+        fetch(SB_BACKEND + '/usage-status', { headers })
+          .then(r => r.ok ? r.json() : null)
+          .then(d => { sbTier.pro = d ? d.tier === 'pro' : false; sbTier.pending = false; })
+          .catch(() => { sbTier.pro = false; sbTier.pending = false; });
+      } catch (e) { sbTier.pro = false; sbTier.pending = false; }
+    }
+    return false;
+  }
+  function planNoteText(pro) {
+    if (pro) return 'Pro plan · unlimited enhancements';
+    // Signed-in free accounts get 10 a week; guests get 5. The old copy
+    // said "5" unconditionally, which told every paying-adjacent free
+    // user a smaller allowance than they actually have.
+    return isSignedIn() ? 'Free plan · 10 enhancements/week' : 'Free plan · 5 enhancements/week';
   }
   function mirrorAccount() {
     const note = $('sb-plan-note');
     const pro = isPro();
-    if (note) note.textContent = pro ? 'Pro plan · unlimited enhancements' : 'Free plan · 5 enhancements/week';
+    if (note) note.textContent = planNoteText(pro);
     const signedIn = isSignedIn();
     const sbIn = $('sb-signin'), sbOut = $('sb-signout');
     if (sbIn) sbIn.classList.toggle('hidden', signedIn);
