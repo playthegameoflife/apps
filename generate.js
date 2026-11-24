@@ -260,6 +260,22 @@ function currentTier() {
   return state.user ? 'free' : 'guest';
 }
 
+// ---- plan confirmation ----
+// state.planVerified is true once the server has answered an AUTHENTICATED
+// request (guests have nothing to verify). Until then a signed-in visitor sees
+// the last confirmed plan, and if there is none, a neutral "unknown".
+function lastKnownPlan() {
+  try { const p = window.PHGAuth && PHGAuth.getPlan && PHGAuth.getPlan(); return p ? (p.isPro ? 'pro' : 'free') : null; }
+  catch (e) { return null; }
+}
+function applyUnverifiedPlan() {
+  const last = lastKnownPlan();
+  state.planVerified = false;
+  state.isPro = last === 'pro';
+  state.tier = last || 'free';
+  renderPlan(); renderUsage(); renderFeatureGates();
+}
+
 /**
  * Ask the backend what tier we are on and how much is left.
  * The server is authoritative; this keeps the UI honest.
@@ -267,13 +283,23 @@ function currentTier() {
 async function refreshUsage() {
   try {
     const headers = await backendHeaders({ 'Content-Type': 'application/json' });
+    const authed = !!headers['x-phg-access-token'];
 
     const r = await fetch(BACKEND_URL + '/usage-status', { headers });
     if (!r.ok) return;
     const d = await r.json();
+    if (state.user && !authed) {
+      // Signed in, but no usable token: the server answered as a guest. That
+      // says nothing about this account's plan, so keep what we last knew
+      // instead of showing Free.
+      applyUnverifiedPlan();
+      return;
+    }
     if (d.tier) {
       state.tier = d.tier;
       state.isPro = d.tier === 'pro';
+      state.planVerified = true;
+      if (state.user && (d.tier === 'pro' || d.tier === 'free') && window.PHGAuth && PHGAuth.setPlan) PHGAuth.setPlan(d.tier === 'pro');
     }
     if (d.features) state.features = d.features;
     if (d.enhancements) state.usage = d.enhancements;
@@ -330,14 +356,15 @@ function renderFeatureGates() {
  * Adopt a quota response from the server so the UI always reflects the
  * authoritative counter, even if our local guess was stale.
  */
-function applyQuotaFromServer(q) {
+function applyQuotaFromServer(q, authed) {
   if (!q) return;
   if (q.limit !== undefined && q.limit !== null) {
     state.usage = { used: q.used || 0, limit: q.limit, remaining: q.remaining };
   }
-  if (q.tier) {
+  if (q.tier && !(state.user && authed === false)) {
     state.tier = q.tier;
     state.isPro = q.tier === 'pro';
+    if (state.user) state.planVerified = true;
   }
   renderUsage();
   renderPlan();
@@ -395,8 +422,11 @@ function renderPlan() {
   const acctLink = $('m2-account'); if (acctLink) acctLink.classList.toggle('hidden', !state.user);
   const pill = $('plan-pill');
   const badge = $('plan-badge');
+  // Signed in, not confirmed by the server, and nothing remembered: unknown.
+  const planUnknown = !!(state.user && !state.planVerified && !lastKnownPlan());
+  if (pill) pill.dataset.verified = (!state.user || state.planVerified) ? '1' : '0';
   { const f = $('plan-current-free'), pr = $('plan-current-pro');
-    if (f) f.classList.toggle('hidden', !(state.user && !state.isPro));
+    if (f) f.classList.toggle('hidden', !(state.user && !state.isPro && !planUnknown));
     if (pr) pr.classList.toggle('hidden', !state.isPro);
     const ns = $('nav-signin'); if (ns) ns.classList.toggle('hidden', !!state.user); }
   if (state.isPro) {
@@ -404,8 +434,8 @@ function renderPlan() {
     if (badge) { badge.textContent = 'Pro'; badge.style.background = ''; badge.style.color = ''; }
     hide($('upgrade-btn')); show($('portal-btn'));
   } else {
-    if (pill) { pill.textContent = state.user ? 'Free' : 'Guest'; pill.className = 'status-pill free'; }
-    if (badge) { badge.textContent = 'Free'; badge.style.background = ''; badge.style.color = ''; }
+    if (pill) { pill.textContent = planUnknown ? '…' : (state.user ? 'Free' : 'Guest'); pill.className = 'status-pill free'; pill.title = planUnknown ? 'We could not confirm your plan. Sign in again to refresh it.' : ''; }
+    if (badge) { badge.textContent = planUnknown ? '…' : 'Free'; badge.style.background = ''; badge.style.color = ''; }
     show($('upgrade-btn')); hide($('portal-btn'));
   }
   renderPlanPeriod();
@@ -585,6 +615,8 @@ function signOut() {
 function onAuthChanged(user) {
   state.user = user;
   if (user && user.uid) state.userId = user.uid;
+  if (user) { const last = lastKnownPlan(); state.planVerified = false; state.isPro = last === 'pro'; }
+  else { state.planVerified = true; }
   renderPlan();
   // The server now owns quota + tier, so ask it rather than computing
   // locally. This also picks up a Pro upgrade made on another device.
@@ -598,10 +630,12 @@ function onAuthChanged(user) {
 async function checkSubscription() {
   try {
     const headers = await backendHeaders();
+    if (state.user && !headers['x-phg-access-token']) return;   // can't ask as this user
     const r = await fetch(BACKEND_URL + '/subscription-status/' + encodeURIComponent(state.userId), { headers });
-    if (!r.ok) { state.isPro = false; return; }
-    const d = await r.json(); state.isPro = !!d.active; state.subscription = d;
-  } catch { state.isPro = false; }
+    if (!r.ok) return;                                          // an error is not "not subscribed"
+    const d = await r.json(); state.isPro = !!d.active; state.subscription = d; state.planVerified = true;
+    if (state.user && window.PHGAuth && PHGAuth.setPlan) PHGAuth.setPlan(!!d.active);
+  } catch { /* keep what we knew */ }
 }
 
 // ---- usage ----
@@ -665,7 +699,7 @@ async function streamEnhance(prompt, systemInstruction, onChunk, onDone, onError
       // server's own numbers rather than a generic message.
       if (d.quota) {
         err.quota = d.quota;
-        applyQuotaFromServer(d.quota);
+        applyQuotaFromServer(d.quota, !!headers['x-phg-access-token']);
       }
       throw err;
     }
@@ -1191,9 +1225,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     await signIn();
   });
 
-  await checkSubscription();
+  // Paint straight away from what we last knew; the server's answer follows.
+  // (Don't wait on checkSubscription(): it can wait on a token refresh, and
+  // the page would sit on its defaults for the whole time.)
+  if (state.user) { const last = lastKnownPlan(); state.planVerified = false; state.isPro = last === 'pro'; }
   renderPlan(); renderUsage();
   if (isGeneratorPage) renderUsage();
+  checkSubscription().then(() => { renderPlan(); renderUsage(); renderFeatureGates(); });
 
   // Apply the tier gates to the UI (Memory, A/B variants) and pull the
   // authoritative usage meter from the server.

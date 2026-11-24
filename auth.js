@@ -60,12 +60,13 @@
 
   const STORAGE_KEY = 'phg_user';
   const STORAGE_ID = 'phg_userId';
+  const PLAN_STORE = 'phg_plan';
   const PKCE_STORE = 'phg_auth_pkce';
   const PENDING_TOKEN = 'phg_pending_token';
 
   const listeners = new Set();
   let pending = null;          // in-flight signIn promise
-  let resolved = null;         // { clientId, flow } once we know one works
+  let resolved = readLS('phg_auth_client') || null;   // remembered across reloads so a silent refresh knows which client to use
   const kindCache = new Map(); // clientId -> 'code' | 'implicit'
 
   /* ---------------- storage helpers ---------------- */
@@ -357,8 +358,10 @@
         try {
           const accessToken = await attemptSignIn(candidate, flow, popup, hint);
           resolved = { clientId: candidate.clientId, flow };
+          writeLS('phg_auth_client', resolved);
           const user = await verifyTokenAtBackend(accessToken);
           writeLS(STORAGE_KEY, user);
+          writePlan(user, user && user.isPro);   // provisional: revalidated by fetchPlan()
           writeLS(STORAGE_ID, user.uid);
           // Keep the token so the backend can identify the caller and
           // enforce quota against the right account.
@@ -417,6 +420,7 @@
   function signOut() {
     writeLS(STORAGE_KEY, null);
     writeLS(STORAGE_ID, null);
+    writeLS(PLAN_STORE, null);
     clearToken();
     setStatus('Signed out.');
     notify();
@@ -469,6 +473,51 @@
 
   function clearToken() { writeLS(TOKEN_STORE, null); }
 
+  // --- Plan (Pro / Free) ----------------------------------------------------
+  // The plan is the SERVER's answer to an authenticated /usage-status call --
+  // nothing else. A flag saved at sign-in goes stale (upgrade, cancel), and a
+  // request without a usable token is answered as a guest, which says nothing
+  // about the account. So we keep the last authenticated answer only as a
+  // display hint, and re-ask whenever a page loads.
+  function writePlan(user, isPro) {
+    if (!user || !user.uid || typeof isPro !== 'boolean') return;
+    writeLS(PLAN_STORE, { uid: user.uid, isPro: isPro, at: Date.now() });
+  }
+  function getPlan() {
+    const p = readLS(PLAN_STORE), u = getUser();
+    return (p && u && p.uid === u.uid && typeof p.isPro === 'boolean') ? p : null;
+  }
+  function setPlan(isPro) { writePlan(getUser(), isPro); }
+
+  /**
+   * Ask the server for the signed-in visitor's plan.
+   * Resolves { status } where status is:
+   *   'guest'      nobody is signed in
+   *   'pro'|'free' the server confirmed it with a real token (also cached)
+   *   'unverified' no usable token (even after a silent refresh), or the
+   *                request failed -- the caller must NOT treat this as Free
+   */
+  async function fetchPlan() {
+    if (!getUser()) return { status: 'guest' };
+    let token = getAccessToken();
+    if (!token) {
+      const refresh = (window.PHGAuth && window.PHGAuth.refreshAccessToken) || refreshAccessToken;
+      try { token = await refresh(); } catch (e) { token = null; }
+    }
+    if (!token) return { status: 'unverified' };
+    try {
+      const headers = { 'x-phg-access-token': token };
+      try { const anon = localStorage.getItem('phg_anon_id'); if (anon) headers['x-phg-anon-id'] = anon; } catch (e) {}
+      const r = await fetch(BACKEND + '/usage-status', { headers });
+      if (!r.ok) return { status: 'unverified' };
+      const d = await r.json();
+      // 'guest' here means the server did not recognise the token.
+      if (d.tier !== 'pro' && d.tier !== 'free') return { status: 'unverified' };
+      setPlan(d.tier === 'pro');
+      return { status: d.tier, usage: d.enhancements || null };
+    } catch (e) { return { status: 'unverified' }; }
+  }
+
   // --- Silent token refresh -------------------------------------------------
   // Google implicit-flow tokens live ~1 hour. getAccessToken() discards ours
   // after 50 minutes of safety margin, which used to leave callers (quota
@@ -489,10 +538,15 @@
   // iframe every hour is hostile to the visitor. Instead callers ask when
   // they need a token and find none.
   let refreshing = null;
+  // After a failed refresh, don't try again for a minute: every request asks
+  // for a token, and each attempt can cost seconds and a hidden frame.
+  let refreshFailedAt = 0;
+  const REFRESH_COOLDOWN_MS = 60000;
 
   function refreshAccessToken() {
     if (!getUser()) return Promise.resolve(null);       // signed out
     if (refreshing) return refreshing;                  // one at a time
+    if (Date.now() - refreshFailedAt < REFRESH_COOLDOWN_MS) return Promise.resolve(null);
     refreshing = (async () => {
       const user = getUser();
       const hint = user.email || '';
@@ -501,7 +555,11 @@
         ? CANDIDATES.filter((c) => c.clientId === resolved.clientId)
                      .concat(CANDIDATES.filter((c) => c.clientId !== resolved.clientId))
         : CANDIDATES.slice();
+      // Bound the total wait: callers are blocked on this, and every attempt
+      // that fails silently costs its full timeout.
+      const deadline = Date.now() + 9000;
       for (const candidate of order) {
+        if (Date.now() > deadline) break;
         try {
           const flow = await detectFlow(candidate.clientId);
           if (!flow) continue;
@@ -529,7 +587,7 @@
               window.removeEventListener('message', onMsg);
               if (frame) { try { frame.remove(); } catch (e) {} frame = null; }
             };
-            const timeout = setTimeout(() => { cleanup(); resolve(null); }, 12000);
+            const timeout = setTimeout(() => { cleanup(); resolve(null); }, 5000);
             try {
               frame = document.createElement('iframe');
               frame.style.cssText = 'position:absolute;width:1px;height:1px;left:-9999px;border:0;';
@@ -565,6 +623,7 @@
           writeLS(PKCE_STORE, null);
         } catch (e) { /* try next candidate */ }
       }
+      refreshFailedAt = Date.now();
       return null;
     })();
     refreshing.finally(() => { refreshing = null; });
@@ -582,6 +641,9 @@
     detectFlow,
     getAccessToken,
     refreshAccessToken,
+    fetchPlan,
+    getPlan,
+    setPlan,
     clearToken,
     // Exposed for the QA suite and diagnostics tooling.
     _internal: { CANDIDATES, get resolved() { return resolved; } }

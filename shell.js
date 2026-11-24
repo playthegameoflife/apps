@@ -176,68 +176,57 @@
     return !!(label && /@/.test(label.textContent));
   }
 
-  // Plan state. Two sources, in priority order:
-  //   1. #plan-pill (generator + pricing pages) — generate.js keeps it
-  //      in sync from /usage-status, so it is the most current signal.
-  //   2. The stored user's isPro flag — auth.js stores whatever
-  //      /verify-google-token returned at sign-in time. The backend now
-  //      sends isPro on that response, so this works without any extra
-  //      network call on pages that never load generate.js.
-  //   3. If neither is available (user signed in before the isPro field
-  //      existed), ask the server once and cache the answer for the
-  //      lifetime of the page. Same limit model as generate.js TIERS:
-  //      guest 5/week, signed-in free 10/week, Pro unlimited.
-  const sbTier = { pro: null };
-  const SB_BACKEND = (window.PHG_AUTH_CONFIG && window.PHG_AUTH_CONFIG.backendUrl) || '';
-  function getAnonId() {
-    try {
-      let id = localStorage.getItem('phg_anon_id');
-      if (!id) {
-        id = 'a_' + Math.random().toString(36).slice(2, 12) + Date.now().toString(36);
-        localStorage.setItem('phg_anon_id', id);
-      }
-      return id;
-    } catch (e) { return null; }
+  // Plan state for the sidebar note.
+  // The plan is whatever the SERVER says to an authenticated request -- see
+  // PHGAuth.fetchPlan(). Two things must never decide it:
+  //   - a flag saved at sign-in (stale after an upgrade or cancellation), and
+  //   - the answer to a request with no usable token (the server answers as a
+  //     guest, which says nothing about the account).
+  // Until the server has answered we show the last confirmed plan (if any),
+  // and when it cannot be confirmed we say so instead of claiming "Free".
+  //   planState() -> 'guest' | 'pro' | 'free' | 'checking' | 'unverified'
+  const sbPlan = { status: null, started: false, uid: null };
+  function currentUid() {
+    try { const u = window.PHGAuth && window.PHGAuth.getUser && window.PHGAuth.getUser(); return u ? (u.uid || u.email || 'x') : null; }
+    catch (e) { return null; }
   }
-  function isPro() {
-    const plan = $('plan-pill');
-    if (plan) return plan.textContent.trim() === 'Pro';
-    if (sbTier.pro !== null) return sbTier.pro;
-    try {
-      const u = window.PHGAuth && window.PHGAuth.getUser();
-      if (u && typeof u.isPro === 'boolean') { sbTier.pro = u.isPro; return u.isPro; }
-    } catch (e) { /* fall through */ }
-    // Unknown: fetch once. The 700ms mirror loop keeps calling isPro()
-    // while the request is in flight; sbTier.pro stays null (not yet
-    // known) rather than caching a false "Free".
-    if (SB_BACKEND && !sbTier.pending) {
-      sbTier.pending = true;
-      try {
-        const headers = {};
-        const token = window.PHGAuth && window.PHGAuth.getAccessToken
-          ? window.PHGAuth.getAccessToken() : null;
-        if (token) headers['x-phg-access-token'] = token;
-        const anon = getAnonId();
-        if (anon) headers['x-phg-anon-id'] = anon;
-        fetch(SB_BACKEND + '/usage-status', { headers })
-          .then(r => r.ok ? r.json() : null)
-          .then(d => { sbTier.pro = d ? d.tier === 'pro' : false; sbTier.pending = false; })
-          .catch(() => { sbTier.pro = false; sbTier.pending = false; });
-      } catch (e) { sbTier.pro = false; sbTier.pending = false; }
+  function planState() {
+    if (!isSignedIn()) return 'guest';
+    // A different account (or a fresh sign-in) invalidates what we learned.
+    // (Checked here rather than via a listener: shell.js can load before auth.js.)
+    const uid = currentUid();
+    if (sbPlan.uid !== uid) { sbPlan.uid = uid; sbPlan.status = null; sbPlan.started = false; }
+    // Generator pages: generate.js marks the pill once the server has confirmed.
+    const pill = $('plan-pill');
+    if (pill && pill.dataset.verified === '1') return pill.textContent.trim() === 'Pro' ? 'pro' : 'free';
+    if (sbPlan.status === 'pro' || sbPlan.status === 'free' || sbPlan.status === 'unverified') return sbPlan.status;
+    if (!sbPlan.started && window.PHGAuth && typeof window.PHGAuth.fetchPlan === 'function') {
+      sbPlan.started = true;
+      window.PHGAuth.fetchPlan().then(r => { sbPlan.status = r.status; mirrorAccount(); },
+                                      () => { sbPlan.status = 'unverified'; mirrorAccount(); });
     }
-    return false;
+    return 'checking';
   }
-  function planNoteText(pro) {
-    if (pro) return 'Pro plan · unlimited enhancements';
-    // Signed-in free accounts get 10 a week; guests get 5. The old copy
-    // said "5" unconditionally, which told every paying-adjacent free
-    // user a smaller allowance than they actually have.
-    return isSignedIn() ? 'Free plan · 10 enhancements/week' : 'Free plan · 5 enhancements/week';
+  function knownPlan() {
+    try { const p = window.PHGAuth && window.PHGAuth.getPlan && window.PHGAuth.getPlan(); return p ? (p.isPro ? 'pro' : 'free') : null; }
+    catch (e) { return null; }
+  }
+  function planNoteText() {
+    const st = planState();
+    const text = {
+      pro: 'Pro plan · unlimited enhancements',
+      free: 'Free plan · 10 enhancements/week',
+    };
+    if (st === 'guest') return 'Free plan · 5 enhancements/week';
+    if (st === 'pro' || st === 'free') return text[st];
+    // Not confirmed by the server yet (or at all): show what we last knew.
+    const last = knownPlan();
+    if (st === 'checking') return last ? text[last] : 'Checking your plan…';
+    return last ? text[last].split(' · ')[0] + ' · sign in again to refresh' : 'Plan unavailable · sign in again';
   }
   function mirrorAccount() {
     const note = $('sb-plan-note');
-    const pro = isPro();
-    if (note) note.textContent = planNoteText(pro);
+    if (note) note.textContent = planNoteText();
     const signedIn = isSignedIn();
     const sbIn = $('sb-signin'), sbOut = $('sb-signout');
     if (sbIn) sbIn.classList.toggle('hidden', signedIn);
