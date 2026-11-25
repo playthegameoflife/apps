@@ -285,7 +285,10 @@ async function refreshUsage() {
     const headers = await backendHeaders({ 'Content-Type': 'application/json' });
     const authed = !!headers['x-phg-access-token'];
 
-    const r = await fetch(BACKEND_URL + '/usage-status', { headers });
+    // cache:'no-store' — this answer is keyed by the token header, not the
+    // URL. A heuristically cached guest answer revalidated with a 304 made a
+    // paying Pro account keep rendering Free after sign-in.
+    const r = await fetch(BACKEND_URL + '/usage-status', { headers, cache: 'no-store' });
     if (!r.ok) return;
     const d = await r.json();
     if (state.user && !authed) {
