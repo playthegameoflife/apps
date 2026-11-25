@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Where Do Chrome Extensions Save Prompts? 2026 Guide</title>
+  <meta name="description" content="Where do chrome extensions save prompts? We read 80 Chrome Web Store listings and 163 reviews, then show how to back up a prompt library before it vanishes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-where-do-chrome-extensions-save-prompts.html">
+  <meta property="og:title" content="Where Do Chrome Extensions Save Prompts? 2026 Guide">
+  <meta property="og:description" content="Where do chrome extensions save prompts? We read 80 Chrome Web Store listings and 163 reviews, then show how to back up a prompt library before it vanishes.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-where-do-chrome-extensions-save-prompts.html">
+  <meta property="og:site_name" content="Prompt Helper">
+  <meta property="og:image" content="https://promptgenerator.fyi/og-phg.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Where Do Chrome Extensions Save Prompts? 2026 Guide">
+  <meta name="twitter:description" content="Where do chrome extensions save prompts? We read 80 Chrome Web Store listings and 163 reviews, then show how to back up a prompt library before it vanishes.">
+  <meta name="twitter:image" content="https://promptgenerator.fyi/og-phg.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+blockquote { font-style: italic; color: #6b7280; border-left: 3px solid #d1d5db; padding-left: 16px; margin: 20px 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Where Do Chrome Extensions Save Prompts? 2026 Guide","description":"Where do chrome extensions save prompts? We read 80 Chrome Web Store listings and 163 reviews, then show how to back up a prompt library before it vanishes.","url":"https://promptgenerator.fyi/blog-where-do-chrome-extensions-save-prompts.html","mainEntityOfPage":{"@id":"https://promptgenerator.fyi/blog-where-do-chrome-extensions-save-prompts.html"},"image":"https://promptgenerator.fyi/og-phg.png","datePublished":"2026-11-25","dateModified":"2026-11-25","author":{"@type":"Organization","name":"Prompt Helper","url":"https://promptgenerator.fyi/"},"publisher":{"@type":"Organization","name":"Prompt Helper","url":"https://promptgenerator.fyi/"},"inLanguage":"en"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where do Chrome extensions save prompts by default?","acceptedAnswer":{"@type":"Answer","text":"Most prompt extensions save your library in the browser profile itself, in the local area of the Chrome extension storage API. Chrome documents that data is stored locally and cleared when the extension is removed. That is fast and private, but it is tied to one profile on one machine, so a reinstall or a new computer can take it."}},{"@type":"Question","name":"Does signing in to a prompt extension back up my prompts?","acceptedAnswer":{"@type":"Answer","text":"Not reliably, and this is the most common misunderstanding in the category. One developer put it plainly: signing in with Google does not copy them to your account. Account features often cover subscription state only. Confirm that the extension has a working export button, and test that export before the day you need it."}},{"@type":"Question","name":"Why do my saved prompts disappear after an update?","acceptedAnswer":{"@type":"Answer","text":"Most reported losses trace back to the profile, not the extension version. One developer wrote that updates do not change or delete saved prompts, but that removing the extension and reinstalling it can. Chrome clears local extension storage when the extension is removed, and reinstalling often happens silently."}},{"@type":"Question","name":"How do I back up a prompt library before it is gone?","acceptedAnswer":{"@type":"Answer","text":"Look for an export button in the extension popup or settings panel, export to JSON or CSV, then copy that file somewhere outside the browser profile, such as a cloud drive or an email to yourself. Open the exported file once and confirm your prompts are in it. An export you have never opened is not yet a backup."}},{"@type":"Question","name":"Is prompt extension storage encrypted?","acceptedAnswer":{"@type":"Answer","text":"Chrome does not encrypt the storage areas it provides, and its documentation makes no encryption claim. A well built extension may add its own encryption layer, but that is the developer decision, not a platform guarantee. Treat the browser profile as a local file store and keep one exported copy of anything you would be annoyed to lose."}}]}</script>
+</head>
+<body>
+  <nav aria-label="Site">
+    <a href="/index.html">Home</a> &middot;
+    <a href="/blog.html">Blog</a> &middot;
+    <a href="/library.html">Prompt Library</a> &middot;
+    <a href="/ai-prompt-optimizer.html">Prompt Optimizer</a> &middot;
+    <a href="/pricing.html">Pricing</a>
+  </nav>
+  <header>
+    <h1>Where Do Chrome Extensions Save Prompts? 2026 Guide</h1>
+    <p class="meta">November 25, 2026 &middot; 11 min read &middot; Prompt Helper</p>
+  </header>
+  <main>
+<article>
+
+  <div class="intro">
+    <p><strong>Where do chrome extensions save prompts?</strong> That is the question
+    behind a two star review on a prompt extension with 100,000 users and a 2.8 average
+    rating: <strong><a href="https://chromewebstore.google.com/detail/x/jjdnakkfjnnbbckhifcfchagnpofjffo/reviews?hl=en">Just lost all my prompts. No idea where it saves them.</a></strong> The reviewer is not really complaining that
+    the prompts are gone. They are complaining that nobody told them where the prompts
+    lived.</p>
+    <p><strong><a href="https://chromewebstore.google.com/detail/x/jjdnakkfjnnbbckhifcfchagnpofjffo/reviews?hl=en">All my saved prompts just disappeared suddenly, and nobody replies to emails. Don't waste your time!</a></strong>
+    Same extension, one star, same underlying problem. And a reviewer on a different
+    extension put the migration question plainly:
+    <strong><a href="https://chromewebstore.google.com/detail/x/ngjapldfabekcmnkjikmpcdjlbnildom/reviews?hl=en">Guys, no export? What do people do when they need to migrate to a different computer or share their prompt library with friends?</a></strong></p>
+    <p>So we went and looked. We pulled 80 prompt related Chrome Web Store listings,
+    read every description, parsed 163 review cards, and opened the published package
+    of our own extension to check what it actually does. Here is what the data shows,
+    and what to do about it.</p>
+  </div>
+
+
+  <h2>Where do chrome extensions save prompts? The short answer</h2>
+
+  <p>Almost all of them save your prompts in the browser profile, in the local area of
+  the <a href="https://developer.chrome.com/docs/extensions/reference/api/storage">Chrome extension storage API</a>. There are three areas that
+  matter, and which one an extension uses decides whether your prompts survive a
+  reinstall, a new laptop, or a profile reset.</p>
+
+  <p>The first is the local area. Chrome describes it in one sentence:
+  <strong><a href="https://developer.chrome.com/docs/extensions/reference/api/storage">Data is stored locally and cleared when the extension is removed</a></strong> The capacity is generous for prompts, because Chrome
+  states <strong><a href="https://developer.chrome.com/docs/extensions/reference/api/storage">The storage limit is 10 MB (5 MB in Chrome 113 and earlier)</a></strong> and that a larger quota is available to
+  extensions that ask for it. Fast, private, and it disappears with the profile.</p>
+
+  <p>The second is the sync area, which is tied to a Google account rather than to a
+  machine. It is also much smaller, because Chrome sets
+  <strong><a href="https://developer.chrome.com/docs/extensions/reference/api/storage">The quota limitation is approximately 100 KB, 8 KB per item</a></strong> When sync is on, Chrome states that
+  <strong><a href="https://developer.chrome.com/docs/extensions/reference/api/storage">the data syncs with every Chrome browser that the user is logged into</a></strong> and that <strong><a href="https://developer.chrome.com/docs/extensions/reference/api/storage">If disabled, it behaves like storage.local</a></strong> Sync is the
+  only one of the three that crosses devices.</p>
+
+  <p>The third is the session area, which is memory only. It is gone the moment the
+  browser closes, and no sane prompt library should be built on it.</p>
+
+  <p>There is a fourth possibility that is not a Chrome API at all: the extension keeps
+  your prompts on its own server, and your account is the only copy. That is the
+  strongest version of the feature and the hardest one to audit from outside.</p>
+
+
+  <h2>What 80 prompt extension listings actually say about storage</h2>
+
+  <p>We fetched 80 prompt related Chrome Web Store listings on November 25, 2026. We extracted
+  the description block that belongs to each listing, ignoring the related extension
+  rails that the store page also renders, and kept the 69 listings whose own
+  description was long enough to be a real description rather than a tagline. Then we
+  asked one question of each: does it tell you where your prompts are stored?</p>
+
+  <p>Here is the split:</p>
+
+  <ul>
+    <li><strong>20 listings</strong> state where the data lives, in words
+    like stored locally or stored in your browser.</li>
+    <li><strong>11 listings</strong> promise cross device sync but never
+    say where the data lives locally.</li>
+    <li><strong>4 listings</strong> make a privacy signal such as no cloud
+    tracking without ever saying where prompts are kept.</li>
+    <li><strong>34 listings</strong> say nothing at all about where your prompts
+    are kept.</li>
+  </ul>
+
+  <p>That last number is the headline. 34 of 69 listings with a readable
+  description simply do not tell you where your library lives, which is why a reviewer
+  of a 100,000 user extension could write <a href="https://chromewebstore.google.com/detail/x/jjdnakkfjnnbbckhifcfchagnpofjffo/reviews?hl=en">Just lost all my prompts. No idea where it saves them.</a> and mean it as an
+  accusation.</p>
+
+  <p>Restricting the same question to the 9 listings with at least 1,000 users
+  does not improve the picture. 3 disclose local storage, 2
+  promise sync without a disclosure, and 4 say nothing at all. A user
+  installing a popular extension is, in most cases, being told where the data goes
+  only after they ask.</p>
+
+  <p>The largest extension in the set is a good example of the gap. With 100,000 users
+  it advertises that it will let you keep prompts synchronized across multiple devices,
+  and it does offer import and export. But its description never says where the
+  prompts live in the meantime. A competitor with 4,000 users states plainly that
+  <strong><a href="https://chromewebstore.google.com/detail/x/fpgdhccnlfjokogfeacdpaepkebekmih/reviews?hl=en">On the free plan, prompts are stored only in the Chrome profile where you created them.</a></strong> Both can be true at once, which is exactly why
+  you need to ask the question yourself.</p>
+
+  <p>Export is not exotic either. 21 of the 69 descriptions we read
+  mention import or export somewhere, and 22 mention backup or sync.
+  The capability exists in the category. The problem is disclosure.</p>
+
+
+  <h2>The reviews: what users actually lose</h2>
+
+  <p>Across the sweep we parsed 163 review cards from
+  32 listings. 26 of those reviews are one or two
+  stars, and the storage complaint shows up in a small but very specific cluster. Four
+  reviews in the whole corpus mention prompts disappearing, and three of them describe
+  it as something that actually happened.</p>
+
+  <p>Two reviewers on the 100,000 user extension lost prompts outright. One wrote
+  <a href="https://chromewebstore.google.com/detail/x/jjdnakkfjnnbbckhifcfchagnpofjffo/reviews?hl=en">Just lost all my prompts. No idea where it saves them.</a> The other wrote <a href="https://chromewebstore.google.com/detail/x/jjdnakkfjnnbbckhifcfchagnpofjffo/reviews?hl=en">All my saved prompts just disappeared suddenly, and nobody replies to emails. Don't waste your time!</a> When the developer answered that
+  one, the reply named the cause in the clearest language in the whole corpus:
+  <strong><a href="https://chromewebstore.google.com/detail/x/jjdnakkfjnnbbckhifcfchagnpofjffo/reviews?hl=en">When you uninstall the extension or clear the local storage of your browser, your prompts will disappear.</a></strong></p>
+
+  <p>That sentence is the honest summary of local first storage. It is fast and it is
+  private, and it also means the extension, the profile, and the operating system
+  account are a single point of failure.</p>
+
+  <p>A reviewer on a 4,000 user extension hit the same wall from the other direction:
+  <a href="https://chromewebstore.google.com/detail/x/fpgdhccnlfjokogfeacdpaepkebekmih/reviews?hl=en">Jumped back in to find my saved prompts had all disappeared (04 Oct).</a> The library was back ten days later. Good support outreach did not
+  stop the data being gone for ten days, which is the part worth dwelling on. The same
+  developer had already explained why: <strong><a href="https://chromewebstore.google.com/detail/x/fpgdhccnlfjokogfeacdpaepkebekmih/reviews?hl=en">On the free plan, prompts are stored only in the Chrome profile where you created them.</a></strong> and
+  <strong><a href="https://chromewebstore.google.com/detail/x/fpgdhccnlfjokogfeacdpaepkebekmih/reviews?hl=en">Signing in with Google doesn't copy them to your account.</a></strong></p>
+
+  <p>The remaining storage complaints are about the absence of a way out. One reviewer
+  on a 3.4 star extension with 22 ratings asked for an export and asked for the reason
+  it mattered: <a href="https://chromewebstore.google.com/detail/x/ngjapldfabekcmnkjikmpcdjlbnildom/reviews?hl=en">Guys, no export? What do people do when they need to migrate to a different computer or share their prompt library with friends?</a> Another, on a 4.7 star extension with 35 ratings,
+  simply wrote <a href="https://chromewebstore.google.com/detail/x/nbfhlbpkebiejihbipapniegllacifhb/reviews?hl=en">Need cloud backup</a> A third, on a 4.7 star extension with 4,000 users,
+  wrote <a href="https://chromewebstore.google.com/detail/x/gmhaghdbihgenofhnmdbglbkbplolain/reviews?hl=en">need prompt sync and classify and version control</a> and got a reply arguing that it was a niche feature:
+  <strong><a href="https://chromewebstore.google.com/detail/x/gmhaghdbihgenofhnmdbglbkbplolain/reviews?hl=en">Hmmm, a bit of a niche feature, no?</a></strong> And one reviewer gave the best one line summary of the
+  local only trade off we found anywhere: <a href="https://chromewebstore.google.com/detail/x/aaecghoccdpphfkmnpakjdgpanlgijcc/reviews?hl=en">It is a great idea, but it doesn't sync across devices.</a></p>
+
+
+  <h2>How to find out where your own prompts are stored</h2>
+
+  <p>You do not need to install anything else to answer this. Four checks, in the order
+  that is fastest.</p>
+
+  <h3>Read the listing description, searching for the words</h3>
+  <p>Open the extension listing and search the description for local, sync, import and
+  export. If none of those words appear, assume nothing. Silence in a listing is not a
+  privacy promise, it is a missing answer.</p>
+
+  <h3>Look for an export control</h3>
+  <p>Open the extension popup and its settings panel and look for an export or backup
+  button. If you cannot find one, your library cannot leave. Note the difference
+  between an export button and a login button: signing in usually means your account
+  stores your subscription, not your prompts.</p>
+
+  <h3>Open the extension storage yourself</h3>
+  <p>Chrome lets you look. Go to chrome://extensions, turn on developer mode, open the
+  extension, and choose inspect. In the developer tools that open, the Application panel
+  has a Storage section where the local and sync areas are listed with their contents.
+  You will see whether your prompts are sitting in the local area, in sync, or in
+  neither.</p>
+
+  <h3>Check the permission list against what the tool does</h3>
+  <p>Chrome warns you about permissions that are unusual for the job. An extension that
+  asks for broad site access on a prompt library is a different risk profile from one
+  that only reads the box you are typing in. We walked through how to read a manifest
+  in <a href="/blog-how-to-tell-if-a-chrome-extension-opens-ads-tabs.html">how to tell
+  if a Chrome extension opens ads tabs</a>, and the same inspection shows you the
+  storage permission and the host permissions side by side.</p>
+
+
+  <h2>How to back up a prompt library before it disappears</h2>
+
+  <p>Export is the only real answer, and it is worth doing before you need it. The
+  failure is not that the capability is missing. The failure is that nobody exports
+  until the day the library is gone.</p>
+
+  <p>A working routine is short. Export to JSON or CSV. Copy the file out of the browser
+  profile into a cloud drive or an email to yourself. Open the exported file once and
+  confirm your prompts are in it. Then repeat it whenever the library changes
+  materially. Ten minutes, once a month, and a category of disaster becomes a five
+  minute restore.</p>
+
+  <p>Do not assume an account is a backup. When prompts are stored only in one Chrome
+  profile, a sign in that does not copy them into an account leaves that profile as the
+  only copy. If your library is already gone, act before reinstalling anything. A
+  reinstall creates a fresh profile, and Chrome clears local extension storage when the
+  extension is removed. If the old profile still exists on disk, the data may still be
+  recoverable from it. Google also documents unwanted software and extension cleanup
+  steps in its <a href="https://support.google.com/chrome/answer/2765944?hl=en&co=GENIE.Platform=Desktop">Chrome support guide</a> that are worth reading
+  before you wipe a profile.</p>
+
+
+  <h2>What Prompt Helper stores, and what it does not</h2>
+
+  <p>We would rather show our own numbers than argue from a position of authority, so
+  here is what our published extension does. Our listing states that
+  <strong><a href="https://chromewebstore.google.com/detail/x/iggefchbkdlmljflfcnhahphoojnimbp">Settings and preferences are stored locally in your browser.</a></strong> That is the local area described above, and it means
+  the same trade off applies to us: it lives in your browser profile.</p>
+
+  <p>We unpacked the published package to check rather than assume. 111 of
+  the 113 calls to extension storage in the shipped code target the local
+  area, the other two are storage change listeners, and there is not a single call to
+  the sync area anywhere in it. We also looked for an export path and did not find
+  one.</p>
+
+  <p>Here is the part that matters, and it is not a boast. Prompt Helper is not a prompt
+  library. It improves text you select and keeps a short history of recent
+  improvements, in two stored lists, capped by tier: a free user keeps one history item,
+  a signed in user keeps ten, and the maximum is fifty. There is no saved prompt
+  library in the product to lose, because there is no saved prompt library in the
+  product.</p>
+
+  <p>So the failure mode this article is about does not apply to us, and we will not
+  pretend that is the same as being immune to data loss. It is a scope difference. If
+  you want a prompt library, we have a guide to
+  <a href="/library.html">building one that works</a>, and if you want a prompt
+  optimizer that writes into the box you are already typing in, that is
+  <a href="/ai-prompt-optimizer.html">what this extension does</a>.</p>
+
+  <h2>Where do chrome extensions save prompts FAQ</h2>
+
+    <div class="faq-item">
+      <h3>Where do Chrome extensions save prompts by default?</h3>
+      <p>Most prompt extensions save your library in the browser profile itself, in the local area of the Chrome extension storage API. Chrome documents that data is stored locally and cleared when the extension is removed. That is fast and private, but it is tied to one profile on one machine, so a reinstall or a new computer can take it.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Does signing in to a prompt extension back up my prompts?</h3>
+      <p>Not reliably, and this is the most common misunderstanding in the category. One developer put it plainly: signing in with Google does not copy them to your account. Account features often cover subscription state only. Confirm that the extension has a working export button, and test that export before the day you need it.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Why do my saved prompts disappear after an update?</h3>
+      <p>Most reported losses trace back to the profile, not the extension version. One developer wrote that updates do not change or delete saved prompts, but that removing the extension and reinstalling it can. Chrome clears local extension storage when the extension is removed, and reinstalling often happens silently.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>How do I back up a prompt library before it is gone?</h3>
+      <p>Look for an export button in the extension popup or settings panel, export to JSON or CSV, then copy that file somewhere outside the browser profile, such as a cloud drive or an email to yourself. Open the exported file once and confirm your prompts are in it. An export you have never opened is not yet a backup.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Is prompt extension storage encrypted?</h3>
+      <p>Chrome does not encrypt the storage areas it provides, and its documentation makes no encryption claim. A well built extension may add its own encryption layer, but that is the developer decision, not a platform guarantee. Treat the browser profile as a local file store and keep one exported copy of anything you would be annoyed to lose.</p>
+    </div>
+
+  <h2>Where do chrome extensions save prompts? A short checklist</h2>
+
+  <p>Where do chrome extensions save prompts? In your browser profile, in the local
+  storage area, unless the extension says otherwise or a paid tier moves it somewhere
+  else. That is the honest answer, and it is why the category produces the same
+  recurring complaint: the storage model is invisible by default, and the extensions
+  that explain it are rare.</p>
+
+  <p>Find the export button before you need it, keep one exported copy outside the
+  browser, and read the listing description for the words local, sync and export. If
+  none of them appear, ask the developer. If the answer is that your prompts live in
+  this profile only, treat that as a fact to back up against, not a promise you can
+  rely on. Every prompt you would miss is worth ten minutes of export.</p>
+
+  <p>Want the prompts you already have in one place? The
+  <a href="/blog.html">Prompt Helper blog</a> covers prompt libraries, prompt
+  enhancers and the storage decisions behind them, and the
+  <a href="/pricing.html">pricing page</a> sets out exactly what each tier includes.</p>
+
+</article>
+  </main>
+  <footer>
+    <p>Prompt Helper &mdash; promptgenerator.fyi</p>
+    <p><a href="/blog.html">Back to Blog</a></p>
+  </footer>
+</body>
+</html>
