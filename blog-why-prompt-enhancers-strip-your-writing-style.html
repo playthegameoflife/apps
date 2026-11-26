@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why Prompt Enhancers Strip Your Writing Style</title>
+  <meta name="description" content="Prompt enhancers strip your writing style. We measured 3 rewrite instructions on 6 passages to see where your tone goes, and what stops the flattening.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://promptgenerator.fyi/blog-why-prompt-enhancers-strip-your-writing-style.html">
+  <meta property="og:title" content="Why Prompt Enhancers Strip Your Writing Style">
+  <meta property="og:description" content="Prompt enhancers strip your writing style. We measured 3 rewrite instructions on 6 passages to see where your tone goes, and what stops the flattening.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://promptgenerator.fyi/blog-why-prompt-enhancers-strip-your-writing-style.html">
+  <meta property="og:site_name" content="Prompt Helper">
+  <meta property="og:image" content="https://promptgenerator.fyi/og-phg.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Why Prompt Enhancers Strip Your Writing Style">
+  <meta name="twitter:description" content="Prompt enhancers strip your writing style. We measured 3 rewrite instructions on 6 passages to see where your tone goes, and what stops the flattening.">
+  <meta name="twitter:image" content="https://promptgenerator.fyi/og-phg.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fc; max-width: 760px; margin: 0 auto; padding: 20px; }
+header { background: linear-gradient(135deg, #1a1a2e, #16213e); color: white; padding: 36px 32px; border-radius: 12px; margin-bottom: 32px; }
+header h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; color: #ffffff; }
+.meta { font-size: 0.85rem; opacity: 0.75; color: rgba(255,255,255,0.85); }
+.intro { font-size: 1.05rem; color: #374151; margin-bottom: 28px; padding: 20px; background: #eef2ff; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; }
+h2 { font-size: 1.25rem; color: #1a1a2e; margin: 32px 0 14px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }
+h3 { font-size: 1.05rem; color: #3730a3; margin: 22px 0 10px; }
+p { margin-bottom: 14px; color: #374151; }
+ul, ol { margin: 14px 0 18px 26px; }
+li { margin-bottom: 8px; color: #374151; }
+strong { color: #1a1a2e; }
+a { color: #4f46e5; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.code-block { background: #1e293b; color: #e2e8f0; padding: 18px 20px; border-radius: 8px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 0.85rem; overflow-x: auto; white-space: pre-wrap; }
+.code-block .label { color: #94a3b8; font-size: 0.75rem; margin-bottom: 10px; display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+.before { color: #f87171; }
+.after { color: #4ade80; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.comparison-box { padding: 18px; border-radius: 8px; font-size: 0.9rem; }
+.comparison-box.bad { background: #fef2f2; border: 1px solid #fecaca; }
+.comparison-box.good { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.comparison-box h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comparison-box.bad h4 { color: #dc2626; }
+.comparison-box.good h4 { color: #16a34a; }
+.key-takeaways { background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px 22px; border-radius: 8px; margin: 24px 0; }
+.key-takeaways h3 { color: #1d4ed8; margin-top: 0; font-size: 1rem; }
+.key-takeaways ul { margin: 10px 0 0; }
+table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+th { color: #1a1a2e; background: #f3f4f6; }
+.cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 28px; border-radius: 12px; margin: 36px 0; }
+.cta-box h2 { color: white; border: none; padding: 0; margin: 0 0 10px; font-size: 1.2rem; }
+.cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.cta-box a { background: white; color: #4f46e5; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block; }
+.cta-box a:hover { background: #f8f9fc; text-decoration: none; }
+.faq { margin-top: 40px; }
+.faq h2 { margin-top: 48px; }
+.faq-item { margin-bottom: 24px; background: #f9fafb; padding: 20px 22px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.faq-item h3 { margin-top: 0; font-size: 1rem; color: #3730a3; }
+.faq-item p { margin-bottom: 0; }
+blockquote { font-style: italic; color: #6b7280; border-left: 3px solid #d1d5db; padding-left: 16px; margin: 20px 0; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; text-align: center; }
+@media (max-width: 600px) { .comparison { grid-template-columns: 1fr; } header h1 { font-size: 1.3rem; } }
+  </style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Why Prompt Enhancers Strip Your Writing Style", "description": "Prompt enhancers strip your writing style. We measured 3 rewrite instructions on 6 passages to see where your tone goes, and what stops the flattening.", "url": "https://promptgenerator.fyi/blog-why-prompt-enhancers-strip-your-writing-style.html", "mainEntityOfPage": {"@id": "https://promptgenerator.fyi/blog-why-prompt-enhancers-strip-your-writing-style.html"}, "image": "https://promptgenerator.fyi/og-phg.png", "datePublished": "2026-11-26", "dateModified": "2026-11-26", "author": {"@type": "Organization", "name": "Prompt Helper", "url": "https://promptgenerator.fyi/"}, "publisher": {"@type": "Organization", "name": "Prompt Helper", "url": "https://promptgenerator.fyi/"}, "inLanguage": "en"}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why do prompt enhancers strip my writing style?", "acceptedAnswer": {"@type": "Answer", "text": "Because most one-click enhancers are told to rewrite your request into a formal, structured brief. The instruction asks for a role, context, steps, examples and an output format. Your contractions, hedges and sentence rhythm are not on that checklist, so the rewrite replaces them with the model average. In our test the generic enhancer kept 1 of 15 voice markers."}}, {"@type": "Question", "name": "How do I keep my tone when I use a prompt enhancer?", "acceptedAnswer": {"@type": "Answer", "text": "Give the tool your text rather than a description of it. A one-line summary lets the model pick a register, while a paragraph of your actual writing lets it copy one. Say what to protect out loud, then check the output against your original before you send it. One surviving marker is enough to spot a change."}}, {"@type": "Question", "name": "Do AI writing assistants remove the author's voice?", "acceptedAnswer": {"@type": "Answer", "text": "They can, and the risk climbs when the tool is asked to produce a polished document instead of improving one. Safer tools ship rules that bind preservation to the edit: keep meaning and facts exactly, match the surrounding document tone, and stay inside a length band. That path cut scaffolding by 99.5 percent in our test."}}, {"@type": "Question", "name": "Is a longer enhanced prompt better for the model?", "acceptedAnswer": {"@type": "Answer", "text": "Not on its own. Length is a symptom rather than the disease. Our generic arm turned a 20 word request into 479 words and invented 88.6 percent of the concrete specifics it introduced. The shorter rewrite that kept more of your register was also the one carrying far less scaffolding, so expansion and fidelity usually pull in opposite directions."}}, {"@type": "Question", "name": "How do I tell if an enhancer is rewriting me or helping me?", "acceptedAnswer": {"@type": "Answer", "text": "Look for scaffolding rather than length. If the output contains role lines, labelled sections and format directives you never typed, the tool rewrote you. Then check whether any of your own words survived. A helper that returns your content in your register is adding structure. One that returns a generic brief in a corporate register has taken the writing away."}}]}</script>
+</head>
+<body>
+  <nav aria-label="Site">
+    <a href="/index.html">Home</a> &middot;
+    <a href="/blog.html">Blog</a> &middot;
+    <a href="/library.html">Prompt Library</a> &middot;
+    <a href="/ai-prompt-optimizer.html">Prompt Optimizer</a> &middot;
+    <a href="/pricing.html">Pricing</a>
+  </nav>
+  <header>
+    <h1>Why Prompt Enhancers Strip Your Writing Style</h1>
+    <p class="meta">November 26, 2026 &middot; 11 min read &middot; Prompt Helper</p>
+  </header>
+  <main>
+  <article>
+    <div class="intro">
+      <p>A graphic designer on the Chrome Web Store put it plainly: <em>&ldquo;I usually avoid prompt enhancers because they tend to overcomplicate things with rigid, generic text templates&rdquo;</em> <a href="https://chromewebstore.google.com/detail/x/prettyprompt/reviews" target="_blank" rel="noopener">(Chrome Web Store review)</a>. That is the whole complaint in one line. A prompt enhancer takes your words and hands back something tidier, formally better, and no longer yours.</p>
+      <p>That is how <strong>prompt enhancers strip your writing style</strong>. It is the least discussed failure mode in the category, so we went looking for it: we read the own descriptions of 10 Chrome Web Store prompt extensions and 96 of their reviews, then put 6 requests with distinctive voices through three real rewrite instructions to see exactly where the voice goes.</p>
+    </div>
+
+    <div class="key-takeaways">
+      <h2>Key takeaways</h2>
+      <ul>
+        <li><strong>0 of 10</strong> prompt extensions promise to preserve your tone or voice. 3 mention tone as a feature they set; 7 never mention it at all.</li>
+        <li>The generic one-click enhancer turned a 20 word request into 479 words and injected <strong>30.5 scaffold markers</strong> per rewrite.</li>
+        <li>It kept <strong>1 of 15</strong> voice markers &mdash; contractions, hedges, the punctuation you actually use.</li>
+        <li>The prose-editor instruction cut scaffolding by <strong>99.5 percent</strong> and cut the rewrite to one thirteenth of the generic length in 6 of 6 passages.</li>
+        <li>The fix is structural: give the tool your text, name the register to keep, and check one marker of your own before you send.</li>
+      </ul>
+    </div>
+
+    <h2>Why prompt enhancers strip your writing style: nobody sells voice preservation</h2>
+    <p>We read the own description text of 10 prompt extensions on the Chrome Web Store and sorted them into three buckets. A listing counted as making a voice-preservation claim only if it bound a preservation verb to a tone-family noun for the author&rsquo;s own writing. On that strict definition the split is:</p>
+    <table>
+      <tr><th>What the listing&rsquo;s own description says</th><th>Listings</th></tr>
+      <tr><td>Makes a voice-preservation claim</td><td>0 of 10</td></tr>
+      <tr><td>Mentions tone or style as a feature it offers</td><td>3 of 10</td></tr>
+      <tr><td>Never mentions tone, voice, style or register</td><td>7 of 10</td></tr>
+    </table>
+    <p>Zero. Not one listing promises your tone survives. Three mention tone or style as something they offer, which is a different claim entirely: they will set a tone for you, not keep yours. Seven never raise the subject at all. The category optimises for structure and length, and your register is not on the checklist.</p>
+    <p>One reviewer saw it from the other side. On teleprompt AI, a user asked for one missing feature: <em>&ldquo;It certainly would be 5 stars for me if you could customize the prompt that is used to generate the new prompt&rdquo;</em> <a href="https://chromewebstore.google.com/detail/x/teleprompt_ai/reviews" target="_blank" rel="noopener">(Chrome Web Store review)</a>. Not the output &mdash; the instruction that generates the output. Whoever built it agreed that the generated prompt is where the loss happens, which is exactly the part a user cannot edit today.</p>
+
+    <h2>What a generic enhancer does to a 20-word request</h2>
+    <p>We wrote 6 short requests in voices with fingerprints: contractions, a hedge, an aside. One asks a landlord about broken heating that has been dead since October, not rude, keep it short. One asks about a slow Postgres query where the writer is not sure the index is wrong.</p>
+    <p>Each request went through three arms. Arm A is the generic one-click enhancer instruction the category ships. Arm B is the instruction Prompt Helper ships for enhancing a request. Arm C is the instruction it ships for polishing prose in place. All three were run on the same model at the same temperature, and the model&rsquo;s own reasoning block was stripped from every output before counting.</p>
+    <div class="code-block"><span class="label">Arm A - the generic one-click enhancer instruction</span>You are an expert prompt engineer. Rewrite the user&rsquo;s request below into a detailed, optimized prompt for an AI assistant.<br><br>Instructions:<br>- Act as a &#123;expert_role&#125;<br>- Provide detailed context about the request and the desired outcome<br>- Break the task into clear steps<br>- Add relevant technical context, examples and best practices<br>- Specify the desired output format and tone<br>- Add guidance on how to handle edge cases<br>- Make the prompt comprehensive and detailed</div>
+    <p>Read that list again. Four of the seven lines instruct the model to bring in material you never typed. Nothing in it asks the enhancer to stay inside your words. That omission is the mechanism, not the effect.</p>
+    <p>Here is what came back for the landlord request.</p>
+    <div class="code-block"><span class="label">Arm A - what the user actually got</span>Act as a concise, professional email writer. Draft a short, polite email to my landlord about a heating system that has not worked since October and for which I have received no response to previous messages.
+
+### Context
+- The heating has been completely non-functional since October.
+- I have already contacted the landlord multiple times but have received no reply.
+- The purpose of the email is to request a prompt repair and confirmation of when someone will attend.
+- Keep the tone calm, courteous, and factual—do </div>
+    <p>Your request was twenty words. Arm A turned it into 479. Across all 6 passages the mean expansion was 25.3 times, and 88.6 percent of the concrete specifics it introduced &mdash; numbers, names, technical terms &mdash; were not in your input.</p>
+
+    <h2>The scaffold markers are where the voice goes</h2>
+    <p>Length alone is a poor measure, because sometimes a longer prompt is what you want. The better measure is the scaffolding: role lines, labelled sections, format directives. We counted occurrences of a fixed list of generic prompt-scaffold markers in every rewrite.</p>
+    <table>
+      <tr><th>Measure</th><th>Arm A: generic enhancer</th><th>Arm B: shipped enhancer</th><th>Arm C: prose editor</th></tr>
+      <tr><td>Mean output length</td><td>479 words</td><td>273 words</td><td>37 words</td></tr>
+      <tr><td>Mean expansion</td><td>25.3x</td><td>14.4x</td><td>2.0x</td></tr>
+      <tr><td>Mean scaffold markers</td><td>30.5</td><td>11.0</td><td>0.2</td></tr>
+      <tr><td>Mean voice retention per passage</td><td>5.5%</td><td>13.9%</td><td>19.4%</td></tr>
+      <tr><td>Voice markers kept</td><td>1 of 15</td><td>2 of 15</td><td>3 of 15</td></tr>
+      <tr><td>Invented concrete specifics</td><td>88.6%</td><td>86.4%</td><td>48.8%</td></tr>
+    </table>
+    <p>Two findings, and the second is the more useful one. First, scaffolding scales with length: the generic arm inserted 30.5 markers per rewrite, the shipped enhancer 11.0, a 64 percent cut, and the prose editor 0.2, a 99.5 percent cut. The prose editor produced a shorter rewrite than the generic one in 6 of 6 passages and carried fewer scaffold markers in 6 of 6.</p>
+    <p>Second, and this is where we were wrong at first: scaffolding is not the whole story. Cutting scaffolding did <strong>not</strong> reliably restore the voice. The shipped enhancer kept 2 of 15 voice markers, the prose editor 3, and the generic enhancer 1. No instruction formulation made voice retention reliable across all 6 passages. That is the honest result, and it is more useful than a clean claim would have been, because it tells you the fix cannot live inside a prompt template.</p>
+    <div class="comparison">
+      <div class="comparison-box bad"><h4>What voice loss looks like</h4>A short, slightly blunt request to a landlord about broken heating comes back as a formal complaint letter with a subject line, a grievance paragraph, a proposed remedy and a courteous closing. Nothing is false. Nothing is yours.</div>
+      <div class="comparison-box good"><h4>What voice retention looks like</h4>The same sentence comes back tighter, with the contraction intact, the aside still attached to the heating rather than floated away, and the length inside the range the writer asked for. The model did the work; the author kept the hand.</div>
+    </div>
+    <p>This is the measurable version of what people mean when a rewrite sounds wrong. The model did not produce bad sentences. It produced a different author.</p>
+
+    <h2>The complaint predates every one-click button</h2>
+    <p>This is not a browser-extension problem. It is what happens when a language model is asked to improve prose without being told what to protect.</p>
+    <p>On Hacker News, a user describing an editor that fixes their writing had one specific grievance: <em>&ldquo;when I have -- in my writing and I use ChatGPT to improve it, ChatGPT always removes the -- and rewords the sentence&rdquo;</em> <a href="https://news.ycombinator.com/item?id=43177444" target="_blank" rel="noopener">(Hacker News)</a>. The double hyphen was doing real work &mdash; it marked a pause the sentence would lose otherwise &mdash; and the rewrite deleted it. Nobody had asked for a different voice. The editor simply had nothing to hold on to. That user&rsquo;s prompt was otherwise strict, including an instruction to maintain the existing tone, and the em dash still went.</p>
+    <p>Another thread asked whether a passage was AI-generated, and the answer described a texture rather than a fact: <em>&ldquo;What surprises me is that it sounds like being generated with AI&rdquo;</em> <a href="https://news.ycombinator.com/item?id=42408239" target="_blank" rel="noopener">(Hacker News)</a>. That reaction &mdash; it sounds like being generated with AI &mdash; is the sound of the statistical average. When a rewrite is not anchored to a specific human register it lands on the average, and the average is recognisable. The research literature reaches the same place from the other end: a <a href="https://arxiv.org/abs/2304.02819" target="_blank" rel="noopener">study of GPT detectors found them biased against non-native English writers</a>, because &ldquo;standard&rdquo; prose is a specific dialect rather than a neutral one. There is no neutral voice for a model to fall back on.</p>
+    <p>Stylometry, the study of authorship attribution from writing patterns, is the field that spent a century working out which features of prose are stable. Function words, sentence-length distribution and punctuation habits are among the most stable of all. That is precisely the set a rewrite destroys when it substitutes a template for a voice, which is why <a href="https://en.wikipedia.org/wiki/Stylometry" target="_blank" rel="noopener">stylometric analysis</a> can tell that a scaffold-heavy rewrite and your original came from different authors.</p>
+
+    <h2>Four things that actually protect your voice</h2>
+    <h3>1. Give the tool your text, not a description of it</h3>
+    <p>A one-line summary lets the model choose the register. A paragraph of your actual writing lets it copy one. If your request already contains your phrasing, the enhancer has something to preserve instead of something to replace.</p>
+    <h3>2. Say what to protect, out loud</h3>
+    <p>Name the register in the request: keep contractions, keep the hedging, keep it short, do not make it sound corporate. These are constraints, and constraints are the only part of a prompt a model treats as a rule. Our own measurement is the cautionary case: an instruction that explicitly said to maintain tone still lost the em dash. See <a href="/blog-ai-prompt-rewording-fix.html">why rewording alone does not work</a> for the difference between lexical changes and structural ones.</p>
+    <h3>3. Use a tool that writes rules for preservation</h3>
+    <p>The generic enhancer instruction has no preservation clause because its job is to add structure. A tool that edits your writing has a different job, and its instruction should say so. Prompt Helper&rsquo;s inline-rewrite instruction is 1902 characters long &mdash; roughly 3.9 times the size of its own enhancer instruction &mdash; and it binds preservation to the edit in three specific places:</p>
+    <div class="code-block"><span class="label">Preservation rules from the shipped prose-editor instruction</span>&bull; Preserve the author’s meaning, intent and factual content exactly.<br>&bull; Use the surrounding content to resolve anything ambiguous ... and to match the document’s tone and formatting conventions.<br>&bull; Keep roughly the same scope and keep the length within about 70% to 140% of the original.</div>
+    <p>That last rule is the one most enhancers lack. A length band is a hard boundary, and it is the difference between a tool that improves a passage and one that replaces it with a brief. The extension runs inside the page you are already writing in, using a <a href="https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts" target="_blank" rel="noopener">Chrome content script</a> to read the surrounding document, so the prose around your selection &mdash; not a chat history and not a separate box &mdash; is the reference for what your voice sounds like.</p>
+    <h3>4. Check one marker before you send</h3>
+    <p>You do not need a diff. Pick the one tell that matters in your own writing &mdash; the contraction, the em dash, the sentence you always start with &mdash; and check whether it survived. If your fingerprint is gone, the author changed. This is the fastest diagnostic there is and it works on any tool.</p>
+
+    <h2>What Prompt Helper does about it</h2>
+    <p>We think the honest answer is that a one-click enhancer and a prose editor are different tools, and pretending otherwise is how your voice gets eaten. Prompt Helper ships both, and the prose path is the one built around preservation.</p>
+    <p>It recognises 17 site profiles &mdash; Gmail, X, LinkedIn, TikTok, Instagram, Reddit, Slack, Notion, GitHub, VS Code, Figma and more &mdash; and offers 43 rewrite variants across them, 40 of them distinct instructions. A tweet gets a hook rewrite; a GitHub comment gets a clarity rewrite; a Gmail draft gets one that keeps the sign-off. That is what a voice-aware tool looks like in practice: the same instruction means something different on X than in a commit.</p>
+    <p>We are not claiming the prose editor wins every passage. It kept 3 of 15 voice markers, not 15. The defensible claim is narrower and real: across 6 passages it produced a shorter rewrite than the generic enhancer every time, and injected 0.2 scaffold markers where the generic arm injected 30.5. If your voice matters, a tool that edits it is a different tool from one that rewrites it, and the measurements above are how you tell which one you are holding. See how a prompt library, a template and an enhancer differ in <a href="/blog-ai-prompt-library-vs-template-vs-enhancer.html">our comparison of the three</a>.</p>
+
+    <div class="cta-box">
+      <h2>Keep your voice, get the structure</h2>
+      <p>Prompt Helper Gemini rewrites a rough request into a detailed prompt, and polishes prose in place without taking the author out of it. It works inside ChatGPT, Claude, Gemini, Grok and Perplexity, and it leaves the text where you wrote it.</p>
+      <a href="/index.html">Try Prompt Helper free</a>
+    </div>
+
+    <div class="faq">
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item">
+        <h3>Why do prompt enhancers strip my writing style?</h3>
+        <p>Because most one-click enhancers are told to rewrite your request into a formal, structured brief. The instruction asks for a role, context, steps, examples and an output format. Your contractions, hedges and sentence rhythm are not on that checklist, so the rewrite replaces them with the model average. In our test the generic enhancer kept 1 of 15 voice markers.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How do I keep my tone when I use a prompt enhancer?</h3>
+        <p>Give the tool your text rather than a description of it. A one-line summary lets the model pick a register, while a paragraph of your actual writing lets it copy one. Say what to protect out loud, then check the output against your original before you send it. One surviving marker is enough to spot a change.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Do AI writing assistants remove the author&#x27;s voice?</h3>
+        <p>They can, and the risk climbs when the tool is asked to produce a polished document instead of improving one. Safer tools ship rules that bind preservation to the edit: keep meaning and facts exactly, match the surrounding document tone, and stay inside a length band. That path cut scaffolding by 99.5 percent in our test.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is a longer enhanced prompt better for the model?</h3>
+        <p>Not on its own. Length is a symptom rather than the disease. Our generic arm turned a 20 word request into 479 words and invented 88.6 percent of the concrete specifics it introduced. The shorter rewrite that kept more of your register was also the one carrying far less scaffolding, so expansion and fidelity usually pull in opposite directions.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How do I tell if an enhancer is rewriting me or helping me?</h3>
+        <p>Look for scaffolding rather than length. If the output contains role lines, labelled sections and format directives you never typed, the tool rewrote you. Then check whether any of your own words survived. A helper that returns your content in your register is adding structure. One that returns a generic brief in a corporate register has taken the writing away.</p>
+      </div>
+    </div>
+
+    <h2>Bottom line: an enhancer should sharpen your voice, not replace it</h2>
+    <p>We asked 10 prompt extensions whether they would keep your tone. 0 said yes. Meanwhile the generic one-click instruction they run underneath rewrote a twenty word request into 479 words on average, injected 30.5 scaffold markers, and kept 1 of the 15 markers that identify a writer.</p>
+    <p>That is why prompt enhancers strip your writing style. It is not that the models are careless. The instruction tells them to add structure and never tells them what to leave alone, so the average fills the gap.</p>
+    <p>The fix is not to stop using tools. It is to give the tool your words, name the register you want kept, and pick the ones that ship preservation rules. Then check one marker of your own before you send. If your fingerprint is gone, the author changed, and you can send it back.</p>
+
+    <blockquote>Sources: Chrome Web Store listing descriptions and reviews (10 prompt extensions, 96 reviews), Hacker News threads via the Algolia API, and the shipped Prompt Helper enhancement instructions. Measurement: 6 passages, one model, temperature 0.7, one run per arm, model reasoning blocks stripped before counting.</blockquote>
+  </article>
+  </main>
+  <footer>
+    <p>Prompt Helper &mdash; promptgenerator.fyi</p>
+    <p><a href="/blog.html">Back to Blog</a></p>
+  </footer>
+</body>
+</html>
